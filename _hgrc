@@ -1,0 +1,39 @@
+[ui]
+username = Stefan Scherfke <stefan@sofa-rockers.org>
+merge = filemerge
+
+[extensions]
+churn =
+color =
+convert =
+fetch =
+extdiff =
+graphlog =
+highlight =
+mq =
+progress =
+transplant =
+
+[alias]
+incoming = incoming --graph
+outgoing = outgoing --graph
+
+[hooks]
+commit.flake8 = python:flake8.run.hg_hook
+qrefresh.flake8 = python:flake8.run.hg_hook
+
+[extdiff]
+cmd.opendiff = opendiff-w
+cmd.kdiff3 =
+
+[flake8]
+strict = false
+
+[merge-tools]
+filemerge.executable = opendiff-w
+filemerge.args = $local $other -ancestor $base -merge $output
+kdiff3.args = $base $local $other -o $output
+
+[web]
+allow_archive = true
+pygments_style = tango

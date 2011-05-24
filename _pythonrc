@@ -1,0 +1,117 @@
+"""
+This file is executed when the Python interactive shell is started if
+$PYTHONSTARTUP is in your environment and points to this file. It's just
+regular Python commands, so do what you will. Your ~/.inputrc file can greatly
+complement this file.
+
+"""
+
+def do_completion():
+    import os
+    import sys
+
+    # Add the 'good' pdb and rlcomplete to the path
+    sys.path.insert(0, os.getenv("HOME") + "/.python/")
+
+    import rlcompleter_ng
+    rlcompleter_ng.setup()
+
+    import readline
+    histfile = os.path.join(os.environ["HOME"], ".pyhistory")
+    if os.path.exists(histfile):
+        readline.read_history_file(histfile)
+    readline.parse_and_bind("tab: complete")
+
+    import atexit
+    atexit.register(readline.write_history_file, histfile)
+
+try:
+    do_completion()
+except (ImportError, AttributeError):
+    import term_colors as c
+    print('%sNo completion available.%s' % (c.red, c.normal))
+    del c
+
+del do_completion
+
+
+def do_color_prompt():
+    """Enable color prompts."""
+    import sys
+    import term_colors as c
+    import sys
+    
+    sys.ps1 = '%s>>> %s' % (c.green, c.normal)
+    sys.ps2 = '%s... %s' % (c.red, c.normal)
+    
+do_color_prompt()
+del do_color_prompt
+
+
+def do_pretty_print():
+    """Enable Pretty Printing for stdout"""
+    def my_displayhook(value):
+        if value is not None:
+            try:
+                import __builtin__
+                __builtin__._ = value
+            except ImportError:
+                __builtins__._ = value
+
+            import pprint
+            pprint.pprint(value)
+            del pprint
+
+    import sys
+    sys.displayhook = my_displayhook
+    
+do_pretty_print()
+del do_pretty_print
+
+
+def get_editor():
+    """
+    Start an external editor with \e
+    http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/438813/
+
+    """
+    import os
+    from tempfile import mkstemp
+    from code import InteractiveConsole
+    
+    EDITOR = os.environ.get('EDITOR', 'vim')
+    EDIT_CMD = '\e'
+
+    class EditableBufferInteractiveConsole(InteractiveConsole):
+        def __init__(self, *args, **kwargs):
+            self.last_buffer = [] # This holds the last executed statement
+            InteractiveConsole.__init__(self, *args, **kwargs)
+
+        def runsource(self, source, *args):
+            self.last_buffer = [ source.encode('utf8') ]
+            return InteractiveConsole.runsource(self, source, *args)
+
+        def raw_input(self, *args):
+            line = InteractiveConsole.raw_input(self, *args)
+            if line == EDIT_CMD:
+                fd, tmpfl = mkstemp('.py')
+                os.write(fd, b'\n'.join(self.last_buffer))
+                os.close(fd)
+                os.system('%s %s' % (EDITOR, tmpfl))
+                line = open(tmpfl).read()
+                os.unlink(tmpfl)
+                tmpfl = ''
+                lines = line.split( '\n' )
+                for i in range(len(lines) - 1): self.push( lines[i] )
+                line = lines[-1]
+            return line
+            
+    return EditableBufferInteractiveConsole
+
+Console = get_editor()
+del get_editor
+
+Console(locals=locals()).interact(banner='Ohai, Stefan!')
+# Exit the Python shell on exiting the InteractiveConsole (with CTRL+D)
+import sys
+sys.exit()
