@@ -17,9 +17,7 @@ set clipboard=unnamed
 
 set encoding=utf-8
 set textwidth=79
-" highlight over-length lines
-highlight OverLength ctermbg=darkred ctermfg=white
-match OverLength /\%81v.*/
+set colorcolumn=80
 
 set autoindent
 set smartindent
@@ -65,7 +63,7 @@ let mapleader=","
 map <leader>bl :buffers<CR>
 
 " Toggle line numbers and fold column for easy copying:
-nmap <leader>nn :set nonumber!<CR>:set foldcolumn=0<CR>
+nmap <leader>nn :set nonumber!<CR>
 
 " Reset search term (remove highlighting)
 nmap <leader>rs :let @/ = ""<CR>
