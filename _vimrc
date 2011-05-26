@@ -64,6 +64,9 @@ au BufEnter *.txt set filetype=rst
 let mapleader=","
 map <leader>bl :buffers<CR>
 
+" Toggle line numbers and fold column for easy copying:
+nmap <leader>nn :set nonumber!<CR>:set foldcolumn=0<CR>
+
 " Reset search term (remove highlighting)
 nmap <leader>rs :let @/ = ""<CR>
 
@@ -112,6 +115,8 @@ map <leader>n :NERDTreeToggle<CR>
 " Rope
 map <leader>j :RopeGotoDefinition<CR>
 map <leader>r :RopeRename<CR>
+let ropevim_vim_completion=1
+let ropevim_extended_complete=1
 
 " Execute the tests
 nmap <silent><Leader>tf <Esc>:Pytest file<CR>
