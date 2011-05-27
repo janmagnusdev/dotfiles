@@ -1,10 +1,12 @@
 " Vim color scheme
 "
+" This style is derived from TextMate’s blackboard theme.
+"
 " Name:         blackboard.vim
-" Maintainer:   Ben Wyrosdick <ben.wyrosdick@gmail.com> 
-" Last Change:  2 July 2008
+" Maintainer:   Stefan Scherfke <stefan@sofa-rockers.org>
+" Last Change:  2011-05-27
 " License:      public domain
-" Version:      1.1
+" Version:      1.0
 
 set background=dark
 hi clear
@@ -14,36 +16,26 @@ endif
 
 let g:colors_name = "blackboard"
 
-if has("gui_running")
-  "GUI Colors
-  highlight Normal guifg=White   guibg=#0B1022
-  highlight Cursor guifg=Black   guibg=Yellow
-  highlight CursorLine guibg=#191E2F
-  highlight LineNr guibg=#323232 guifg=#888888
-  highlight Folded guifg=White
+" General interface
+hi Normal                                                 guifg=#F8F8F8 guibg=#0C1021
+hi Cursor                                   cterm=inverse                             gui=inverse
+hi CursorLine                               cterm=underline             guibg=#20253D
+hi LineNr       ctermfg=244
+hi ColorColumn                ctermbg=17
+hi Folded       ctermfg=14    ctermbg=240
+hi Visual                     ctermbg=24
 
-  "General Colors
-  highlight Comment guifg=#AEAEAE
-  highlight Constant guifg=#CAFE1E
-  highlight Keyword guifg=#FFDE00
-  highlight String guifg=#00D42D
-  highlight Type guifg=#84A7C1
-  highlight Identifier guifg=#00D42D gui=NONE
-  highlight Function guifg=#FF5600 gui=NONE
-  highlight clear Search
-  highlight Search guibg=#1C3B79
-  highlight PreProc guifg=Grey
+" Popup windows
+hi PMenu        ctermfg=254   ctermbg=25
+hi PMenuSel                                 cterm=inverse
 
-  "Ruby Colors
-  highlight link rubyClass Keyword
-  highlight link rubyDefine Keyword
-  highlight link rubyConstant Type
-  highlight link rubySymbol Constant
-  highlight link rubyStringDelimiter rubyString
-  highlight link rubyInclude Keyword
-  highlight link rubyAttribute Keyword
-  highlight link rubyInstanceVariable Normal
+" Highlighting
+hi MatchParent                ctermbg=27
+hi Comment      ctermfg=45
+hi Constant     ctermfg=191
+hi Keyword      ctermfg=220                 cterm=bold
+hi String       ctermfg=76
+hi Type         ctermfg=110
+hi Identifier   ctermfg=NONE
+hi Function     ctermfg=202
 
-  "Rails Colors
-  highlight link railsMethod Type
-end
