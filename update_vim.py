@@ -4,8 +4,6 @@ import os.path
 import subprocess
 
 git_bundles = [
-    # 'https://github.com/fholgado/minibufexpl.vim.git minibufexpl',
-    # snipmate depends on mw-utils and tlib
     'https://github.com/MarcWeber/vim-addon-mw-utils.git mw-utils',
     'https://github.com/tomtom/tlib_vim.git tlib',
     'https://github.com/garbas/vim-snipmate.git snipmate',
@@ -19,7 +17,6 @@ git_bundles = [
     'https://github.com/vim-scripts/TaskList.vim.git tasklist',
     'https://github.com/vim-scripts/The-NERD-tree.git nerdtree',
     'https://github.com/sontek/rope-vim.git ropevim',
-    'https://github.com/vim-scripts/sudo.vim.git sudo',
     'https://github.com/vim-scripts/SearchComplete.git searchcomplete',
 ]
 

@@ -31,6 +31,7 @@ hi PMenuSel                                 cterm=inverse
 
 " Highlighting
 hi MatchParent                ctermbg=27
+hi SpellBad                   ctermbg=88
 hi Comment      ctermfg=45
 hi Constant     ctermfg=191
 hi Keyword      ctermfg=220                 cterm=bold
