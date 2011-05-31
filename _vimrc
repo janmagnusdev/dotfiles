@@ -85,6 +85,7 @@ call pathogen#runtime_append_all_bundles()
 " =============================================================================
 syntax on                   " Enable syntax highlighting
 filetype plugin indent on   " Detect filetyes and load filetype plug-ins
+set t_Co=256                " Use 256 colors
 colorscheme blackboard
 
 """ Interface
@@ -140,8 +141,8 @@ set completeopt=menuone,longest,preview
 set pumheight=6             " Keep a small completion window
 
 " close preview window automatically when we move around
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+" autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " =============================================================================
 " Shortcuts
@@ -161,7 +162,13 @@ imap <C-W> <C-O><C-W>
 nnoremap <space> za
 
 " Select the item in the list with enter
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+function! CheckClosePum()
+    if pumvisible()
+        return "<C-y>"
+    else
+        return "<CR>"
+endfunction
+inoremap <expr> <CR> CheckClosePum()
 
 map <leader>bl :buffers<CR>
 
@@ -217,8 +224,9 @@ let g:pep8_map='<leader>8'
 " Rope
 map <leader>j :RopeGotoDefinition<CR>
 map <leader>r :RopeRename<CR>
-let ropevim_vim_completion=1
-let ropevim_extended_complete=1
+let ropevim_vim_completion=1    " Use vim's complete function in insert mode
+let ropevim_extended_complete=1 " Show extended info about completion proposals
+let ropevim_guess_project=1     " Guess and open rope project automatically
 
 " Py.test
 nmap <silent><Leader>tf <Esc>:Pytest file<CR>
@@ -236,6 +244,9 @@ au BufEnter *.txt set filetype=rst
 
 """ Python
 let python_highlight_all=1
+" Activate rope completion via <tab>
+au FileType python imap <buffer> <C-Space> <M-/>
+" Enable python completion
 au FileType python set omnifunc=pythoncomplete#Complete
 
 " Add the virtualenv’s site-packages to vim path
@@ -243,7 +254,7 @@ py << EOF
 import os.path
 import sys
 import vim
-if 'VIRTUALENV' in os.environ:
+if 'VIRTUAL_ENV' in os.environ:
     project_base_dir = os.environ['VIRTUAL_ENV']
     sys.path.insert(0, project_base_dir)
     activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
