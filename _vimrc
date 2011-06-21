@@ -116,7 +116,9 @@ set statusline+=%<%P                            " file position
 """ Moving around / Editing
 set encoding=utf-8
 set textwidth=79
-set colorcolumn=80
+if has('colorcolumn')
+    set colorcolumn=80
+endif
 set listchars=tab:>-,trail:·,eol:$,precedes:<,extends:>
 set scrolloff=3
 set autoindent
@@ -164,9 +166,9 @@ nnoremap <space> za
 " Select the item in the list with enter
 function! CheckClosePum()
     if pumvisible()
-        return "<C-y>"
+        return "\<C-y>"
     else
-        return "<CR>"
+        return "\<CR>"
 endfunction
 inoremap <expr> <CR> CheckClosePum()
 
