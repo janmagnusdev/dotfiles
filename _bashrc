@@ -31,7 +31,7 @@ shopt -s checkwinsize
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
-    
+
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color) color_prompt=yes;;
@@ -110,7 +110,6 @@ function mman()
 
 export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 
-export EDITOR="mate --wait"
 export PYTHONSTARTUP=$HOME/.pythonrc
 
 export WORKON_HOME=$HOME/.virtualenvs
@@ -123,3 +122,10 @@ alias sshi="ssh xerxes@hurrikan.informatik.uni-oldenburg.de"
 alias sshs="ssh stefan@sofa-rockers.org"
 alias ssht="ssh scherfke@thurman.informatik.uni-oldenburg.de"
 alias sshe="ssh sscherfke@srvenergie02.offis.uni-oldenburg.de"
+
+# Some Mac OS X specific stuff
+if [ `uname -s` = "Darwin" ]; then
+    # export EDITOR="mate --wait"
+    export MACOSX_DEPLOYMENT_TARGET=10.7
+    export ARCHFLAGS="-arch x86_64"
+fi

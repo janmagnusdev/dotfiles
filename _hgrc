@@ -11,6 +11,7 @@ extdiff =
 graphlog =
 highlight =
 mq =
+purge =
 progress =
 transplant =
 
