@@ -1,3 +1,8 @@
 from PdbTextMateSupport import preloop, precmd
 pdb.Pdb.preloop = preloop
 pdb.Pdb.precmd = precmd
+
+import sys
+sys.path.insert(0, os.getenv("HOME") + "/.python/")
+import rlcompleter_ng
+pdb.Pdb.complete = rlcompleter_ng.Completer(locals()).complete
