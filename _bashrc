@@ -102,13 +102,15 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# Open man pags in TextMate
-function mman()
+# pip bash completion start
+_pip_completion()
 {
-	man "$@" | col -bx | mate
+    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+                   COMP_CWORD=$COMP_CWORD \
+                   PIP_AUTO_COMPLETE=1 $1 ) )
 }
-
-export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
+complete -o default -F _pip_completion pip
+# pip bash completion end
 
 export PYTHONSTARTUP=$HOME/.pythonrc
 
@@ -125,7 +127,16 @@ alias sshe="ssh sscherfke@srvenergie02.offis.uni-oldenburg.de"
 
 # Some Mac OS X specific stuff
 if [ `uname -s` = "Darwin" ]; then
+    export PATH="/Library/Frameworks/Python.framework/Versions/3.2/bin:${PATH}"
+    export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
+
     # export EDITOR="mate --wait"
+    # Open man pags in TextMate
+    function mman()
+    {
+        man "$@" | col -bx | mate
+    }
+
     export MACOSX_DEPLOYMENT_TARGET=10.7
     export ARCHFLAGS="-arch x86_64"
 fi
