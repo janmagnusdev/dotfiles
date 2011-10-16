@@ -5,113 +5,68 @@ regular Python commands, so do what you will. Your ~/.inputrc file can greatly
 complement this file.
 
 """
+import os
+import sys
 
-def do_completion():
-    import os
-    import sys
 
-    # Add the 'good' pdb and rlcomplete to the path
-    sys.path.insert(0, os.getenv("HOME") + "/.python/")
+# Colored prompt
+if os.getenv('TERM') in ('xterm', 'vt100', 'rxvt', 'Eterm', 'putty'):
+    # ('xterm-color', 'xterm-256color', 'linux', 'screen', 'screen-256color',
+    # 'screen-bce')
+    try:
+        import readline
+    except ImportError:
+        sys.ps1 = '\033[0;32m>>> \033[0m'
+        sys.ps2 = '\033[0;31m... \033[0m'
+    else:
+        sys.ps1 = '\001\033[0;32m\002>>> \001\033[0m\002'
+        sys.ps2 = '\001\033[0;31m\002... \001\033[0m\002'
 
-    import rlcompleter_ng
-    rlcompleter_ng.setup()
 
+# Completion
+try:
     import readline
-    histfile = os.path.join(os.environ["HOME"], ".pyhistory")
-    if os.path.exists(histfile):
+except ImportError:
+    print("Module readline not available.")
+else:
+    # persistent history
+    histfile = os.path.expanduser('~/.pyhistory')
+    try:
         readline.read_history_file(histfile)
-    readline.parse_and_bind("tab: complete")
-
+    except IOError:
+        pass
     import atexit
     atexit.register(readline.write_history_file, histfile)
-
-try:
-    do_completion()
-except (ImportError, AttributeError):
-    import term_colors as c
-    print('%sNo completion available.%s' % (c.red, c.normal))
-    del c
-
-del do_completion
-
-
-def do_color_prompt():
-    """Enable color prompts."""
-    import sys
-    import term_colors as c
-    import sys
-    
-    sys.ps1 = '%s>>> %s' % (c.green, c.normal)
-    sys.ps2 = '%s... %s' % (c.red, c.normal)
-    
-do_color_prompt()
-del do_color_prompt
+    del histfile, atexit
+    # tab completion
+    try:
+        sys.path.append(os.path.join(os.getenv('HOME'), '.python'))
+        import rlcompleter_ng
+        rlcompleter_ng.setup()
+        del rlcompleter_ng
+    except ImportError:
+        import rlcompleter
+        readline.parse_and_bind('tab: complete')
+        del rlcompleter
+    del readline
 
 
-def do_pretty_print():
-    """Enable Pretty Printing for stdout"""
-    def my_displayhook(value):
-        if value is not None:
-            try:
-                import __builtin__
-                __builtin__._ = value
-            except ImportError:
-                __builtins__._ = value
+# Enable Pretty Printing for stdout"""
+def my_displayhook(value):
+    if value is not None:
+        try:
+            import __builtin__
+            __builtin__._ = value
+        except ImportError:
+            __builtins__._ = value
 
-            import pprint
-            pprint.pprint(value)
-            del pprint
+        import pprint
+        pprint.pprint(value)
+        del pprint
 
-    import sys
-    sys.displayhook = my_displayhook
-    
-do_pretty_print()
-del do_pretty_print
+sys.displayhook = my_displayhook
+del my_displayhook
 
 
-def get_editor():
-    """
-    Start an external editor with \e
-    http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/438813/
-
-    """
-    import os
-    from tempfile import mkstemp
-    from code import InteractiveConsole
-    
-    EDITOR = os.environ.get('EDITOR', 'vim')
-    EDIT_CMD = '\e'
-
-    class EditableBufferInteractiveConsole(InteractiveConsole):
-        def __init__(self, *args, **kwargs):
-            self.last_buffer = [] # This holds the last executed statement
-            InteractiveConsole.__init__(self, *args, **kwargs)
-
-        def runsource(self, source, *args):
-            self.last_buffer = [ source.encode('utf8') ]
-            return InteractiveConsole.runsource(self, source, *args)
-
-        def raw_input(self, *args):
-            line = InteractiveConsole.raw_input(self, *args)
-            if line == EDIT_CMD:
-                fd, tmpfl = mkstemp('.py')
-                os.write(fd, b'\n'.join(self.last_buffer))
-                os.close(fd)
-                os.system('%s %s' % (EDITOR, tmpfl))
-                line = open(tmpfl).read()
-                os.unlink(tmpfl)
-                tmpfl = ''
-                lines = line.split( '\n' )
-                for i in range(len(lines) - 1): self.push( lines[i] )
-                line = lines[-1]
-            return line
-            
-    return EditableBufferInteractiveConsole
-
-Console = get_editor()
-del get_editor
-
-Console(locals=locals()).interact(banner='Ohai, Stefan!')
-# Exit the Python shell on exiting the InteractiveConsole (with CTRL+D)
-import sys
-sys.exit()
+del sys
+del os
