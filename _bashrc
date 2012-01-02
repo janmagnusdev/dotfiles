@@ -107,6 +107,7 @@ if [ `uname -s` = "Darwin" ]; then
         man "$@" | col -bx | mate
     }
 
+    export EDITOR="/usr/local/bin/mate -w"
     export MACOSX_DEPLOYMENT_TARGET=10.7
     export ARCHFLAGS="-arch x86_64"
 fi
@@ -135,6 +136,8 @@ venwrap=`type -P virtualenvwrapper.sh`
 if [ "$venwrap" != "" ]; then
     source $venwrap
 fi
+
+source ~/.autojump.sh
 
 alias sshi="ssh xerxes@hurrikan.informatik.uni-oldenburg.de"
 alias sshs="ssh stefan@sofa-rockers.org"
