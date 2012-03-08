@@ -1,4 +1,3 @@
-"
 " =============================================================================
 " Dependencies - Libraries/Applications outside of vim
 " =============================================================================
@@ -84,20 +83,34 @@ filetype plugin indent on
 " =============================================================================
 " Basic Settings
 " =============================================================================
-set t_Co=256                " Use 256 colors
+set encoding=utf-8
+set t_Co=256
 colorscheme blackboard
 
 """ Interface
-set title                   " Show title in console title bar
-set mouse=a                 " Mouse interaction
-set number                  " Show line numbers
-set cursorline              " Highlight current line
-set wildmenu                " Tab-completion for commands
-" Ignore these files when completing
+set title
+set visualbell
+set mouse=a
+set relativenumber
+set cursorline
+set wildmenu
 set wildignore+=.git,.hg,__pycache__,*.pyc
 set clipboard=unnamed       " Alias anonymous register to * (copy to clipboard)
+set listchars=tab:▸\ ,trail:·,eol:¬,precedes:<,extends:>
+
+""" Moving around / Editing
+set textwidth=79
+if has('colorcolumn')
+    set colorcolumn=80
+endif
+set autoindent
+set smartindent
+set formatoptions=qrn1
+set scrolloff=3
+set backspace=indent,eol,start
 
 " Messages, Info, Status
+set hidden
 set confirm                 " Y-N-C promt if closing with unsaved changes
 set ruler                   " Show line and column number
 set showcmd                 " Show command in the bottom right of the screen
@@ -111,31 +124,20 @@ set statusline+=%=                              " right align remainder
 set statusline+=0x%-8B                          " character value
 set statusline+=%-14(%l,%c%V%)                  " line, character
 set statusline+=%<%P                            " file position
-
-""" Moving around / Editing
-set encoding=utf-8
-" set textwidth=79
-if has('colorcolumn')
-    set colorcolumn=80
-endif
-set listchars=tab:>-,trail:·,eol:$,precedes:<,extends:>
-set scrolloff=3
-set autoindent
-set smartindent
-
 set shiftwidth=4
+
 set tabstop=4
+set softtabstop=4
 set expandtab
 set smarttab
 
+set incsearch
+set ignorecase
+set smartcase
+set hlsearch
+
 set foldmethod=indent
 set foldlevel=99
-set backspace=indent,eol,start
-
-set incsearch               " Incremental search
-set ignorecase              " Ignore case ...
-set smartcase               " ... unless the term contains upper case letters
-set hlsearch                " Highlight all results
 
 """ Insert completion
 set completeopt=menuone,longest,preview
@@ -176,8 +178,8 @@ map <leader>bl :buffers<CR>
 " Toggle line numbers and fold column for easy copying:
 nmap <leader>nn :set nonumber!<CR>
 
-" Reset search term (remove highlighting)
-nmap <silent> <leader>rs :let @/ = ""<CR>
+" Clear search term (remove highlighting)
+nnoremap <leader><space> :noh<cr>
 
 " Toggle displaying of whitespaces
 nmap <silent> <leader>s :set nolist!<CR>
