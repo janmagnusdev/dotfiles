@@ -136,6 +136,8 @@ if [ "$venwrap" != "" ]; then
     source $venwrap
 fi
 
+source /usr/share/autojump/autojump.sh
+
 alias sshi="ssh xerxes@hurrikan.informatik.uni-oldenburg.de"
 alias sshs="ssh stefan@sofa-rockers.org"
 alias ssht="ssh scherfke@thurman.informatik.uni-oldenburg.de"
