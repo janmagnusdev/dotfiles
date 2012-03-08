@@ -1,6 +1,5 @@
 [ui]
 username = Stefan Scherfke <stefan@sofa-rockers.org>
-merge = filemerge
 
 [extensions]
 churn =
@@ -29,6 +28,7 @@ cmd.kdiff3 =
 
 [flake8]
 strict = false
+complexity = 12
 
 [merge-tools]
 filemerge.executable = opendiff-w
@@ -36,5 +36,5 @@ filemerge.args = $local $other -ancestor $base -merge $output
 kdiff3.args = $base $local $other -o $output
 
 [web]
-allow_archive = true
+allow_archive = zip, bz2
 pygments_style = tango
