@@ -77,14 +77,13 @@
 " Pathogen
 " =============================================================================
 filetype off
-call pathogen#helptags()
-call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
+syntax on
+filetype plugin indent on
 
 " =============================================================================
 " Basic Settings
 " =============================================================================
-syntax on                   " Enable syntax highlighting
-filetype plugin indent on   " Detect filetyes and load filetype plug-ins
 set t_Co=256                " Use 256 colors
 colorscheme blackboard
 
@@ -115,7 +114,7 @@ set statusline+=%<%P                            " file position
 
 """ Moving around / Editing
 set encoding=utf-8
-set textwidth=79
+" set textwidth=79
 if has('colorcolumn')
     set colorcolumn=80
 endif
