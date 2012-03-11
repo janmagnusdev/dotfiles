@@ -1,16 +1,13 @@
 " =============================================================================
-" Dependencies - Libraries/Applications outside of vim
-" =============================================================================
+" Dependencies
 "
-" Pep8 - http://pypi.python.org/pypi/pep8
-" Py.test
-" Rake & Ruby for command-t
-" nose, django-nose
+" - Pep8 - http://pypi.python.org/pypi/pep8
+" - Py.test
+" - Rake & Ruby for command-t
 "
 "
-" =============================================================================
 " Installation & Updating
-" =============================================================================
+" =======================
 "
 " Most plug-ins are not contained in this repository and have to be installed
 " manually.
@@ -19,97 +16,65 @@
 " Update: ``update_vim.py`` w/o args pulls changes for each plug-in
 "
 "
-" =============================================================================
-" Plug-ins
-" =============================================================================
+" Sections
+" ========
 "
-" Pathogen
-"   Better management of VIM plug-ins
-"
-" Command-T
-"   Easy opening of files within a given path. Inspired by TextMate.
-"
-" MW-Utils
-"   Various utilities. Dependency of Snipmate.
-"
-" NERD tree
-"   Tree-based filesystem browser.
-"
-" PEP8
-"   Performes a PEP-8 compliance check.
-"
-" PyDoc
-"   Shows the documentation for Python modules.
-"
-" PyFlakes
-"   Highlights common errors in Python code on-the-fly.
-"
-" Pytest
-"   Invokes py.test from within vim.
-"
-" Ropevim
-"   Rope provides features like refactoring or jump-to-definition for Python
-"   code.
-"
-" SearchComplete
-"   Tab-completion for search terms.
-"
-" Snipmate
-"   Configurable snippets that can be expanded via ``tab``. Inspired by
-"   Textmate.
-"
-" Supertab
-"   Contextual tab-completion.
-"
-" Surround
-"   Deals with pairs of “surroundings” (e.g. braces or quotation marks).
-"
-" Tasklist
-"   Searches a file for TODOs and FIXMEs.
-"
-" Tlib
-"   Utility functions. Dependency of Snipmate.
-"
-" pathogen loads plugins from ~/.vim/bundle
+" - General
+"   - Basic Settings & GUI
+"   - Interface
+"   - Messages, Info, Status
+"   - Moving Around / Editing
+"   - Tabs & Indentation
+"   - Searching
 
 " =============================================================================
-" Pathogen
+" General
 " =============================================================================
 filetype off
 call pathogen#infect()
 syntax on
 filetype plugin indent on
 
-" =============================================================================
-" Basic Settings
-" =============================================================================
+" Set to auto read when a file is changed from the outside
+set autoread
+
+let mapleader=","
+
+" Fast editing of the .vimrc
+map <leader>e :e! ~/.vimrc<cr>
+
+" When vimrc is edited, reload it
+autocmd! bufwritepost .vimrc source ~/.vimrc
+
+
+""" Basic Settings & GUI
 set encoding=utf-8
 set t_Co=256
 colorscheme blackboard
 
+if has('gui_running')
+    set guioptions-=T  " Hide toolbar
+    if has('gui_macvim')
+        set guifont=Menlo:h13
+        set columns=105
+        set lines=55
+    elseif has('gui_gtk2')
+        set guifont=Monospace:h9
+    endif
+endif
+
 """ Interface
 set title
-set visualbell
-set mouse=a
 set relativenumber
 set cursorline
 set wildmenu
 set wildignore+=.git,.hg,__pycache__,*.pyc
-set clipboard=unnamed       " Alias anonymous register to * (copy to clipboard)
+set clipboard=unnamed  " Alias anonymous register to * (copy to clipboard)
 set listchars=tab:▸\ ,trail:·,eol:¬,precedes:<,extends:>
+set visualbell
+set mouse=a
 
-""" Moving around / Editing
-set textwidth=79
-if has('colorcolumn')
-    set colorcolumn=80
-endif
-set autoindent
-set smartindent
-set formatoptions=qrn1
-set scrolloff=3
-set backspace=indent,eol,start
-
-" Messages, Info, Status
+""" Messages, Info, Status
 set hidden
 set confirm                 " Y-N-C promt if closing with unsaved changes
 set ruler                   " Show line and column number
@@ -124,23 +89,35 @@ set statusline+=%=                              " right align remainder
 set statusline+=0x%-8B                          " character value
 set statusline+=%-14(%l,%c%V%)                  " line, character
 set statusline+=%<%P                            " file position
-set shiftwidth=4
 
+""" Moving around / Editing
+set textwidth=79
+set colorcolumn=80
+set autoindent
+set smartindent
+set formatoptions=qrn1
+set scrolloff=3
+set backspace=indent,eol,start
+
+""" Tabs & Indentation
+set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 set expandtab
 set smarttab
 
+""" Searching
 set incsearch
 set ignorecase
 set smartcase
 set hlsearch
+set gdefault
 
-set foldmethod=indent
-set foldlevel=99
+set foldmethod=indent  " ?
+set foldlevel=99  " ?
 
 """ Insert completion
-set completeopt=menuone,longest,preview
+set completeopt=menuone,longest,preview  " ?
 set pumheight=6             " Keep a small completion window
 
 " close preview window automatically when we move around
@@ -150,19 +127,36 @@ set pumheight=6             " Keep a small completion window
 " =============================================================================
 " Shortcuts
 " =============================================================================
-let mapleader=","           " Use , as <leader>
-
-" Ctrl-jklm to move between windows
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
-" and lets make these all work in insert mode too (<C-O> makes next cmd
-" happen as if in command mode)
-imap <C-W> <C-O><C-W>
 
 " Use space for folding
 nnoremap <space> za
+
+" Clear search term (remove highlighting)
+nnoremap <silent> <leader><space> :noh<cr>
+
+map <leader>bl :buffers<CR>
+
+" Re-hardwrap paragraphs of text
+nnoremap <leader>q gqip
+
+" Toggle line numbers and fold column for easy copying:
+nmap <leader>nn :set norelativenumber!<CR>
+
+" Toggle displaying of whitespaces
+nmap <silent> <leader>s :set nolist!<CR>
+
+" Create new vertical split and switch over to it
+nnoremap <leader>w <C-w>v<C-w>l
+
+" Ctrl-jklm to move between windows
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" and lets make these all work in insert mode too (<C-O> makes next cmd
+" happen as if in command mode)
+imap <C-W> <C-O><C-W>
 
 " Select the item in the list with enter
 function! CheckClosePum()
@@ -172,17 +166,6 @@ function! CheckClosePum()
         return "\<CR>"
 endfunction
 inoremap <expr> <CR> CheckClosePum()
-
-map <leader>bl :buffers<CR>
-
-" Toggle line numbers and fold column for easy copying:
-nmap <leader>nn :set nonumber!<CR>
-
-" Clear search term (remove highlighting)
-nnoremap <leader><space> :noh<cr>
-
-" Toggle displaying of whitespaces
-nmap <silent> <leader>s :set nolist!<CR>
 
 " open/close the quickfix window
 nmap <leader>c :copen<CR>
