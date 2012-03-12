@@ -44,7 +44,7 @@ let mapleader=","
 map <leader>e :e! ~/.vimrc<cr>
 
 " When vimrc is edited, reload it
-autocmd! bufwritepost .vimrc source ~/.vimrc
+autocmd! bufwritepost _vimrc source ~/.vimrc
 
 
 """ Basic Settings & GUI
@@ -59,7 +59,9 @@ if has('gui_running')
         set columns=105
         set lines=55
     elseif has('gui_gtk2')
-        set guifont=Monospace:h9
+        set guifont=Monospace\ 9
+        set columns=105
+        set lines=65
     endif
 endif
 
@@ -69,9 +71,8 @@ set relativenumber
 set cursorline
 set wildmenu
 set wildignore+=.git,.hg,__pycache__,*.pyc
-set clipboard=unnamed  " Alias anonymous register to * (copy to clipboard)
+set clipboard=unnamedplus  " Alias anonymous register to + (copy to clipboard)
 set listchars=tab:▸\ ,trail:·,eol:¬,precedes:<,extends:>
-set visualbell
 set mouse=a
 
 """ Messages, Info, Status
@@ -127,6 +128,8 @@ set pumheight=6             " Keep a small completion window
 " =============================================================================
 " Shortcuts
 " =============================================================================
+map <C-o> :tabnew
+map <C-w> :q<CR>
 
 " Use space for folding
 nnoremap <space> za
