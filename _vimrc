@@ -49,11 +49,15 @@ autocmd! bufwritepost _vimrc source ~/.vimrc
 
 """ Basic Settings & GUI
 set encoding=utf-8
+set spl=en_us spell
 set t_Co=256
 colorscheme blackboard
 
 if has('gui_running')
     set guioptions-=T  " Hide toolbar
+    set guicursor+=a:blinkon0
+    set guicursor+=i-ci:ver10-Cursor-blinkwait500-blinkoff500-blinkon500
+
     if has('gui_macvim')
         set guifont=Menlo:h13
         set columns=105

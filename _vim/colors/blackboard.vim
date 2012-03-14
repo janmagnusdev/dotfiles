@@ -17,9 +17,9 @@ endif
 let g:colors_name = "blackboard"
 
 " General interface
-hi Normal                                                 guifg=#F8F8F8 guibg=#0C1021
-hi Cursor                                   cterm=inverse                             gui=inverse
-hi CursorLine                               cterm=underline             guibg=#20253D
+hi Normal                                                 guifg=#F8F8F8 guibg=#181818
+" hi Cursor                                   cterm=inverse
+hi CursorLine                               cterm=underline             guibg=#404040
 hi LineNr       ctermfg=244
 hi ColorColumn                ctermbg=17
 hi Folded       ctermfg=14    ctermbg=240
