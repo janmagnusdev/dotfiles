@@ -41,17 +41,18 @@ set autoread
 let mapleader=","
 
 " Fast editing of the .vimrc
-map <leader>e :e! ~/.vimrc<cr>
+map <leader>v :tabnew ~/.vimrc<cr>
 
 " When vimrc is edited, reload it
 autocmd! bufwritepost _vimrc source ~/.vimrc
+autocmd! bufwritepost .vimrc source ~/.vimrc
 
 
 """ Basic Settings & GUI
 set encoding=utf-8
 set spl=en_us spell
 set t_Co=256
-colorscheme blackboard
+colorscheme grayboard
 
 if has('gui_running')
     set guioptions-=T  " Hide toolbar
@@ -65,7 +66,7 @@ if has('gui_running')
     elseif has('gui_gtk2')
         set guifont=Monospace\ 9
         set columns=105
-        set lines=65
+        set lines=62
     endif
 endif
 
@@ -133,6 +134,7 @@ set pumheight=6             " Keep a small completion window
 " Shortcuts
 " =============================================================================
 map <C-o> :tabnew
+map <C-t> :tabnew .<CR>
 map <C-w> :q<CR>
 
 " Use space for folding
@@ -204,6 +206,9 @@ nmap <leader>ts :call TrimSpaces()<CR>
 " =============================================================================
 " TaskList
 map <leader>td <Plug>TaskList
+
+" Rename
+map <leader>mv :Rename
 
 " NERD Tree
 map <leader>n :NERDTreeToggle<CR>

@@ -21,6 +21,7 @@ git_bundles = [
 ]
 
 vim_org_scripts = [
+    'rename', 1928, 'plugin'
     # 'name', 123, 'plugin',
     # 'name', 456, 'syntax',
 ]
