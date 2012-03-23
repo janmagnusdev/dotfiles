@@ -98,7 +98,7 @@ set statusline+=%<%P                            " file position
 
 """ Moving around / Editing
 set textwidth=79
-set colorcolumn=80
+set colorcolumn=+1
 set autoindent
 set smartindent
 set formatoptions=qrn1
