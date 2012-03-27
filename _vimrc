@@ -76,7 +76,7 @@ set relativenumber
 set cursorline
 set wildmenu
 set wildignore+=.git,.hg,__pycache__,*.pyc
-set clipboard=unnamedplus  " Alias anonymous register to + (copy to clipboard)
+set clipboard=unnamed  " Alias anonymous register to * (copy to clipboard)
 set listchars=tab:▸\ ,trail:·,eol:¬,precedes:<,extends:>
 set mouse=a
 
