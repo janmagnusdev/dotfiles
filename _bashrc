@@ -101,6 +101,8 @@ if [ `uname -s` = "Darwin" ]; then
     export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
     export MACOSX_DEPLOYMENT_TARGET=10.7
     export ARCHFLAGS="-arch x86_64"
+
+    alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 fi
 
 # enable programmable completion features (you don't need to enable
