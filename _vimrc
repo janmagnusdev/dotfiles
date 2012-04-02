@@ -50,7 +50,6 @@ autocmd! bufwritepost .vimrc source ~/.vimrc
 
 """ Basic Settings & GUI
 set encoding=utf-8
-set spl=en_us spell
 set t_Co=256
 colorscheme grayboard
 
@@ -135,6 +134,10 @@ set foldlevel=99  " ?
 """ Insert completion
 set completeopt=menuone,longest,preview  " ?
 set pumheight=6             " Keep a small completion window
+
+""" Spelling
+set spelllang=en
+au BufEnter *.txt,*.tex set spell
 
 " =============================================================================
 " Shortcuts
