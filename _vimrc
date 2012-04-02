@@ -173,10 +173,10 @@ nmap <silent> <leader>s :set nolist!<CR>
 nnoremap <leader>w <C-w>v<C-w>l
 
 " Ctrl-jklm to move between windows
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 
 " and lets make these all work in insert mode too (<C-O> makes next cmd
 " happen as if in command mode)
@@ -199,6 +199,10 @@ function! SmartHome()
 endfunction
 nnoremap <silent> <Home> :call SmartHome()<CR>
 inoremap <silent> <Home> <C-O>:call SmartHome()<CR>
+nnoremap <silent> 0 :call SmartHome()<CR>
+inoremap <silent> 0 <C-O>:call SmartHome()<CR>
+
+nnoremap <C-Return> i<CR><Esc>
 
 " Remove trailing spaces
 function! TrimSpaces()
