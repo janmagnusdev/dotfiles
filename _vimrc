@@ -63,6 +63,15 @@ if has('gui_running')
         set guifont=Menlo:h13
         set columns=105
         set lines=55
+
+        " Tab switching
+        nmap <D-A-left> <C-PageUp>
+        vmap <D-A-left> <C-PageUp>
+        imap <D-A-left> <C-O><C-PageUp>
+        nmap <D-A-right> <C-PageDown>
+        vmap <D-A-right> <C-PageDown>
+        imap <D-A-right> <C-O><C-PageDown>
+
     elseif has('gui_gtk2')
         set guifont=Monospace\ 9
         set columns=105
@@ -78,10 +87,11 @@ set wildmenu
 set wildignore+=.git,.hg,__pycache__,*.pyc
 set clipboard=unnamed  " Alias anonymous register to * (copy to clipboard)
 set listchars=tab:▸\ ,trail:·,eol:¬,precedes:<,extends:>
-set mouse=a
+set hidden
+set nobackup
+set noswapfile
 
 """ Messages, Info, Status
-set hidden
 set confirm                 " Y-N-C promt if closing with unsaved changes
 set ruler                   " Show line and column number
 set showcmd                 " Show command in the bottom right of the screen
@@ -126,16 +136,13 @@ set foldlevel=99  " ?
 set completeopt=menuone,longest,preview  " ?
 set pumheight=6             " Keep a small completion window
 
-" close preview window automatically when we move around
-" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-" autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
 " =============================================================================
 " Shortcuts
 " =============================================================================
 map <C-o> :tabnew
 map <C-t> :tabnew .<CR>
 map <C-w> :q<CR>
+set pastetoggle=<F2>  " Toggle paste mode
 
 " Use space for folding
 nnoremap <space> za
@@ -146,7 +153,12 @@ nnoremap <silent> <leader><space> :noh<cr>
 map <leader>bl :buffers<CR>
 
 " Re-hardwrap paragraphs of text
-nnoremap <leader>q gqip
+nmap <leader>q gqip
+vmap <leader>q gq
+
+" Let j/k work on screen lines
+nnoremap j gj
+nnoremap k gk
 
 " Toggle line numbers and fold column for easy copying:
 nmap <leader>nn :set norelativenumber!<CR>
@@ -167,14 +179,8 @@ map <C-l> <C-w>l
 " happen as if in command mode)
 imap <C-W> <C-O><C-W>
 
-" Select the item in the list with enter
-function! CheckClosePum()
-    if pumvisible()
-        return "\<C-y>"
-    else
-        return "\<CR>"
-endfunction
-inoremap <expr> <CR> CheckClosePum()
+" When I forgot to sudo before editing ...
+cmap w!! w !sudo tee % >/dev/null
 
 " open/close the quickfix window
 nmap <leader>c :copen<CR>
@@ -201,6 +207,20 @@ au FilterWritePre * :call TrimSpaces()
 au BufWritePre * :call TrimSpaces()
 nmap <leader>ts :call TrimSpaces()<CR>
 
+" Easy switching
+nnoremap <leader>Tp :set ft=python<CR>
+nnoremap <leader>Tr :set ft=rst<CR>
+
+" toggle between number and relative number on ,l
+nnoremap <leader>l :call ToggleRelativeAbsoluteNumber()<CR>
+function! ToggleRelativeAbsoluteNumber()
+  if &number
+    set relativenumber
+  else
+    set number
+  endif
+endfunction
+
 " =============================================================================
 " Plug-ins
 " =============================================================================
@@ -212,6 +232,7 @@ map <leader>mv :Rename
 
 " NERD Tree
 map <leader>n :NERDTreeToggle<CR>
+let NERDTreeIgnore=['\~$', '\.pyc$', '\.pyo$', '\.class$', 'pip-log\.txt$', '\.o$']
 
 " Supertab
 let g:SuperTabDefaultCompletionType = "context"
@@ -239,8 +260,13 @@ nmap <silent><Leader>te <Esc>:Pytest error<CR>
 " =============================================================================
 """ reStructuredText
 au BufEnter *.txt set filetype=rst
+"autocmd BufNewFile,BufRead *.txt setlocal ft=rst
+"autocmd FileType rst setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+"\ formatoptions+=nqt textwidth=74
 
 """ Python
+"autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4
+"\ formatoptions+=croq softtabstop=4 smartindent
 let python_highlight_all=1
 " Activate rope completion via <tab>
 au FileType python imap <buffer> <C-Space> <M-/>
