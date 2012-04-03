@@ -4,4 +4,4 @@ syntax: glob
 *.pyc
 *.swp
 
-_vim/bundle
+_vim/bundle.old/*
