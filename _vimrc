@@ -137,8 +137,8 @@ set hlsearch
 set gdefault
 
 """ Insert completion
-set completeopt=menuone,longest,preview  " ?
-set pumheight=6             " Keep a small completion window
+" set completeopt=menuone,longest,preview  " ?
+" set pumheight=6             " Keep a small completion window
 
 """ Spelling
 set spelllang=en
@@ -153,11 +153,24 @@ map <C-o> :tabnew
 map <C-t> :tabnew .<CR>
 map <C-w> :q<CR>
 
+" Ctrl-jklm to move between windows
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" Let j/k work on screen lines
+nnoremap j gj
+nnoremap k gk
+
 " Use space for folding
 nnoremap <space> za
 
-" Clear search term (remove highlighting)
-nnoremap <silent> <leader><space> :noh<cr>
+" Ctrl+Return inserts line break in normal mode
+nnoremap <C-Return> i<CR><Esc>
+
+" When I forgot to sudo before editing ...
+cmap w!! w !sudo tee % >/dev/null
 
 map <leader>bl :buffers<CR>
 
@@ -165,28 +178,14 @@ map <leader>bl :buffers<CR>
 nmap <leader>q gqip
 vmap <leader>q gq
 
-" Let j/k work on screen lines
-nnoremap j gj
-nnoremap k gk
+" Clear search term (remove highlighting)
+nmap <silent> <leader><space> :noh<CR>
 
 " Toggle displaying of whitespaces
 nmap <silent> <leader>s :set nolist!<CR>
 
 " Create new vertical split and switch over to it
-nnoremap <leader>w <C-w>v<C-w>l
-
-" Ctrl-jklm to move between windows
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-
-" and lets make these all work in insert mode too (<C-O> makes next cmd
-" happen as if in command mode)
-imap <C-W> <C-O><C-W>
-
-" When I forgot to sudo before editing ...
-cmap w!! w !sudo tee % >/dev/null
+nnoremap <leader>v <C-w>v<C-w>l
 
 " open/close the quickfix window
 nmap <leader>c :copen<CR>
@@ -203,9 +202,6 @@ endfunction
 nnoremap <silent> <Home> :call SmartHome()<CR>
 inoremap <silent> <Home> <C-O>:call SmartHome()<CR>
 nnoremap <silent> 0 :call SmartHome()<CR>
-inoremap <silent> 0 <C-O>:call SmartHome()<CR>
-
-nnoremap <C-Return> i<CR><Esc>
 
 " Remove trailing spaces
 function! TrimSpaces()
@@ -280,18 +276,22 @@ nmap <silent><Leader>te <Esc>:Pytest error<CR>
 " =============================================================================
 " Filetype Specific Settings
 " =============================================================================
+" Easy file-type switching
+nnoremap <leader>Tp :set ft=python<CR>
+nnoremap <leader>Tr :set ft=rst<CR>
+
 """ VIM
-au FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
+au FileType vim setl sw=2 ts=2 sts=2 et
 
 """ reStructuredText
 au BufEnter *.txt set filetype=rst
-"autocmd BufNewFile,BufRead *.txt setlocal ft=rst
-"autocmd FileType rst setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-"\ formatoptions+=nqt textwidth=74
+au FileType rst setl fo+=t  " Auto-wrap text using textwidth
+
+""" Latex
+au FileType tex setl fo+=t  " Auto-wrap text using textwidth
 
 """ Python
-"autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4
-"\ formatoptions+=croq softtabstop=4 smartindent
+au FileType python setl fo+=c  " Auto-wrap comments using textwidth
 let python_highlight_all=1
 " Activate rope completion via <tab>
 au FileType python imap <buffer> <C-Space> <M-/>

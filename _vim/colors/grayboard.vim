@@ -19,19 +19,19 @@ hi CursorLine   ctermfg=NONE ctermbg=237  cterm=NONE    guifg=NONE    guibg=#303
 hi CursorColumn ctermfg=NONE ctermbg=237  cterm=NONE    guifg=NONE    guibg=#303030 gui=NONE
 hi ColorColumn  ctermfg=NONE ctermbg=237  cterm=NONE    guifg=NONE    guibg=#303030 gui=NONE
 
-hi TabLine      ctermfg=231  ctermbg=238  cterm=NONE
-hi TabLineFill  ctermfg=231  ctermbg=238  cterm=NONE
-hi TabLineSel   ctermfg=231  ctermbg=NONE cterm=bold
+hi TabLine      ctermfg=255  ctermbg=240  cterm=NONE
+hi TabLineFill  ctermfg=255  ctermbg=240  cterm=NONE
+hi TabLineSel   ctermfg=255  ctermbg=NONE cterm=bold
 hi FoldColumn   ctermfg=243  ctermbg=NONE cterm=NONE    guifg=#767676 guibg=NONE    gui=NONE
 hi LineNr       ctermfg=243  ctermbg=NONE cterm=NONE    guifg=#767676 guibg=NONE    gui=NONE
-hi VertSplit    ctermfg=231  ctermbg=238  cterm=NONE    guifg=#444444 guibg=#444444 gui=NONE
-hi StatusLine   ctermfg=231  ctermbg=238  cterm=bold    guifg=#f8f8f8 guibg=#444444 gui=bold
-hi StatusLineNC ctermfg=231  ctermbg=238  cterm=NONE    guifg=#f8f8f8 guibg=#444444 gui=NONE
+hi VertSplit    ctermfg=240  ctermbg=240  cterm=NONE    guifg=#585858 guibg=#585858 gui=NONE
+hi StatusLine   ctermfg=255  ctermbg=240  cterm=bold    guifg=#f8f8f8 guibg=#585858 gui=bold
+hi StatusLineNC ctermfg=252  ctermbg=240  cterm=NONE    guifg=#d0d0d0 guibg=#585858 gui=NONE
 
-hi Pmenu        ctermfg=231  ctermbg=238  cterm=NONE    guifg=#f8f8f8 guibg=#444444 gui=NONE
-hi PmenuSel     ctermfg=231  ctermbg=237  cterm=NONE    guifg=#f8f8f8 guibg=#303030 gui=NONE
-hi PmenuSbar    ctermfg=231  ctermbg=238  cterm=NONE    guifg=#f8f8f8 guibg=#444444 gui=NONE
-hi PmenuThumb   ctermfg=231  ctermbg=237  cterm=NONE    guifg=#f8f8f8 guibg=#303030 gui=NONE
+hi Pmenu        ctermfg=255  ctermbg=240  cterm=NONE    guifg=#f8f8f8 guibg=#585858 gui=NONE
+hi PmenuSel     ctermfg=255  ctermbg=237  cterm=NONE    guifg=#f8f8f8 guibg=#303030 gui=NONE
+hi PmenuSbar    ctermfg=255  ctermbg=240  cterm=NONE    guifg=#f8f8f8 guibg=#585858 gui=NONE
+hi PmenuThumb   ctermfg=255  ctermbg=237  cterm=NONE    guifg=#f8f8f8 guibg=#303030 gui=NONE
 
 hi MatchParen   ctermfg=0    ctermbg=220  cterm=NONE    guifg=#000000 guibg=#fbde2d gui=NONE
 hi IncSearch    ctermfg=0    ctermbg=220  cterm=NONE    guifg=#000000 guibg=#fbde2d gui=NONE
@@ -39,8 +39,8 @@ hi Search       ctermfg=0    ctermbg=220  cterm=NONE    guifg=#000000 guibg=#fbd
 hi Directory    ctermfg=191  ctermbg=NONE cterm=bold    guifg=#d8fa3c guibg=NONE    gui=bold
 hi Folded       ctermfg=0    ctermbg=202  cterm=NONE    guifg=#000000 guibg=#ff6400 gui=NONE
 
-hi NonText      ctermfg=238  ctermbg=NONE cterm=NONE    guifg=#444444 guibg=NONE    gui=NONE
-hi SpecialKey   ctermfg=238  ctermbg=NONE cterm=NONE    guifg=#444444 guibg=NONE    gui=NONE
+hi NonText      ctermfg=240  ctermbg=NONE cterm=NONE    guifg=#585858 guibg=NONE    gui=NONE
+hi SpecialKey   ctermfg=240  ctermbg=NONE cterm=NONE    guifg=#585858 guibg=NONE    gui=NONE
 hi Title        ctermfg=255  ctermbg=NONE cterm=bold    guifg=#f8f8f8 guibg=NONE    gui=bold
 hi ErrorMsg     ctermfg=255  ctermbg=1    cterm=NONE    guifg=#f8f8f8 guibg=#cd0000 gui=NONE
 hi WarningMsg   ctermfg=9    ctermbg=NONE cterm=NONE    guifg=#ff0000 guibg=NONE    gui=NONE
@@ -64,7 +64,7 @@ hi Label        ctermfg=77 ctermbg=NONE cterm=NONE guifg=#61ce3c guibg=NONE gui=
 hi Number       ctermfg=191 ctermbg=NONE cterm=NONE guifg=#d8fa3c guibg=NONE gui=NONE
 hi Operator     ctermfg=220 ctermbg=NONE cterm=NONE guifg=#fbde2d guibg=NONE gui=NONE
 hi PreProc      ctermfg=220 ctermbg=NONE cterm=NONE guifg=#fbde2d guibg=NONE gui=NONE
-hi Special      ctermfg=231 ctermbg=NONE cterm=NONE guifg=#f8f8f8 guibg=NONE gui=NONE
+hi Special      ctermfg=255 ctermbg=NONE cterm=NONE guifg=#f8f8f8 guibg=NONE gui=NONE
 hi Statement    ctermfg=220 ctermbg=NONE cterm=NONE guifg=#fbde2d guibg=NONE gui=NONE
 hi StorageClass ctermfg=220 ctermbg=NONE cterm=NONE guifg=#fbde2d guibg=NONE gui=NONE
 hi String       ctermfg=76 ctermbg=NONE cterm=NONE guifg=#61ce3c guibg=NONE gui=NONE
