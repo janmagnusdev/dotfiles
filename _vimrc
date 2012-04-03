@@ -172,7 +172,11 @@ nnoremap <C-Return> i<CR><Esc>
 " When I forgot to sudo before editing ...
 cmap w!! w !sudo tee % >/dev/null
 
+" List open buffers
 map <leader>bl :buffers<CR>
+
+" When pressing <leader>cd switch to the directory of the open buffer
+map <leader>cd :cd %:p:h<CR>
 
 " Re-hardwrap paragraphs of text
 nmap <leader>q gqip
