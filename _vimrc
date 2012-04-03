@@ -22,10 +22,16 @@
 " - General
 "   - Basic Settings & GUI
 "   - Interface
+"   - Behavior
 "   - Messages, Info, Status
 "   - Moving Around / Editing
 "   - Tabs & Indentation
 "   - Searching
+"   - Insert Completion
+"   - Spelling
+" - Shortcuts
+" - Plug-ins
+" - Filetype Specific Settings
 
 " =============================================================================
 " General
@@ -35,18 +41,11 @@ call pathogen#infect()
 syntax on
 filetype plugin indent on
 
-" Set to auto read when a file is changed from the outside
-set autoread
-
 let mapleader=","
 
 " Fast editing of the .vimrc
-map <leader>v :tabnew ~/.vimrc<cr>
-
-" When vimrc is edited, reload it
-autocmd! bufwritepost _vimrc source ~/.vimrc
-autocmd! bufwritepost .vimrc source ~/.vimrc
-
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :source $MYVIMRC<CR>
 
 """ Basic Settings & GUI
 set encoding=utf-8
@@ -54,28 +53,28 @@ set t_Co=256
 colorscheme grayboard
 
 if has('gui_running')
-    set guioptions-=T  " Hide toolbar
-    set guicursor+=a:blinkon0
-    set guicursor+=i-ci:ver10-Cursor-blinkwait500-blinkoff500-blinkon500
+  set guioptions-=T  " Hide toolbar
+  set guicursor+=a:blinkon0
+  set guicursor+=i-ci:ver10-Cursor-blinkwait500-blinkoff500-blinkon500
 
-    if has('gui_macvim')
-        set guifont=Menlo:h13
-        set columns=105
-        set lines=55
+  if has('gui_macvim')
+    set guifont=Menlo:h13
+    set columns=105
+    set lines=55
 
-        " Tab switching
-        nmap <D-A-left> <C-PageUp>
-        vmap <D-A-left> <C-PageUp>
-        imap <D-A-left> <C-O><C-PageUp>
-        nmap <D-A-right> <C-PageDown>
-        vmap <D-A-right> <C-PageDown>
-        imap <D-A-right> <C-O><C-PageDown>
+    " Tab switching
+    nmap <D-A-left> <C-PageUp>
+    vmap <D-A-left> <C-PageUp>
+    imap <D-A-left> <C-O><C-PageUp>
+    nmap <D-A-right> <C-PageDown>
+    vmap <D-A-right> <C-PageDown>
+    imap <D-A-right> <C-O><C-PageDown>
 
-    elseif has('gui_gtk2')
-        set guifont=Monospace\ 9
-        set columns=105
-        set lines=62
-    endif
+  elseif has('gui_gtk2')
+    set guifont=Monospace\ 9
+    set columns=105
+    set lines=62
+  endif
 endif
 
 """ Interface
@@ -84,10 +83,18 @@ set relativenumber
 set cursorline
 set wildmenu
 set wildignore+=.git,.hg,__pycache__,*.pyc
+set wildmode=full
 set clipboard=unnamed  " Alias anonymous register to * (copy to clipboard)
 set listchars=tab:▸\ ,trail:·,eol:¬,precedes:<,extends:>
+set wrap
+set linebreak
+set scrolloff=3
+
+""" Behavior
+set autoread
 set hidden
 set nobackup
+set nomodeline
 set noswapfile
 
 """ Messages, Info, Status
@@ -111,8 +118,9 @@ set colorcolumn=+1
 set autoindent
 set smartindent
 set formatoptions=qrn1
-set scrolloff=3
 set backspace=indent,eol,start
+set foldmethod=indent
+set foldlevel=99
 
 """ Tabs & Indentation
 set shiftwidth=4
@@ -128,9 +136,6 @@ set smartcase
 set hlsearch
 set gdefault
 
-set foldmethod=indent  " ?
-set foldlevel=99  " ?
-
 """ Insert completion
 set completeopt=menuone,longest,preview  " ?
 set pumheight=6             " Keep a small completion window
@@ -142,10 +147,11 @@ au BufEnter *.txt,*.tex set spell
 " =============================================================================
 " Shortcuts
 " =============================================================================
+set pastetoggle=<F2>  " Toggle paste mode
+
 map <C-o> :tabnew
 map <C-t> :tabnew .<CR>
 map <C-w> :q<CR>
-set pastetoggle=<F2>  " Toggle paste mode
 
 " Use space for folding
 nnoremap <space> za
@@ -162,9 +168,6 @@ vmap <leader>q gq
 " Let j/k work on screen lines
 nnoremap j gj
 nnoremap k gk
-
-" Toggle line numbers and fold column for easy copying:
-nmap <leader>nn :set norelativenumber!<CR>
 
 " Toggle displaying of whitespaces
 nmap <silent> <leader>s :set nolist!<CR>
@@ -191,11 +194,11 @@ nmap <leader>cc :cclose<CR>
 
 " SmartHome (vim tip 315)
 function! SmartHome()
-    let s:col = col(".")
-    normal! ^
-    if s:col == col(".")
-        normal! 0
-    endif
+  let s:col = col(".")
+  normal! ^
+  if s:col == col(".")
+    normal! 0
+  endif
 endfunction
 nnoremap <silent> <Home> :call SmartHome()<CR>
 inoremap <silent> <Home> <C-O>:call SmartHome()<CR>
@@ -206,7 +209,7 @@ nnoremap <C-Return> i<CR><Esc>
 
 " Remove trailing spaces
 function! TrimSpaces()
-    %s/\s\+$//e
+  %s/\s\+$//e
 endfunction
 au FileWritePre * :call TrimSpaces()
 au FileAppendPre * :call TrimSpaces()
@@ -218,13 +221,25 @@ nmap <leader>ts :call TrimSpaces()<CR>
 nnoremap <leader>Tp :set ft=python<CR>
 nnoremap <leader>Tr :set ft=rst<CR>
 
-" toggle between number and relative number on ,l
-nnoremap <leader>l :call ToggleRelativeAbsoluteNumber()<CR>
+" Toggle between number and relative number on ,l
+nmap <leader>l :call ToggleRelativeAbsoluteNumber()<CR>
 function! ToggleRelativeAbsoluteNumber()
   if &number
     set relativenumber
   else
     set number
+  endif
+endfunction
+
+" Toggle line numbers and fold column for easy copying:
+nmap <leader>nn :call ToggleNoNumber()<CR>
+function! ToggleNoNumber()
+  if &number
+    set nonumber
+  elseif &relativenumber
+    set norelativenumber
+  else
+    set relativenumber
   endif
 endfunction
 
@@ -265,6 +280,9 @@ nmap <silent><Leader>te <Esc>:Pytest error<CR>
 " =============================================================================
 " Filetype Specific Settings
 " =============================================================================
+""" VIM
+au FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
+
 """ reStructuredText
 au BufEnter *.txt set filetype=rst
 "autocmd BufNewFile,BufRead *.txt setlocal ft=rst
