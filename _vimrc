@@ -83,7 +83,7 @@ set relativenumber
 set cursorline
 set wildmenu
 set wildignore+=.git,.hg,__pycache__,*.pyc
-set wildmode=full
+set wildmode=list:longest,full
 set clipboard=unnamed  " Alias anonymous register to * (copy to clipboard)
 set listchars=tab:▸\ ,trail:·,eol:¬,precedes:<,extends:>
 set wrap
@@ -172,9 +172,6 @@ nnoremap <C-Return> i<CR><Esc>
 " When I forgot to sudo before editing ...
 cmap w!! w !sudo tee % >/dev/null
 
-" List open buffers
-map <leader>bl :buffers<CR>
-
 " When pressing <leader>cd switch to the directory of the open buffer
 map <leader>cd :cd %:p:h<CR>
 
@@ -246,8 +243,14 @@ endfunction
 " =============================================================================
 " Plug-ins
 " =============================================================================
+" Lycosa Explorer & Lusty
+nnoremap <silent> <leader>lf :LycosaFilesystemExplorer<CR>
+nnoremap <silent> <leader>lr :LycosaFilesystemExplorerFromHere<CR>
+nnoremap <silent> <leader>lb :LycosaBufferExplorer<CR>
+nnoremap <silent> <leader>lj :LustyJuggler<CR>
+
 " TaskList
-map <leader>td <Plug>TaskList
+map <leader>tl <Plug>TaskList
 
 " Rename
 map <leader>mv :Rename
@@ -263,8 +266,8 @@ let g:SuperTabDefaultCompletionType = "context"
 let g:pep8_map='<leader>8'
 
 " Rope
-map <leader>j :RopeGotoDefinition<CR>
-map <leader>r :RopeRename<CR>
+map <leader>rj :RopeGotoDefinition<CR>
+map <leader>rr :RopeRename<CR>
 let ropevim_vim_completion=1    " Use vim's complete function in insert mode
 let ropevim_extended_complete=1 " Show extended info about completion proposals
 let ropevim_guess_project=1     " Guess and open rope project automatically
