@@ -3,5 +3,3 @@ syntax: glob
 .DS_Store
 *.pyc
 *.swp
-
-_vim/bundle.old/*
