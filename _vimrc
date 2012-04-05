@@ -243,11 +243,10 @@ endfunction
 " =============================================================================
 " Plug-ins
 " =============================================================================
-" Lycosa Explorer & Lusty
+" Lycosa Explorer
 nnoremap <silent> <leader>lf :LycosaFilesystemExplorer<CR>
 nnoremap <silent> <leader>lr :LycosaFilesystemExplorerFromHere<CR>
 nnoremap <silent> <leader>lb :LycosaBufferExplorer<CR>
-nnoremap <silent> <leader>lj :LustyJuggler<CR>
 
 " TaskList
 map <leader>tl <Plug>TaskList

@@ -1,4 +1,3 @@
-_vim/bundle/lusty = [git]https://github.com/sjbach/lusty.git
 _vim/bundle/lycosaexplorer = [hg]ssh://hg@bitbucket.org/mikehart/lycosaexplorer
 _vim/bundle/nerdtree = [git]https://github.com/scrooloose/nerdtree.git
 _vim/bundle/repeat = [git]https://github.com/tpope/vim-repeat.git
