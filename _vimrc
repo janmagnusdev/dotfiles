@@ -28,7 +28,6 @@
 "   - Tabs & Indentation
 "   - Searching
 "   - Insert Completion
-"   - Spelling
 " - Shortcuts
 " - Plug-ins
 " - Filetype Specific Settings
@@ -137,12 +136,8 @@ set hlsearch
 set gdefault
 
 """ Insert completion
-" set completeopt=menuone,longest,preview  " ?
-" set pumheight=6             " Keep a small completion window
-
-""" Spelling
-set spelllang=en
-au BufEnter *.txt,*.tex set spell
+set completeopt=longest,menuone
+set pumheight=6             " Keep a small completion window
 
 " =============================================================================
 " Shortcuts
@@ -174,6 +169,9 @@ cmap w!! w !sudo tee % >/dev/null
 
 " When pressing <leader>cd switch to the directory of the open buffer
 map <leader>cd :cd %:p:h<CR>
+
+" Toggle spell check
+nmap <leader>sp :set spell!<CR>
 
 " Re-hardwrap paragraphs of text
 nmap <leader>q gqip
@@ -240,6 +238,14 @@ function! ToggleNoNumber()
   endif
 endfunction
 
+" Make popup menu more usable
+inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+
 " =============================================================================
 " Plug-ins
 " =============================================================================
@@ -248,36 +254,40 @@ nnoremap <silent> <leader>lf :LycosaFilesystemExplorer<CR>
 nnoremap <silent> <leader>lr :LycosaFilesystemExplorerFromHere<CR>
 nnoremap <silent> <leader>lb :LycosaBufferExplorer<CR>
 
-" TaskList
-map <leader>tl <Plug>TaskList
-
-" Rename
-map <leader>mv :Rename
-
 " NERD Tree
 map <leader>n :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.pyo$', '\.class$', 'pip-log\.txt$', '\.o$']
 
-" Supertab
-let g:SuperTabDefaultCompletionType = "context"
+" Python-mode
+let g:pymode_doc_key = '<leader>pd'
+let g:pymode_run_key = '<leader>pr'
+let g:pymode_breakpoint_key = '<leader>pb'
 
-" PEP8
-let g:pep8_map='<leader>8'
+let g:pymode_lint_onfly = 1
 
-" Rope
+" Python Pytest
+nmap <silent> <leader>tf :Pytest file<CR>
+nmap <silent> <leader>tc :Pytest class<CR>
+nmap <silent> <leader>tm :Pytest method<CR>
+nmap <silent> <leader>tn :Pytest next<CR>
+nmap <silent> <leader>tp :Pytest previous<CR>
+nmap <silent> <leader>te :Pytest error<CR>
+
+" Python Rope
 map <leader>rj :RopeGotoDefinition<CR>
 map <leader>rr :RopeRename<CR>
 let ropevim_vim_completion=1    " Use vim's complete function in insert mode
 let ropevim_extended_complete=1 " Show extended info about completion proposals
 let ropevim_guess_project=1     " Guess and open rope project automatically
 
-" Py.test
-nmap <silent><Leader>tf <Esc>:Pytest file<CR>
-nmap <silent><Leader>tc <Esc>:Pytest class<CR>
-nmap <silent><Leader>tm <Esc>:Pytest method<CR>
-nmap <silent><Leader>tn <Esc>:Pytest next<CR>
-nmap <silent><Leader>tp <Esc>:Pytest previous<CR>
-nmap <silent><Leader>te <Esc>:Pytest error<CR>
+" Rename
+map <leader>mv :Rename
+
+" Supertab
+let g:SuperTabDefaultCompletionType = "context"
+
+" TaskList
+map <leader>tl <Plug>TaskList
 
 " =============================================================================
 " Filetype Specific Settings
@@ -305,13 +315,13 @@ au FileType python imap <buffer> <C-Space> <M-/>
 au FileType python set omnifunc=pythoncomplete#Complete
 
 " Add the virtualenv’s site-packages to vim path
-py << EOF
-import os.path
-import sys
-import vim
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
+"py << EOF
+"import os.path
+"import sys
+"import vim
+"if 'VIRTUAL_ENV' in os.environ:
+"    project_base_dir = os.environ['VIRTUAL_ENV']
+"    sys.path.insert(0, project_base_dir)
+"    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"    execfile(activate_this, dict(__file__=activate_this))
+"EOF

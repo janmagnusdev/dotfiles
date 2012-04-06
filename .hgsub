@@ -1,6 +1,9 @@
 _vim/bundle/lycosaexplorer = [hg]ssh://hg@bitbucket.org/mikehart/lycosaexplorer
 _vim/bundle/nerdtree = [git]https://github.com/scrooloose/nerdtree.git
+_vim/bundle/pytest = [git]https://github.com/alfredodeza/pytest.vim.git
+_vim/bundle/python-mode = [git]https://github.com/klen/python-mode.git
 _vim/bundle/repeat = [git]https://github.com/tpope/vim-repeat.git
 _vim/bundle/snipmate = [git]https://github.com/msanders/snipmate.vim.git
+_vim/bundle/supertab = [git]https://github.com/ervandew/supertab.git
 _vim/bundle/surround = [git]https://github.com/tpope/vim-surround.git
 _vim/bundle/tcomment = [git]https://github.com/tomtom/tcomment_vim.git
