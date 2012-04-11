@@ -263,7 +263,10 @@ let g:pymode_doc_key = '<leader>pd'
 let g:pymode_run_key = '<leader>pr'
 let g:pymode_breakpoint_key = '<leader>pb'
 
+let g:pymode_lint_hold = 1
 let g:pymode_lint_onfly = 1
+let g:pymode_lint_mccabe_complexity = 10
+let g:pymode_options_other = 0
 
 " Python Pytest
 nmap <silent> <leader>tf :Pytest file<CR>
