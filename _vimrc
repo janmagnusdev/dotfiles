@@ -212,7 +212,7 @@ au FilterWritePre * :call TrimSpaces()
 au BufWritePre * :call TrimSpaces()
 nmap <leader>ts :call TrimSpaces()<CR>
 
-" Easy switching
+" Easy filetype switching
 nnoremap <leader>Tp :set ft=python<CR>
 nnoremap <leader>Tr :set ft=rst<CR>
 
@@ -277,6 +277,8 @@ nmap <silent> <leader>tp :Pytest previous<CR>
 nmap <silent> <leader>te :Pytest error<CR>
 
 " Python Rope
+" Activate rope completion via <tab>
+" au FileType python imap <buffer> <C-Space> <M-/>
 map <leader>rj :RopeGotoDefinition<CR>
 map <leader>rr :RopeRename<CR>
 let ropevim_vim_completion=1    " Use vim's complete function in insert mode
@@ -311,9 +313,7 @@ au FileType tex setl fo+=t  " Auto-wrap text using textwidth
 
 """ Python
 au FileType python setl fo+=c  " Auto-wrap comments using textwidth
-let python_highlight_all=1
-" Activate rope completion via <tab>
-au FileType python imap <buffer> <C-Space> <M-/>
+" let python_highlight_all=1
 " Enable python completion
 au FileType python set omnifunc=pythoncomplete#Complete
 
