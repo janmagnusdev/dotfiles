@@ -92,6 +92,7 @@ set scrolloff=3
 """ Behavior
 set autoread
 set hidden
+set nostartofline
 set nobackup
 set nomodeline
 set noswapfile
