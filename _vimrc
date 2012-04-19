@@ -277,10 +277,9 @@ nmap <silent> <leader>tp :Pytest previous<CR>
 nmap <silent> <leader>te :Pytest error<CR>
 
 " Python Rope
-" Activate rope completion via <tab>
-" au FileType python imap <buffer> <C-Space> <M-/>
 map <leader>rj :RopeGotoDefinition<CR>
 map <leader>rr :RopeRename<CR>
+imap <c-tab> <C-R>=RopeCodeAssistInsertMode()<CR>
 let ropevim_vim_completion=1    " Use vim's complete function in insert mode
 let ropevim_extended_complete=1 " Show extended info about completion proposals
 let ropevim_guess_project=1     " Guess and open rope project automatically
