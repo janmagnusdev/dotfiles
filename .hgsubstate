@@ -1,5 +1,6 @@
 555478ea18f495f1db5213ef2443fe405812eec2 _vim/bundle/lycosaexplorer
 2cb0fc78fb4c7a1db5f51c042a447cc50f09983d _vim/bundle/nerdtree
+911d9c39cf8d1d1734826d9eab85605c373c780e _vim/bundle/pyflakes-vim
 1a18767ee5f098cb7fba5ed362b9ce8c1b47b78b _vim/bundle/pytest
 9956aba64cc0f7bfe029fa0f3ea6a3c33037bcad _vim/bundle/python-mode
 2914f11f7494adefaaec1d8c817a301c464c94b2 _vim/bundle/repeat
