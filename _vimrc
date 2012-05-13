@@ -137,7 +137,7 @@ set hlsearch
 set gdefault
 
 """ Insert completion
-set completeopt=longest,menuone
+set completeopt=menu,preview
 set pumheight=6             " Keep a small completion window
 
 " =============================================================================
