@@ -20,7 +20,7 @@ for entry in glob.glob('_*'):
     target = os.path.join(home, re.sub('^_', '.', entry))
 
     if os.path.exists(target):
-        print('Backupping %s' % target)
+        print('Backing up %s' % target)
         os.rename(target, '%s.%s' % (target, time.strftime('%Y%m%d_%H%M%S')))
 
     os.symlink(source, target)
