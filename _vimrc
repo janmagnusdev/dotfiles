@@ -50,15 +50,17 @@ nmap <silent> <leader>sv :source $MYVIMRC<CR>
 set encoding=utf-8
 set t_Co=256
 colorscheme grayboard
+set mouse=a
 
 if has('gui_running')
   set guioptions-=T  " Hide toolbar
   set guicursor+=a:blinkon0
   set guicursor+=i-ci:ver10-Cursor-blinkwait500-blinkoff500-blinkon500
 
+  set columns=105
+
   if has('gui_macvim')
     set guifont=Menlo:h13
-    set columns=105
     set lines=55
 
     " Tab switching
@@ -70,8 +72,7 @@ if has('gui_running')
     imap <D-A-right> <C-O><C-PageDown>
 
   elseif has('gui_gtk2')
-    set guifont=Monospace\ 9
-    set columns=105
+    set guifont=DejaVu\ Sans\ Mono\ 9,Monospace\ 9
     set lines=62
   endif
 endif
@@ -185,7 +186,11 @@ nmap <silent> <leader><space> :noh<CR>
 nmap <silent> <leader>s :set nolist!<CR>
 
 " Create new vertical split and switch over to it
-nnoremap <leader>v <C-w>v<C-w>l
+if has('gui_running')
+    nnoremap <leader>v :set columns=200<CR><C-w>v<C-w>l
+else
+    nnoremap <leader>v <C-w>v>C-w>l
+endif
 
 " open/close the quickfix window
 nmap <leader>c :copen<CR>
