@@ -37,7 +37,7 @@ hi PmenuThumb   ctermfg=255  ctermbg=237  cterm=NONE    guifg=#F8F8F8 guibg=#303
 hi MatchParen   ctermfg=0    ctermbg=220  cterm=NONE    guifg=#000000 guibg=#FBDE2D gui=NONE
 hi IncSearch    ctermfg=0    ctermbg=220  cterm=NONE    guifg=#000000 guibg=#FBDE2D gui=NONE
 hi Search       ctermfg=0    ctermbg=220  cterm=NONE    guifg=#000000 guibg=#FBDE2D gui=NONE
-hi Directory    ctermfg=110  ctermbg=NONE cterm=bold    guifg=#7AB5CC guibg=NONE    gui=bold
+hi Directory    ctermfg=202  ctermbg=NONE cterm=bold    guifg=#F26F18 guibg=NONE    gui=bold
 hi Folded       ctermfg=255  ctermbg=24   cterm=NONE    guifg=#F8F8F8 guibg=#295566 gui=NONE
 
 hi NonText      ctermfg=240  ctermbg=NONE cterm=NONE    guifg=#585858 guibg=NONE    gui=NONE

@@ -164,7 +164,7 @@ nnoremap k gk
 nnoremap <space> za
 
 " Ctrl+Return inserts line break in normal mode
-nnoremap <C-Return> i<CR><Esc>
+nnoremap <C-Return> i<CR><Esc>l
 
 " When I forgot to sudo before editing ...
 cmap w!! w !sudo tee % >/dev/null
