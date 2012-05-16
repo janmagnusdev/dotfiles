@@ -159,6 +159,8 @@ noremap <C-l> <C-w>l
 " Let j/k work on screen lines
 nnoremap j gj
 nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 
 " Use space for folding
 nnoremap <space> za

@@ -34,7 +34,7 @@ hi PmenuSel     ctermfg=255  ctermbg=24   cterm=NONE    guifg=#F8F8F8 guibg=#0A2
 hi PmenuSbar    ctermfg=255  ctermbg=240  cterm=NONE    guifg=#F8F8F8 guibg=#585858 gui=NONE
 hi PmenuThumb   ctermfg=255  ctermbg=237  cterm=NONE    guifg=#F8F8F8 guibg=#303030 gui=NONE
 
-hi MatchParen   ctermfg=0    ctermbg=220  cterm=NONE    guifg=#000000 guibg=#FBDE2D gui=NONE
+hi MatchParen   ctermfg=0  ctermbg=NONE cterm=underline guifg=#C8A0D1 guibg=NONE    gui=underline
 hi IncSearch    ctermfg=0    ctermbg=220  cterm=NONE    guifg=#000000 guibg=#FBDE2D gui=NONE
 hi Search       ctermfg=0    ctermbg=220  cterm=NONE    guifg=#000000 guibg=#FBDE2D gui=NONE
 hi Directory    ctermfg=202  ctermbg=NONE cterm=bold    guifg=#F26F18 guibg=NONE    gui=bold
