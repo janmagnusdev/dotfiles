@@ -123,7 +123,7 @@ _pip_completion()
 complete -o default -F _pip_completion pip
 # pip bash completion end
 
-export PYTHONSTARTUP=$HOME/.pythonrc
+export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 export WORKON_HOME=$HOME/.virtualenvs
 venwrap=`type -P virtualenvwrapper.sh`
