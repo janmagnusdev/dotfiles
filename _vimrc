@@ -302,6 +302,29 @@ let g:SuperTabDefaultCompletionType = "context"
 " TaskList
 map <leader>tl <Plug>TaskList
 
+" ReST headings
+" = above and below for title
+noremap <leader>ht yyPVr=yyjp
+inoremap <leader>ht <esc>yyPVr=yyjpo<cr>
+" # for parts
+noremap <leader>hp yypVr#k
+inoremap <leader>hp <esc>yypVr#o<cr>
+" * for chapters
+noremap <leader>hc yypVr*k
+inoremap <leader>hc <esc>yypVr*o<cr>
+" = for sections
+noremap <leader>h1 yypVr=k
+inoremap <leader>h1 <esc>yypVr=o<cr>
+" - for subsections
+noremap <leader>h2 yypVr-k
+inoremap <leader>h2 <esc>yypVr-o<cr>
+" ^ for subsubsections
+noremap <leader>h3 yypVr^k
+inoremap <leader>h3 <esc>yypVr^o<cr>
+" " for paragraphs
+noremap <leader>h4 yypVr"k
+inoremap <leader>h4 <esc>yypVr"o<cr>
+
 " =============================================================================
 " Filetype Specific Settings
 " =============================================================================
