@@ -11,11 +11,13 @@ import glob
 import os
 import os.path
 import re
+import sys
 import time
 
 
 home = os.path.expanduser('~')
-for entry in glob.glob('_*'):
+entries = glob.glob('_*') if len(sys.argv) == 1 else sys.argv[1:]
+for entry in entries:
     source = os.path.join(os.getcwd(), entry)
     target = os.path.join(home, re.sub('^_', '.', entry))
 
