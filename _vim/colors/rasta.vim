@@ -1,6 +1,7 @@
 " Vim color scheme
 "
-" This style is derived from TextMate’s blackboard theme.
+" This style is derived from TextMate’s blackboard theme. I and I call it
+" *Rasta*, because Python code looks very red-yellow-green-ish with it.
 
 set background=dark
 hi clear
@@ -8,7 +9,7 @@ if exists("syntax_on")
    syntax reset
 endif
 
-let g:colors_name = "grayboard"
+let g:colors_name = "rasta"
 
 " General interface
 hi Normal       ctermfg=NONE ctermbg=NONE cterm=NONE    guifg=#E4E4E4 guibg=#181818 gui=NONE

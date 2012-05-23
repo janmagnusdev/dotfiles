@@ -49,7 +49,7 @@ nmap <silent> <leader>sv :source $MYVIMRC<CR>
 """ Basic Settings & GUI
 set encoding=utf-8
 set t_Co=256
-colorscheme grayboard
+colorscheme rasta
 set mouse=a
 
 if has('gui_running')
