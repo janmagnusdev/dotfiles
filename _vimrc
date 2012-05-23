@@ -146,6 +146,9 @@ set pumheight=6             " Keep a small completion window
 " =============================================================================
 set pastetoggle=<F2>  " Toggle paste mode
 
+" jj to exit insert mode
+imap jj <esc>
+
 map <C-o> :tabnew
 map <C-t> :tabnew .<CR>
 map <C-w> :q<CR>
@@ -329,15 +332,20 @@ inoremap <leader>h4 <esc>yypVr"o<cr>
 " Filetype Specific Settings
 " =============================================================================
 " Easy file-type switching
-nnoremap <leader>Tp :set ft=python<CR>
-nnoremap <leader>Tr :set ft=rst<CR>
+nnoremap <leader>Tp :set ft=python<cr>
+nnoremap <leader>Tr :set ft=rst<cr>
+nnoremap <leader>Tm :set ft=markdown<cr>
 
 """ VIM
 au FileType vim setl sw=2 ts=2 sts=2 et
 
 """ reStructuredText
-au BufEnter *.txt set filetype=rst
+au BufEnter *.txt set ft=rst
 au FileType rst setl fo+=t  " Auto-wrap text using textwidth
+
+""" Markdown
+au BufEnter *.md set ft=markdown
+au FileType markdown setl fo+=t  " Auto-wrap text using textwidth
 
 """ Latex
 au FileType tex setl fo+=t  " Auto-wrap text using textwidth
