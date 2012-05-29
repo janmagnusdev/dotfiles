@@ -135,8 +135,8 @@ class Completer(rlcompleter.Completer):
     <http://codespeak.net/svn/user/antocuni/hack/rlcompleter_ng.py>`_
 
     """
-    def __init__(self):
-        rlcompleter.Completer.__init__(self)
+    def __init__(self, *args, **kwargs):
+        rlcompleter.Completer.__init__(self, *args, **kwargs)
 
     def complete(self, text, state):
         """
