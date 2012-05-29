@@ -138,7 +138,6 @@ elif [ -f /usr/share/autojump/autojump.bash ]; then
     source /usr/share/autojump/autojump.bash
 fi
 
-alias sshi="ssh xerxes@hurrikan.informatik.uni-oldenburg.de"
 alias sshs="ssh -p 34343 stefan@sofa-rockers.org"
-alias ssht="ssh scherfke@thurman.informatik.uni-oldenburg.de"
 alias sshe="ssh sscherfke@srvenergie02.offis.uni-oldenburg.de"
+alias sshn="ssh sscherfke@smartnord.de"
