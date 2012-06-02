@@ -47,6 +47,7 @@ function repo_stat {
         echo -ne "${color}☿"
 
     # Git
+    # stolen from https://github.com/sjl/oh-my-zsh/blob/master/lib/git.zsh
     elif git branch &>/dev/null; then
         gitstat=$(git status 2>/dev/null | grep '\(# Untracked\|# Changes\|# Changed but not updated:\)')
 
@@ -72,7 +73,7 @@ function repo_stat {
 PS1="\[\033[01;32m\]\u@\h"  # user@host (green)
 PS1+="\[\033[00m\]:"        # :
 PS1+="\[\033[01;34m\]\w"    # cwd (blue)
-PS1+="\$(repo_stat)"       # ☿ for hg or ± for git repos
+PS1+="\$(repo_stat)"        # ☿ for hg or ± for git repos
 PS1+="\[\033[00m\]\$ "      # $
 
 
