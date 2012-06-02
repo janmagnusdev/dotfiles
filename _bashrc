@@ -31,10 +31,23 @@ fi
 
 # Prints colorized symbol for hg/git repos indicating the repo’s status
 function repo_stat {
-    color="\033[00m"
+    # Git (needs to come first to detect git sub-repos in hg repos)
+    if git branch &>/dev/null; then
+        gitstat=$(git status 2>/dev/null | grep '\(# Untracked\|# Changes\|# Changed but not updated:\)')
+
+        if [[ "$gitstat" =~ 'Changes to be committed' ]]; then
+            color="\033[01;31m"  # Uncommited changes
+
+        elif [[ "$gitstat" =~ 'Changed but not updated' || "$gitstat" =~ 'Untracked files' ]]; then
+            color="\033[01;33m"  # No changes, but untracked files
+
+        else
+            color="\033[01;32m"  # No changes or untracked files
+        fi
+        echo -ne "${color}±"
 
     # Mercurial
-    if hg root &>/dev/null; then
+    elif hg root &>/dev/null; then
         hgstat=$(hg status)
         if [ "$hgstat" == "" ]; then
             color="\033[01;32m"  # No changes or untracked files
@@ -47,24 +60,6 @@ function repo_stat {
             fi
         fi
         echo -ne "${color}☿"
-
-    # Git
-    # stolen from https://github.com/sjl/oh-my-zsh/blob/master/lib/git.zsh
-    elif git branch &>/dev/null; then
-        gitstat=$(git status 2>/dev/null | grep '\(# Untracked\|# Changes\|# Changed but not updated:\)')
-
-        if [[ $(echo ${gitstat} | grep -c "^# Changes to be committed:$") > 0 ]]; then
-            color="\033[01;31m"  # Uncommited changes
-        fi
-
-        if [[ $(echo ${gitstat} | grep -c "^\(# Untracked files:\|# Changed but not updated:\)$") > 0 ]]; then
-            color="\033[01;33m"  # No changes, but untracked files
-        fi
-
-        if [[ $(echo ${gitstat} | wc -l | tr -d ' ') == 0 ]]; then
-            color="\033[01;32m"  # No changes or untracked files
-        fi
-        echo -ne "${color}±"
 
     # else
     #     echo '○'
