@@ -223,10 +223,6 @@ au FilterWritePre * :call TrimSpaces()
 au BufWritePre * :call TrimSpaces()
 nmap <leader>ts :call TrimSpaces()<CR>
 
-" Easy filetype switching
-nnoremap <leader>Tp :set ft=python<CR>
-nnoremap <leader>Tr :set ft=rst<CR>
-
 " Toggle between number and relative number on ,l
 nmap <leader>l :call ToggleRelativeAbsoluteNumber()<CR>
 function! ToggleRelativeAbsoluteNumber()
@@ -332,9 +328,10 @@ inoremap <leader>h4 <esc>yypVr"o<cr>
 " Filetype Specific Settings
 " =============================================================================
 " Easy file-type switching
+nnoremap <leader>Tm :set ft=markdown<cr>
 nnoremap <leader>Tp :set ft=python<cr>
 nnoremap <leader>Tr :set ft=rst<cr>
-nnoremap <leader>Tm :set ft=markdown<cr>
+nnoremap <leader>Ts :set ft=sh<cr>
 
 """ VIM
 au FileType vim setl sw=2 ts=2 sts=2 et
