@@ -5,10 +5,6 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# OS X color terminal
-export CLICOLOR=1
-export LSCOLORS=ExFxCxDxBxegedabagacad
-
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
 HISTCONTROL=ignoredups:ignorespace
@@ -32,42 +28,57 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-force_color_prompt=yes
+# Prints colorized symbol for hg/git repos indicating the repo’s status
+function repo_stat {
+    # Mercurial
+    if hg root &>/dev/null; then
+        hgstat=$(hg status)
+        if [ "$hgstat" == "" ]; then
+            color="\033[01;32m"  # No changes or untracked files
+        else
+            hgstat=$(hg status -mard)
+            if [ "$hgstat" == "" ]; then
+                color="\033[01;33m"  # No changes, but untracked files
+            else
+                color="\033[01;31m"  # Uncommited changes
+            fi
+        fi
+        echo -ne "${color}☿"
 
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-    # We have color support; assume it's compliant with Ecma-48
-    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-    # a case would tend to support setf rather than setaf.)
-    color_prompt=yes
-    else
-    color_prompt=
+    # Git
+    elif git branch &>/dev/null; then
+        gitstat=$(git status 2>/dev/null | grep '\(# Untracked\|# Changes\|# Changed but not updated:\)')
+
+        if [[ $(echo ${gitstat} | grep -c "^# Changes to be committed:$") > 0 ]]; then
+            color="\033[01;31m"  # Uncommited changes
+        fi
+
+        if [[ $(echo ${gitstat} | grep -c "^\(# Untracked files:\|# Changed but not updated:\)$") > 0 ]]; then
+            color="\033[01;33m"  # No changes, but untracked files
+        fi
+
+        if [[ $(echo ${gitstat} | wc -l | tr -d ' ') == 0 ]]; then
+            color="\033[01;32m"  # No changes or untracked files
+        fi
+        echo -ne "${color}±"
+
+    # else
+    #     echo '○'
     fi
-fi
+}
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
+# Prompt
+PS1="\[\033[01;32m\]\u@\h"  # user@host (green)
+PS1+="\[\033[00m\]:"        # :
+PS1+="\[\033[01;34m\]\w"    # cwd (blue)
+PS1+="\$(repo_stat)"       # ☿ for hg or ± for git repos
+PS1+="\[\033[00m\]\$ "      # $
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+
+# OS X color terminal
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -106,6 +117,11 @@ if [ `uname -s` = "Darwin" ]; then
     alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 fi
 
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -141,3 +157,5 @@ fi
 alias sshs="ssh -p 34343 stefan@sofa-rockers.org"
 alias sshe="ssh sscherfke@srvenergie02.offis.uni-oldenburg.de"
 alias sshn="ssh sscherfke@smartnord.de"
+alias fwd-jabber="ssh -N -L 5222:jabber.offis.uni-oldenburg.de:5222 sscherfke@srvenergie02.offis.uni-oldenburg.de"
+alias fwd-smb="sudo ifconfig lo0 alias 127.0.0.2 up && sudo ssh -N -L 127.0.0.2:139:srvim02:139 sscherfke@srvenergie02.offis.uni-oldenburg.de"
