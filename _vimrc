@@ -119,6 +119,7 @@ set colorcolumn=+1
 set autoindent
 set smartindent
 set formatoptions=qrn1
+set virtualedit=block
 set backspace=indent,eol,start
 set foldmethod=indent
 set foldlevel=99
