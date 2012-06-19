@@ -1,2 +1,4 @@
+$ include /etc/inputrc
+
 # Show all possible completions in case of ambiguity
 set show-all-if-ambiguous on
