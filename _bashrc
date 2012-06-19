@@ -38,13 +38,13 @@ function repo_stat {
         if [[ "$gitstat" =~ 'Changes to be committed' ]]; then
             color="\033[01;31m"  # Uncommited changes
 
-        elif [[ "$gitstat" =~ 'Changed but not updated' || "$gitstat" =~ 'Untracked files' ]]; then
+        elif [[ "$gitstat" =~ 'Changes not staged for commit' || "$gitstat" =~ 'Untracked files' ]]; then
             color="\033[01;33m"  # No changes, but untracked files
 
         else
             color="\033[01;32m"  # No changes or untracked files
         fi
-        echo -ne "${color}±"
+        echo -ne "${color}"
 
     # Mercurial
     elif hg root &>/dev/null; then
@@ -59,19 +59,31 @@ function repo_stat {
                 color="\033[01;31m"  # Uncommited changes
             fi
         fi
-        echo -ne "${color}☿"
+        echo -ne "${color}"
+    fi
+}
+
+function repo_type {
+    # Git (needs to come first to detect git sub-repos in hg repos)
+    if git branch &>/dev/null; then
+        echo -n "±"
+
+    # Mercurial
+    elif hg root &>/dev/null; then
+        echo -n "☿"
 
     # else
     #     echo '○'
+
     fi
 }
 
 # Prompt
-PS1="\[\033[01;32m\]\u@\h"  # user@host (green)
-PS1+="\[\033[00m\]:"        # :
-PS1+="\[\033[01;34m\]\w"    # cwd (blue)
-PS1+="\$(repo_stat)"        # ☿ for hg or ± for git repos
-PS1+="\[\033[00m\]\$ "      # $
+PS1="\[\033[01;32m\]\u@\h"              # user@host (green)
+PS1+="\[\033[00m\]:"                    # :
+PS1+="\[\033[01;34m\]\w"                # cwd (blue)
+PS1+="\[\$(repo_stat)\]\$(repo_type)"   # ☿ for hg or ± for git repos
+PS1+="\[\033[00m\]\$ "                  # $
 
 
 # OS X color terminal
