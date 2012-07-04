@@ -247,12 +247,12 @@ function! ToggleNoNumber()
 endfunction
 
 " Make popup menu more usable
-inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
-inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+" inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+" inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+" inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+" inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+" inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+" inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 " =============================================================================
 " Plug-ins
@@ -329,6 +329,7 @@ inoremap <leader>h4 <esc>yypVr"o<cr>
 " Filetype Specific Settings
 " =============================================================================
 " Easy file-type switching
+nnoremap <leader>Th :set ft=html<cr>
 nnoremap <leader>Tm :set ft=markdown<cr>
 nnoremap <leader>Tp :set ft=python<cr>
 nnoremap <leader>Tr :set ft=rst<cr>
