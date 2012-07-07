@@ -12,7 +12,7 @@
 " Most plug-ins are not contained in this repository and have to be installed
 " manually.
 "
-" Installation: ``update_vim.py clone`` clones all plugi-ins to *_vim/bundle/*
+" Installation: ``update_vim.py clone`` clones all plug-ins to *_vim/bundle/*
 " Update: ``update_vim.py`` w/o args pulls changes for each plug-in
 "
 "
@@ -43,8 +43,8 @@ filetype plugin indent on
 let mapleader=","
 
 " Fast editing of the .vimrc
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :source $MYVIMRC<CR>
+nmap <silent> <leader>ev :e $MYVIMRC<cr>
+nmap <silent> <leader>sv :source $MYVIMRC<cr>
 
 """ Basic Settings & GUI
 set encoding=utf-8
@@ -151,8 +151,8 @@ set pastetoggle=<F2>  " Toggle paste mode
 imap jj <esc>
 
 map <C-o> :tabnew
-map <C-t> :tabnew .<CR>
-map <C-w> :q<CR>
+map <C-t> :tabnew .<cr>
+map <C-w> :q<cr>
 
 " Ctrl-jklm to move between windows
 noremap <C-h> <C-w>h
@@ -170,37 +170,37 @@ vnoremap k gk
 nnoremap <space> za
 
 " Ctrl+Return inserts line break in normal mode
-nnoremap <C-Return> i<CR><Esc>l
+nnoremap <C-Return> i<cr><Esc>l
 
 " When I forgot to sudo before editing ...
 cmap w!! w !sudo tee % >/dev/null
 
 " When pressing <leader>cd switch to the directory of the open buffer
-map <leader>cd :cd %:p:h<CR>
+map <leader>cd :cd %:p:h<cr>
 
 " Toggle spell check
-nmap <leader>sp :set spell!<CR>
+nmap <leader>sp :set spell!<cr>
 
 " Re-hardwrap paragraphs of text
 nmap <leader>q gqip
 vmap <leader>q gq
 
 " Clear search term (remove highlighting)
-nmap <silent> <leader><space> :noh<CR>
+nmap <silent> <leader><space> :noh<cr>
 
 " Toggle displaying of whitespaces
-nmap <silent> <leader>s :set nolist!<CR>
+nmap <silent> <leader>s :set nolist!<cr>
 
 " Create new vertical split and switch over to it
 if has('gui_running')
-    nnoremap <leader>v :set columns=200<CR><C-w>v<C-w>l
+    nnoremap <leader>v :set columns=200<cr><C-w>v<C-w>l
 else
     nnoremap <leader>v <C-w>v>C-w>l
 endif
 
 " open/close the quickfix window
-nmap <leader>c :copen<CR>
-nmap <leader>cc :cclose<CR>
+nmap <leader>c :copen<cr>
+nmap <leader>cc :cclose<cr>
 
 " SmartHome (vim tip 315)
 function! SmartHome()
@@ -210,9 +210,9 @@ function! SmartHome()
     normal! 0
   endif
 endfunction
-nnoremap <silent> <Home> :call SmartHome()<CR>
-inoremap <silent> <Home> <C-O>:call SmartHome()<CR>
-nnoremap <silent> 0 :call SmartHome()<CR>
+nnoremap <silent> <Home> :call SmartHome()<cr>
+inoremap <silent> <Home> <C-O>:call SmartHome()<cr>
+nnoremap <silent> 0 :call SmartHome()<cr>
 
 " Remove trailing spaces
 function! TrimSpaces()
@@ -222,10 +222,10 @@ au FileWritePre * :call TrimSpaces()
 au FileAppendPre * :call TrimSpaces()
 au FilterWritePre * :call TrimSpaces()
 au BufWritePre * :call TrimSpaces()
-nmap <leader>ts :call TrimSpaces()<CR>
+nmap <leader>ts :call TrimSpaces()<cr>
 
 " Toggle between number and relative number on ,l
-nmap <leader>l :call ToggleRelativeAbsoluteNumber()<CR>
+nmap <leader>l :call ToggleRelativeAbsoluteNumber()<cr>
 function! ToggleRelativeAbsoluteNumber()
   if &number
     set relativenumber
@@ -235,7 +235,7 @@ function! ToggleRelativeAbsoluteNumber()
 endfunction
 
 " Toggle line numbers and fold column for easy copying:
-nmap <leader>nn :call ToggleNoNumber()<CR>
+nmap <leader>nn :call ToggleNoNumber()<cr>
 function! ToggleNoNumber()
   if &number
     set nonumber
@@ -248,7 +248,7 @@ endfunction
 
 " Make popup menu more usable
 " inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-" inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+" inoremap <expr> <cr>       pumvisible() ? "\<C-y>" : "\<cr>"
 " inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 " inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 " inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
@@ -257,13 +257,16 @@ endfunction
 " =============================================================================
 " Plug-ins
 " =============================================================================
+" Hex Highlight
+nmap <leader>hh :call HexHighlight()<cr>
+
 " Lycosa Explorer
-nnoremap <silent> <leader>lf :LycosaFilesystemExplorer<CR>
-nnoremap <silent> <leader>lr :LycosaFilesystemExplorerFromHere<CR>
-nnoremap <silent> <leader>lb :LycosaBufferExplorer<CR>
+nnoremap <silent> <leader>lf :LycosaFilesystemExplorer<cr>
+nnoremap <silent> <leader>lr :LycosaFilesystemExplorerFromHere<cr>
+nnoremap <silent> <leader>lb :LycosaBufferExplorer<cr>
 
 " NERD Tree
-map <leader>n :NERDTreeToggle<CR>
+map <leader>n :NERDTreeToggle<cr>
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.pyo$', '\.class$', 'pip-log\.txt$', '\.o$']
 
 " Python-mode
@@ -278,17 +281,17 @@ let g:pymode_lint_mccabe_complexity = 10
 let g:pymode_options_other = 0
 
 " Python Pytest
-nmap <silent> <leader>tf :Pytest file<CR>
-nmap <silent> <leader>tc :Pytest class<CR>
-nmap <silent> <leader>tm :Pytest method<CR>
-nmap <silent> <leader>tn :Pytest next<CR>
-nmap <silent> <leader>tp :Pytest previous<CR>
-nmap <silent> <leader>te :Pytest error<CR>
+nmap <silent> <leader>tf :Pytest file<cr>
+nmap <silent> <leader>tc :Pytest class<cr>
+nmap <silent> <leader>tm :Pytest method<cr>
+nmap <silent> <leader>tn :Pytest next<cr>
+nmap <silent> <leader>tp :Pytest previous<cr>
+nmap <silent> <leader>te :Pytest error<cr>
 
 " Python Rope
-map <leader>rj :RopeGotoDefinition<CR>
-map <leader>rr :RopeRename<CR>
-imap <c-tab> <C-R>=RopeCodeAssistInsertMode()<CR>
+map <leader>rj :RopeGotoDefinition<cr>
+map <leader>rr :RopeRename<cr>
+imap <c-tab> <C-R>=RopeCodeAssistInsertMode()<cr>
 let ropevim_vim_completion=1    " Use vim's complete function in insert mode
 let ropevim_extended_complete=1 " Show extended info about completion proposals
 let ropevim_guess_project=1     " Guess and open rope project automatically
