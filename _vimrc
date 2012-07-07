@@ -248,10 +248,6 @@ nnoremap <silent> <leader>lf :LycosaFilesystemExplorer<cr>
 nnoremap <silent> <leader>lr :LycosaFilesystemExplorerFromHere<cr>
 nnoremap <silent> <leader>lb :LycosaBufferExplorer<cr>
 
-" NERD Tree
-map <leader>n :NERDTreeToggle<cr>
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.pyo$', '\.class$', 'pip-log\.txt$', '\.o$']
-
 " Python-mode
 let g:pymode_doc_key = '<leader>pd'
 let g:pymode_run_key = '<leader>pr'
