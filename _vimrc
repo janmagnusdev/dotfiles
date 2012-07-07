@@ -1,23 +1,6 @@
 " =============================================================================
-" Dependencies
-"
-" - Pep8 - http://pypi.python.org/pypi/pep8
-" - Py.test
-" - Rake & Ruby for command-t
-"
-"
-" Installation & Updating
-" =======================
-"
-" Most plug-ins are not contained in this repository and have to be installed
-" manually.
-"
-" Installation: ``update_vim.py clone`` clones all plug-ins to *_vim/bundle/*
-" Update: ``update_vim.py`` w/o args pulls changes for each plug-in
-"
-"
 " Sections
-" ========
+" =============================================================================
 "
 " - General
 "   - Basic Settings & GUI
@@ -43,8 +26,8 @@ filetype plugin indent on
 let mapleader=","
 
 " Fast editing of the .vimrc
-nmap <silent> <leader>ev :e $MYVIMRC<cr>
-nmap <silent> <leader>sv :source $MYVIMRC<cr>
+nmap <leader>ev :e $MYVIMRC<cr>
+nmap <leader>sv :source $MYVIMRC<cr>
 
 """ Basic Settings & GUI
 set encoding=utf-8
@@ -115,7 +98,7 @@ set statusline+=%<%P                            " file position
 
 """ Moving around / Editing
 set textwidth=79
-set colorcolumn=+1
+set colorcolumn=73,80
 set autoindent
 set smartindent
 set formatoptions=qrn1
@@ -139,7 +122,7 @@ set hlsearch
 set gdefault
 
 """ Insert completion
-set completeopt=menu,preview
+set completeopt=longest,menu,preview
 set pumheight=6             " Keep a small completion window
 
 " =============================================================================
@@ -357,15 +340,3 @@ au FileType python setl fo+=c  " Auto-wrap comments using textwidth
 " let python_highlight_all=1
 " Enable python completion
 au FileType python set omnifunc=pythoncomplete#Complete
-
-" Add the virtualenv’s site-packages to vim path
-"py << EOF
-"import os.path
-"import sys
-"import vim
-"if 'VIRTUAL_ENV' in os.environ:
-"    project_base_dir = os.environ['VIRTUAL_ENV']
-"    sys.path.insert(0, project_base_dir)
-"    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-"    execfile(activate_this, dict(__file__=activate_this))
-"EOF

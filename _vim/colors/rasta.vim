@@ -18,7 +18,7 @@ hi Visual       ctermfg=NONE ctermbg=244  cterm=NONE    guifg=NONE    guibg=#808
 
 hi CursorLine   ctermfg=NONE ctermbg=236  cterm=NONE    guifg=NONE    guibg=#303030 gui=NONE
 hi CursorColumn ctermfg=NONE ctermbg=236  cterm=NONE    guifg=NONE    guibg=#303030 gui=NONE
-hi ColorColumn  ctermfg=NONE ctermbg=236  cterm=NONE    guifg=NONE    guibg=#303030 gui=NONE
+hi ColorColumn  ctermfg=NONE ctermbg=236  cterm=NONE    guifg=NONE    guibg=#242424 gui=NONE
 
 hi TabLine      ctermfg=254  ctermbg=240  cterm=NONE
 hi TabLineFill  ctermfg=254  ctermbg=240  cterm=NONE
@@ -38,7 +38,7 @@ hi PmenuThumb   ctermfg=254  ctermbg=237  cterm=NONE    guifg=#E4E4E4 guibg=#303
 hi MatchParen   ctermfg=182 ctermbg=NONE cterm=underline guifg=#C8A0D1 guibg=NONE   gui=underline
 hi IncSearch    ctermfg=0    ctermbg=220  cterm=NONE    guifg=#000000 guibg=#FBDE2D gui=NONE
 hi Search       ctermfg=0    ctermbg=220  cterm=NONE    guifg=#000000 guibg=#FBDE2D gui=NONE
-hi Directory    ctermfg=202  ctermbg=NONE cterm=bold    guifg=#F26F18 guibg=NONE    gui=bold
+hi Directory    ctermfg=202  ctermbg=NONE cterm=bold    guifg=#7AB5CC  guibg=NONE    gui=bold
 hi Folded       ctermfg=254  ctermbg=24   cterm=NONE    guifg=#E4E4E4 guibg=#295566 gui=NONE
 
 hi NonText      ctermfg=240  ctermbg=NONE cterm=NONE    guifg=#585858 guibg=NONE    gui=NONE
@@ -90,3 +90,5 @@ hi Underlined   ctermfg=NONE ctermbg=NONE cterm=underline guifg=NONE    guibg=NO
 hi Ignore       ctermfg=8    ctermbg=NONE cterm=NONE      guifg=#808080 guibg=NONE    gui=NONE
 hi Error        ctermfg=15   ctermbg=1    cterm=NONE      guifg=#FFFFFF guibg=#CC0300 gui=NONE
 hi Todo         ctermfg=202  ctermbg=NONE cterm=NONE      guifg=#FF3633 guibg=NONE    gui=underline
+
+hi link LycosaSelected Tag
