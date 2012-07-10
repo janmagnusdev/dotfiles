@@ -91,4 +91,5 @@ hi Ignore       ctermfg=8    ctermbg=NONE cterm=NONE      guifg=#808080 guibg=NO
 hi Error        ctermfg=15   ctermbg=1    cterm=NONE      guifg=#FFFFFF guibg=#CC0300 gui=NONE
 hi Todo         ctermfg=202  ctermbg=NONE cterm=NONE      guifg=#FF3633 guibg=NONE    gui=underline
 
-hi link LycosaSelected Tag
+" Lycosa Explorer
+hi LycosaSelected   ctermfg=106 ctermbg=NONE cterm=NONE guifg=#7DB200 guibg=NONE gui=NONE
