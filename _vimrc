@@ -98,7 +98,7 @@ set statusline+=%<%P                            " file position
 
 """ Moving around / Editing
 set textwidth=79
-set colorcolumn=73,80
+set colorcolumn=+1
 set autoindent
 set smartindent
 set formatoptions=qrn1
@@ -332,7 +332,7 @@ au FileType markdown setl fo+=t  " Auto-wrap text using textwidth
 au FileType tex setl fo+=t  " Auto-wrap text using textwidth
 
 """ Python
-au FileType python setl fo+=c  " Auto-wrap comments using textwidth
+au FileType python setl fo+=c cc+=73,80  " Auto-wrap comments using textwidth
 " let python_highlight_all=1
 " Enable python completion
 au FileType python set omnifunc=pythoncomplete#Complete
