@@ -329,10 +329,11 @@ au BufEnter *.md set ft=markdown
 au FileType markdown setl fo+=t  " Auto-wrap text using textwidth
 
 """ Latex
+au BufEnter *.tex set ft=tex
 au FileType tex setl fo+=t  " Auto-wrap text using textwidth
 
 """ Python
-au FileType python setl fo+=c cc+=73,80  " Auto-wrap comments using textwidth
+au FileType python setl fo+=c tw=72 cc+=73,80  " Auto-wrap comments using textwidth
 " let python_highlight_all=1
 " Enable python completion
 au FileType python set omnifunc=pythoncomplete#Complete
