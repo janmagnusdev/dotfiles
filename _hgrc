@@ -31,8 +31,19 @@ strict = false
 complexity = 12
 
 [merge-tools]
+splice.executable = mvim
+splice.args = -f $base $local $other $output -c 'SpliceInit'
+splice.premerge = keep
+splice.priority = 1
+
+spliceg.executable = gvim
+spliceg.args = -f $base $local $other $output -c 'SpliceInit'
+spliceg.premerge = keep
+spliceg.priority = 1
+
 filemerge.executable = opendiff-w
 filemerge.args = $local $other -ancestor $base -merge $output
+
 kdiff3.args = $base $local $other -o $output
 
 [web]
