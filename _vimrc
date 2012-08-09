@@ -87,14 +87,16 @@ set ruler                   " Show line and column number
 set showcmd                 " Show command in the bottom right of the screen
 set laststatus=2            " Always show statusbar
 set statusline=             " Make a nice status line
-set statusline+=%-3.3n                          " buffer number
-set statusline+=%f                              " filename
-set statusline+=%m%r%h%w                        " status flags
-set statusline+=\[%{strlen(&ft)?&ft:'none'}]    " file type
+set statusline+=\ %f                            " filename
+set statusline+=\ %m%r%h%w                      " status flags
+set statusline+=%y                              " file type
+set statusline+=\[%{&fenc}]                     " file encoding
+set statusline+=\[%{&ff}]                       " file format
 set statusline+=%=                              " right align remainder
-set statusline+=0x%-8B                          " character value
-set statusline+=%-14(%l,%c%V%)                  " line, character
-set statusline+=%<%P                            " file position
+set statusline+=%{&et?'Spaces':'Tab\ size'}     " indent type (tabs or spaces)
+set statusline+=:\ %-4{&tabstop}                " indent widh in spaces
+set statusline+=%-10(%l,%c%)                    " line, column
+set statusline+=%P                              " file position
 
 """ Moving around / Editing
 set textwidth=79
