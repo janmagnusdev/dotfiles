@@ -24,6 +24,7 @@ syntax on
 filetype plugin indent on
 
 let mapleader=","
+let maplocalleader="ä"
 
 " Fast editing of the .vimrc
 nmap <leader>ev :e $MYVIMRC<cr>
