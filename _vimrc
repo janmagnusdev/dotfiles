@@ -70,6 +70,7 @@ set wildignore+=.git,.hg,__pycache__,*.pyc
 set wildmode=list:longest,full
 set clipboard=unnamed  " Alias anonymous register to * (copy to clipboard)
 set listchars=tab:▸\ ,trail:·,eol:¬,precedes:<,extends:>
+set fillchars=vert:\│
 set wrap
 set linebreak
 set scrolloff=3

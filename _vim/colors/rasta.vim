@@ -17,6 +17,7 @@ hi Cursor       ctermfg=232  ctermbg=254  cterm=NONE    guifg=bg      guibg=fg  
 hi Visual       ctermfg=NONE ctermbg=244  cterm=NONE    guifg=NONE    guibg=#808080 gui=NONE
 
 hi CursorLine   ctermfg=NONE ctermbg=236  cterm=NONE    guifg=NONE    guibg=#303030 gui=NONE
+hi CursorLineNr ctermfg=252  ctermbg=236  cterm=NONE    guifg=#D0D0D0 guibg=#303030 gui=NONE
 hi CursorColumn ctermfg=NONE ctermbg=236  cterm=NONE    guifg=NONE    guibg=#303030 gui=NONE
 hi ColorColumn  ctermfg=NONE ctermbg=236  cterm=NONE    guifg=NONE    guibg=#242424 gui=NONE
 
@@ -25,7 +26,7 @@ hi TabLineFill  ctermfg=254  ctermbg=240  cterm=NONE
 hi TabLineSel   ctermfg=254  ctermbg=NONE cterm=bold
 hi FoldColumn   ctermfg=243  ctermbg=NONE cterm=NONE    guifg=#767676 guibg=NONE    gui=NONE
 hi LineNr       ctermfg=243  ctermbg=NONE cterm=NONE    guifg=#767676 guibg=NONE    gui=NONE
-hi VertSplit    ctermfg=240  ctermbg=240  cterm=NONE    guifg=#585858 guibg=#585858 gui=NONE
+hi VertSplit    ctermfg=240  ctermbg=240  cterm=NONE    guifg=#585858 guibg=NONE gui=NONE
 hi SignColumn   ctermfg=254  ctermbg=240  cterm=NONE    guifg=#E4E4E4 guibg=#585858 gui=NONE
 hi StatusLine   ctermfg=254  ctermbg=240  cterm=bold    guifg=#E4E4E4 guibg=#585858 gui=bold
 hi StatusLineNC ctermfg=252  ctermbg=240  cterm=NONE    guifg=#d0d0d0 guibg=#585858 gui=NONE
