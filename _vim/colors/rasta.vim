@@ -26,7 +26,7 @@ hi TabLineFill  ctermfg=254  ctermbg=240  cterm=NONE
 hi TabLineSel   ctermfg=254  ctermbg=NONE cterm=bold
 hi FoldColumn   ctermfg=243  ctermbg=NONE cterm=NONE    guifg=#767676 guibg=NONE    gui=NONE
 hi LineNr       ctermfg=243  ctermbg=NONE cterm=NONE    guifg=#767676 guibg=NONE    gui=NONE
-hi VertSplit    ctermfg=240  ctermbg=240  cterm=NONE    guifg=#585858 guibg=NONE gui=NONE
+hi VertSplit    ctermfg=240  ctermbg=240  cterm=NONE    guifg=#585858 guibg=#585858 gui=NONE
 hi SignColumn   ctermfg=254  ctermbg=240  cterm=NONE    guifg=#E4E4E4 guibg=#585858 gui=NONE
 hi StatusLine   ctermfg=254  ctermbg=240  cterm=bold    guifg=#E4E4E4 guibg=#585858 gui=bold
 hi StatusLineNC ctermfg=252  ctermbg=240  cterm=NONE    guifg=#d0d0d0 guibg=#585858 gui=NONE
