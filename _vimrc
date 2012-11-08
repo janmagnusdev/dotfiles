@@ -45,7 +45,7 @@ if has('gui_running')
 
   if has('gui_macvim')
     set guifont=Menlo:h13
-    set lines=55
+    set lines=56
 
     " Tab switching
     nmap <D-A-left> <C-PageUp>
@@ -172,6 +172,9 @@ nmap <leader>sp :set spell!<cr>
 nmap <leader>q gqip
 vmap <leader>q gq
 
+" Toggle wrap
+nnoremap <leader>w :set wrap!
+
 " Clear search term (remove highlighting)
 nmap <silent> <leader><space> :noh<cr>
 
@@ -180,7 +183,8 @@ nmap <silent> <leader>s :set nolist!<cr>
 
 " Create new vertical split and switch over to it
 if has('gui_running')
-    nnoremap <leader>v :set columns=200<cr><C-w>v<C-w>l
+    let num_cols=175
+    nnoremap <leader>v :let &columns=num_cols<cr><C-w>v<C-w>l
 else
     nnoremap <leader>v <C-w>v>C-w>l
 endif
