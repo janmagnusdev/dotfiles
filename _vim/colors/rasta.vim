@@ -29,7 +29,7 @@ hi LineNr       ctermfg=243  ctermbg=NONE cterm=NONE    guifg=#767676 guibg=NONE
 hi VertSplit    ctermfg=240  ctermbg=240  cterm=NONE    guifg=#585858 guibg=#585858 gui=NONE
 hi SignColumn   ctermfg=254  ctermbg=240  cterm=NONE    guifg=#E4E4E4 guibg=#585858 gui=NONE
 hi StatusLine   ctermfg=254  ctermbg=240  cterm=bold    guifg=#E4E4E4 guibg=#585858 gui=bold
-hi StatusLineNC ctermfg=252  ctermbg=240  cterm=NONE    guifg=#d0d0d0 guibg=#585858 gui=NONE
+hi StatusLineNC ctermfg=250  ctermbg=240  cterm=NONE    guifg=#bcbcbc guibg=#585858 gui=NONE
 
 hi Pmenu        ctermfg=254  ctermbg=240  cterm=NONE    guifg=#E4E4E4 guibg=#585858 gui=NONE
 hi PmenuSel     ctermfg=254  ctermbg=24   cterm=NONE    guifg=#E4E4E4 guibg=#0A2733 gui=NONE
@@ -47,6 +47,11 @@ hi SpecialKey   ctermfg=240  ctermbg=NONE cterm=NONE    guifg=#585858 guibg=NONE
 hi Title        ctermfg=254  ctermbg=NONE cterm=bold    guifg=#E4E4E4 guibg=NONE    gui=bold
 hi ErrorMsg     ctermfg=254  ctermbg=1    cterm=NONE    guifg=#FFFFFF guibg=#CC0300 gui=NONE
 hi WarningMsg   ctermfg=9    ctermbg=NONE cterm=NONE    guifg=#FF3633 guibg=NONE    gui=NONE
+
+hi DiffAdd      ctermfg=NONE ctermbg=22   cterm=NONE    guifg=NONE    guibg=#384C17 gui=NONE
+hi DiffDelete   ctermfg=52   ctermbg=52   cterm=NONE    guifg=#662A1D guibg=#662A1D gui=NONE
+hi DiffChange   ctermfg=NONE ctermbg=17   cterm=NONE    guifg=NONE    guibg=#161F33 gui=NONE
+hi DiffText     ctermfg=NONE ctermbg=18   cterm=NONE    guifg=NONE    guibg=#334366 gui=NONE
 
 " Highlighting
 hi Comment      ctermfg=249 ctermbg=NONE cterm=NONE guifg=#AFAFAF guibg=NONE gui=NONE
