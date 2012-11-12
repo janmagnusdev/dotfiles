@@ -58,6 +58,15 @@ if has('gui_running')
   elseif has('gui_gtk2')
     set guifont=DejaVu\ Sans\ Mono\ 9,Monospace\ 9
     set lines=62
+
+    " copy/paste
+    vnoremap <special> <C-x> "+x
+    vnoremap <special> <C-c> "+y
+    cnoremap <special> <C-c> <C-y>
+    nnoremap <special> <C-v> "+gP
+    inoremap <special> <C-v> <C-R>+
+    cnoremap <special> <C-v> <C-R>+
+
   endif
 endif
 
@@ -173,7 +182,7 @@ nmap <leader>q gqip
 vmap <leader>q gq
 
 " Toggle wrap
-nnoremap <leader>w :set wrap!
+nnoremap <leader>w :set wrap!<cr>
 
 " Clear search term (remove highlighting)
 nmap <silent> <leader><space> :noh<cr>
