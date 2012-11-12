@@ -1,6 +1,7 @@
 _private = [hg]ssh://hg@bitbucket.org/ssc/dotfiles-private
 
 _vim/bundle/lycosaexplorer = [hg]ssh://hg@bitbucket.org/mikehart/lycosaexplorer
+_vim/bundle/mercenary = [git]https://github.com/phleet/vim-mercenary.git
 _vim/bundle/pytest = [git]https://github.com/alfredodeza/pytest.vim.git
 _vim/bundle/python-mode = [git]https://github.com/klen/python-mode.git
 _vim/bundle/pyflakes-vim = [git]https://github.com/kevinw/pyflakes-vim.git
