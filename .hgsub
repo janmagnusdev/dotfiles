@@ -1,10 +1,10 @@
 _private = [hg]ssh://hg@bitbucket.org/ssc/dotfiles-private
 
+_vim/bundle/khuno = [git]https://github.com/alfredodeza/khuno.vim.git
 _vim/bundle/lycosaexplorer = [hg]ssh://hg@bitbucket.org/mikehart/lycosaexplorer
 _vim/bundle/mercenary = [git]https://github.com/phleet/vim-mercenary.git
 _vim/bundle/pytest = [git]https://github.com/alfredodeza/pytest.vim.git
 _vim/bundle/python-mode = [git]https://github.com/klen/python-mode.git
-_vim/bundle/pyflakes-vim = [git]https://github.com/kevinw/pyflakes-vim.git
 _vim/bundle/repeat = [git]https://github.com/tpope/vim-repeat.git
 _vim/bundle/splice = [hg]ssh://hg@bitbucket.org/sjl/splice.vim
 _vim/bundle/snipmate = [git]https://github.com/msanders/snipmate.vim.git

@@ -1,7 +1,7 @@
 788c1624e931edddce13e48945e3554cb3329342 _private
+d6d5f226f5a0a6f63ad70ebb7217219d7d15f620 _vim/bundle/khuno
 555478ea18f495f1db5213ef2443fe405812eec2 _vim/bundle/lycosaexplorer
 b64904911a0cd60baf86328b21c9a74af30c58cc _vim/bundle/mercenary
-895ec84c5416752c2fffd5340f200c0348f137fa _vim/bundle/pyflakes-vim
 82d6daa5492038339759030ebd3bb4bd2d9cd24f _vim/bundle/pytest
 cd6aec27d127053d18bd2a12713137e41d054208 _vim/bundle/python-mode
 f1d0fbbdf4d77b73ba47146bada375223b3d733a _vim/bundle/repeat
