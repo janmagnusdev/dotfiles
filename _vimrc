@@ -46,6 +46,8 @@ if has('gui_running')
   if has('gui_macvim')
     set guifont=Menlo:h13
     set lines=56
+    """ num cols for split view
+    let num_cols=175
 
     " Tab switching
     nmap <D-A-left> <C-PageUp>
@@ -58,14 +60,20 @@ if has('gui_running')
   elseif has('gui_gtk2')
     set guifont=DejaVu\ Sans\ Mono\ 9,Monospace\ 9
     set lines=62
+    """ num cols for split view
+    let num_cols=211
+
+    map <C-o> :tabnew
+    map <C-t> :tabnew .<cr>
+    map <C-w> :q<cr>
 
     " copy/paste
     vnoremap <special> <C-x> "+x
     vnoremap <special> <C-c> "+y
     cnoremap <special> <C-c> <C-y>
-    nnoremap <special> <C-v> "+gP
-    inoremap <special> <C-v> <C-R>+
-    cnoremap <special> <C-v> <C-R>+
+    nnoremap <special> <C-v> "+P
+    inoremap <special> <C-v> <C-r>+
+    cnoremap <special> <C-v> <C-r>+
 
   endif
 endif
@@ -146,10 +154,6 @@ set pastetoggle=<F2>  " Toggle paste mode
 " jj to exit insert mode
 imap jj <esc>
 
-map <C-o> :tabnew
-map <C-t> :tabnew .<cr>
-map <C-w> :q<cr>
-
 " Ctrl-jklm to move between windows
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -192,10 +196,10 @@ nmap <silent> <leader>s :set nolist!<cr>
 
 " Create new vertical split and switch over to it
 if has('gui_running')
-    let num_cols=175
-    nnoremap <leader>v :let &columns=num_cols<cr><C-w>v<C-w>l
+  """ num_cols is defined above
+  nnoremap <leader>v :let &columns=num_cols<cr><C-w>v<C-w>l
 else
-    nnoremap <leader>v <C-w>v>C-w>l
+  nnoremap <leader>v <C-w>v>C-w>l
 endif
 
 " open/close the quickfix window
@@ -216,7 +220,13 @@ nnoremap <silent> 0 :call SmartHome()<cr>
 
 " Remove trailing spaces
 function! TrimSpaces()
+  " mk: set mark k for the current position, H: go to first on-screen line,
+  " ml: set mark l for this position
+  :norm mkHml
+  " Actual stripping
   %s/\s\+$//e
+  " jump to line l, set this line as first on-screen line, jump to line k
+  :norm `lzt`k
 endfunction
 au FileWritePre * :call TrimSpaces()
 au FileAppendPre * :call TrimSpaces()
