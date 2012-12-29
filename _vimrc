@@ -256,14 +256,6 @@ function! ToggleNoNumber()
   endif
 endfunction
 
-" Make popup menu more usable
-" inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-" inoremap <expr> <cr>       pumvisible() ? "\<C-y>" : "\<cr>"
-" inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-" inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-" inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
-" inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-
 " =============================================================================
 " Plug-ins
 " =============================================================================
@@ -276,15 +268,27 @@ nnoremap <silent> <leader>lr :LycosaFilesystemExplorerFromHere<cr>
 nnoremap <silent> <leader>lb :LycosaBufferExplorer<cr>
 
 " Python-mode
-let g:pymode_doc_key = '<leader>pd'
-let g:pymode_run_key = '<leader>pr'
-let g:pymode_breakpoint_key = '<leader>pb'
+let g:pymode_syntax_print_as_function = 1
+
+let g:pymode_doc = 0
+let g:pymode_doc_key = '<leader>d'
+
+let g:pymode_run = 1
+let g:pymode_run_key = '<leader>r'
+
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_key = '<leader>b'
 
 let g:pymode_lint = 0
 let g:pymode_lint_hold = 1
 let g:pymode_lint_onfly = 1
 let g:pymode_lint_mccabe_complexity = 10
 let g:pymode_options_other = 0
+
+let g:pymode_rope = 0
+let g:pymode_rope_vim_completion = 0
+" map <leader>rj :RopeGotoDefinition<cr>
+" map <leader>rr :RopeRename<cr>
 
 " Python Pytest
 nmap <silent> <leader>tf :Pytest file<cr>
@@ -293,14 +297,6 @@ nmap <silent> <leader>tm :Pytest method<cr>
 nmap <silent> <leader>tn :Pytest next<cr>
 nmap <silent> <leader>tp :Pytest previous<cr>
 nmap <silent> <leader>te :Pytest error<cr>
-
-" Python Rope
-map <leader>rj :RopeGotoDefinition<cr>
-map <leader>rr :RopeRename<cr>
-imap <c-tab> <C-R>=RopeCodeAssistInsertMode()<cr>
-let ropevim_vim_completion=1    " Use vim's complete function in insert mode
-let ropevim_extended_complete=1 " Show extended info about completion proposals
-let ropevim_guess_project=1     " Guess and open rope project automatically
 
 " Rename
 map <leader>mv :Rename
@@ -361,6 +357,3 @@ au FileType tex setl fo+=t  " Auto-wrap text using textwidth
 
 """ Python
 au FileType python setl fo+=c tw=72 cc+=73,80  " Auto-wrap comments using textwidth
-" let python_highlight_all=1
-" Enable python completion
-au FileType python set omnifunc=pythoncomplete#Complete
