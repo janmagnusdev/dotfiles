@@ -290,6 +290,14 @@ let g:pymode_rope_vim_completion = 0
 " map <leader>rj :RopeGotoDefinition<cr>
 " map <leader>rr :RopeRename<cr>
 
+" Python jedi
+let g:jedi#goto_command = "<leader>g"
+let g:jedi#get_definition_command = "<leader>d"
+let g:jedi#pydoc = "K"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#related_names_command = "<leader>n"
+let g:jedi#use_tabs_not_buffers = 0
+
 " Python Pytest
 nmap <silent> <leader>tf :Pytest file<cr>
 nmap <silent> <leader>tc :Pytest class<cr>
