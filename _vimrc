@@ -121,7 +121,6 @@ set statusline+=%P                              " file position
 set textwidth=79
 set colorcolumn=+1
 set autoindent
-set smartindent
 set formatoptions=qrn1
 set virtualedit=block
 set backspace=indent,eol,start
