@@ -270,33 +270,36 @@ nnoremap <silent> <leader>lb :LycosaBufferExplorer<cr>
 " Python-mode
 let g:pymode_syntax_print_as_function = 1
 
-let g:pymode_doc = 0
-let g:pymode_doc_key = '<leader>d'
+let g:pymode_doc = 0  " Use jedi for this
+" let g:pymode_doc_key = 'K'
 
 let g:pymode_run = 1
-let g:pymode_run_key = '<leader>r'
+let g:pymode_run_key = '<leader>pr'
 
 let g:pymode_breakpoint = 1
 let g:pymode_breakpoint_key = '<leader>b'
 
-let g:pymode_lint = 0
+let g:pymode_lint = 0  " Use khuno for this
 let g:pymode_lint_hold = 1
 let g:pymode_lint_onfly = 1
 let g:pymode_lint_mccabe_complexity = 10
 let g:pymode_options_other = 0
 
-let g:pymode_rope = 0
+let g:pymode_rope = 1
 let g:pymode_rope_vim_completion = 0
-" map <leader>rj :RopeGotoDefinition<cr>
-" map <leader>rr :RopeRename<cr>
+map <leader>rj :RopeGotoDefinition<cr>
+map <leader>rr :RopeRename<cr>
 
 " Python jedi
+let g:jedi#auto_initialization = 1
+let g:jedi#auto_vim_configuration = 1
 let g:jedi#goto_command = "<leader>g"
 let g:jedi#get_definition_command = "<leader>d"
 let g:jedi#pydoc = "K"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#related_names_command = "<leader>n"
 let g:jedi#use_tabs_not_buffers = 0
+" let g:jedi#popup_on_dot = 0
 
 " Python Pytest
 nmap <silent> <leader>tf :Pytest file<cr>
@@ -306,7 +309,7 @@ nmap <silent> <leader>tn :Pytest next<cr>
 nmap <silent> <leader>tp :Pytest previous<cr>
 nmap <silent> <leader>te :Pytest error<cr>
 
-" Rename
+" Rename (current buffer)
 map <leader>mv :Rename
 
 " Supertab
