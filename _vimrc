@@ -286,8 +286,8 @@ let g:pymode_options_other = 0
 
 let g:pymode_rope = 1
 let g:pymode_rope_vim_completion = 0
-map <leader>rj :RopeGotoDefinition<cr>
-map <leader>rr :RopeRename<cr>
+nmap <leader>rj :RopeGotoDefinition<cr>
+nmap <leader>rr :RopeRename<cr>
 
 " Python jedi
 let g:jedi#auto_initialization = 1
@@ -298,7 +298,12 @@ let g:jedi#pydoc = "K"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#related_names_command = "<leader>n"
 let g:jedi#use_tabs_not_buffers = 0
-" let g:jedi#popup_on_dot = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#show_function_definition = "1"
+
+"Python khuno
+" let g:khuno_ignore=""
+nmap <silent><leader>ks :Khuno show<cr>
 
 " Python Pytest
 nmap <silent> <leader>tf :Pytest file<cr>
