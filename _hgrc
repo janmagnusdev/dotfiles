@@ -10,6 +10,7 @@ extdiff =
 graphlog =
 highlight =
 mq =
+pager =
 purge =
 progress =
 transplant =
@@ -18,10 +19,6 @@ transplant =
 incoming = incoming --graph
 outgoing = outgoing --graph
 
-[hooks]
-commit.flake8 = python:flake8.run.hg_hook
-qrefresh.flake8 = python:flake8.run.hg_hook
-
 [extdiff]
 cmd.opendiff = opendiff-w
 cmd.kdiff3 =
@@ -29,6 +26,10 @@ cmd.kdiff3 =
 [flake8]
 strict = false
 complexity = 12
+
+[hooks]
+commit.flake8 = python:flake8.hooks.hg_hook
+qrefresh.flake8 = python:flake8.hooks.hg_hook
 
 [merge-tools]
 splice.executable = mvim
@@ -45,6 +46,9 @@ filemerge.executable = opendiff-w
 filemerge.args = $local $other -ancestor $base -merge $output
 
 kdiff3.args = $base $local $other -o $output
+
+[pager]
+pager = LESS='FSRX' less
 
 [web]
 allow_archive = zip, bz2
