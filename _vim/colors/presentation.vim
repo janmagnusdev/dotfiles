@@ -75,7 +75,7 @@ hi link Keyword     Statement
 hi link Exception   Statement
 
 hi PreProc      ctermfg=182 ctermbg=NONE cterm=NONE guifg=#181818 guibg=NONE gui=NONE
-hi Include      ctermfg=221 ctermbg=NONE cterm=NONE guifg=#FAE34B guibg=NONE gui=NONE
+hi Include      ctermfg=221 ctermbg=NONE cterm=NONE guifg=#000000 guibg=NONE gui=bold
 hi link Define    Include
 hi link Macro     Include
 hi link PreCondit Include
