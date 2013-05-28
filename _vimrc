@@ -371,4 +371,4 @@ au BufEnter *.tex set ft=tex
 au FileType tex setl fo+=t  " Auto-wrap text using textwidth
 
 """ Python
-au FileType python setl fo+=c tw=72 cc+=73,80  " Auto-wrap comments using textwidth
+au FileType python setl fo+=c  " Auto-wrap comments using textwidth
