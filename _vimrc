@@ -33,6 +33,7 @@ nmap <leader>sv :source $MYVIMRC<cr>
 """ Basic Settings & GUI
 set encoding=utf-8
 set t_Co=256
+set background=dark
 colorscheme rasta
 set mouse=a
 
@@ -205,6 +206,9 @@ endif
 nmap <leader>c :copen<cr>
 nmap <leader>cc :cclose<cr>
 
+" Get the current highlight group. Useful for then remapping the color
+map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<cr>
+
 " SmartHome (vim tip 315)
 function! SmartHome()
   let s:col = col(".")
@@ -354,9 +358,6 @@ nnoremap <leader>Tm :set ft=markdown<cr>
 nnoremap <leader>Tp :set ft=python<cr>
 nnoremap <leader>Tr :set ft=rst<cr>
 nnoremap <leader>Ts :set ft=sh<cr>
-
-""" VIM
-au FileType vim setl sw=2 ts=2 sts=2 et
 
 """ reStructuredText
 au BufEnter *.txt set ft=rst
