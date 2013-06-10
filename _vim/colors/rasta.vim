@@ -1,101 +1,295 @@
-" Vim color scheme
+" Name:    Rasta
+" Author:  Stefan Scherfke
+" URL:     https://bitbucket.org/ssc/dotfiles/src/tip/_vim/colors
+" License: OSI approved MIT license (see end of this file)
 "
-" This style is derived from TextMate’s blackboard theme. I and I call it
-" *Rasta*, because Python code looks very red-yellow-green-ish with it.
+" About
+" =====
+"
+" Rasta is stronlgy inspired by Blackboard and Solarized. It comes with dual
+" light and dark modes and runs in both GUI, 256 and 16 color modes.
+"
+" I and I call it *Rasta*, because Python code looks very red-yellow-green-ish
+" with it. Recent versions are using a bit more blue and cyan, though.
+"
+" Switch between light and dark mode by setting "background=dark" or
+" "background=light".
+"
+"
+" Color values
+" ============
+"
+" Color    LAB          HSB          RGB          HEX      256-color
+" ======== ============ ============ ============ ======== =========
+" base03*   10   0   0    0   0  11   27  27  27  #1b1b1b
+" base02    20   0   0    0   0  19   48  48  48  #303030
+" base01    45   0   0    0   0  42  106 106 106  #6a6a6a
+" base00    50   0   0    0   0  47  119 119 119  #777777
+" base0     65   0   0    0   0  62  158 158 158  #9e9e9e
+" base1*    70   0   0    0   0  67  171 171 171  #ababab
+" base2     92   0   5   43   6  93  236 232 222  #ece8de
+" base3     97   0   5   39   6  98  251 246 237  #fbf6ed
+" -------- ------------ ------------ ------------ -------- ---------
+" dark
+" -------- ------------ ------------ ------------ -------- ---------
+" green     60 -27  51   78  70  61  123 156  46  #7b9c2e
+" yellow    70  -7  70   53  90  75  191 171  19  #bfab13
+" orange    60  29  46   24  70  82  209 122  63  #d17a3f
+" red       50  46  36    9  70  78  199  81  60  #c7513c
+" magenta   60  49  -9  331  50  85  217 108 161  #d96ca1
+" violet    50  22 -20  284  30  60  141 107 153  #8d6b99
+" blue      60   7 -40  219  50  84  107 144 214  #6b90d6
+" cyan      60 -19 -13  188  50  65   83 115 166  #539ba6
+" -------- ------------ ------------ ------------ -------- ---------
+" light
+" -------- ------------ ------------ ------------ -------- ---------
+" magenta  xxx xxx xxx  yyy yyy yyy  xxx xxx xxx  #yyyyyy  xxx
 
-set background=dark
 hi clear
 if exists("syntax_on")
-   syntax reset
+    syntax reset
 endif
 
-let g:colors_name = "rasta"
+let colors_name = "rasta2"
 
-" General interface
-hi Normal       ctermfg=NONE ctermbg=NONE cterm=NONE    guifg=#E4E4E4 guibg=#181818 gui=NONE
-hi Cursor       ctermfg=232  ctermbg=254  cterm=NONE    guifg=bg      guibg=fg      gui=NONE
-hi Visual       ctermfg=NONE ctermbg=244  cterm=NONE    guifg=NONE    guibg=#808080 gui=NONE
+python << endpython
+import vim
 
-hi CursorLine   ctermfg=NONE ctermbg=236  cterm=NONE    guifg=NONE    guibg=#303030 gui=NONE
-hi CursorLineNr ctermfg=252  ctermbg=236  cterm=NONE    guifg=#D0D0D0 guibg=#303030 gui=NONE
-hi CursorColumn ctermfg=NONE ctermbg=236  cterm=NONE    guifg=NONE    guibg=#303030 gui=NONE
-hi ColorColumn  ctermfg=NONE ctermbg=236  cterm=NONE    guifg=NONE    guibg=#242424 gui=NONE
+USE_TERM_COLORS = False
+HAS_GUI = bool(int(vim.eval('has("gui_running")')))
 
-hi TabLine      ctermfg=254  ctermbg=240  cterm=NONE
-hi TabLineFill  ctermfg=254  ctermbg=240  cterm=NONE
-hi TabLineSel   ctermfg=254  ctermbg=NONE cterm=bold
-hi FoldColumn   ctermfg=243  ctermbg=NONE cterm=NONE    guifg=#767676 guibg=NONE    gui=NONE
-hi LineNr       ctermfg=243  ctermbg=NONE cterm=NONE    guifg=#767676 guibg=NONE    gui=NONE
-hi VertSplit    ctermfg=240  ctermbg=240  cterm=NONE    guifg=#585858 guibg=#585858 gui=NONE
-hi SignColumn   ctermfg=254  ctermbg=240  cterm=NONE    guifg=#E4E4E4 guibg=#585858 gui=NONE
-hi StatusLine   ctermfg=254  ctermbg=240  cterm=bold    guifg=#E4E4E4 guibg=#585858 gui=bold
-hi StatusLineNC ctermfg=250  ctermbg=240  cterm=NONE    guifg=#bcbcbc guibg=#585858 gui=NONE
 
-hi Pmenu        ctermfg=254  ctermbg=240  cterm=NONE    guifg=#E4E4E4 guibg=#585858 gui=NONE
-hi PmenuSel     ctermfg=254  ctermbg=24   cterm=NONE    guifg=#E4E4E4 guibg=#0A2733 gui=NONE
-hi PmenuSbar    ctermfg=254  ctermbg=240  cterm=NONE    guifg=#E4E4E4 guibg=#585858 gui=NONE
-hi PmenuThumb   ctermfg=254  ctermbg=237  cterm=NONE    guifg=#E4E4E4 guibg=#303030 gui=NONE
+# Define colors
+if HAS_GUI:
+    VMODE = 'gui'
+    base03   = '#1b1b1b'
+    base02   = '#303030'
+    base01   = '#6a6a6a'
+    base00   = '#777777'
+    base0    = '#9e9e9e'
+    base1    = '#ababab'
+    base2    = '#ece8de'
+    base3    = '#fbf6ed'
+    green    = '#7b9c2e'
+    yellow   = '#bfab13'
+    orange   = '#d17a3f'
+    red      = '#c7513c'
+    magenta  = '#d96ca1'
+    violet   = '#8d6b99'
+    blue     = '#6b90d6'
+    cyan     = '#539ba6'
 
-hi MatchParen   ctermfg=182 ctermbg=NONE cterm=underline guifg=#C8A0D1 guibg=NONE   gui=underline
-hi IncSearch    ctermfg=0    ctermbg=220  cterm=NONE    guifg=#000000 guibg=#FBDE2D gui=NONE
-hi Search       ctermfg=0    ctermbg=220  cterm=NONE    guifg=#000000 guibg=#FBDE2D gui=NONE
-hi Directory    ctermfg=202  ctermbg=NONE cterm=bold    guifg=#7AB5CC  guibg=NONE    gui=bold
-hi Folded       ctermfg=254  ctermbg=24   cterm=NONE    guifg=#E4E4E4 guibg=#295566 gui=NONE
+elif USE_TERM_COLORS:
+    VMODE = 'cterm'
+    base03   = '8'   # light black
+    base02   = '0'   # black
+    base01   = '10'  # light green
+    base00   = '11'  # light yellow
+    base0    = '12'  # light blue
+    base1    = '14'  # light cyan
+    base2    = '7'   # white
+    base3    = '15'  # light white
+    yellow   = '3'   # yellow
+    orange   = '9'   # light red
+    red      = '1'   # red
+    magenta  = '5'   # violet
+    violet   = '13'  # light violet
+    blue     = '4'   # blue
+    cyan     = '6'   # cyan
+    green    = '2'   # green
 
-hi NonText      ctermfg=240  ctermbg=NONE cterm=NONE    guifg=#585858 guibg=NONE    gui=NONE
-hi SpecialKey   ctermfg=240  ctermbg=NONE cterm=NONE    guifg=#585858 guibg=NONE    gui=NONE
-hi Title        ctermfg=254  ctermbg=NONE cterm=bold    guifg=#E4E4E4 guibg=NONE    gui=bold
-hi ErrorMsg     ctermfg=254  ctermbg=1    cterm=NONE    guifg=#FFFFFF guibg=#CC0300 gui=NONE
-hi WarningMsg   ctermfg=9    ctermbg=NONE cterm=NONE    guifg=#FF3633 guibg=NONE    gui=NONE
+else:
+    VMODE = 'cterm'
+    # TODO Adjust colors
+    base03   = '235'
+    base02   = '236'
+    base01   = '240'
+    base00   = '243'
+    base0    = '246'
+    base1    = '249'
+    base2    = '254'
+    base3    = '255'
+    yellow   = '136'
+    orange   = '166'
+    red      = '160'
+    magenta  = '125'
+    violet   = '61'
+    blue     = '33'
+    cyan     = '37'
+    green    = '64'
 
-hi DiffAdd      ctermfg=NONE ctermbg=22   cterm=NONE    guifg=NONE    guibg=#384C17 gui=NONE
-hi DiffDelete   ctermfg=52   ctermbg=52   cterm=NONE    guifg=#662A1D guibg=#662A1D gui=NONE
-hi DiffChange   ctermfg=NONE ctermbg=17   cterm=NONE    guifg=NONE    guibg=#161F33 gui=NONE
-hi DiffText     ctermfg=NONE ctermbg=18   cterm=NONE    guifg=NONE    guibg=#334366 gui=NONE
+# Light scheme (invert base colors)
+if vim.eval('&background') == 'light':
+    base03, base3 = base3, base03
+    base02, base2 = base2, base02
+    base01, base1 = base1, base01
+    base00, base0 = base0, base00
+    # TODO Check if some colors need to be fixed here
 
-" Highlighting
-hi Comment      ctermfg=249 ctermbg=NONE cterm=NONE guifg=#AFAFAF guibg=NONE gui=NONE
+# Set background and normal text color
+if HAS_GUI:
+    back = base03
+    text = base1
+else:
+    back = 'NONE'
+    text = 'NONE'
 
-hi Constant     ctermfg=191 ctermbg=NONE cterm=NONE guifg=#CCE54C guibg=NONE gui=NONE
-hi String       ctermfg=106 ctermbg=NONE cterm=NONE guifg=#8EB33B guibg=NONE gui=NONE
-hi link Character Constant
-hi link Number    Constant
-hi link Boolean   Constant
-hi link Float     Constant
+none = 'NONE'
+bold = 'bold'
+reverse = 'reverse'
+standout = 'standout'
+undercurl = 'undercurl'
+underline = 'underline'
 
-hi Identifier   ctermfg=207 ctermbg=NONE cterm=NONE guifg=#FAAC38 guibg=NONE gui=NONE
-hi Function     ctermfg=202 ctermbg=NONE cterm=NONE guifg=#F26F18 guibg=NONE gui=NONE
 
-hi Statement    ctermfg=221 ctermbg=NONE cterm=NONE guifg=#FAE34B guibg=NONE gui=NONE
-hi link Conditional Statement
-hi link Repeat      Statement
-hi link Label       Statement
-hi link Operator    Statement
-hi link Keyword     Statement
-hi link Exception   Statement
+def hi(group, fg, bg, sp=none, fmt=none):
+    """Execute ``hi <group> <VMODE>fg=<fg> <VMODE>bg=<bg> <VMODE>sp=<sp>
+    <VMODE>=<fmt>``."""
+    fg = '%sfg=%s' % (VMODE, fg)
+    bg = '%sbg=%s' % (VMODE, bg)
+    sp = '%ssp=%s' % (VMODE, sp) if HAS_GUI else ''
+    fmt = '%s=%s' % (VMODE, fmt)
+    vim.command('hi %s %s %s %s %s' % (group, fg, bg, sp, fmt))
 
-hi PreProc      ctermfg=182 ctermbg=NONE cterm=NONE guifg=#C8A0D1 guibg=NONE gui=NONE
-hi Include      ctermfg=221 ctermbg=NONE cterm=NONE guifg=#FAE34B guibg=NONE gui=NONE
-hi link Define    Include
-hi link Macro     Include
-hi link PreCondit Include
 
-hi Type         ctermfg=110 ctermbg=NONE cterm=NONE guifg=#7AB5CC guibg=NONE gui=NONE
-hi link StorageClass Type
-hi link Structure    Type
-hi link Typedef      Type
+def hi_link(group, target):
+    """Execute ``hi link <group> <target>``."""
+    vim.command('hi link %s %s' % (group, target))
 
-hi Special      ctermfg=202 ctermbg=NONE cterm=NONE guifg=#F26F18 guibg=NONE gui=NONE
-hi link SpecialChar    Special
-hi Tag          ctermfg=106 ctermbg=NONE cterm=NONE guifg=#7DB200 guibg=NONE gui=NONE
-hi link Delimiter      Special
-hi link SpecialComment Special
-hi link Debug          Special
 
-hi Underlined   ctermfg=NONE ctermbg=NONE cterm=underline guifg=NONE    guibg=NONE    gui=underline
-hi Ignore       ctermfg=8    ctermbg=NONE cterm=NONE      guifg=#808080 guibg=NONE    gui=NONE
-hi Error        ctermfg=15   ctermbg=1    cterm=NONE      guifg=#FFFFFF guibg=#CC0300 gui=NONE
-hi Todo         ctermfg=202  ctermbg=NONE cterm=NONE      guifg=#FF3633 guibg=NONE    gui=underline
+# General interface
+hi('Normal',        text,   back)
 
-" Lycosa Explorer
-hi LycosaSelected   ctermfg=106 ctermbg=NONE cterm=NONE guifg=#7DB200 guibg=NONE gui=NONE
+hi('Cursor',        base03, base0)
+hi('CursorLineNr',  base1,  base02)
+hi('CursorLine',    none,   base02)
+hi('CursorColumn',  none,   base02)
+hi('ColorColumn',   none,   base02)
+
+hi('FoldColumn',    base01, none)
+hi('LineNr',        base01, none)
+hi('SignColumn',    base01, none)
+
+hi('VertSplit',     base01, base01)
+hi('StatusLine',    base2,  base01)
+hi('StatusLineNC',  base1,  base01)
+hi('TabLine',       base0,  base01)
+hi('TabLineFill',   base0,  base01)
+hi('TabLineSel',    base0,  base00)
+
+hi('Visual',        base3,  base01)
+hi('Folded',        none,   base02, fmt=underline, sp=base0)
+
+hi('Pmenu',         base0,  base02)
+hi('PmenuSel',      base01, base2)
+hi('PmenuSbar',     base2,  base0)
+hi('PmenuThumb',    base0,  base03)
+
+hi('MatchParen',    red,    none,   fmt=underline)
+hi('Directory',     blue,   none)
+hi('IncSearch',     orange, none,   fmt=standout)
+hi('Search',        yellow, none,   fmt=reverse)
+hi('WildMenu',      base03, base0)
+
+hi('NonText',       base01, none,   fmt=bold)
+hi('SpecialKey',    base01, none,   fmt=bold)
+hi('Title',         orange, none,   fmt=bold)
+hi('ErrorMsg',      red,    none,   fmt=reverse)
+hi('WarningMsg',    red,    none,   fmt=bold)
+hi('Question',      orange, none,   fmt=bold)
+hi('MoreMsg',       blue,   none)
+hi('ModeMsg',       green,  none)
+
+hi('DiffAdd',       green,  none,   fmt=reverse)
+hi('DiffDelete',    red,    none,   fmt=reverse)
+hi('DiffChange',    yellow, none,   fmt=reverse)
+hi('DiffText',      blue,   none,   fmt=reverse)
+
+hi('Conceal',       blue,   none)
+hi('SpellBad',      none,   none,   sp=red,     fmt=undercurl)
+hi('SpellCap',      none,   none,   sp=blue,    fmt=undercurl)
+hi('SpellRare',     none,   none,   sp=magenta, fmt=undercurl)
+hi('SpellLocal',    none,   none,   sp=cyan,    fmt=undercurl)
+
+# Highlighting
+hi('Comment',       base01, none)
+
+hi('Constant',      cyan,   none)
+hi('String',        green,  none)
+hi_link('Character', 'Constant')
+hi_link('Number',    'Constant')
+hi_link('Boolean',   'Constant')
+hi_link('Float',     'Constant')
+
+hi('Identifier',    blue, none)
+hi('Function',      orange, none)
+
+hi('Statement',     yellow, none)
+hi_link('Conditional', 'Statement')
+hi_link('Repeat',      'Statement')
+hi_link('Label',       'Statement')
+# hi_link('Operator',    'Statement')
+hi('Operator',      none,   none)
+hi_link('Keyword',     'Statement')
+hi_link('Exception',   'Statement')
+
+hi('PreProc',       violet, none)
+hi('Include',       yellow, none)
+hi_link('Define',    'Include')
+hi_link('Macro',     'Include')
+hi_link('PreCondit', 'Include')
+
+hi('Type',          red,   none)
+hi_link('StorageClass', 'Type')
+hi_link('Structure',    'Type')
+hi_link('Typedef',      'Type')
+
+hi('Special',       orange, none)
+hi_link('SpecialChar',    'Special')
+hi('Tag',           green,  none)
+hi_link('Delimiter',      'Special')
+hi_link('SpecialComment', 'Special')
+hi_link('Debug',          'Special')
+
+hi('Underlined',    none,   none,   fmt=underline)
+hi('Ignore',        base01, none)
+hi('Error',         red,    none,   fmt=bold)
+hi('Todo',          magenta,none,   fmt=bold)
+
+# HTML
+hi('htmlTag',       text,   none)
+hi('htmlEndTag',    text,   none)
+
+# Lycosa Explorer
+hi('LycosaSelected', green, none)
+
+# Python
+hi('pythonBuiltinObj',  blue,   none)
+
+endpython
+
+" =======
+" License
+" =======
+"
+" The MIT License (MIT)
+"
+" Copyright (c) 2013 Stefan Scherfke
+"
+" Permission is hereby granted, free of charge, to any person obtaining a copy
+" of this software and associated documentation files (the "Software"), to deal
+" in the Software without restriction, including without limitation the rights
+" to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+" copies of the Software, and to permit persons to whom the Software is
+" furnished to do so, subject to the following conditions:
+"
+" The above copyright notice and this permission notice shall be included in
+" all copies or substantial portions of the Software.
+"
+" THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+" IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+" FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+" AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+" LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+" OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+" THE SOFTWARE.
