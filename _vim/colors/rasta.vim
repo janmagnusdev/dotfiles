@@ -43,7 +43,7 @@
 " -------- ------------ ------------ ------------ -------- ---------  --------
 " light
 " -------- ------------ ------------ ------------ -------- ---------  --------
-" magenta  xxx xxx xxx  yyy yyy yyy  xxx xxx xxx  #yyyyyy  xxx
+" yellow    60  -6  64   53 100  64  163 145   0  #a39100  136         3
 
 hi clear
 if exists("syntax_on")
@@ -79,6 +79,9 @@ if HAS_GUI:
     blue     = '#6b90d6'
     cyan     = '#539ba6'
 
+    # Fix colors for light background
+    yellow_light = '#a39100'
+
 elif USE_TERM_COLORS:
     VMODE = 'cterm'
     base03   = '8'   # light black
@@ -97,6 +100,9 @@ elif USE_TERM_COLORS:
     blue     = '4'   # blue
     cyan     = '6'   # cyan
     green    = '2'   # green
+
+    # "Fix" colors for light background
+    yellow_light = yellow
 
 else:
     VMODE = 'cterm'
@@ -117,13 +123,16 @@ else:
     blue     = '68'
     cyan     = '73'
 
+    # Fix colors for light background
+    yellow_light = '136'
+
 # Light scheme (invert base colors)
 if vim.eval('&background') == 'light':
     base03, base3 = base3, base03
     base02, base2 = base2, base02
     base01, base1 = base1, base01
     base00, base0 = base0, base00
-    # TODO Check if some colors need to be fixed here
+    yellow = yellow_light
 
 # Set background and normal text color
 if HAS_GUI:
