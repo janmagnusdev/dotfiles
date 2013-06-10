@@ -55,7 +55,7 @@ let colors_name = "rasta2"
 python << endpython
 import vim
 
-USE_TERM_COLORS = False
+USE_TERM_COLORS = True
 HAS_GUI = bool(int(vim.eval('has("gui_running")')))
 
 
@@ -92,8 +92,8 @@ elif USE_TERM_COLORS:
     yellow   = '3'   # yellow
     orange   = '9'   # light red
     red      = '1'   # red
-    magenta  = '5'   # violet
-    violet   = '13'  # light violet
+    magenta  = '5'   # magenta
+    violet   = '13'  # light magenta
     blue     = '4'   # blue
     cyan     = '6'   # cyan
     green    = '2'   # green
