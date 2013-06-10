@@ -50,7 +50,7 @@ if exists("syntax_on")
     syntax reset
 endif
 
-let colors_name = "rasta2"
+let colors_name = "rasta"
 
 python << endpython
 import vim
