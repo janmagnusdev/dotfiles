@@ -36,8 +36,8 @@
 " yellow    70  -7  70   53  90  75  191 171  19  #bfab13  142         3
 " orange    60  29  46   24  70  82  209 122  63  #d17a3f  172         9
 " red       50  46  36    9  70  78  199  81  60  #c7513c  160         1
-" magenta   60  49  -9  331  50  85  217 108 161  #d96ca1  169         5
-" violet    50  22 -20  284  30  60  141 107 153  #8d6b99   97        13
+" magenta   50  41  -7  331  50  70  178  89 132  #b25984  132         5
+" violet    50  32 -28  284  40  65  148  99 166  #9463a6   97        13
 " blue      60   7 -40  219  50  84  107 144 214  #6b90d6   68         4
 " cyan      60 -19 -13  188  50  65   83 115 166  #539ba6   73         6
 " -------- ------------ ------------ ------------ -------- ---------  --------
@@ -74,8 +74,8 @@ if HAS_GUI:
     yellow   = '#bfab13'
     orange   = '#d17a3f'
     red      = '#c7513c'
-    magenta  = '#d96ca1'
-    violet   = '#8d6b99'
+    magenta  = '#b25984'
+    violet   = '#9463a6'
     blue     = '#6b90d6'
     cyan     = '#539ba6'
 
@@ -84,8 +84,8 @@ if HAS_GUI:
 
 elif USE_TERM_COLORS:
     VMODE = 'cterm'
-    base03   = '8'   # light black
-    base02   = '0'   # black
+    base03   = '0'   # black
+    base02   = '8'   # light black
     base01   = '10'  # light green
     base00   = '11'  # light yellow
     base0    = '12'  # light blue
@@ -195,7 +195,7 @@ hi('PmenuThumb',    base0,  base03)
 
 hi('MatchParen',    red,    none,   fmt=underline)
 hi('Directory',     blue,   none)
-hi('IncSearch',     orange, none,   fmt=standout)
+hi('IncSearch',     orange, none,   fmt=reverse)
 hi('Search',        yellow, none,   fmt=reverse)
 hi('WildMenu',      base03, base0)
 
