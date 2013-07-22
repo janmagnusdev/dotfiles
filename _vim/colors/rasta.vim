@@ -32,14 +32,15 @@
 " -------- ------------ ------------ ------------ -------- ---------  --------
 " dark
 " -------- ------------ ------------ ------------ -------- ---------  --------
-" green     60 -27  51   78  70  61  123 156  46  #7b9c2e  106         2
-" yellow    70  -7  70   53  90  75  191 171  19  #bfab13  142         3
-" orange    60  29  46   24  70  82  209 122  63  #d17a3f  172         9
-" red       50  46  36    9  70  78  199  81  60  #c7513c  160         1
-" magenta   50  41  -7  331  50  70  178  89 132  #b25984  132         5
-" violet    50  32 -28  284  40  65  148  99 166  #9463a6   97        13
-" blue      60   7 -40  219  50  84  107 144 214  #6b90d6   68         4
-" cyan      60 -19 -13  188  50  65   83 115 166  #539ba6   73         6
+" green     60 -21  37   78  50  60  130 153  76  #82994c              2
+" yellow    70  -8  51   53  60  73  186 173  74  #baad4a              3
+" orange    60  18  29   24  50  74  189 132  94  #bd845e              9
+" red       60  33  24    9  50  82  209 120 105  #d17869              1
+" magenta   60  36  -8  331  40  78  199 119 158  #c777ie              5
+" purple    60  26 -23  284  30  73  171 130 186  #ab82ba             13
+" blue      60   3 -30  219  40  77  118 145 196  #7691c4              4
+" cyan      60 -16 -10  188  40  64   98 155 163  #629ba3              6
+"
 " -------- ------------ ------------ ------------ -------- ---------  --------
 " light
 " -------- ------------ ------------ ------------ -------- ---------  --------
@@ -70,14 +71,14 @@ if HAS_GUI:
     base1    = '#ababab'
     base2    = '#ece8de'
     base3    = '#fbf6ed'
-    green    = '#7b9c2e'
-    yellow   = '#bfab13'
-    orange   = '#d17a3f'
-    red      = '#c7513c'
-    magenta  = '#b25984'
-    violet   = '#9463a6'
-    blue     = '#6b90d6'
-    cyan     = '#539ba6'
+    green    = '#82994c'
+    yellow   = '#baad4a'
+    orange   = '#bd845e'
+    red      = '#d17869'
+    magenta  = '#c7779e'
+    purple   = '#ab82ba'
+    blue     = '#7692c4'
+    cyan     = '#629ba3'
 
     # Fix colors for light background
     yellow_light = '#a39100'
@@ -96,7 +97,7 @@ elif USE_TERM_COLORS:
     orange   = '9'   # light red
     red      = '1'   # red
     magenta  = '5'   # magenta
-    violet   = '13'  # light magenta
+    purple   = '13'  # light magenta
     blue     = '4'   # blue
     cyan     = '6'   # cyan
     green    = '2'   # green
@@ -119,7 +120,7 @@ else:
     orange   = '172'
     red      = '160'
     magenta  = '169'
-    violet   = '97'
+    purple   = '97'
     blue     = '68'
     cyan     = '73'
 
@@ -186,7 +187,7 @@ hi('TabLineFill',   base0,  base01)
 hi('TabLineSel',    base0,  base00)
 
 hi('Visual',        base3,  base01)
-hi('Folded',        none,   base02, fmt=underline, sp=base0)
+hi('Folded',        none,   base02, fmt=underline, sp=base01)
 
 hi('Pmenu',         base0,  base02)
 hi('PmenuSel',      base01, base2)
@@ -229,30 +230,29 @@ hi_link('Number',    'Constant')
 hi_link('Boolean',   'Constant')
 hi_link('Float',     'Constant')
 
-hi('Identifier',    blue, none)
-hi('Function',      orange, none)
+hi('Identifier',    orange, none)
+hi('Function',      red,    none)
 
 hi('Statement',     yellow, none)
 hi_link('Conditional', 'Statement')
 hi_link('Repeat',      'Statement')
 hi_link('Label',       'Statement')
-# hi_link('Operator',    'Statement')
-hi('Operator',      none,   none)
+hi_link('Operator',    'Statement')
 hi_link('Keyword',     'Statement')
 hi_link('Exception',   'Statement')
 
-hi('PreProc',       violet, none)
-hi('Include',       yellow, none)
+hi('PreProc',       blue,   none)
+hi('Include',       blue,   none)
 hi_link('Define',    'Include')
 hi_link('Macro',     'Include')
 hi_link('PreCondit', 'Include')
 
-hi('Type',          red,   none)
+hi('Type',          purple, none)
 hi_link('StorageClass', 'Type')
 hi_link('Structure',    'Type')
 hi_link('Typedef',      'Type')
 
-hi('Special',       orange, none)
+hi('Special',       red,    none)
 hi_link('SpecialChar',    'Special')
 hi('Tag',           green,  none)
 hi_link('Delimiter',      'Special')
@@ -272,7 +272,8 @@ hi('htmlEndTag',    text,   none)
 hi('LycosaSelected', green, none)
 
 # Python
-hi('pythonBuiltinObj',  blue,   none)
+hi('pythonBuiltinObj',  yellow, none)
+# hi('pythonSelf',        blue, none)
 
 endpython
 
