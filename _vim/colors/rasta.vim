@@ -19,32 +19,46 @@
 " Color values
 " ============
 "
-" Color    LAB          HSB          RGB          HEX      256-color  Terminal
-" ======== ============ ============ ============ ======== =========  ========
-" base03*   10   0   0    0   0  11   27  27  27  #1b1b1b  234         8
-" base02    20   0   0    0   0  19   48  48  48  #303030  236         0
-" base01    45   0   0    0   0  42  106 106 106  #6a6a6a  242        10
-" base00    50   0   0    0   0  47  119 119 119  #777777  243        11
-" base0     65   0   0    0   0  62  158 158 158  #9e9e9e  247        12
-" base1*    70   0   0    0   0  67  171 171 171  #ababab  249        14
-" base2     92   0   5   43   6  93  236 232 222  #ece8de  254         7
-" base3     97   0   5   39   6  98  251 246 237  #fbf6ed  230        15
-" -------- ------------ ------------ ------------ -------- ---------  --------
+" Color    LAB          HSB          RGB          HEX      256-color
+" ======== ============ ============ ============ ======== =========
 " dark
-" -------- ------------ ------------ ------------ -------- ---------  --------
-" green     60 -21  37   78  50  60  130 153  76  #82994c              2
-" yellow    70  -8  51   53  60  73  186 173  74  #baad4a              3
-" orange    60  18  29   24  50  74  189 132  94  #bd845e              9
-" red       60  33  24    9  50  82  209 120 105  #d17869              1
-" magenta   60  36  -8  331  40  78  199 119 158  #c777ie              5
-" purple    60  26 -23  284  30  73  171 130 186  #ab82ba             13
-" blue      60   3 -30  219  40  77  118 145 196  #7691c4              4
-" cyan      60 -16 -10  188  40  64   98 155 163  #629ba3              6
+" -------- ------------ ------------ ------------ -------- ---------
+" base03*   10   0   0    0   0  11   27  27  27  #1b1b1b  234
+" base02    20   0   0    0   0  19   48  48  48  #303030  236
+" base01    45   0   0    0   0  42  106 106 106  #6a6a6a  242
+" base00    50   0   0    0   0  47  119 119 119  #777777  243
+" base0     65   0   0    0   0  62  158 158 158  #9e9e9e  247
+" base1*    70   0   0    0   0  67  171 171 171  #ababab  249
+" base2     92   0   5   43   6  93  236 232 222  #ece8de  254
+" base3     97   0   5   39   6  98  251 246 237  #fbf6ed  230
+" green     60 -21  37   78  50  60  130 153  76  #82994c
+" yellow    70  -8  51   53  60  73  186 173  74  #baad4a
+" orange    60  18  29   24  50  74  189 132  94  #bd845e
+" red       60  33  24    9  50  82  209 120 105  #d17869
+" magenta   60  36  -8  331  40  78  199 119 158  #c777ie
+" purple    60  26 -23  284  30  73  171 130 186  #ab82ba
+" blue      60   3 -30  219  40  77  118 145 196  #7691c4
+" cyan      60 -16 -10  188  40  64   98 155 163  #629ba3
 "
-" -------- ------------ ------------ ------------ -------- ---------  --------
+" ======== ============ ============ ============ ======== =========
 " light
-" -------- ------------ ------------ ------------ -------- ---------  --------
-" yellow    60  -6  64   53 100  64  163 145   0  #a39100  136         3
+" -------- ------------ ------------ ------------ -------- ---------
+" base03*   97   0   5   39   6  98  251 246 237  #fbf6ed  230
+" base02    92   0   5   43   6  93  236 232 222  #ece8de  254
+" base01    80   0   0    0   0  78  171 171 171  #ababab  249
+" base00    70   0   0    0   0  67  158 158 158  #9e9e9e  247
+" base0     50   0   0    0   0  47  119 119 119  #777777  243
+" base1*    40   0   0    0   0  37  106 106 106  #6a6a6a  242
+" base2     20   0   0    0   0  19   48  48  48  #303030  236
+" base3     10   0   0    0   0  11   27  27  27  #1b1b1b  234
+" green     50 -26  49   78  80  51   99 130  28  #63821A
+" yellow    60  -6  64   53 100  64  163 145   0  #a39100  136
+" orange    50  39  55   24  90  76  194  89  19  #c25913
+" red       50  55  46    9  80  84  214  69  43  #d6452b
+" magenta   50  62  -6  331  70  82  209  63 133  #d13f85
+" purple    50  67 -58  284  70  85  176  65 217  #b041d9
+" blue      50  15 -55  219  70  84   64 117 214  #4075d6
+" cyan      50 -21 -15  188  70  56   43 129 143  #2b818f
 
 hi clear
 if exists("syntax_on")
@@ -58,82 +72,67 @@ import vim
 
 USE_TERM_COLORS = (vim.eval('$TERM_PROGRAM') == 'Apple_Terminal')
 HAS_GUI = bool(int(vim.eval('has("gui_running")')))
-
+VMODE = 'gui' if HAS_GUI else 'cterm'
 
 # Define colors
-if HAS_GUI:
-    VMODE = 'gui'
-    base03   = '#1b1b1b'
-    base02   = '#303030'
-    base01   = '#6a6a6a'
-    base00   = '#777777'
-    base0    = '#9e9e9e'
-    base1    = '#ababab'
-    base2    = '#ece8de'
-    base3    = '#fbf6ed'
-    green    = '#82994c'
-    yellow   = '#baad4a'
-    orange   = '#bd845e'
-    red      = '#d17869'
-    magenta  = '#c7779e'
-    purple   = '#ab82ba'
-    blue     = '#7692c4'
-    cyan     = '#629ba3'
+if vim.eval('&background') == 'dark':
+    if HAS_GUI:
+        base03  = '#1b1b1b'
+        base02  = '#303030'
+        base01  = '#6a6a6a'
+        base00  = '#777777'
+        base0   = '#9e9e9e'
+        base1   = '#ababab'
+        base2   = '#ece8de'
+        base3   = '#fbf6ed'
+        green   = '#82994c'
+        yellow  = '#baad4a'
+        orange  = '#bd845e'
+        red     = '#d17869'
+        magenta = '#c7779e'
+        purple  = '#ab82ba'
+        blue    = '#7692c4'
+        cyan    = '#629ba3'
 
-    # Fix colors for light background
-    yellow_light = '#a39100'
-
-elif USE_TERM_COLORS:
-    VMODE = 'cterm'
-    base03   = '0'   # black
-    base02   = '8'   # light black
-    base01   = '10'  # light green
-    base00   = '11'  # light yellow
-    base0    = '12'  # light blue
-    base1    = '14'  # light cyan
-    base2    = '7'   # white
-    base3    = '15'  # light white
-    yellow   = '3'   # yellow
-    orange   = '9'   # light red
-    red      = '1'   # red
-    magenta  = '5'   # magenta
-    purple   = '13'  # light magenta
-    blue     = '4'   # blue
-    cyan     = '6'   # cyan
-    green    = '2'   # green
-
-    # "Fix" colors for light background
-    yellow_light = yellow
+    else:
+        base03  = '235'
+        base02  = '236'
+        base01  = '240'
+        base00  = '243'
+        base0   = '246'
+        base1   = '249'
+        base2   = '254'
+        base3   = '255'
+        green   = '106'
+        yellow  = '142'
+        orange  = '172'
+        red     = '160'
+        magenta = '169'
+        purple  = '97'
+        blue    = '68'
+        cyan    = '73'
 
 else:
-    VMODE = 'cterm'
-    base03   = '235'
-    base02   = '236'
-    base01   = '240'
-    base00   = '243'
-    base0    = '246'
-    base1    = '249'
-    base2    = '254'
-    base3    = '255'
-    green    = '106'
-    yellow   = '142'
-    orange   = '172'
-    red      = '160'
-    magenta  = '169'
-    purple   = '97'
-    blue     = '68'
-    cyan     = '73'
+    if HAS_GUI:
+        base03  = '#fbf6ed'
+        base02  = '#ece8de'
+        base01  = '#c6c6c6'
+        base00  = '#ababab'
+        base0   = '#777777'
+        base1   = '#5e5e5e'
+        base2   = '#303030'
+        base3   = '#1b1b1b'
+        green   = '#63821A'
+        yellow  = '#a39100'
+        orange  = '#c25913'
+        red     = '#d6452b'
+        magenta = '#d13f85'
+        purple  = '#b041d9'
+        blue    = '#4075d6'
+        cyan    = '#2b818f'
 
-    # Fix colors for light background
-    yellow_light = '136'
-
-# Light scheme (invert base colors)
-if vim.eval('&background') == 'light':
-    base03, base3 = base3, base03
-    base02, base2 = base2, base02
-    base01, base1 = base1, base01
-    base00, base0 = base0, base00
-    yellow = yellow_light
+    else:
+        yellow = '136'
 
 # Set background and normal text color
 if HAS_GUI:
@@ -221,7 +220,7 @@ hi('SpellRare',     none,   none,   sp=magenta, fmt=undercurl)
 hi('SpellLocal',    none,   none,   sp=cyan,    fmt=undercurl)
 
 # Highlighting
-hi('Comment',       base01, none)
+hi('Comment',       base00, none)
 
 hi('Constant',      cyan,   none)
 hi('String',        green,  none)
