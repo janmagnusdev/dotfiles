@@ -2,3 +2,7 @@ $ include /etc/inputrc
 
 # Show all possible completions in case of ambiguity
 set show-all-if-ambiguous on
+set show-all-if-unmodified on
+
+# Replace typed prefix for completion with "..." when prefix is longer than x
+set completion-prefix-display-length 2
