@@ -27,8 +27,8 @@ let mapleader=","
 let maplocalleader="ä"
 
 " Fast editing of the .vimrc
-nmap <leader>ev :e $MYVIMRC<cr>
-nmap <leader>sv :source $MYVIMRC<cr>
+nmap <leader>ev :e $MYVIMRC<CR>
+nmap <leader>sv :source $MYVIMRC<CR>
 autocmd! BufWritePost .vimrc source %
 autocmd! BufWritePost _vimrc source %
 
@@ -66,8 +66,8 @@ if has('gui_running')
     let num_cols=211
 
     map <C-o> :tabnew
-    map <C-t> :tabnew .<cr>
-    map <C-w> :q<cr>
+    map <C-t> :tabnew .<CR>
+    map <C-w> :q<CR>
 
     " copy/paste
     vnoremap <special> <C-x> "+x
@@ -168,47 +168,54 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Use space for folding
-nnoremap <space> za
+nnoremap <Space> za
 
 " Ctrl+Return inserts line break in normal mode
-nnoremap <C-Return> i<cr><Esc>l
+nnoremap <C-Return> i<CR><Esc>l
 
-" When I forgot to sudo before editing ...
-cmap w!! w !sudo tee % >/dev/null
+" open/close the quickfix window
+nmap <leader>co :copen<CR>
+nmap <leader>cc :cclose<CR>
 
 " When pressing <leader>cd switch to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>
+map <leader>cd :cd %:p:h<CR>
 
 " Toggle spell check
-nmap <leader>sp :set spell!<cr>
+nmap <leader>sp :set spell!<CR>
 
 " Re-hardwrap paragraphs of text
 nmap <leader>q gqip
 vmap <leader>q gq
 
 " Toggle wrap
-nnoremap <leader>w :set wrap!<cr>
+nnoremap <leader>w :set wrap!<CR>
 
 " Clear search term (remove highlighting)
-nmap <silent> <leader><space> :noh<cr>
+nmap <silent> <leader><Space> :noh<CR>
+
+" open/close the quickfix window
+nmap <leader>co :copen<CR>
+nmap <leader>cc :cclose<CR>
 
 " Toggle displaying of whitespaces
-nmap <silent> <leader>s :set nolist!<cr>
+nmap <silent> <leader>s :set nolist!<CR>
+
+" Close buffer without closing its split window
+nnoremap <leader>bd :bp\|bd #<CR>
 
 " Create new vertical split and switch over to it
 if has('gui_running')
   """ num_cols is defined above
-  nnoremap <leader>v :let &columns=num_cols<cr><C-w>v<C-w>l
+  nnoremap <leader>v :let &columns=num_cols<CR><C-w>v<C-w>l
 else
   nnoremap <leader>v <C-w>v>C-w>l
 endif
 
-" open/close the quickfix window
-nmap <leader>c :copen<cr>
-nmap <leader>cc :cclose<cr>
+" When I forgot to sudo before editing ...
+cmap w!! w !sudo tee % >/dev/null
 
 " Get the current highlight group. Useful for then remapping the color
-map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<cr>
+map <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
 
 " SmartHome (vim tip 315)
 function! SmartHome()
@@ -218,9 +225,9 @@ function! SmartHome()
     normal! 0
   endif
 endfunction
-nnoremap <silent> <Home> :call SmartHome()<cr>
-inoremap <silent> <Home> <C-O>:call SmartHome()<cr>
-nnoremap <silent> 0 :call SmartHome()<cr>
+nnoremap <silent> <Home> :call SmartHome()<CR>
+inoremap <silent> <Home> <C-O>:call SmartHome()<CR>
+nnoremap <silent> 0 :call SmartHome()<CR>
 
 " Remove trailing spaces
 function! TrimSpaces()
@@ -236,10 +243,10 @@ au FileWritePre * :call TrimSpaces()
 au FileAppendPre * :call TrimSpaces()
 au FilterWritePre * :call TrimSpaces()
 au BufWritePre * :call TrimSpaces()
-nmap <leader>ts :call TrimSpaces()<cr>
+nmap <leader>ts :call TrimSpaces()<CR>
 
 " Toggle between number and relative number on ,l
-nmap <leader>l :call ToggleRelativeAbsoluteNumber()<cr>
+nmap <leader>l :call ToggleRelativeAbsoluteNumber()<CR>
 function! ToggleRelativeAbsoluteNumber()
   if &number
     set relativenumber
@@ -249,7 +256,7 @@ function! ToggleRelativeAbsoluteNumber()
 endfunction
 
 " Toggle line numbers and fold column for easy copying:
-nmap <leader>nn :call ToggleNoNumber()<cr>
+nmap <leader>nn :call ToggleNoNumber()<CR>
 function! ToggleNoNumber()
   if &number
     set nonumber
@@ -264,12 +271,12 @@ endfunction
 " Plug-ins
 " =============================================================================
 " Hex Highlight
-nmap <leader>hh :call HexHighlight()<cr>
+nmap <leader>hh :call HexHighlight()<CR>
 
 " Lycosa Explorer
-nnoremap <silent> <leader>lf :LycosaFilesystemExplorer<cr>
-nnoremap <silent> <leader>lr :LycosaFilesystemExplorerFromHere<cr>
-nnoremap <silent> <leader>lb :LycosaBufferExplorer<cr>
+nnoremap <silent> <leader>lf :LycosaFilesystemExplorer<CR>
+nnoremap <silent> <leader>lr :LycosaFilesystemExplorerFromHere<CR>
+nnoremap <silent> <leader>lb :LycosaBufferExplorer<CR>
 
 " Python-mode
 let g:pymode_syntax_print_as_function = 1
@@ -287,8 +294,8 @@ let g:pymode_lint = 0  " Use khuno for this
 let g:pymode_rope = 1
 let g:pymode_rope_map_sapce = 0
 let g:pymode_rope_vim_completion = 0
-nmap <leader>rj :RopeGotoDefinition<cr>
-nmap <leader>rr :RopeRename<cr>
+nmap <leader>rj :RopeGotoDefinition<CR>
+nmap <leader>rr :RopeRename<CR>
 
 " Python jedi
 let g:jedi#use_tabs_not_buffers = 0
@@ -303,15 +310,15 @@ let g:jedi#show_call_signatures = "1"
 
 "Python khuno
 " let g:khuno_ignore=""
-nmap <silent><leader>ks :Khuno show<cr>
+nmap <silent><leader>ks :Khuno show<CR>
 
 " Python Pytest
-nmap <silent> <leader>tf :Pytest file<cr>
-nmap <silent> <leader>tc :Pytest class<cr>
-nmap <silent> <leader>tm :Pytest method<cr>
-nmap <silent> <leader>tn :Pytest next<cr>
-nmap <silent> <leader>tp :Pytest previous<cr>
-nmap <silent> <leader>te :Pytest error<cr>
+nmap <silent> <leader>tf :Pytest file<CR>
+nmap <silent> <leader>tc :Pytest class<CR>
+nmap <silent> <leader>tm :Pytest method<CR>
+nmap <silent> <leader>tn :Pytest next<CR>
+nmap <silent> <leader>tp :Pytest previous<CR>
+nmap <silent> <leader>te :Pytest error<CR>
 
 " Rename (current buffer)
 map <leader>mv :Rename
@@ -325,35 +332,35 @@ map <leader>tl <Plug>TaskList
 " ReST headings
 " = above and below for title
 noremap <leader>ht yyPVr=yyjp
-inoremap <leader>ht <esc>yyPVr=yyjpo<cr>
+inoremap <leader>ht <esc>yyPVr=yyjpo<CR>
 " # for parts
 noremap <leader>hp yypVr#k
-inoremap <leader>hp <esc>yypVr#o<cr>
+inoremap <leader>hp <esc>yypVr#o<CR>
 " * for chapters
 noremap <leader>hc yypVr*k
-inoremap <leader>hc <esc>yypVr*o<cr>
+inoremap <leader>hc <esc>yypVr*o<CR>
 " = for sections
 noremap <leader>h1 yypVr=k
-inoremap <leader>h1 <esc>yypVr=o<cr>
+inoremap <leader>h1 <esc>yypVr=o<CR>
 " - for subsections
 noremap <leader>h2 yypVr-k
-inoremap <leader>h2 <esc>yypVr-o<cr>
+inoremap <leader>h2 <esc>yypVr-o<CR>
 " ^ for subsubsections
 noremap <leader>h3 yypVr^k
-inoremap <leader>h3 <esc>yypVr^o<cr>
+inoremap <leader>h3 <esc>yypVr^o<CR>
 " " for paragraphs
 noremap <leader>h4 yypVr"k
-inoremap <leader>h4 <esc>yypVr"o<cr>
+inoremap <leader>h4 <esc>yypVr"o<CR>
 
 " =============================================================================
 " Filetype Specific Settings
 " =============================================================================
 " Easy file-type switching
-nnoremap <leader>Th :set ft=html<cr>
-nnoremap <leader>Tm :set ft=markdown<cr>
-nnoremap <leader>Tp :set ft=python<cr>
-nnoremap <leader>Tr :set ft=rst<cr>
-nnoremap <leader>Ts :set ft=sh<cr>
+nnoremap <leader>Th :set ft=html<CR>
+nnoremap <leader>Tm :set ft=markdown<CR>
+nnoremap <leader>Tp :set ft=python<CR>
+nnoremap <leader>Tr :set ft=rst<CR>
+nnoremap <leader>Ts :set ft=sh<CR>
 
 """ reStructuredText
 au BufEnter *.txt set ft=rst
