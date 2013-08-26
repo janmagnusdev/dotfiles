@@ -29,13 +29,14 @@ let maplocalleader="ä"
 " Fast editing of the .vimrc
 nmap <leader>ev :e $MYVIMRC<cr>
 nmap <leader>sv :source $MYVIMRC<cr>
+autocmd! BufWritePost .vimrc source %
+autocmd! BufWritePost _vimrc source %
 
 """ Basic Settings & GUI
 set encoding=utf-8
 set t_Co=256
 set background=dark
 colorscheme rasta
-set mouse=a
 
 if has('gui_running')
   set guioptions-=T  " Hide toolbar
@@ -86,7 +87,7 @@ set cursorline
 set wildmenu
 set wildignore+=.git,.hg,__pycache__,*.pyc
 set wildmode=list:longest,full
-set clipboard=unnamed  " Alias anonymous register to * (copy to clipboard)
+set clipboard=unnamedplus  " Alias anonymous register to + (copy to clipboard)
 set listchars=tab:▸\ ,trail:·,eol:¬,precedes:<,extends:>
 set fillchars=vert:\│
 set wrap
@@ -142,10 +143,6 @@ set smartcase
 set hlsearch
 set gdefault
 
-""" Insert completion
-set completeopt=longest,menu,preview
-set pumheight=6             " Keep a small completion window
-
 " =============================================================================
 " Shortcuts
 " =============================================================================
@@ -165,6 +162,10 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
+
+" Keep visual selection when indenting
+vnoremap < <gv
+vnoremap > >gv
 
 " Use space for folding
 nnoremap <space> za
@@ -274,7 +275,6 @@ nnoremap <silent> <leader>lb :LycosaBufferExplorer<cr>
 let g:pymode_syntax_print_as_function = 1
 
 let g:pymode_doc = 0  " Use jedi for this
-" let g:pymode_doc_key = 'K'
 
 let g:pymode_run = 1
 let g:pymode_run_key = '<leader>pr'
@@ -283,27 +283,23 @@ let g:pymode_breakpoint = 1
 let g:pymode_breakpoint_key = '<leader>b'
 
 let g:pymode_lint = 0  " Use khuno for this
-let g:pymode_lint_hold = 1
-let g:pymode_lint_onfly = 1
-let g:pymode_lint_mccabe_complexity = 10
-let g:pymode_options_other = 0
 
 let g:pymode_rope = 1
+let g:pymode_rope_map_sapce = 0
 let g:pymode_rope_vim_completion = 0
 nmap <leader>rj :RopeGotoDefinition<cr>
 nmap <leader>rr :RopeRename<cr>
 
 " Python jedi
-let g:jedi#auto_initialization = 1
-let g:jedi#auto_vim_configuration = 1
-let g:jedi#goto_command = "<leader>g"
-let g:jedi#get_definition_command = "<leader>d"
-let g:jedi#pydoc = "K"
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#related_names_command = "<leader>n"
 let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#popup_on_dot = 0
-let g:jedi#show_function_definition = "1"
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = "<leader>d"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#show_call_signatures = "1"
 
 "Python khuno
 " let g:khuno_ignore=""
@@ -321,7 +317,7 @@ nmap <silent> <leader>te :Pytest error<cr>
 map <leader>mv :Rename
 
 " Supertab
-let g:SuperTabDefaultCompletionType = "context"
+" let g:SuperTabDefaultCompletionType = "context"
 
 " TaskList
 map <leader>tl <Plug>TaskList
