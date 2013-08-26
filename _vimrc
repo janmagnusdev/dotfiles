@@ -29,8 +29,6 @@ let maplocalleader="ä"
 " Fast editing of the .vimrc
 nmap <leader>ev :e $MYVIMRC<CR>
 nmap <leader>sv :source $MYVIMRC<CR>
-autocmd! BufWritePost .vimrc source %
-autocmd! BufWritePost _vimrc source %
 
 """ Basic Settings & GUI
 set encoding=utf-8
@@ -163,6 +161,22 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
+" Change behaviour of , and ; because its much more intuitive
+noremap , ;
+noremap ; ,
+
+" Marks are very tedious to get to, so just change the command
+noremap ' m
+noremap m '
+
+" The same is also true for makros
+noremap q @
+noremap @ q
+
+" Y should have the same behaviour like D, but instead Y is the same as yy,
+" fix this:
+map Y y$
+
 " Keep visual selection when indenting
 vnoremap < <gv
 vnoremap > >gv
@@ -233,11 +247,11 @@ nnoremap <silent> 0 :call SmartHome()<CR>
 function! TrimSpaces()
   " mk: set mark k for the current position, H: go to first on-screen line,
   " ml: set mark l for this position
-  :norm mkHml
+  :norm 'kH'l
   " Actual stripping
   %s/\s\+$//e
   " jump to line l, set this line as first on-screen line, jump to line k
-  :norm `lzt`k
+  :norm mlztmk
 endfunction
 au FileWritePre * :call TrimSpaces()
 au FileAppendPre * :call TrimSpaces()
