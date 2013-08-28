@@ -85,7 +85,7 @@ set cursorline
 set wildmenu
 set wildignore+=.git,.hg,__pycache__,*.pyc
 set wildmode=list:longest,full
-set clipboard=unnamedplus  " Alias anonymous register to + (copy to clipboard)
+set clipboard=unnamed,unnamedplus  " Use system clipboard
 set listchars=tab:▸\ ,trail:·,eol:¬,precedes:<,extends:>
 set fillchars=vert:\│
 set wrap
@@ -293,23 +293,22 @@ nnoremap <silent> <leader>lr :LycosaFilesystemExplorerFromHere<CR>
 nnoremap <silent> <leader>lb :LycosaBufferExplorer<CR>
 
 " Python-mode
-let g:pymode_syntax_print_as_function = 1
-
 let g:pymode_doc = 0  " Use jedi for this
 
 let g:pymode_run = 1
 let g:pymode_run_key = '<leader>pr'
 
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_key = '<leader>b'
-
 let g:pymode_lint = 0  " Use khuno for this
 
 let g:pymode_rope = 1
-let g:pymode_rope_map_sapce = 0
 let g:pymode_rope_vim_completion = 0
 nmap <leader>rj :RopeGotoDefinition<CR>
 nmap <leader>rr :RopeRename<CR>
+
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_key = '<leader>b'
+
+let g:pymode_syntax_print_as_function = 1
 
 " Python jedi
 let g:jedi#use_tabs_not_buffers = 0
@@ -323,7 +322,7 @@ let g:jedi#rename_command = "<leader>r"
 let g:jedi#show_call_signatures = "1"
 
 "Python khuno
-" let g:khuno_ignore=""
+let g:khuno_ignore=""
 nmap <silent><leader>ks :Khuno show<CR>
 
 " Python Pytest
@@ -338,7 +337,7 @@ nmap <silent> <leader>te :Pytest error<CR>
 map <leader>mv :Rename
 
 " Supertab
-" let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = "context"
 
 " TaskList
 map <leader>tl <Plug>TaskList
