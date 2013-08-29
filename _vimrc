@@ -105,17 +105,17 @@ set confirm                 " Y-N-C promt if closing with unsaved changes
 set ruler                   " Show line and column number
 set showcmd                 " Show command in the bottom right of the screen
 set laststatus=2            " Always show statusbar
-set statusline=             " Make a nice status line
-set statusline+=\ %f                            " filename
-set statusline+=\ %m%r%h%w                      " status flags
-set statusline+=%y                              " file type
-set statusline+=\[%{&fenc}]                     " file encoding
-set statusline+=\[%{&ff}]                       " file format
-set statusline+=%=                              " right align remainder
-set statusline+=%{&et?'Spaces':'Tab\ size'}     " indent type (tabs or spaces)
-set statusline+=:\ %-4{&tabstop}                " indent widh in spaces
-set statusline+=%-10(%l,%c%)                    " line, column
-set statusline+=%P                              " file position
+" set statusline=             " Make a nice status line
+" set statusline+=\ %f                            " filename
+" set statusline+=\ %m%r%h%w                      " status flags
+" set statusline+=%y                              " file type
+" set statusline+=\[%{&fenc}]                     " file encoding
+" set statusline+=\[%{&ff}]                       " file format
+" set statusline+=%=                              " right align remainder
+" set statusline+=%{&et?'Spaces':'Tab\ size'}     " indent type (tabs or spaces)
+" set statusline+=:\ %-4{&tabstop}                " indent widh in spaces
+" set statusline+=%-10(%l,%c%)                    " line, column
+" set statusline+=%P                              " file position
 
 """ Moving around / Editing
 set textwidth=79
@@ -286,6 +286,28 @@ endfunction
 " =============================================================================
 " Hex Highlight
 nmap <leader>hh :call HexHighlight()<CR>
+
+" Lightline
+let g:lightline = {
+    \ 'colorscheme': 'Rasta',
+    \ 'active': {
+    \   'left': [['mode', 'paste'], ['readonly', 'filename', 'modified']],
+    \   'right': [['percent'], ['lineinfo'],
+    \             ['filetype', 'fileencoding', 'fileformat', 'indentation']]
+    \ },
+    \ 'inactive': {
+    \   'left': [['readonly', 'filename', 'modified']],
+    \   'right': [['percent'], ['lineinfo']]
+    \ },
+    \ 'component_function': {
+    \   'indentation': 'LlIndentation',
+    \ }
+    \}
+
+function! LlIndentation()
+    let text = (&et ? 's' : 't').':'.&tabstop
+    return winwidth('.') > 70 ? text : ''
+endfunction
 
 " Lycosa Explorer
 nnoremap <silent> <leader>lf :LycosaFilesystemExplorer<CR>

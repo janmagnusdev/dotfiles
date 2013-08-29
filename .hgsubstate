@@ -1,6 +1,7 @@
 436fd0f49b86b6d62105d9459c9aa4f44a48cacc _private
 26492d1d32bf336df568d9783cf45ace4391d544 _vim/bundle/jedi
 66f90993486705219a0142eabf982625247e02c2 _vim/bundle/khuno
+cd5b4b5acdab71cd64904e39b2dc391a31af9250 _vim/bundle/lightline.vim
 555478ea18f495f1db5213ef2443fe405812eec2 _vim/bundle/lycosaexplorer
 b64904911a0cd60baf86328b21c9a74af30c58cc _vim/bundle/mercenary
 335b2ed3dee005793ba04d65b37188823869f32c _vim/bundle/pytest

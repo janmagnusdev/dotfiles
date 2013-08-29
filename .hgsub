@@ -2,6 +2,7 @@ _private = [hg]ssh://hg@bitbucket.org/ssc/dotfiles-private
 
 _vim/bundle/jedi = [git]https://github.com/davidhalter/jedi-vim.git
 _vim/bundle/khuno = [git]https://github.com/alfredodeza/khuno.vim.git
+_vim/bundle/lightline.vim = [git]https://github.com/itchyny/lightline.vim
 _vim/bundle/lycosaexplorer = [hg]ssh://hg@bitbucket.org/mikehart/lycosaexplorer
 _vim/bundle/mercenary = [git]https://github.com/phleet/vim-mercenary.git
 _vim/bundle/pytest = [git]https://github.com/alfredodeza/pytest.vim.git

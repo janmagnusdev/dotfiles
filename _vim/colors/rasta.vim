@@ -289,6 +289,23 @@ hi('LycosaSelected', green, none)
 hi('pythonBuiltinObj',  yellow, none)
 # hi('pythonSelf',        blue, none)
 
+
+# Lightline color scheme
+# ======================
+vim.command("let p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}}")
+#                                                                     ofg     obg      ifg     ibg
+vim.command("let p.normal.left =     [['%s', '%s'], ['%s', '%s']]" % (base02, blue,    base2,  base01))
+vim.command("let p.normal.right =    [['%s', '%s'], ['%s', '%s']]" % (base2,  base01,  base2,  base01))
+vim.command("let p.inactive.right =  [['%s', '%s'], ['%s', '%s']]" % (base1,  base01,  base1,  base01))
+vim.command("let p.inactive.left =   [['%s', '%s'], ['%s', '%s']]" % (base1,  base01,  base1,  base01))
+vim.command("let p.insert.left =     [['%s', '%s'], ['%s', '%s']]" % (base02, green,   base2,  base01))
+vim.command("let p.replace.left =    [['%s', '%s'], ['%s', '%s']]" % (base02, orange,  base2,  base01))
+vim.command("let p.visual.left =     [['%s', '%s'], ['%s', '%s']]" % (base02, magenta, base2,  base01))
+vim.command("let p.normal.middle =   [['%s', '%s']]" % (base1, base01))
+vim.command("let p.inactive.middle = [['%s', '%s']]" % (base1, base01))
+
+vim.command("let g:lightline#colorscheme#Rasta#palette = lightline#colorscheme#fill(p)")
+
 endpython
 
 " =======
