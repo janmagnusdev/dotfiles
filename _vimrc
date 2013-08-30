@@ -105,6 +105,8 @@ set confirm                 " Y-N-C promt if closing with unsaved changes
 set ruler                   " Show line and column number
 set showcmd                 " Show command in the bottom right of the screen
 set laststatus=2            " Always show statusbar
+set noshowmode              " Disable mode message, Lightline also has it
+" Disabled, use Lightline instead
 " set statusline=             " Make a nice status line
 " set statusline+=\ %f                            " filename
 " set statusline+=\ %m%r%h%w                      " status flags
@@ -291,12 +293,12 @@ nmap <leader>hh :call HexHighlight()<CR>
 let g:lightline = {
     \ 'colorscheme': 'Rasta',
     \ 'active': {
-    \   'left': [['mode', 'paste'], ['readonly', 'filename', 'modified']],
+    \   'left': [['mode', 'paste'], ['readonly', 'relativepath', 'modified']],
     \   'right': [['percent'], ['lineinfo'],
     \             ['filetype', 'fileencoding', 'fileformat', 'indentation']]
     \ },
     \ 'inactive': {
-    \   'left': [['readonly', 'filename', 'modified']],
+    \   'left': [['readonly', 'relativepath', 'modified']],
     \   'right': [['percent'], ['lineinfo']]
     \ },
     \ 'component_function': {
@@ -397,17 +399,20 @@ nnoremap <leader>Tp :set ft=python<CR>
 nnoremap <leader>Tr :set ft=rst<CR>
 nnoremap <leader>Ts :set ft=sh<CR>
 
-""" reStructuredText
-au BufEnter *.txt set ft=rst
-au FileType rst setl fo+=t  " Auto-wrap text using textwidth
-
-""" Markdown
-au BufEnter *.md set ft=markdown
-au FileType markdown setl fo+=t  " Auto-wrap text using textwidth
+""" CSS
+au BufEnter *.css_t set ft=css
 
 """ Latex
 au BufEnter *.tex set ft=tex
 au FileType tex setl fo+=t  " Auto-wrap text using textwidth
 
+""" Markdown
+au BufEnter *.md set ft=markdown
+au FileType markdown setl fo+=t  " Auto-wrap text using textwidth
+
 """ Python
 au FileType python setl fo+=c  " Auto-wrap comments using textwidth
+
+""" reStructuredText
+au BufEnter *.txt set ft=rst
+au FileType rst setl fo+=t  " Auto-wrap text using textwidth

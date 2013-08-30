@@ -293,7 +293,7 @@ hi('pythonBuiltinObj',  yellow, none)
 # Lightline color scheme
 # ======================
 vim.command("let p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}}")
-#                                                                     ofg     obg      ifg     ibg
+# Colors:                                                             ofg     obg      ifg     ibg
 vim.command("let p.normal.left =     [['%s', '%s'], ['%s', '%s']]" % (base02, blue,    base2,  base01))
 vim.command("let p.normal.right =    [['%s', '%s'], ['%s', '%s']]" % (base2,  base01,  base2,  base01))
 vim.command("let p.inactive.right =  [['%s', '%s'], ['%s', '%s']]" % (base1,  base01,  base1,  base01))
@@ -307,6 +307,13 @@ vim.command("let p.inactive.middle = [['%s', '%s']]" % (base1, base01))
 vim.command("let g:lightline#colorscheme#Rasta#palette = lightline#colorscheme#fill(p)")
 
 endpython
+
+" Reload lightline colors when colorscheme is reloaded (e.g, bg is changed)
+if exists('g:loaded_lightline')
+    call lightline#init()
+    call lightline#colorscheme()
+    call lightline#update()
+endif
 
 " =======
 " License
