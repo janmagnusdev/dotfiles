@@ -109,10 +109,9 @@ fi
 
 # Some Mac OS X specific stuff
 if [ `uname -s` = "Darwin" ]; then
-    export PATH="/usr/local/pypy-2.0/bin:${PATH}"
-    export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
-    export PATH="/Library/Frameworks/Python.framework/Versions/3.2/bin:${PATH}"
-    export PATH="/Library/Frameworks/Python.framework/Versions/3.3/bin:${PATH}"
+    # Fix for homebrew:
+    export PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
+
     export MACOSX_DEPLOYMENT_TARGET=10.8
     export ARCHFLAGS="-arch x86_64"
 
