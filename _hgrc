@@ -27,9 +27,9 @@ cmd.kdiff3 =
 strict = false
 complexity = 12
 
-[hooks]
-commit.flake8 = python:flake8.hooks.hg_hook
-qrefresh.flake8 = python:flake8.hooks.hg_hook
+# [hooks]
+# commit.flake8 = python:flake8.hooks.hg_hook
+# qrefresh.flake8 = python:flake8.hooks.hg_hook
 
 [merge-tools]
 splice.executable = mvim
