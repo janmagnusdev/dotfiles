@@ -413,6 +413,9 @@ au FileType markdown setl fo+=t  " Auto-wrap text using textwidth
 """ Python
 au FileType python setl fo+=c  " Auto-wrap comments using textwidth
 
+""" Quickfix Window
+au FileType qf setl nowrap
+
 """ reStructuredText
 au BufEnter *.txt set ft=rst
 au FileType rst setl fo+=t  " Auto-wrap text using textwidth
