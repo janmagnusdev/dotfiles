@@ -279,15 +279,18 @@ hi('Error',         red,    none,   fmt=bold)
 hi('Todo',          magenta,none,   fmt=bold)
 
 # HTML
-hi('htmlTag',       text,   none)
-hi('htmlEndTag',    text,   none)
+hi('htmlTag',             text,   none)
+hi('htmlEndTag',          text,   none)
 
 # Lycosa Explorer
-hi('LycosaSelected', green, none)
+hi('LycosaSelected',      green, none)
+
+# Patch
+hi('diffAdded',           green, none)
 
 # Python
-hi('pythonBuiltinObj',  yellow, none)
-# hi('pythonSelf',        blue, none)
+hi('pythonBuiltinObj',    yellow, none)
+# hi('pythonSelf',          blue, none)
 
 
 # Lightline color scheme
