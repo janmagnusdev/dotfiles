@@ -116,6 +116,9 @@ if [ `uname -s` = "Darwin" ]; then
     export ARCHFLAGS="-arch x86_64"
 
     alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+
+    # Bash completion for homebrew
+    source `brew --repository`/Library/Contributions/brew_bash_completion.sh
 fi
 
 # set PATH so it includes user's private bin if it exists
