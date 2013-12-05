@@ -1,5 +1,5 @@
 [ui]
-username = Stefan Scherfke <stefan.scherfke@offis.de>
+username = Stefan Scherfke <stefan@sofa-rockers.org>
 
 [extensions]
 churn =
@@ -53,3 +53,4 @@ pager = LESS='FSRX' less
 [web]
 allow_archive = zip, bz2
 pygments_style = tango
+cacerts = /etc/ssl/certs/ca-certificates.crt
