@@ -418,4 +418,4 @@ au FileType qf setl nowrap
 
 """ reStructuredText
 au BufEnter *.txt set ft=rst
-au FileType rst setl fo+=t  " Auto-wrap text using textwidth
+au FileType rst setl fo+=t sw=3 ts=3 sts=3  " Auto-wrap text using textwidth
