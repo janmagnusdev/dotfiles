@@ -201,7 +201,7 @@ hi('TabLineFill',   base0,  base01)
 hi('TabLineSel',    base0,  base00)
 
 hi('Visual',        base3,  base01)
-hi('Folded',        none,   base02, fmt=underline, sp=base01)
+hi('Folded',        none,   base02, sp=base01)
 
 hi('Pmenu',         base0,  base02)
 hi('PmenuSel',      base01, base2)
