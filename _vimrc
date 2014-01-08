@@ -325,7 +325,9 @@ let g:pymode_run_key = '<leader>pr'
 let g:pymode_lint = 0  " Use khuno for this
 
 let g:pymode_rope = 1
-let g:pymode_rope_vim_completion = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope_completion_bind = ''
 nmap <leader>rj :RopeGotoDefinition<CR>
 nmap <leader>rr :RopeRename<CR>
 
