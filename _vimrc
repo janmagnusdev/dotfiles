@@ -328,8 +328,8 @@ let g:pymode_rope = 1
 let g:pymode_rope_completion = 0
 let g:pymode_rope_complete_on_dot = 0
 let g:pymode_rope_completion_bind = ''
-nmap <leader>rj :RopeGotoDefinition<CR>
-nmap <leader>rr :RopeRename<CR>
+let g:pymode_rope_rename_bind = '<leader>rr'
+let g:pymode_rope_extract_method_bind = '<leader>rm'
 
 let g:pymode_breakpoint = 1
 let g:pymode_breakpoint_key = '<leader>b'
