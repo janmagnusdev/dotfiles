@@ -3,3 +3,15 @@ $ include /etc/inputrc
 # Show all possible completions in case of ambiguity
 set show-all-if-ambiguous on
 set show-all-if-unmodified on
+set completion-ignore-case On
+set bell-style none
+set editing-mode vi
+
+$if mode=vi
+    set keymap vi-command
+    "gg": beginning-of-history
+    "G": end-of-history
+    set keymap vi-insert
+    "jj": vi-movement-mode
+    "\C-p": history-search-backward
+    "\C-l": clear-screen
