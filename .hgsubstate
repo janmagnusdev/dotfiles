@@ -1,7 +1,7 @@
 2a7f0baf51d1d70234aa28991b7c7f04a50e5c8b _private
-38f966092ea8c2eedb7ca748f47ac3d724034262 _vim/bundle/jedi
+d9a43db019da0390406e34cb161a61fba43bf250 _vim/bundle/jedi
 f93df800c35a8433db03877ff8e14e407be9ca92 _vim/bundle/khuno
-aad09a745d705c863ffc73d95e46c48bc749cb10 _vim/bundle/lightline.vim
+147cfbc4eb4326a7648d4bbdc24bee9d6dfb6d14 _vim/bundle/lightline.vim
 555478ea18f495f1db5213ef2443fe405812eec2 _vim/bundle/lycosaexplorer
 b64904911a0cd60baf86328b21c9a74af30c58cc _vim/bundle/mercenary
 ba11ec33fd98ab68732fa7d28571540190a8aed4 _vim/bundle/pytest
@@ -10,4 +10,4 @@ ba11ec33fd98ab68732fa7d28571540190a8aed4 _vim/bundle/pytest
 8e1c1dc358de2132b7fbc1adaf94f528e3238e4d _vim/bundle/splice
 7a32e0866bfea26cf7781935289df131d1d0c0e0 _vim/bundle/supertab
 42e9b46e7a20a2f394664874c7bbd9d6f6c39e8a _vim/bundle/surround
-0ee9afa8c5838f609c0aa502c96c03e2c0bd076f _vim/bundle/tcomment
+95a05d04419e67f80cdd445d78a42c15518ea361 _vim/bundle/tcomment
