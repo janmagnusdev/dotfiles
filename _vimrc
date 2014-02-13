@@ -80,6 +80,7 @@ endif
 
 """ Interface
 set title
+set number
 set relativenumber
 set cursorline
 set wildmenu
@@ -260,16 +261,6 @@ au FileAppendPre * :call TrimSpaces()
 au FilterWritePre * :call TrimSpaces()
 au BufWritePre * :call TrimSpaces()
 nmap <leader>ts :call TrimSpaces()<CR>
-
-" Toggle between number and relative number on ,l
-nmap <leader>l :call ToggleRelativeAbsoluteNumber()<CR>
-function! ToggleRelativeAbsoluteNumber()
-  if &number
-    set relativenumber
-  else
-    set number
-  endif
-endfunction
 
 " Toggle line numbers and fold column for easy copying:
 nmap <leader>nn :call ToggleNoNumber()<CR>
