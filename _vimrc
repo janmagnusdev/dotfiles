@@ -217,9 +217,6 @@ nmap <leader>cc :cclose<CR>
 " Toggle displaying of whitespaces
 nmap <silent> <leader>s :set nolist!<CR>
 
-" Close buffer without closing its split window
-nnoremap <leader>bd :bp\|bd #<CR>
-
 " Create new vertical split and switch over to it
 if has('gui_running')
   """ num_cols is defined above
