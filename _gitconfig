@@ -1,16 +1,27 @@
 [user]
-	name = Stefan Scherfke
-	email = stefan@sofa-rockers.org
+name = Stefan Scherfke
+email = stefan@sofa-rockers.org
+
 [core]
-	excludesfile = /Users/stefan/.gitignore_global
+excludesfile = /Users/stefan/.gitignore_global
+
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+path =
+
+[merge]
+tool = splice
+
+[mergetool "splice"]
+cmd = "mvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
+trustExitCode = true
+
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+trustExitCode = true
+
 [color]
-	diff = auto
-	status = auto
-	branch = auto
-	ui = auto
+diff = auto
+status = auto
+branch = auto
+ui = auto
