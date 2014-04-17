@@ -133,7 +133,17 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# pip bash completion
+# pip configuration and bash completion
+if [[ "$(uname)" == "Darwin" ]]; then
+    export STANDARD_CACHE_DIR="${HOME}/Library/Caches/org.pip-installer.pip";
+else
+    export STANDARD_CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/pip";
+fi;
+export WHEELHOUSE="${STANDARD_CACHE_DIR}/Wheelhouse";
+export PIP_USE_WHEEL="yes";
+export PIP_DOWNLOAD_CACHE="${STANDARD_CACHE_DIR}/Downloads";
+export PIP_FIND_LINKS="file://${WHEELHOUSE}";
+export PIP_WHEEL_DIR="${WHEELHOUSE}";
 _pip_completion()
 {
     COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
