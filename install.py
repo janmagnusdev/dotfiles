@@ -9,17 +9,20 @@ If a file with that name already exists, it will be moved to
 """
 import glob
 import os
-import os.path
 import re
-import sys
 import time
 
 
 home = os.path.expanduser('~')
-entries = glob.glob('_*') if len(sys.argv) == 1 else sys.argv[1:]
+extra_links = {
+    '_private/ssh/config': '.ssh/config',
+}
+entries = glob.glob('_*') + list(extra_links)
 for entry in entries:
     source = os.path.join(os.getcwd(), entry)
-    target = os.path.join(home, re.sub('^_', '.', entry))
+    target = extra_links[entry] if entry in extra_links else \
+             re.sub('^_', '.', entry)
+    target = os.path.join(home, target)
 
     if os.path.exists(target):
         print('Backing up %s' % target)
