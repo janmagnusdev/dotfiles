@@ -235,7 +235,7 @@ hi('SpellRare',     none,   none,   sp=magenta, fmt=undercurl)
 hi('SpellLocal',    none,   none,   sp=cyan,    fmt=undercurl)
 
 # Highlighting
-hi('Comment',       base00, none)
+hi('Comment',       base2,   none)
 
 hi('Constant',      cyan,   none)
 hi('String',        green,  none)
