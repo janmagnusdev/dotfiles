@@ -11,6 +11,7 @@ _vim/bundle/splice.vim = [hg]ssh://hg@bitbucket.org/sjl/splice.vim
 _vim/bundle/supertab = [git]https://github.com/ervandew/supertab.git
 _vim/bundle/tcomment_vim = [git]https://github.com/tomtom/tcomment_vim.git
 _vim/bundle/vim-css-color = [git]https://github.com/ap/vim-css-color.git
+_vim/bundle/vim-indent-guides = [git]https://github.com/nathanaelkane/vim-indent-guides.git
 _vim/bundle/vim-jinja = [git]https://github.com/mitsuhiko/vim-jinja.git
 _vim/bundle/vim-mercenary = [git]https://github.com/phleet/vim-mercenary.git
 _vim/bundle/vim-multiple-cursors = [git]https://github.com/terryma/vim-multiple-cursors.git
