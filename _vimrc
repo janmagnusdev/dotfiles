@@ -41,13 +41,8 @@ if has('gui_running')
   set guicursor+=a:blinkon0
   set guicursor+=i-ci:ver10-Cursor-blinkwait500-blinkoff500-blinkon500
 
-  set columns=105
-
   if has('gui_macvim')
     set guifont=Menlo:h13
-    set lines=56
-    """ num cols for split view
-    let num_cols=175
 
     " Tab switching
     nmap <D-A-left> <C-PageUp>
@@ -59,9 +54,6 @@ if has('gui_running')
 
   elseif has('gui_gtk2')
     set guifont=DejaVu\ Sans\ Mono\ 9,Monospace\ 9
-    set lines=62
-    """ num cols for split view
-    let num_cols=211
 
     map <C-o> :tabnew
     map <C-t> :tabnew .<CR>
@@ -217,13 +209,7 @@ nmap <leader>cc :cclose<CR>
 " Toggle displaying of whitespaces
 nmap <silent> <leader>s :set nolist!<CR>
 
-" Create new vertical split and switch over to it
-if has('gui_running')
-  """ num_cols is defined above
-  nnoremap <leader>v :let &columns=num_cols<CR><C-w>v<C-w>l
-else
-  nnoremap <leader>v <C-w>v>C-w>l
-endif
+nnoremap <leader>v <C-w>v>C-w>l
 
 " When I forgot to sudo before editing ...
 cmap w!! w !sudo tee % >/dev/null
@@ -338,14 +324,6 @@ let g:jedi#show_call_signatures = "1"
 "Python khuno
 let g:khuno_ignore=""
 nmap <silent><leader>ks :Khuno show<CR>
-
-" Python Pytest
-nmap <silent> <leader>tf :Pytest file<CR>
-nmap <silent> <leader>tc :Pytest class<CR>
-nmap <silent> <leader>tm :Pytest method<CR>
-nmap <silent> <leader>tn :Pytest next<CR>
-nmap <silent> <leader>tp :Pytest previous<CR>
-nmap <silent> <leader>te :Pytest error<CR>
 
 " Rename (current buffer)
 map <leader>mv :Rename
