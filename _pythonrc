@@ -11,8 +11,7 @@ sys.path.append(os.path.join(os.getenv('HOME'), '.python'))
 del os
 del sys
 
-
-import util
+import _util as util
 
 util.setup_colored_promt()
 util.setup_tab_completion()
