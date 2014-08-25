@@ -6,7 +6,7 @@ import subprocess
 repo = re.compile(r'\[(\w+)\](.*)')
 commands = {
     'hg': 'hg pull -u',
-    'git': 'git pull; git checkout master; git submodule update',
+    'git': 'git checkout master; git pull; git submodule update',
 }
 
 for line in open('.hgsub'):
