@@ -336,26 +336,26 @@ map <leader>tl <Plug>TaskList
 
 " ReST headings
 " = above and below for title
-noremap <leader>ht yyPVr=yyjp
-inoremap <leader>ht <esc>yyPVr=yyjpo<CR>
+noremap <leader>ht "hyy"hPVr="hyyj"hp
+inoremap <leader>ht <esc>"hyy"hPVr="hyyj"hpo<CR>
 " # for parts
-noremap <leader>hp yypVr#k
-inoremap <leader>hp <esc>yypVr#o<CR>
+noremap <leader>hp "hyy"hpVr#k
+inoremap <leader>hp <esc>"hyy"hpVr#o<CR>
 " * for chapters
-noremap <leader>hc yypVr*k
-inoremap <leader>hc <esc>yypVr*o<CR>
+noremap <leader>hc "hyy"hpVr*k
+inoremap <leader>hc <esc>"hyy"hpVr*o<CR>
 " = for sections
-noremap <leader>h1 yypVr=k
-inoremap <leader>h1 <esc>yypVr=o<CR>
+noremap <leader>h1 "hyy"hpVr=k
+inoremap <leader>h1 <esc>"hyy"hpVr=o<CR>
 " - for subsections
-noremap <leader>h2 yypVr-k
-inoremap <leader>h2 <esc>yypVr-o<CR>
+noremap <leader>h2 "hyy"hpVr-k
+inoremap <leader>h2 <esc>"hyy"hpVr-o<CR>
 " ^ for subsubsections
-noremap <leader>h3 yypVr^k
-inoremap <leader>h3 <esc>yypVr^o<CR>
+noremap <leader>h3 "hyy"hpVr^k
+inoremap <leader>h3 <esc>"hyy"hpVr^o<CR>
 " " for paragraphs
-noremap <leader>h4 yypVr"k
-inoremap <leader>h4 <esc>yypVr"o<CR>
+noremap <leader>h4 "hyy"hpVr"k
+inoremap <leader>h4 <esc>"hyy"hpVr"o<CR>
 
 " =============================================================================
 " Filetype Specific Settings
