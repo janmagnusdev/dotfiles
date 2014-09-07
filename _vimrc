@@ -231,13 +231,12 @@ nnoremap <silent> 0 :call SmartHome()<CR>
 
 " Remove trailing spaces
 function! TrimSpaces()
-  " mk: set mark k for the current position, H: go to first on-screen line,
-  " ml: set mark l for this position
-  :norm 'kH'l
-  " Actual stripping
+  let l:state = winsaveview()
+  let l:_s=@/
   %s/\s\+$//e
-  " jump to line l, set this line as first on-screen line, jump to line k
-  :norm mlztmk
+  let @/=l:_s
+  nohl
+  call winrestview(l:state)
 endfunction
 au FileWritePre * :call TrimSpaces()
 au FileAppendPre * :call TrimSpaces()
