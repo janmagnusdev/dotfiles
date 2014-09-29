@@ -297,12 +297,12 @@ let g:pymode_run_key = '<leader>pr'
 
 let g:pymode_lint = 0  " Use khuno for this
 
-let g:pymode_rope = 1
-let g:pymode_rope_completion = 0
-let g:pymode_rope_complete_on_dot = 0
-let g:pymode_rope_completion_bind = ''
-let g:pymode_rope_rename_bind = '<leader>rr'
-let g:pymode_rope_extract_method_bind = '<leader>rm'
+let g:pymode_rope = 0
+" let g:pymode_rope_completion = 0
+" let g:pymode_rope_complete_on_dot = 0
+" let g:pymode_rope_completion_bind = ''
+" let g:pymode_rope_rename_bind = '<leader>rr'
+" let g:pymode_rope_extract_method_bind = '<leader>rm'
 
 let g:pymode_breakpoint = 1
 let g:pymode_breakpoint_key = '<leader>b'
