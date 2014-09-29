@@ -23,14 +23,6 @@ outgoing = outgoing --graph
 cmd.opendiff = opendiff-w
 cmd.kdiff3 =
 
-[flake8]
-strict = false
-complexity = 12
-
-# [hooks]
-# commit.flake8 = python:flake8.hooks.hg_hook
-# qrefresh.flake8 = python:flake8.hooks.hg_hook
-
 [merge-tools]
 splice.executable = mvim
 splice.args = -f $base $local $other $output -c 'SpliceInit'
