@@ -125,6 +125,10 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
+# set PATH so it includes .local/bin used by pipsi
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -163,8 +167,8 @@ fi
 # Load autojump if installed
 if [ -f /usr/share/autojump/autojump.bash ]; then  # Ubuntu
     . /usr/share/autojump/autojump.bash
-elif [ -f ~/.autojump/etc/profile.d/autojump.bash ]; then  # Manual (local)
-    . ~/.autojump/etc/profile.d/autojump.bash
+elif [ -f /usr/local/etc/autojump.bash ]; then  # homebrew
+    . /usr/local/etc/autojump.bash
 fi
 
 # Source stuff from secret private directory ...
