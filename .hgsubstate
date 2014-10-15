@@ -1,6 +1,6 @@
 5f8f49f36d656ae6164feb504bc9f09b10ab05ac _private
-01853afdf62af95d3706e4f4a064ba1123515691 _vim/bundle/html5.vim
-b25db7ff5d9d914abad76e729dbd12975a4e0c58 _vim/bundle/jedi-vim
+daf9c09f1c77c05adcdc0d81d218474e99104224 _vim/bundle/html5.vim
+21efb8a0e838b6dad410cc50d619404f81768f2e _vim/bundle/jedi-vim
 fbf4bfd09f0cfca17692d8c8318afb756df4ecbd _vim/bundle/khuno.vim
 1fd0382dd299b9feb343b7960f6977de402b0929 _vim/bundle/kwbdi.vim
 72a413e60c101e71f26ef2e3cf42d662fe730aae _vim/bundle/lightline.vim
@@ -8,7 +8,7 @@ fbf4bfd09f0cfca17692d8c8318afb756df4ecbd _vim/bundle/khuno.vim
 c6a872a64530979f4aac46d765c577581cb7fc36 _vim/bundle/python-mode
 8e1c1dc358de2132b7fbc1adaf94f528e3238e4d _vim/bundle/splice.vim
 4e2376a5b4fe3a1f71eb5ec2deb745d98fabde19 _vim/bundle/supertab
-135a1ad1bcfc6ee3b78157d98c3b3b6e6a7a58fe _vim/bundle/tcomment_vim
+400d2caaa67f0c8e1fd228a004791c460cf874a4 _vim/bundle/tcomment_vim
 fb725aa7f6fbd0ce38f9e952c4064a924c6317c7 _vim/bundle/vim-css-color
 eec1b629dc4cfa3986d20f21d4b4489732cd3f5a _vim/bundle/vim-indent-guides
 8a8f0ed97c1751d304cf5b7241f2fe27b0e61f81 _vim/bundle/vim-jinja
