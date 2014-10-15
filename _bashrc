@@ -28,7 +28,6 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-
 # Prints colorized symbol for hg/git repos indicating the repo’s status
 function repo_stat {
     # Git (needs to come first to detect git sub-repos in hg repos)
@@ -78,13 +77,20 @@ function repo_type {
     fi
 }
 
+# Prints "(VIRTUALENV)" if one is active.
+function virtualenv_prompt() {
+    if [ -n "$VIRTUAL_ENV" ]; then
+        echo "(${VIRTUAL_ENV##*/})"
+    fi
+}
+
 # Prompt
-PS1="\[\033[01;32m\]\u@\h"              # user@host (green)
+PS1="$(virtualenv_prompt)"              # (virtualenv) (white, optional)
+PS1+="\[\033[01;32m\]\u@\h"             # user@host (green)
 PS1+="\[\033[00m\]:"                    # :
 PS1+="\[\033[01;34m\]\w"                # cwd (blue)
 PS1+="\[\$(repo_stat)\]\$(repo_type)"   # ☿ for hg or ± for git repos
 PS1+="\[\033[00m\]\$ "                  # $
-
 
 # OS X color terminal
 export CLICOLOR=1
@@ -109,25 +115,13 @@ fi
 
 # Some Mac OS X specific stuff
 if [ `uname -s` = "Darwin" ]; then
-    # Fix for homebrew:
-    export PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
-
     export MACOSX_DEPLOYMENT_TARGET=10.9
     export ARCHFLAGS="-arch x86_64"
 
     alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 
     # Bash completion for homebrew
-    source `brew --repository`/Library/Contributions/brew_bash_completion.sh
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-# set PATH so it includes .local/bin used by pipsi
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
+    source $(brew --prefix)/etc/bash_completion
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -163,6 +157,9 @@ venwrap=`type -P virtualenvwrapper.sh`
 if [ "$venwrap" != "" ]; then
     . $venwrap
 fi
+
+# vex completion
+# eval "$(vex --shell-config bash)"
 
 # Load autojump if installed
 if [ -f /usr/share/autojump/autojump.bash ]; then  # Ubuntu
