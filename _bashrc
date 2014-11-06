@@ -159,7 +159,10 @@ if [ "$venwrap" != "" ]; then
 fi
 
 # vex completion
-eval "$(vex --shell-config bash)"
+has_vex=`type -P vex`
+if [ "$has_vex" != "" ]; then
+    eval "$(vex --shell-config bash)"
+fi
 
 # Load autojump if installed
 if [ -f /usr/share/autojump/autojump.bash ]; then  # Ubuntu
