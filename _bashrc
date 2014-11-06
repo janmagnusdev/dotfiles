@@ -115,7 +115,7 @@ fi
 
 # Some Mac OS X specific stuff
 if [ `uname -s` = "Darwin" ]; then
-    export MACOSX_DEPLOYMENT_TARGET=10.9
+    export MACOSX_DEPLOYMENT_TARGET=10.10
     export ARCHFLAGS="-arch x86_64"
 
     alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
@@ -159,7 +159,7 @@ if [ "$venwrap" != "" ]; then
 fi
 
 # vex completion
-# eval "$(vex --shell-config bash)"
+eval "$(vex --shell-config bash)"
 
 # Load autojump if installed
 if [ -f /usr/share/autojump/autojump.bash ]; then  # Ubuntu
