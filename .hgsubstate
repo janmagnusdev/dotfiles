@@ -1,4 +1,4 @@
-474f0a0f41debc55dd39fb52babcb9c264914a68 _private
+51f33a809aacc32e4c87d1744d639eae5da7c008 _private
 daf9c09f1c77c05adcdc0d81d218474e99104224 _vim/bundle/html5.vim
 6fabdd2fab15bc9d754063cf08b1d5f66e8e7e2f _vim/bundle/jedi-vim
 fbf4bfd09f0cfca17692d8c8318afb756df4ecbd _vim/bundle/khuno.vim
@@ -6,6 +6,7 @@ fbf4bfd09f0cfca17692d8c8318afb756df4ecbd _vim/bundle/khuno.vim
 72a413e60c101e71f26ef2e3cf42d662fe730aae _vim/bundle/lightline.vim
 555478ea18f495f1db5213ef2443fe405812eec2 _vim/bundle/lycosaexplorer
 c6a872a64530979f4aac46d765c577581cb7fc36 _vim/bundle/python-mode
+0fd423990cfa69336fb6c1d5d58aa2091e7b4e76 _vim/bundle/rust.vim
 8e1c1dc358de2132b7fbc1adaf94f528e3238e4d _vim/bundle/splice.vim
 fd4e0d06c2b1d9bff2eef1d15e7895b3b4da7cd7 _vim/bundle/supertab
 6175e8310cf0fdda9452aacb69b1162679e5d388 _vim/bundle/tcomment_vim
@@ -16,5 +17,6 @@ b64904911a0cd60baf86328b21c9a74af30c58cc _vim/bundle/vim-mercenary
 35028be1f71953da9f2c28509bf6c5ebd1d31c28 _vim/bundle/vim-multiple-cursors
 2a3c5f8e3c26a57b8eb4cfc4be79615a1c508ef6 _vim/bundle/vim-repeat
 fa433e0b7330753688f715f3be5d10dc480f20e5 _vim/bundle/vim-surround
+0e1f7fc9f588a70dbc020991383505eabdd13a4c _vim/bundle/vim-toml
 ac893960c324d879b6923a4c1abaea352d8caeb5 _vim/bundle/vim-vinegar
 09f982e62f0bc9e69ab3f6db42870398598f742b _vim/bundle/wildfire.vim
