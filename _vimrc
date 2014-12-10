@@ -72,14 +72,14 @@ endif
 
 """ Interface
 set title
-set number
 set relativenumber
 set cursorline
 set wildmenu
 set wildignore+=.git,.hg,__pycache__,*.pyc
 set wildmode=list:longest,full
 set clipboard=unnamed,unnamedplus  " Use system clipboard
-set listchars=tab:▸\ ,trail:·,eol:¬,precedes:<,extends:>
+set listchars=tab:▸\ ,trail:·,nbsp:~,eol:¬,precedes:❮,extends:❯
+set showbreak=↪
 set fillchars=vert:\│
 set wrap
 set linebreak
