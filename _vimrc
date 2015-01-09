@@ -477,7 +477,7 @@ function! LlIndentation()
     return winwidth('.') > 70 ? text : ''
 endfunction
 
-}}}
+" }}}
 " Lycosa Explorer {{{
 
 nnoremap <silent> <leader>lf :LycosaFilesystemExplorer<cr>

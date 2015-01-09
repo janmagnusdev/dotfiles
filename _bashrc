@@ -138,8 +138,7 @@ else
     export STANDARD_CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/pip";
 fi;
 export WHEELHOUSE="${STANDARD_CACHE_DIR}/Wheelhouse";
-export PIP_USE_WHEEL="yes";
-export PIP_DOWNLOAD_CACHE="${STANDARD_CACHE_DIR}/Downloads";
+export PIP_CERT="/usr/local/etc/openssl/cert.pem";
 export PIP_FIND_LINKS="file://${WHEELHOUSE}";
 export PIP_WHEEL_DIR="${WHEELHOUSE}";
 _pip_completion()
@@ -165,10 +164,10 @@ if [ "$has_vex" != "" ]; then
 fi
 
 # Load autojump if installed
-if [ -f /usr/share/autojump/autojump.bash ]; then  # Ubuntu
-    . /usr/share/autojump/autojump.bash
-elif [ -f /usr/local/etc/autojump.bash ]; then  # homebrew
+if [ -f /usr/local/etc/autojump.bash ]; then  # homebrew
     . /usr/local/etc/autojump.bash
+elif [ -f /usr/share/autojump/autojump.bash ]; then  # Ubuntu
+    . /usr/share/autojump/autojump.bash
 fi
 
 # Source stuff from secret private directory ...
