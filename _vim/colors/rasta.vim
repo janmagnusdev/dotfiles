@@ -184,7 +184,7 @@ def hi_link(group, target):
 hi('Normal',        text,   back)
 
 hi('Cursor',        base03, base0)
-hi('CursorLineNr',  base1,  base02)
+hi('CursorLineNr',  yellow, base02)
 hi('CursorLine',    none,   base02)
 hi('CursorColumn',  none,   base02)
 hi('ColorColumn',   none,   base02)
@@ -201,7 +201,7 @@ hi('TabLineFill',   base0,  base01)
 hi('TabLineSel',    base0,  base00)
 
 hi('Visual',        base3,  base01)
-hi('Folded',        none,   base02, sp=base01)
+hi('Folded',        base00, base02, sp=base01)
 
 hi('Pmenu',         base0,  base02)
 hi('PmenuSel',      base01, base2)
