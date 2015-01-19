@@ -22,7 +22,7 @@ set wrap
 set linebreak
 set scrolloff=3
 set sidescroll=1
-set sidescrolloff=10
+set sidescrolloff=3
 set ttyfast
 
 """ Behavior
@@ -137,19 +137,19 @@ if has('gui_running')
     set guifont=Menlo:h13
 
     " Tab switching
-    nmap <C-Tab> <C-PageDown>
-    vmap <C-Tab> <C-PageDown>
-    imap <C-Tab> <C-O><C-PageDown>
-    nmap <C-S-Tab> <C-PageUp>
-    vmap <C-S-Tab> <C-PageUp>
-    imap <C-S-Tab> <C-O><C-PageUp>
+    nnoremap <C-Tab> <C-PageDown>
+    vnoremap <C-Tab> <C-PageDown>
+    inoremap <C-Tab> <C-O><C-PageDown>
+    nnoremap <C-S-Tab> <C-PageUp>
+    vnoremap <C-S-Tab> <C-PageUp>
+    inoremap <C-S-Tab> <C-O><C-PageUp>
 
   elseif has('gui_gtk2')
     set guifont=DejaVu\ Sans\ Mono\ 9,Monospace\ 9
 
-    map <C-o> :tabnew
-    map <C-t> :tabnew .<cr>
-    map <C-w> :q<cr>
+    noremap <C-o> :tabnew
+    noremap <C-t> :tabnew .<cr>
+    noremap <C-w> :q<cr>
 
     " copy/paste
     vnoremap <special> <C-x> "+x
@@ -165,10 +165,11 @@ endif
 
 " }}}
 " Convenience mappings ---------------------------------------------------- {{{
+" Editing {{{
 
 " Fast editing of the .vimrc
-nmap <leader>ev :e $MYVIMRC<cr>
-nmap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>ev :e $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Set filetype to "mail" (for composing emails)
 nnoremap <leader>Tm :set ft=mail<cr>
@@ -177,17 +178,18 @@ nnoremap <leader>Tm :set ft=mail<cr>
 set pastetoggle=<F2>
 
 " jj to exit insert mode
-imap jj <esc>
+inoremap jj <esc>
 
 " Swap q and @ for macros, because q is easier to type on German keyboards
 noremap q @
 noremap @ q
 
 " Make Y behave like D (instead Y is the same as yy), fix this:
-map Y y$
+noremap Y y$
 
 " Keep the cursor in place while joining lines
-nnoremap J mzJ`z
+" Disabled. Defaults suites me currently better. :)
+" nnoremap J mzJ`z
 
 " Join an entire paragraph.
 nnoremap <leader>J mzvipJ`z
@@ -198,8 +200,8 @@ nnoremap <leader>J mzvipJ`z
 nnoremap S i<cr><Esc>:call TrimSpaces(1)<cr>
 
 " Re-hardwrap paragraphs of text
-nmap <leader>q gqip
-vmap <leader>q gq
+nnoremap <leader>q gqip
+vnoremap <leader>q gq
 
 " Keep visual selection when indenting
 vnoremap < <gv
@@ -215,11 +217,11 @@ cnoremap w!! w !sudo tee % >/dev/null
 nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 
 " When pressing <leader>cd switch to the directory of the open buffer
-nmap <leader>cd :cd %:p:h<cr>
+nnoremap <leader>cd :cd %:p:h<cr>
 
 " open/close the quickfix window
-nmap <leader>co :copen<cr>
-nmap <leader>cc :cclose<cr>
+nnoremap <leader>co :copen<cr>
+nnoremap <leader>cc :cclose<cr>
 
 " "Uppercase word" mapping by Steve Losh
 "
@@ -241,6 +243,7 @@ inoremap <c-f> <c-x><c-f>
 inoremap <c-]> <c-x><c-]>
 inoremap <c-l> <c-x><c-l>
 
+" }}}
 " Searching and movement {{{
 
 " , is my leader, but ö/Ö are unused
@@ -299,10 +302,10 @@ noremap <leader>v <C-w>v
 nnoremap <leader>nn :setlocal relativenumber!<cr>
 
 " Toggle displaying of whitespaces
-nmap <leader>s :set list!<cr>
+nnoremap <leader>s :set list!<cr>
 
 " Toggle spell check
-nmap <leader>sp :set spell!<cr>
+nnoremap <leader>sp :set spell!<cr>
 
 " Toggle wrap
 nnoremap <leader>w :set wrap!<cr>
@@ -314,6 +317,10 @@ nnoremap <leader>w :set wrap!<cr>
 nnoremap <Space> za
 vnoremap <Space> za
 
+" Use r-space to recursively toggle folds
+nnoremap r<Space> zA
+vnoremap r<Space> zA
+
 " Make zO recursively open whatever fold we're in, even if it's partially open.
 nnoremap zO zczO
 
@@ -324,7 +331,6 @@ nnoremap zO zczO
 " 3. Move the line to a little bit (15 lines) above the center of the screen.
 nnoremap <c-z> mzzMzvzz15<c-e>`z
 " }}}
-
 " }}}
 " Filetype-specific ------------------------------------------------------- {{{
 " C {{{
@@ -451,7 +457,7 @@ augroup END
 " Plugin settings --------------------------------------------------------- {{{
 " Hex Highlight {{{
 
-nmap <leader>hh :call HexHighlight()<cr>
+nnoremap <leader>hh :call HexHighlight()<cr>
 
 " }}}
 " Lightline {{{
@@ -487,6 +493,7 @@ nnoremap <silent> <leader>lb :LycosaBufferExplorer<cr>
 " }}}
 " Python-mode {{{
 
+let g:pymode_python = 'python'
 let g:pymode_breakpoint = 1
 let g:pymode_breakpoint_key = '<leader>b'
 let g:pymode_doc = 0  " Use jedi for this
@@ -513,7 +520,7 @@ let g:jedi#show_call_signatures = "1"
 " Python khuno {{{
 
 let g:khuno_ignore=""
-nmap <silent><leader>ks :Khuno show<cr>
+nnoremap <silent><leader>ks :Khuno show<cr>
 
 " }}}
 " Supertab {{{
@@ -523,7 +530,7 @@ let g:SuperTabDefaultCompletionType = "context"
 " }}}
 " TaskList {{{
 
-map <leader>tl <Plug>TaskList
+noremap <leader>tl <Plug>TaskList
 
 " }}}
 " }}}
@@ -614,7 +621,7 @@ au FileWritePre * :call TrimSpaces(0)
 au FileAppendPre * :call TrimSpaces(0)
 au FilterWritePre * :call TrimSpaces(0)
 au BufWritePre * :call TrimSpaces(0)
-nmap <leader>ts :call TrimSpaces(0)<cr>
+nnoremap <leader>ts :call TrimSpaces(0)<cr>
 
 " }}}
 " SmartHome (vim tip 315) {{{
