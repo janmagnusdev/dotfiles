@@ -3,8 +3,7 @@
 " URL:     https://bitbucket.org/ssc/dotfiles/src/tip/_vim/colors
 " License: OSI approved MIT license (see end of this file)
 "
-" About
-" =====
+" About ------------------------------------------------------------------- {{{
 "
 " Rasta is stronlgy inspired by Blackboard and Solarized. It comes with dual
 " light and dark modes and runs in both GUI, 256 and 16 color modes.
@@ -15,9 +14,8 @@
 " Switch between light and dark mode by setting "background=dark" or
 " "background=light".
 "
-"
-" Color values
-" ============
+" }}}
+" Color values ------------------------------------------------------------ {{{
 "
 " Color    LAB          HSB          RGB          HEX      256-color
 " ======== ============ ============ ============ ======== =========
@@ -59,6 +57,9 @@
 " purple    50  67 -58  284  70  85  176  65 217  #b041d9  134
 " blue      50  15 -55  219  70  84   64 117 214  #4075d6   68
 " cyan      50 -21 -15  188  70  56   43 129 143  #2b818f   30
+"
+" }}}
+" Preamble ---------------------------------------------------------------- {{{
 
 hi clear
 if exists("syntax_on")
@@ -67,249 +68,263 @@ endif
 
 let colors_name = "rasta"
 
-python << endpython
-import vim
+let s:USE_TERM_COLORS = ($TERM_PROGRAM ==? "Apple_Terminal")
+let s:HAS_GUI = has("gui_running")
+let s:VMODE = s:HAS_GUI ? "gui" : "cterm"
+" }}}
+" Define color values ----------------------------------------------------- {{{
 
-USE_TERM_COLORS = (vim.eval('$TERM_PROGRAM') == 'Apple_Terminal')
-HAS_GUI = bool(int(vim.eval('has("gui_running")')))
-VMODE = 'gui' if HAS_GUI else 'cterm'
+" background: dark {{{
+if &background ==? 'dark'
+    if s:HAS_GUI
+        let s:base03  = "#1b1b1b"
+        let s:base02  = "#303030"
+        let s:base01  = "#6a6a6a"
+        let s:base00  = "#777777"
+        let s:base0   = "#9e9e9e"
+        let s:base1   = "#ababab"
+        let s:base2   = "#ece8de"
+        let s:base3   = "#fbf6ed"
+        let s:green   = "#82994c"
+        let s:yellow  = "#baad4a"
+        let s:orange  = "#bd845e"
+        let s:red     = "#d17869"
+        let s:magenta = "#c7779e"
+        let s:purple  = "#ab82ba"
+        let s:blue    = "#7692c4"
+        let s:cyan    = "#629ba3"
+    else
+        let s:base03  = "235"
+        let s:base02  = "236"
+        let s:base01  = "240"
+        let s:base00  = "243"
+        let s:base0   = "246"
+        let s:base1   = "249"
+        let s:base2   = "254"
+        let s:base3   = "255"
+        let s:green   = "107"
+        let s:yellow  = "143"
+        let s:orange  = "137"
+        let s:red     = "167"
+        let s:magenta = "175"
+        let s:purple  = "139"
+        let s:blue    = "111"
+        let s:cyan    = "73"
+    endif
+" }}}
+" background: light {{{
+else
+    if s:HAS_GUI
+        let s:base03  = "#fbf6ed"
+        let s:base02  = "#ece8de"
+        let s:base01  = "#c6c6c6"
+        let s:base00  = "#9e9e9e"
+        let s:base0   = "#777777"
+        let s:base1   = "#5e5e5e"
+        let s:base2   = "#303030"
+        let s:base3   = "#1b1b1b"
+        let s:green   = "#63821A"
+        let s:yellow  = "#a39100"
+        let s:orange  = "#c25913"
+        let s:red     = "#d6452b"
+        let s:magenta = "#d13f85"
+        let s:purple  = "#b041d9"
+        let s:blue    = "#4075d6"
+        let s:cyan    = "#2b818f"
+    else
+        let s:base03  = "230"
+        let s:base02  = "254"
+        let s:base01  = "251"
+        let s:base00  = "246"
+        let s:base0   = "243"
+        let s:base1   = "240"
+        let s:base2   = "236"
+        let s:base3   = "235"
+        let s:green   = "64"
+        let s:yellow  = "136"
+        let s:orange  = "130"
+        let s:red     = "167"
+        let s:magenta = "168"
+        let s:purple  = "134"
+        let s:blue    = "68"
+        let s:cyan    = "30"
+    endif
+endif
+" }}}
+" Set background and normal text color {{{
+if s:HAS_GUI
+    let s:back = s:base03
+    let s:text = s:base1
+else
+    let s:back = "NONE"
+    let s:text = "NONE"
+endif
+" }}}
+" Helpers variables for NONE, bold, ... {{{
+let s:none = "NONE"
+let s:bold = "bold"
+let s:reverse = "reverse"
+let s:standout = "standout"
+let s:undercurl = "undercurl"
+let s:underline = "underline"
+" }}}
+" }}}
+" Highlighting functions -------------------------------------------------- {{{
 
-# Define colors
-if vim.eval('&background') == 'dark':
-    if HAS_GUI:
-        base03  = '#1b1b1b'
-        base02  = '#303030'
-        base01  = '#6a6a6a'
-        base00  = '#777777'
-        base0   = '#9e9e9e'
-        base1   = '#ababab'
-        base2   = '#ece8de'
-        base3   = '#fbf6ed'
-        green   = '#82994c'
-        yellow  = '#baad4a'
-        orange  = '#bd845e'
-        red     = '#d17869'
-        magenta = '#c7779e'
-        purple  = '#ab82ba'
-        blue    = '#7692c4'
-        cyan    = '#629ba3'
+function! s:Hi(group, fg, bg, ...)
+    " Execute ``hi <group> <VMODE>fg=<fg> <VMODE>bg=<bg> <VMODE>sp=<sp>
+    "           <VMODE>=<fmt>``
+    let sp  = a:0 >= 4 ? a:sp  : s:none
+    let fmt = a:0 >= 5 ? a:fmt : s:none
 
-    else:
-        base03  = '235'
-        base02  = '236'
-        base01  = '240'
-        base00  = '243'
-        base0   = '246'
-        base1   = '249'
-        base2   = '254'
-        base3   = '255'
-        green   = '107'
-        yellow  = '143'
-        orange  = '137'
-        red     = '167'
-        magenta = '175'
-        purple  = '139'
-        blue    = '111'
-        cyan    = '73'
+    let fg = s:VMODE . "fg=" . a:fg
+    let bg = s:VMODE . "bg=" . a:bg
+    let sp = s:HAS_GUI ? s:VMODE . "sp=" . sp : ""
+    let fmt = s:VMODE . "=" . fmt
+    execute "hi" a:group fg bg sp fmt
+endfunction
 
-else:
-    if HAS_GUI:
-        base03  = '#fbf6ed'
-        base02  = '#ece8de'
-        base01  = '#c6c6c6'
-        base00  = '#9e9e9e'
-        base0   = '#777777'
-        base1   = '#5e5e5e'
-        base2   = '#303030'
-        base3   = '#1b1b1b'
-        green   = '#63821A'
-        yellow  = '#a39100'
-        orange  = '#c25913'
-        red     = '#d6452b'
-        magenta = '#d13f85'
-        purple  = '#b041d9'
-        blue    = '#4075d6'
-        cyan    = '#2b818f'
+function! s:HiLink(group, target)
+    "Execute ``hi link <group> <target>``
+    execute "hi link" a:group a:target
+endfunction
+" }}}
+" Set colors--------------------------------------------------------------- {{{
 
-    else:
-        base03  = '230'
-        base02  = '254'
-        base01  = '251'
-        base00  = '246'
-        base0   = '243'
-        base1   = '240'
-        base2   = '236'
-        base3   = '235'
-        green   = '64'
-        yellow  = '136'
-        orange  = '130'
-        red     = '167'
-        magenta = '168'
-        purple  = '134'
-        blue    = '68'
-        cyan    = '30'
+" General interface {{{
 
-# Set background and normal text color
-if HAS_GUI:
-    back = base03
-    text = base1
-else:
-    back = 'NONE'
-    text = 'NONE'
+call s:Hi("Normal",        s:text,   s:back)
 
-none = 'NONE'
-bold = 'bold'
-reverse = 'reverse'
-standout = 'standout'
-undercurl = 'undercurl'
-underline = 'underline'
+call s:Hi("Cursor",        s:base03, s:base0)
+call s:Hi("CursorLineNr",  s:yellow, s:base02)
+call s:Hi("CursorLine",    s:none,   s:base02)
+call s:Hi("CursorColumn",  s:none,   s:base02)
+call s:Hi("ColorColumn",   s:none,   s:base02)
 
+call s:Hi("FoldColumn",    s:base01, s:none)
+call s:Hi("LineNr",        s:base01, s:none)
+call s:Hi("SignColumn",    s:base01, s:none)
 
-def hi(group, fg, bg, sp=none, fmt=none):
-    """Execute ``hi <group> <VMODE>fg=<fg> <VMODE>bg=<bg> <VMODE>sp=<sp>
-    <VMODE>=<fmt>``."""
-    fg = '%sfg=%s' % (VMODE, fg)
-    bg = '%sbg=%s' % (VMODE, bg)
-    sp = '%ssp=%s' % (VMODE, sp) if HAS_GUI else ''
-    fmt = '%s=%s' % (VMODE, fmt)
-    vim.command('hi %s %s %s %s %s' % (group, fg, bg, sp, fmt))
+call s:Hi("VertSplit",     s:base01, s:base01)
+call s:Hi("StatusLine",    s:base2,  s:base01)
+call s:Hi("StatusLineNC",  s:base1,  s:base01)
+call s:Hi("TabLine",       s:base0,  s:base01)
+call s:Hi("TabLineFill",   s:base0,  s:base01)
+call s:Hi("TabLineSel",    s:base0,  s:base00)
 
+call s:Hi("Visual",        s:base3,  s:base01)
+call s:Hi("Folded",        s:base00, s:base02, s:base01)
 
-def hi_link(group, target):
-    """Execute ``hi link <group> <target>``."""
-    vim.command('hi link %s %s' % (group, target))
+call s:Hi("Pmenu",         s:base0,  s:base02)
+call s:Hi("PmenuSel",      s:base01, s:base2)
+call s:Hi("PmenuSbar",     s:base2,  s:base0)
+call s:Hi("PmenuThumb",    s:base0,  s:base03)
 
+call s:Hi("MatchParen",    s:red,    s:none,   s:none,    s:underline)
+call s:Hi("Directory",     s:blue,   s:none)
+call s:Hi("IncSearch",     s:orange, s:none,   s:none,    s:reverse)
+call s:Hi("Search",        s:yellow, s:none,   s:none,    s:reverse)
+call s:Hi("WildMenu",      s:base03, s:base0)
 
-# General interface
-hi('Normal',        text,   back)
+call s:Hi("NonText",       s:base01, s:none,   s:none,    s:bold)
+call s:Hi("SpecialKey",    s:base01, s:none,   s:none,    s:bold)
+call s:Hi("Title",         s:orange, s:none,   s:none,    s:bold)
+call s:Hi("ErrorMsg",      s:red,    s:none,   s:none,    s:reverse)
+call s:Hi("WarningMsg",    s:red,    s:none,   s:none,    s:bold)
+call s:Hi("Question",      s:orange, s:none,   s:none,    s:bold)
+call s:Hi("MoreMsg",       s:blue,   s:none)
+call s:Hi("ModeMsg",       s:green,  s:none)
 
-hi('Cursor',        base03, base0)
-hi('CursorLineNr',  yellow, base02)
-hi('CursorLine',    none,   base02)
-hi('CursorColumn',  none,   base02)
-hi('ColorColumn',   none,   base02)
+call s:Hi("DiffAdd",       s:green,  s:none,   s:none,    s:reverse)
+call s:Hi("DiffDelete",    s:red,    s:none,   s:none,    s:reverse)
+call s:Hi("DiffChange",    s:yellow, s:none,   s:none,    s:reverse)
+call s:Hi("DiffText",      s:blue,   s:none,   s:none,    s:reverse)
 
-hi('FoldColumn',    base01, none)
-hi('LineNr',        base01, none)
-hi('SignColumn',    base01, none)
+call s:Hi("Conceal",       s:blue,   s:none)
+call s:Hi("SpellBad",      s:none,   s:none,   s:red,     s:undercurl)
+call s:Hi("SpellCap",      s:none,   s:none,   s:blue,    s:undercurl)
+call s:Hi("SpellRare",     s:none,   s:none,   s:magenta, s:undercurl)
+call s:Hi("SpellLocal",    s:none,   s:none,   s:cyan,    s:undercurl)
+" }}}
+" Highlighting {{{
 
-hi('VertSplit',     base01, base01)
-hi('StatusLine',    base2,  base01)
-hi('StatusLineNC',  base1,  base01)
-hi('TabLine',       base0,  base01)
-hi('TabLineFill',   base0,  base01)
-hi('TabLineSel',    base0,  base00)
+call s:Hi("Comment",       s:base2,  s:none)
 
-hi('Visual',        base3,  base01)
-hi('Folded',        base00, base02, sp=base01)
+call s:Hi("Constant",      s:cyan,   s:none)
+call s:Hi("String",        s:green,  s:none)
+call s:HiLink("Character", "Constant")
+call s:HiLink("Number",    "Constant")
+call s:HiLink("Boolean",   "Constant")
+call s:HiLink("Float",     "Constant")
 
-hi('Pmenu',         base0,  base02)
-hi('PmenuSel',      base01, base2)
-hi('PmenuSbar',     base2,  base0)
-hi('PmenuThumb',    base0,  base03)
+call s:Hi("Identifier",    s:orange, s:none)
+call s:Hi("Function",      s:red,    s:none)
 
-hi('MatchParen',    red,    none,   fmt=underline)
-hi('Directory',     blue,   none)
-hi('IncSearch',     orange, none,   fmt=reverse)
-hi('Search',        yellow, none,   fmt=reverse)
-hi('WildMenu',      base03, base0)
+call s:Hi("Statement",     s:yellow, s:none)
+call s:HiLink("Conditional", "Statement")
+call s:HiLink("Repeat",      "Statement")
+call s:HiLink("Label",       "Statement")
+call s:HiLink("Operator",    "Statement")
+call s:HiLink("Keyword",     "Statement")
+call s:HiLink("Exception",   "Statement")
 
-hi('NonText',       base01, none,   fmt=bold)
-hi('SpecialKey',    base01, none,   fmt=bold)
-hi('Title',         orange, none,   fmt=bold)
-hi('ErrorMsg',      red,    none,   fmt=reverse)
-hi('WarningMsg',    red,    none,   fmt=bold)
-hi('Question',      orange, none,   fmt=bold)
-hi('MoreMsg',       blue,   none)
-hi('ModeMsg',       green,  none)
+call s:Hi("PreProc",       s:blue,   s:none)
+call s:Hi("Include",       s:blue,   s:none)
+call s:HiLink("Define",    "Include")
+call s:HiLink("Macro",     "Include")
+call s:HiLink("PreCondit", "Include")
 
-hi('DiffAdd',       green,  none,   fmt=reverse)
-hi('DiffDelete',    red,    none,   fmt=reverse)
-hi('DiffChange',    yellow, none,   fmt=reverse)
-hi('DiffText',      blue,   none,   fmt=reverse)
+call s:Hi("Type",          s:purple, s:none)
+call s:HiLink("StorageClass", "Type")
+call s:HiLink("Structure",    "Type")
+call s:HiLink("Typedef",      "Type")
 
-hi('Conceal',       blue,   none)
-hi('SpellBad',      none,   none,   sp=red,     fmt=undercurl)
-hi('SpellCap',      none,   none,   sp=blue,    fmt=undercurl)
-hi('SpellRare',     none,   none,   sp=magenta, fmt=undercurl)
-hi('SpellLocal',    none,   none,   sp=cyan,    fmt=undercurl)
+call s:Hi("Special",       s:red,    s:none)
+call s:HiLink("SpecialChar",    "Special")
+call s:Hi("Tag",           s:green,  s:none)
+call s:HiLink("Delimiter",      "Special")
+call s:HiLink("SpecialComment", "Special")
+call s:HiLink("Debug",          "Special")
 
-# Highlighting
-hi('Comment',       base2,   none)
+call s:Hi("Underlined",    s:none,   s:none,   s:none,    s:underline)
+call s:Hi("Ignore",        s:base01, s:none)
+call s:Hi("Error",         s:red,    s:none,   s:none,    s:bold)
+call s:Hi("Todo",          s:magenta,s:none,   s:none,    s:bold)
+" }}}
+" HTML {{{
 
-hi('Constant',      cyan,   none)
-hi('String',        green,  none)
-hi_link('Character', 'Constant')
-hi_link('Number',    'Constant')
-hi_link('Boolean',   'Constant')
-hi_link('Float',     'Constant')
+call s:Hi("htmlTag",             s:text,   s:none)
+call s:Hi("htmlEndTag",          s:text,   s:none)
+" }}}
+" Lycosa Explorer {{{
 
-hi('Identifier',    orange, none)
-hi('Function',      red,    none)
+call s:Hi("LycosaSelected",      s:green,  s:none)
+" }}}
+" Patch {{{
 
-hi('Statement',     yellow, none)
-hi_link('Conditional', 'Statement')
-hi_link('Repeat',      'Statement')
-hi_link('Label',       'Statement')
-hi_link('Operator',    'Statement')
-hi_link('Keyword',     'Statement')
-hi_link('Exception',   'Statement')
+call s:Hi("diffAdded",           s:green,  s:none)
+" }}}
+" Python {{{
 
-hi('PreProc',       blue,   none)
-hi('Include',       blue,   none)
-hi_link('Define',    'Include')
-hi_link('Macro',     'Include')
-hi_link('PreCondit', 'Include')
+call s:Hi("pythonBuiltinObj",    s:yellow, s:none)
+call s:Hi("pythonSelf",          s:blue,   s:none)
+" }}}
+" }}}
+" Lightline color scheme--------------------------------------------------- {{{
 
-hi('Type',          purple, none)
-hi_link('StorageClass', 'Type')
-hi_link('Structure',    'Type')
-hi_link('Typedef',      'Type')
+let s:llcs = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}}
+" Colors:                      ofg       obg          ifg      ibg
+let s:llcs.normal.left =     [[s:base02, s:blue],    [s:base2, s:base01]]
+let s:llcs.normal.right =    [[s:base2,  s:base01],  [s:base2, s:base01]]
+let s:llcs.inactive.right =  [[s:base1,  s:base01],  [s:base1, s:base01]]
+let s:llcs.inactive.left =   [[s:base1,  s:base01],  [s:base1, s:base01]]
+let s:llcs.insert.left =     [[s:base02, s:green],   [s:base2, s:base01]]
+let s:llcs.replace.left =    [[s:base02, s:orange],  [s:base2, s:base01]]
+let s:llcs.visual.left =     [[s:base02, s:magenta], [s:base2, s:base01]]
+let s:llcs.normal.middle =   [[s:base1, s:base01]]
+let s:llcs.inactive.middle = [[s:base1, s:base01]]
 
-hi('Special',       red,    none)
-hi_link('SpecialChar',    'Special')
-hi('Tag',           green,  none)
-hi_link('Delimiter',      'Special')
-hi_link('SpecialComment', 'Special')
-hi_link('Debug',          'Special')
-
-hi('Underlined',    none,   none,   fmt=underline)
-hi('Ignore',        base01, none)
-hi('Error',         red,    none,   fmt=bold)
-hi('Todo',          magenta,none,   fmt=bold)
-
-# HTML
-hi('htmlTag',             text,   none)
-hi('htmlEndTag',          text,   none)
-
-# Lycosa Explorer
-hi('LycosaSelected',      green, none)
-
-# Patch
-hi('diffAdded',           green, none)
-
-# Python
-hi('pythonBuiltinObj',    yellow, none)
-# hi('pythonSelf',          blue, none)
-
-
-# Lightline color scheme
-# ======================
-vim.command("let p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}}")
-# Colors:                                                             ofg     obg      ifg     ibg
-vim.command("let p.normal.left =     [['%s', '%s'], ['%s', '%s']]" % (base02, blue,    base2,  base01))
-vim.command("let p.normal.right =    [['%s', '%s'], ['%s', '%s']]" % (base2,  base01,  base2,  base01))
-vim.command("let p.inactive.right =  [['%s', '%s'], ['%s', '%s']]" % (base1,  base01,  base1,  base01))
-vim.command("let p.inactive.left =   [['%s', '%s'], ['%s', '%s']]" % (base1,  base01,  base1,  base01))
-vim.command("let p.insert.left =     [['%s', '%s'], ['%s', '%s']]" % (base02, green,   base2,  base01))
-vim.command("let p.replace.left =    [['%s', '%s'], ['%s', '%s']]" % (base02, orange,  base2,  base01))
-vim.command("let p.visual.left =     [['%s', '%s'], ['%s', '%s']]" % (base02, magenta, base2,  base01))
-vim.command("let p.normal.middle =   [['%s', '%s']]" % (base1, base01))
-vim.command("let p.inactive.middle = [['%s', '%s']]" % (base1, base01))
-
-vim.command("let g:lightline#colorscheme#Rasta#palette = lightline#colorscheme#fill(p)")
-
-endpython
+let g:lightline#colorscheme#Rasta#palette = lightline#colorscheme#fill(s:llcs)
 
 " Reload lightline colors when colorscheme is reloaded (e.g, bg is changed)
 if exists('g:loaded_lightline')
@@ -317,10 +332,8 @@ if exists('g:loaded_lightline')
     call lightline#colorscheme()
     call lightline#update()
 endif
-
-" =======
-" License
-" =======
+" }}}
+" License ----------------------------------------------------------------- {{{
 "
 " The MIT License (MIT)
 "
@@ -343,3 +356,5 @@ endif
 " LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 " OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 " THE SOFTWARE.
+"
+" }}}
