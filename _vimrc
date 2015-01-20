@@ -617,10 +617,13 @@ function! TrimSpaces(current_line)
     nohl
     call winrestview(l:state)
 endfunction
-au FileWritePre * :call TrimSpaces(0)
-au FileAppendPre * :call TrimSpaces(0)
-au FilterWritePre * :call TrimSpaces(0)
-au BufWritePre * :call TrimSpaces(0)
+augroup trim_spaces
+    au!
+    au FileWritePre * :call TrimSpaces(0)
+    au FileAppendPre * :call TrimSpaces(0)
+    au FilterWritePre * :call TrimSpaces(0)
+    au BufWritePre * :call TrimSpaces(0)
+augroup END
 nnoremap <leader>ts :call TrimSpaces(0)<cr>
 
 " }}}
