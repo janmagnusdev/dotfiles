@@ -387,6 +387,11 @@ augroup ft_markdown
     au Filetype markdown nnoremap <buffer> <localleader>2 "zyy"zpVr-k
     au Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space><esc>`zllll
     au Filetype markdown nnoremap <buffer> <localleader>4 mzI####<space><esc>`zlllll
+    " In insert mode, create to new lines below the heading to continue editing
+    au Filetype markdown inoremap <buffer> <localleader>1 <esc>"zyy"zpVr=o<cr>
+    au Filetype markdown inoremap <buffer> <localleader>2 <esc>"zyy"zpVr-o<cr>
+    au Filetype markdown inoremap <buffer> <localleader>3 <esc>I###<space><esc>o<cr>
+    au Filetype markdown inoremap <buffer> <localleader>4 <esc>I####<space><esc>o<cr>
 
 augroup END
 
@@ -432,13 +437,21 @@ augroup ft_rest
     au FileType rst setl fo+=t sw=3 ts=3 sts=3  " Auto-wrap text using tw
 
     " Title, parts, chapters and sections 1/2/3/4
-    au Filetype rst nnoremap <buffer> <localleader>t "zyy"zPVr="zyyj"zp
+    au Filetype rst nnoremap <buffer> <localleader>t "zyy"zPVr="zyyj"zpk
     au Filetype rst nnoremap <buffer> <localleader>p "zyy"zpVr#k
     au Filetype rst nnoremap <buffer> <localleader>c "zyy"zpVr*k
     au Filetype rst nnoremap <buffer> <localleader>1 "zyy"zpVr=k
     au Filetype rst nnoremap <buffer> <localleader>2 "zyy"zpVr-k
     au Filetype rst nnoremap <buffer> <localleader>3 "zyy"zpVr^k
     au Filetype rst nnoremap <buffer> <localleader>4 "zyy"zpVr"k
+    " In insert mode, create to new lines below the heading to continue editing
+    au Filetype rst inoremap <buffer> <localleader>t <esc>"zyy"zPVr="zyyj"zpo<cr>
+    au Filetype rst inoremap <buffer> <localleader>p <esc>"zyy"zpVr#o<cr>
+    au Filetype rst inoremap <buffer> <localleader>c <esc>"zyy"zpVr*o<cr>
+    au Filetype rst inoremap <buffer> <localleader>1 <esc>"zyy"zpVr=o<cr>
+    au Filetype rst inoremap <buffer> <localleader>2 <esc>"zyy"zpVr-o<cr>
+    au Filetype rst inoremap <buffer> <localleader>3 <esc>"zyy"zpVr^o<cr>
+    au Filetype rst inoremap <buffer> <localleader>4 <esc>"zyy"zpVr"o<cr>
 
 augroup END
 
@@ -455,6 +468,17 @@ augroup END
 
 " }}}
 " Plugin settings --------------------------------------------------------- {{{
+" CtrlP {{{
+
+" Mnemoic: 'o'pen ('f'ile, 'd'otfiles, 'b'uffer, 'm'ru)
+nnoremap <leader>of :CtrlP<cr>
+nnoremap <leader>od :CtrlP ~/.dotfiles<cr>
+nnoremap <leader>ob :CtrlPBuffer<cr>
+nnoremap <leader>om :CtrlPMRU<cr>
+let g:ctrlp_open_new_file = 'r'  " Open new files in the current window
+let g:ctrlp_open_multiple_files = '2vjr'  " Vertically split, max. 2 splits
+
+" }}}
 " Hex Highlight {{{
 
 nnoremap <leader>hh :call HexHighlight()<cr>
@@ -484,16 +508,9 @@ function! LlIndentation()
 endfunction
 
 " }}}
-" Lycosa Explorer {{{
-
-nnoremap <silent> <leader>lf :LycosaFilesystemExplorer<cr>
-nnoremap <silent> <leader>lr :LycosaFilesystemExplorerFromHere<cr>
-nnoremap <silent> <leader>lb :LycosaBufferExplorer<cr>
-
-" }}}
 " Python-mode {{{
 
-let g:pymode_python = 'python'
+let g:pymode_python = 'python3'
 let g:pymode_breakpoint = 1
 let g:pymode_breakpoint_key = '<leader>b'
 let g:pymode_doc = 0  " Use jedi for this

@@ -174,8 +174,8 @@ let s:underline = "underline"
 function! s:Hi(group, fg, bg, ...)
     " Execute ``hi <group> <VMODE>fg=<fg> <VMODE>bg=<bg> <VMODE>sp=<sp>
     "           <VMODE>=<fmt>``
-    let sp  = a:0 >= 4 ? a:sp  : s:none
-    let fmt = a:0 >= 5 ? a:fmt : s:none
+    let sp  = a:0 >= 1 ? a:1 : s:none
+    let fmt = a:0 >= 2 ? a:2 : s:none
 
     let fg = s:VMODE . "fg=" . a:fg
     let bg = s:VMODE . "bg=" . a:bg
