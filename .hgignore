@@ -1,6 +1,7 @@
 syntax: glob
 
-.DS_Store
-.netrwhist
 *.pyc
 *.swp
+.DS_Store
+.netrwhist
+_private/

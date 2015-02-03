@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import re
 import subprocess
 
@@ -18,3 +19,7 @@ for line in open('.hgsub'):
 
     print('- Updating %s ...' % local_dir)
     subprocess.call(commands[repo_type], cwd=local_dir, shell=True)
+
+if os.path.isdir('./_private'):
+    print('- Updating _private ...')
+    subprocess.call('hg pull -u', cwd='./_private', shell=True)

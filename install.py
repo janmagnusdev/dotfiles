@@ -14,9 +14,10 @@ import time
 
 
 home = os.path.expanduser('~')
-extra_links = {
-    '_private/ssh/config': '.ssh/config',
-}
+extra_links = {}
+if os.path.isdir('./_private'):
+    extra_links['_private/ssh/config' = '.ssh/config',
+
 entries = glob.glob('_*') + list(extra_links)
 for entry in entries:
     source = os.path.join(os.getcwd(), entry)
