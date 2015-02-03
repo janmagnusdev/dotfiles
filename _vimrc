@@ -208,7 +208,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Easier linewise reselection of what you just pasted.
-nnoremap <leader>V V`]
+nnoremap <leader>V `[V`]
 
 " When I forgot to sudo before editing ...
 cnoremap w!! w !sudo tee % >/dev/null
@@ -316,10 +316,6 @@ nnoremap <leader>w :set wrap!<cr>
 " Use space to toggle folds
 nnoremap <Space> za
 vnoremap <Space> za
-
-" Use r-space to recursively toggle folds
-nnoremap r<Space> zA
-vnoremap r<Space> zA
 
 " Make zO recursively open whatever fold we're in, even if it's partially open.
 nnoremap zO zczO
@@ -475,6 +471,7 @@ nnoremap <leader>of :CtrlP<cr>
 nnoremap <leader>od :CtrlP ~/.dotfiles<cr>
 nnoremap <leader>ob :CtrlPBuffer<cr>
 nnoremap <leader>om :CtrlPMRU<cr>
+let g:ctrlp_switch_buffer = ''  " Don't jump anywhere!
 let g:ctrlp_open_new_file = 'r'  " Open new files in the current window
 let g:ctrlp_open_multiple_files = '2vjr'  " Vertically split, max. 2 splits
 
