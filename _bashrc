@@ -164,9 +164,9 @@ if [ "$has_vex" != "" ]; then
 fi
 
 # Load autojump if installed
-if [ -f /usr/local/etc/autojump.bash ]; then  # homebrew
-    . /usr/local/etc/autojump.bash
-elif [ -f /usr/share/autojump/autojump.bash ]; then  # Ubuntu
+if [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]]; then  # homebrew
+    . $(brew --prefix)/etc/profile.d/autojump.sh
+elif [[ -s /usr/share/autojump/autojump.bash ]]; then  # Ubuntu
     . /usr/share/autojump/autojump.bash
 fi
 
