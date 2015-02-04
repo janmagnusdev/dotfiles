@@ -507,7 +507,11 @@ endfunction
 " }}}
 " Python-mode {{{
 
-let g:pymode_python = 'python3'
+if has('python3')
+    let g:pymode_python = 'python3'
+else
+    let g:pymode_python = 'python'
+endif
 let g:pymode_breakpoint = 1
 let g:pymode_breakpoint_key = '<leader>b'
 let g:pymode_doc = 0  " Use jedi for this
