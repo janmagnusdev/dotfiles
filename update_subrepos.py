@@ -17,8 +17,13 @@ for line in open('.hgsub'):
     local_dir, repo_def = line.split(' = ')
     repo_type, repo_url = repo.match(repo_def).groups()
 
-    print('- Updating %s ...' % local_dir)
-    subprocess.call(commands[repo_type], cwd=local_dir, shell=True)
+    if not os.path.isdir(local_dir):
+        local_dir = os.path.dirname(local_dir.rstrip('/'))
+        print(' - Cloning %s to %s ...' % (repo_url, local_dir))
+        subprocess.call([repo_type, 'clone', repo_url], cwd=local_dir)
+    else:
+        print('- Updating %s ...' % local_dir)
+        subprocess.call(commands[repo_type], cwd=local_dir, shell=True)
 
 if os.path.isdir('./_private'):
     print('- Updating _private ...')
