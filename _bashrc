@@ -29,47 +29,44 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # Prints colorized symbol for hg/git repos indicating the repo’s status
+function git_stat {
+    gitstat=$(git status 2>/dev/null | grep '\(# Untracked\|# Changes\|# Changed but not updated:\)')
+
+    if [[ "$gitstat" =~ 'Changes to be committed' ]]; then
+        color="\033[01;31m"  # Uncommited changes
+
+    elif [[ "$gitstat" =~ 'Changes not staged for commit' || "$gitstat" =~ 'Untracked files' ]]; then
+        color="\033[01;33m"  # No changes, but untracked files
+
+    else
+        color="\033[01;32m"  # No changes or untracked files
+    fi
+    echo -ne "${color}"
+}
+
+function hg_stat {
+    hgstat=$(hg status)
+    if [ "$hgstat" == "" ]; then
+        color="\033[01;32m"  # No changes or untracked files
+    else
+        hgstat=$(hg status -mard)
+        if [ "$hgstat" == "" ]; then
+            color="\033[01;33m"  # No changes, but untracked files
+        else
+            color="\033[01;31m"  # Uncommited changes
+        fi
+    fi
+    echo -ne "${color}"
+}
+
 function repo_stat {
     # Git (needs to come first to detect git sub-repos in hg repos)
     if git branch &>/dev/null; then
-        gitstat=$(git status 2>/dev/null | grep '\(# Untracked\|# Changes\|# Changed but not updated:\)')
-
-        if [[ "$gitstat" =~ 'Changes to be committed' ]]; then
-            color="\033[01;31m"  # Uncommited changes
-
-        elif [[ "$gitstat" =~ 'Changes not staged for commit' || "$gitstat" =~ 'Untracked files' ]]; then
-            color="\033[01;33m"  # No changes, but untracked files
-
-        else
-            color="\033[01;32m"  # No changes or untracked files
-        fi
-        echo -ne "${color}"
+        echo -n "$(git_stat)±"
 
     # Mercurial
     elif hg root &>/dev/null; then
-        hgstat=$(hg status)
-        if [ "$hgstat" == "" ]; then
-            color="\033[01;32m"  # No changes or untracked files
-        else
-            hgstat=$(hg status -mard)
-            if [ "$hgstat" == "" ]; then
-                color="\033[01;33m"  # No changes, but untracked files
-            else
-                color="\033[01;31m"  # Uncommited changes
-            fi
-        fi
-        echo -ne "${color}"
-    fi
-}
-
-function repo_type {
-    # Git (needs to come first to detect git sub-repos in hg repos)
-    if git branch &>/dev/null; then
-        echo -n "±"
-
-    # Mercurial
-    elif hg root &>/dev/null; then
-        echo -n "☿"
+        echo -n "$(hg_stat)☿"
 
     # else
     #     echo '○'
@@ -89,7 +86,7 @@ PS1="$(virtualenv_prompt)"              # (virtualenv) (white, optional)
 PS1+="\[\033[01;32m\]\u@\h"             # user@host (green)
 PS1+="\[\033[00m\]:"                    # :
 PS1+="\[\033[01;34m\]\w"                # cwd (blue)
-PS1+="\[\$(repo_stat)\]\$(repo_type)"   # ☿ for hg or ± for git repos
+PS1+="\$(repo_stat)"   # ☿ for hg or ± for git repos
 PS1+="\[\033[00m\]\$ "                  # $
 
 # OS X color terminal
@@ -121,7 +118,7 @@ if [ `uname -s` = "Darwin" ]; then
     alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 
     # Bash completion for homebrew
-    source $(brew --prefix)/etc/bash_completion
+    source /usr/local/etc/bash_completion
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -157,17 +154,11 @@ if [ "$venwrap" != "" ]; then
     . $venwrap
 fi
 
-# vex completion
-has_vex=`type -P vex`
-if [ "$has_vex" != "" ]; then
-    eval "$(vex --shell-config bash)"
-fi
-
 # Load autojump if installed
-if [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]]; then  # homebrew
-    . $(brew --prefix)/etc/profile.d/autojump.sh
-elif [[ -s /usr/share/autojump/autojump.bash ]]; then  # Ubuntu
+if [[ -s /usr/share/autojump/autojump.bash ]]; then  # Ubuntu
     . /usr/share/autojump/autojump.bash
+elif [[ -s /usr/local/etc/profile.d/autojump.sh ]]; then  # homebrew
+    . /usr/local/etc/profile.d/autojump.sh
 fi
 
 # Source stuff from secret private directory ...
