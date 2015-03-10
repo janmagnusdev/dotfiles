@@ -270,6 +270,9 @@ nnoremap g; g;zz
 nnoremap g, g,zz
 nnoremap <c-o> <c-o>zz
 
+" Find TODOs in all files
+nnoremap <leader>td :vimgrep '\vTODO\|FIXME\|XXX' **/*<cr>:copen<cr>
+
 " Heresy (emacs movement to start/end of line while editing)
 inoremap <c-a> <esc>I
 inoremap <c-e> <esc>A
