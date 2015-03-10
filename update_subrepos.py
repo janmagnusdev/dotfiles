@@ -11,10 +11,10 @@ commands = {
 }
 
 for line in open('.hgsub'):
-    if not line.strip():
+    if not line.strip() or line.startswith('#'):
         continue
 
-    local_dir, repo_def = line.split(' = ')
+    local_dir, repo_def = (i.strip() for i in line.split('='))
     repo_type, repo_url = repo.match(repo_def).groups()
 
     if not os.path.isdir(local_dir):
