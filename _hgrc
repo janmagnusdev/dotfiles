@@ -13,6 +13,7 @@ mq =
 pager =
 purge =
 progress =
+record =
 transplant =
 
 [alias]
