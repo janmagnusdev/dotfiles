@@ -24,6 +24,7 @@ set scrolloff=3
 set sidescroll=1
 set sidescrolloff=3
 set ttyfast
+set mouse=a
 
 """ Behavior
 set autoread
@@ -254,7 +255,7 @@ noremap Ö ,
 noremap ü `
 
 " Clear search term (remove highlighting)
-noremap <silent> <leader><Space> :noh<cr>
+noremap <silent> <leader><Space> :nohlsearch<cr>
 
 " Don't move on *
 " I'd use a function for this but Vim clobbers the last search when you're in
@@ -416,6 +417,20 @@ augroup END
 augroup ft_python
     au!
     au FileType python setl fo+=c  " Auto-wrap comments using textwidth
+    au Filetype python abb <buffer> ifmain if __name__ == '__main__':
+
+    " Join and split a strings (enclosed with ')
+    " join:  'foo '\n'bar' --> 'foo bar'
+    " split: 'foo bar' --> 'foo '\n'bar'
+    au FileType python nnoremap <buffer> <localleader>j Jh3x
+    au FileType python nnoremap <buffer> <localleader>s i'<cr>'<esc>
+
+    " Change dict item to attribute access and keep cursor position
+    " aa: foo['bar'] --> foo.bar
+    " ia: foo.bar --> foo['bar']
+    " Use nmap so that the surround plugin can be utilized.
+    au FileType python nmap <buffer> <localleader>aa mzbi.<esc>ds'ds]`zh
+    au FileType python nmap <buffer> <localleader>ia mzysiw]lysiw'bx`zl
 augroup END
 
 " }}}
@@ -535,7 +550,7 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
-let g:jedi#show_call_signatures = "1"
+let g:jedi#show_call_signatures = "0"
 
 " }}}
 " Python khuno {{{
@@ -634,8 +649,8 @@ function! TrimSpaces(current_line)
     else
         %s/\s\+$//e
     endif
+    nohlsearch
     let @/=l:_s
-    nohl
     call winrestview(l:state)
 endfunction
 augroup trim_spaces
@@ -662,4 +677,13 @@ inoremap <silent> <Home> <C-O>:call SmartHome()<cr>
 nnoremap <silent> 0 :call SmartHome()<cr>
 
 " }}}
+" }}}
+" Neovim -------------------------------------------------------------------{{{
+if has('nvim')
+    tnoremap <Esc> <C-\><C-n>
+    tnoremap <C-h> <C-\><C-n><C-w>h
+    tnoremap <C-j> <C-\><C-n><C-w>j
+    tnoremap <C-k> <C-\><C-n><C-w>k
+    tnoremap <C-l> <C-\><C-n><C-w>l
+endif
 " }}}
