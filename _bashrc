@@ -115,8 +115,6 @@ if [ `uname -s` = "Darwin" ]; then
     export MACOSX_DEPLOYMENT_TARGET=10.10
     export ARCHFLAGS="-arch x86_64"
 
-    alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
-
     # Bash completion for homebrew
     source /usr/local/etc/bash_completion
 fi
@@ -165,3 +163,5 @@ fi
 if [ -d ~/.private ]; then
     . ~/.private/bash_aliases.sh
 fi
+
+export EDITOR="$(which vim)"
