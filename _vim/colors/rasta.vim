@@ -196,7 +196,7 @@ endfunction
 call s:Hi("Normal",        s:text,   s:back)
 
 call s:Hi("Cursor",        s:base03, s:base0)
-call s:Hi("CursorLineNr",  s:yellow, s:base02)
+call s:Hi("CursorLineNr",  s:red,    s:base02)
 call s:Hi("CursorLine",    s:none,   s:base02)
 call s:Hi("CursorColumn",  s:none,   s:base02)
 call s:Hi("ColorColumn",   s:none,   s:base02)
