@@ -31,14 +31,15 @@ function ssh-upload-key {
 function extract() {
     if [ -f $1 ] ; then
         case $1 in
-            *.tar.bz2)   tar xjf $1;;
-            *.tar.gz)    tar xzf $1;;
+            # *.tar.* should be first to fully extract .tar.* archieves
+            *.tar.*)     tar -xf $1;;
+            *.xz)        xz -d $1;;
             *.bz2)       bunzip2 $1;;
             *.rar)       rar x $1;;
             *.gz)        gunzip $1;;
-            *.tar)       tar xf $1;;
-            *.tbz2)      tar xjf $1;;
-            *.tgz)       tar xzf $1;;
+            *.tar)       tar -xf $1;;
+            *.tbz2)      tar -xf $1;;
+            *.tgz)       tar -xf $1;;
             *.zip)       unzip $1;;
             *.Z)         uncompress $1;;
             *.7z)        7z x $1;;
@@ -57,7 +58,7 @@ alias moar='more'
 alias tldr='less'
 alias alwayz='tail -f'
 
-alias icanhas='mkdir'
+alias icanhaz='mkdir'
 alias gimmeh='touch'
 alias donotwant='rm'
 alias dowant='cp'
@@ -79,5 +80,5 @@ alias nomz='ps -aux'
 alias nomnom='killall'
 
 alias byes='exit'
-alias cya='reboot'
-alias kthxbai='halt'
+alias cya='shutdown -r now'
+alias kthxbai='shutdown -h now'
