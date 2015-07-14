@@ -128,14 +128,8 @@ fi
 
 # pip configuration and bash completion
 if [[ "$(uname)" == "Darwin" ]]; then
-    export STANDARD_CACHE_DIR="${HOME}/Library/Caches/org.pip-installer.pip";
-else
-    export STANDARD_CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/pip";
-fi;
-export WHEELHOUSE="${STANDARD_CACHE_DIR}/Wheelhouse";
-export PIP_CERT="/usr/local/etc/openssl/cert.pem";
-export PIP_FIND_LINKS="file://${WHEELHOUSE}";
-export PIP_WHEEL_DIR="${WHEELHOUSE}";
+    export PIP_CERT="/usr/local/etc/openssl/cert.pem";
+fi
 _pip_completion()
 {
     COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
@@ -147,6 +141,7 @@ complete -o default -F _pip_completion pip
 # Python start-up and virtualenv wrapper
 export PYTHONSTARTUP=$HOME/.pythonrc
 export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=`which python3`
 venwrap=`type -P virtualenvwrapper.sh`
 if [ "$venwrap" != "" ]; then
     . $venwrap
