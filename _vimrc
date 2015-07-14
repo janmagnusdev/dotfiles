@@ -310,6 +310,8 @@ nnoremap <leader>s :set list!<cr>
 
 " Toggle spell check
 nnoremap <leader>sp :set spell!<cr>
+nnoremap <leader>spde :setl spell spelllang=de_de
+nnoremap <leader>spde :setl spell spelllang=en
 
 " Toggle wrap
 nnoremap <leader>w :set wrap!<cr>
