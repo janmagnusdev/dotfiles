@@ -36,8 +36,8 @@ set noswapfile
 set history=1000
 set splitbelow
 set splitright
-au VimResized * :wincmd =  " Resize splits when the window is resized
-
+" Resize splits when the window is resized:
+autocmd VimResized * :wincmd =
 """ Messages, Info, Status
 set confirm                 " Y-N-C promt if closing with unsaved changes
 set ruler                   " Show line and column number
