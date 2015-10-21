@@ -73,8 +73,8 @@ set autoindent
 set formatoptions=qrn1j
 set virtualedit+=block
 set backspace=indent,eol,start
-" set foldlevelstart=99  " Start with all folds open
-set foldlevelstart=0  " Start with all folds open
+set foldlevelstart=99  " Start with all folds open
+" set foldlevelstart=0  " Start with all folds open
 
 """ Searching
 set incsearch
@@ -472,6 +472,17 @@ augroup ft_rest
 augroup END
 
 " }}}
+" Salt (SLS) {{{
+
+augroup ft_salt
+    au!
+
+    au BufEnter */etc/salt/* set ft=sls
+    au BufEnter */pillar.example set ft=sls
+
+augroup END
+
+" }}}
 " Vim {{{
 
 augroup ft_vim
@@ -537,6 +548,9 @@ let g:pymode_breakpoint_key = '<leader>b'
 let g:pymode_doc = 0  " Use jedi for this
 let g:pymode_lint = 0  " Use khuno for this
 let g:pymode_rope = 0  " Use jedi for this
+let g:pymode_rope_completion = 0  " Use jedi for this
+let g:pymode_rope_complete_on_dot = 0  " Use jedi for this
+let g:pymode_rope_autoimport = 0
 let g:pymode_run = 1
 let g:pymode_run_key = '<leader>pr'
 let g:pymode_syntax_print_as_function = 1
@@ -546,6 +560,7 @@ let g:pymode_syntax_print_as_function = 1
 
 let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#popup_on_dot = 0
+let g:jedi#smart_auto_mappings = 0
 let g:jedi#goto_assignments_command = "<leader>g"
 let g:jedi#goto_definitions_command = "<leader>d"
 let g:jedi#documentation_command = "K"
