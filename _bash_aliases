@@ -10,6 +10,11 @@ function mcd() {
     mkdir -p "$1" && cd "$1";
 }
 
+# Download from URL and copy its sha256 checksum to the clipboard
+function sha256() {
+    curl "$1" | shasum -a 256 | awk '{printf "%s", $1}' | pbcopy
+}
+
 # Some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
@@ -21,6 +26,9 @@ alias aup='sudo apt-get update'
 alias ainst='sudo apt-get install'
 alias asearch='apt-cache search'
 alias aupgrade='sudo apt-get update; sudo apt-get dist-upgrade; sudo apt-get autoremove; sudo apt-get autoclean'
+
+# Homebrew
+alias bup='brew update && brew upgrade'
 
 # Upload SSH key
 function ssh-upload-key {
