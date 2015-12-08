@@ -134,7 +134,10 @@ if has('gui_running')
   set guicursor+=a:blinkon0
   set guicursor+=i-ci:ver10-Cursor-blinkwait500-blinkoff500-blinkon500
 
-  if has('gui_macvim')
+  if exists('neovim_dot_app')
+    set guifont=Menlo:h13
+
+  elseif has('gui_macvim')
     set guifont=Menlo:h13
 
     " Tab switching
@@ -311,7 +314,7 @@ nnoremap <leader>s :set list!<cr>
 " Toggle spell check
 nnoremap <leader>sp :set spell!<cr>
 nnoremap <leader>spde :setl spell spelllang=de_de
-nnoremap <leader>spde :setl spell spelllang=en
+nnoremap <leader>spen :setl spell spelllang=en
 
 " Toggle wrap
 nnoremap <leader>w :set wrap!<cr>
