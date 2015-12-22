@@ -118,7 +118,7 @@ set synmaxcol=800  " Don't try to highlight lines longer than 800 characters.
 colorscheme rasta
 
 " Reload the colorscheme whenever we write the file.
-augroup color_badwolf_dev
+augroup color_dev
     au!
     au BufWritePost rasta.vim color rasta
 augroup END
