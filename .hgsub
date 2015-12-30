@@ -1,5 +1,6 @@
 _mercurial/templates =              [hg]https://bitbucket.org/sjl/mercurial-cli-templates
 
+_vim/bundle/argtextobj.vim =        [git]https://github.com/vim-scripts/argtextobj.vim
 _vim/bundle/ctrlp.vim =             [hg]https://bitbucket.org/kien/ctrlp.vim
 _vim/bundle/html5.vim =             [git]https://github.com/othree/html5.vim.git
 _vim/bundle/jedi-vim =              [git]https://github.com/davidhalter/jedi-vim.git
@@ -21,6 +22,8 @@ _vim/bundle/vim-mercenary =         [git]https://github.com/phleet/vim-mercenary
 _vim/bundle/vim-multiple-cursors =  [git]https://github.com/terryma/vim-multiple-cursors.git
 _vim/bundle/vim-repeat =            [git]https://github.com/tpope/vim-repeat.git
 _vim/bundle/vim-surround =          [git]https://github.com/tpope/vim-surround.git
+_vim/bundle/vim-textobj-indent =    [git]https://github.com/kana/vim-textobj-indent
+_vim/bundle/vim-textobj-user =      [git]https://github.com/kana/vim-textobj-user
 _vim/bundle/vim-toml =              [git]https://github.com/cespare/vim-toml.git
 _vim/bundle/vim-vinegar =           [git]https://github.com/tpope/vim-vinegar.git
 _vim/bundle/vim-yaml =              [git]https://github.com/stephpy/vim-yaml
