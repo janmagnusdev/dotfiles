@@ -113,7 +113,7 @@ augroup END
 " Color scheme {{{
 
 syntax on
-set background=dark
+set background=light
 set synmaxcol=800  " Don't try to highlight lines longer than 800 characters.
 colorscheme rasta
 
