@@ -12,6 +12,7 @@ c6a872a64530979f4aac46d765c577581cb7fc36 _vim/bundle/python-mode
 136a9256bec2cc9eb53aa3eaec048f0a3ba20ee5 _vim/bundle/splice.vim
 9f7da6d4988daf863ebc414f221bb12c2614f59e _vim/bundle/supertab
 8955e2ee67194de3b6b763b7f01e3c164411c0e6 _vim/bundle/tcomment_vim
+ce52bbaefb81ad90fdb7ee4ef12bda5731ff3378 _vim/bundle/vim-copy-as-rtf
 7ad79c7b77bd83296d7a10e596860d9269070207 _vim/bundle/vim-css-color
 49bde6fa30648345ffabfe55b3a095a293568a2e _vim/bundle/vim-indent-guides
 ce9edd3e4e6d97d5b4132470f2b5a1cd8cdf0f01 _vim/bundle/vim-jinja2-syntax
