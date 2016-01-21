@@ -464,9 +464,11 @@ augroup ft_rest
     au Filetype rst nnoremap <buffer> <localleader>3 "zyy"zpVr^k
     au Filetype rst nnoremap <buffer> <localleader>4 "zyy"zpVr"k
     " In insert mode, create to new lines below the heading to continue editing
-    au Filetype rst inoremap <buffer> <localleader>t <esc>"zyy"zPVr="zyyj"zpo<cr>
-    au Filetype rst inoremap <buffer> <localleader>p <esc>"zyy"zpVr#o<cr>
-    au Filetype rst inoremap <buffer> <localleader>c <esc>"zyy"zpVr*o<cr>
+    " <localleader> is ä and there are just to many German words with "äc(h",
+    " "ät" or "äp" ...
+    " au Filetype rst inoremap <buffer> <localleader>t <esc>"zyy"zPVr="zyyj"zpo<cr>
+    " au Filetype rst inoremap <buffer> <localleader>p <esc>"zyy"zpVr#o<cr>
+    " au Filetype rst inoremap <buffer> <localleader>c <esc>"zyy"zpVr*o<cr>
     au Filetype rst inoremap <buffer> <localleader>1 <esc>"zyy"zpVr=o<cr>
     au Filetype rst inoremap <buffer> <localleader>2 <esc>"zyy"zpVr-o<cr>
     au Filetype rst inoremap <buffer> <localleader>3 <esc>"zyy"zpVr^o<cr>
