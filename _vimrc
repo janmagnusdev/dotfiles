@@ -129,15 +129,15 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 " GUI {{{
 
-if has('gui_running')
+if exists('neovim_dot_app')
+  call MacSetFont('Menlo', 13)
+
+elseif has('gui_running')
   set guioptions-=T  " Hide toolbar
   set guicursor+=a:blinkon0
   set guicursor+=i-ci:ver10-Cursor-blinkwait500-blinkoff500-blinkon500
 
-  if exists('neovim_dot_app')
-    set guifont=Menlo:h13
-
-  elseif has('gui_macvim')
+  if has('gui_macvim')
     set guifont=Menlo:h13
 
     " Tab switching
@@ -584,11 +584,6 @@ nnoremap <silent><leader>ks :Khuno show<cr>
 " Supertab {{{
 
 let g:SuperTabDefaultCompletionType = "context"
-
-" }}}
-" TaskList {{{
-
-noremap <leader>tl <Plug>TaskList
 
 " }}}
 " }}}
