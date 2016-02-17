@@ -1,5 +1,6 @@
 66e2a34005b447d321a96838d7fe2b161e78b7a9 _mercurial/templates
 f3fbe427f7b4ec436416a5816d714dc917dc530b _vim/bundle/argtextobj.vim
+db45c2e583a20add20f9d1c037b2b7ccfe7f2dfa _vim/bundle/braceless.vim
 6554cf59093130ab83f2bafc773e823a3bd936d9 _vim/bundle/ctrlp.vim
 6753f479c4c8b598a664d84d39f31ee8bf081886 _vim/bundle/html5.vim
 625c568b1249db8c5f1b06a1f9371c06ba2d08b5 _vim/bundle/jedi-vim
@@ -14,14 +15,11 @@ c6a872a64530979f4aac46d765c577581cb7fc36 _vim/bundle/python-mode
 8955e2ee67194de3b6b763b7f01e3c164411c0e6 _vim/bundle/tcomment_vim
 ce52bbaefb81ad90fdb7ee4ef12bda5731ff3378 _vim/bundle/vim-copy-as-rtf
 7ad79c7b77bd83296d7a10e596860d9269070207 _vim/bundle/vim-css-color
-49bde6fa30648345ffabfe55b3a095a293568a2e _vim/bundle/vim-indent-guides
 ce9edd3e4e6d97d5b4132470f2b5a1cd8cdf0f01 _vim/bundle/vim-jinja2-syntax
 b64904911a0cd60baf86328b21c9a74af30c58cc _vim/bundle/vim-mercenary
 e543fc86f0c6a8981c9679beceb06482778c3531 _vim/bundle/vim-multiple-cursors
 7a6675f092842c8f81e71d5345bd7cdbf3759415 _vim/bundle/vim-repeat
 2d05440ad23f97a7874ebd9b5de3a0e65d25d85c _vim/bundle/vim-surround
-deb76867c302f933c8f21753806cbf2d8461b548 _vim/bundle/vim-textobj-indent
-a3054162c09bcf732624f43ddacbd85dad09713b _vim/bundle/vim-textobj-user
 f6f79f3cc6740dfacca73a195857cbc45e778912 _vim/bundle/vim-toml
 b8b6de8d4affb7ed4215e90686b482e2bb53bc65 _vim/bundle/vim-vinegar
 06755a296f2248c91f020ccb4e0b3f211365037e _vim/bundle/vim-yaml

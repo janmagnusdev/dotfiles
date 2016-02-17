@@ -424,6 +424,8 @@ augroup ft_python
     au FileType python setl fo+=c  " Auto-wrap comments using textwidth
     au Filetype python abb <buffer> ifmain if __name__ == '__main__':
 
+    au FileType python BracelessEnable +indent +fold +highlight
+
     " Join and split a strings (enclosed with ')
     " join:  'foo '\n'bar' --> 'foo bar'
     " split: 'foo bar' --> 'foo '\n'bar'
@@ -485,6 +487,8 @@ augroup ft_salt
     au BufEnter */etc/salt/* set ft=sls
     au BufEnter */pillar.example set ft=sls
 
+    au FileType sls BracelessEnable +indent +fold +highlight
+
 augroup END
 
 " }}}
@@ -496,6 +500,10 @@ augroup ft_vim
     au FileType help setlocal textwidth=78
 augroup END
 
+" }}}
+" Yaml {{{
+
+    au FileType yaml BracelessEnable +indent +fold +highlight
 " }}}
 
 " }}}
@@ -584,6 +592,16 @@ nnoremap <silent><leader>ks :Khuno show<cr>
 " Supertab {{{
 
 let g:SuperTabDefaultCompletionType = "context"
+
+" }}}
+" Wildfire {{{
+
+" defaults: ip i) i] i} i' i\" it
+let g:wildfire_objects = {
+    \ "*" : split("ip i) i] i} i' i\" it"),
+    \ "html,xml" : split("ip i) i] i} i' i\" it at"),
+    \ "python" : split("ip i) i] i} i' i\" it iP aP"),
+\ }
 
 " }}}
 " }}}

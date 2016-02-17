@@ -303,14 +303,14 @@ call s:Hi("Ignore",        s:base01, s:none)
 call s:Hi("Error",         s:red,    s:none,   s:none,    s:bold)
 call s:Hi("Todo",          s:magenta,s:none,   s:none,    s:bold)
 " }}}
+" Braceless {{{
+
+call s:Hi("BracelessIndent", s:base02, s:none, s:none, s:reverse)
+" }}}
 " HTML {{{
 
 call s:Hi("htmlTag",             s:text,   s:none)
 call s:Hi("htmlEndTag",          s:text,   s:none)
-" }}}
-" Lycosa Explorer {{{
-
-call s:Hi("LycosaSelected",      s:green,  s:none)
 " }}}
 " Patch {{{
 
