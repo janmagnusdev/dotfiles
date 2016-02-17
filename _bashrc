@@ -112,8 +112,8 @@ fi
 
 # Some Mac OS X specific stuff
 if [ `uname -s` = "Darwin" ]; then
-    export MACOSX_DEPLOYMENT_TARGET=10.10
-    export ARCHFLAGS="-arch x86_64"
+    # export MACOSX_DEPLOYMENT_TARGET=10.11
+    # export ARCHFLAGS="-arch x86_64"
 
     # Bash completion for homebrew
     source /usr/local/etc/bash_completion
