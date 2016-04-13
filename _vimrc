@@ -424,7 +424,7 @@ augroup ft_python
     au FileType python setl fo+=c  " Auto-wrap comments using textwidth
     au Filetype python abb <buffer> ifmain if __name__ == '__main__':
 
-    au FileType python BracelessEnable +indent +fold +highlight
+    au FileType python BracelessEnable +highlight
 
     " Join and split a strings (enclosed with ')
     " join:  'foo '\n'bar' --> 'foo bar'
@@ -711,6 +711,17 @@ nnoremap <silent> <Home> :call SmartHome()<cr>
 inoremap <silent> <Home> <C-O>:call SmartHome()<cr>
 nnoremap <silent> 0 :call SmartHome()<cr>
 
+" }}}
+" Switch theme / background {{{
+
+function! SwitchTheme()
+    if &background ==? 'light'
+        set background=dark
+    else
+        set background=light
+    endif
+endfunction
+nnoremap <leader>st :call SwitchTheme()<cr>
 " }}}
 " }}}
 " Neovim -------------------------------------------------------------------{{{

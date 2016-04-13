@@ -1,6 +1,6 @@
 " Name:    Rasta
 " Author:  Stefan Scherfke
-" URL:     https://bitbucket.org/ssc/dotfiles/src/tip/_vim/colors
+" URL:     https://bitbucket.org/sscherfke/dotfiles/src/tip/_vim/colors
 " License: OSI approved MIT license (see end of this file)
 "
 " About ------------------------------------------------------------------- {{{
@@ -305,7 +305,7 @@ call s:Hi("Todo",          s:magenta,s:none,   s:none,    s:bold)
 " }}}
 " Braceless {{{
 
-call s:Hi("BracelessIndent", s:base02, s:none, s:none, s:reverse)
+call s:Hi("BracelessIndent", s:none, s:base02)
 " }}}
 " HTML {{{
 
