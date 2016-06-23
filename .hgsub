@@ -1,5 +1,6 @@
 _mercurial/templates =              [hg]https://bitbucket.org/sjl/mercurial-cli-templates
 
+_vim/bundle/SimpylFold =            [git]https://github.com/tmhedberg/SimpylFold.git
 _vim/bundle/argtextobj.vim =        [git]https://github.com/vim-scripts/argtextobj.vim
 _vim/bundle/braceless.vim =         [git]https://github.com/tweekmonster/braceless.vim.git
 _vim/bundle/ctrlp.vim =             [hg]https://bitbucket.org/kien/ctrlp.vim
@@ -8,7 +9,7 @@ _vim/bundle/jedi-vim =              [git]https://github.com/davidhalter/jedi-vim
 _vim/bundle/khuno.vim =             [git]https://github.com/alfredodeza/khuno.vim.git
 _vim/bundle/kwbdi.vim =             [git]https://github.com/vim-scripts/kwbdi.vim.git
 _vim/bundle/lightline.vim =         [git]https://github.com/itchyny/lightline.vim
-_vim/bundle/python-mode =           [git]https://github.com/klen/python-mode.git
+_vim/bundle/python-syntax =         [git]https://github.com/hdima/python-syntax.git
 _vim/bundle/rust.vim =              [git]https://github.com/rust-lang/rust.vim.git
 _vim/bundle/salt-vim =              [git]https://github.com/saltstack/salt-vim
 # _vim/bundle/splice.vim =            [hg]https://bitbucket.org/sjl/splice.vim
@@ -24,5 +25,6 @@ _vim/bundle/vim-repeat =            [git]https://github.com/tpope/vim-repeat.git
 _vim/bundle/vim-surround =          [git]https://github.com/tpope/vim-surround.git
 _vim/bundle/vim-toml =              [git]https://github.com/cespare/vim-toml.git
 _vim/bundle/vim-vinegar =           [git]https://github.com/tpope/vim-vinegar.git
+_vim/bundle/vim-virtualenv =        [git]https://github.com/jmcantrell/vim-virtualenv.git
 _vim/bundle/vim-yaml =              [git]https://github.com/stephpy/vim-yaml
 _vim/bundle/wildfire.vim =          [git]https://github.com/gcmt/wildfire.vim.git

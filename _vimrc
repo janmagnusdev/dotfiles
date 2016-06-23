@@ -549,24 +549,9 @@ function! LlIndentation()
 endfunction
 
 " }}}
-" Python-mode {{{
+" Python-syntax {{
 
-if has('python3')
-    let g:pymode_python = 'python3'
-else
-    let g:pymode_python = 'python'
-endif
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_key = '<leader>b'
-let g:pymode_doc = 0  " Use jedi for this
-let g:pymode_lint = 0  " Use khuno for this
-let g:pymode_rope = 0  " Use jedi for this
-let g:pymode_rope_completion = 0  " Use jedi for this
-let g:pymode_rope_complete_on_dot = 0  " Use jedi for this
-let g:pymode_rope_autoimport = 0
-let g:pymode_run = 1
-let g:pymode_run_key = '<leader>pr'
-let g:pymode_syntax_print_as_function = 1
+let python_highlight_all = 1
 
 " }}}
 " Python jedi {{{
