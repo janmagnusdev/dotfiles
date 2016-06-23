@@ -114,6 +114,7 @@ fi
 if [ `uname -s` = "Darwin" ]; then
     # export MACOSX_DEPLOYMENT_TARGET=10.11
     # export ARCHFLAGS="-arch x86_64"
+    export HOMEBREW_NO_ANALYTICS=1
 
     # Bash completion for homebrew
     source /usr/local/etc/bash_completion
@@ -127,9 +128,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 # pip configuration and bash completion
-if [[ "$(uname)" == "Darwin" ]]; then
-    export PIP_CERT="/usr/local/etc/openssl/cert.pem";
-fi
 _pip_completion()
 {
     COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
