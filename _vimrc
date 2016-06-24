@@ -1,5 +1,14 @@
 " Preamble ---------------------------------------------------------------- {{{
 
+let g:pathogen_disabled = []
+if has('unix')
+    let s:uname = system('uname')
+    if s:uname != 'Darwin\n'
+        " Disable plugins on non-OSX systems
+        call add(g:pathogen_disabled, 'vim-copy-as-rtf')
+    endif
+endif
+
 filetype off
 call pathogen#infect()
 filetype plugin indent on
@@ -149,7 +158,7 @@ elseif has('gui_running')
     inoremap <C-S-Tab> <C-O><C-PageUp>
 
   elseif has('gui_gtk2')
-    set guifont=DejaVu\ Sans\ Mono\ 9,Monospace\ 9
+    set guifont=Hack\ 11,DejaVu\ Sans\ Mono\ 11,Monospace\ 11
 
     noremap <C-o> :tabnew
     noremap <C-t> :tabnew .<cr>
