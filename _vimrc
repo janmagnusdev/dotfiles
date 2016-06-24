@@ -530,7 +530,7 @@ nnoremap <leader>hh :call HexHighlight()<cr>
 let g:lightline = {
     \ 'colorscheme': 'Rasta',
     \ 'active': {
-    \   'left': [['mode', 'paste'], ['readonly', 'relativepath', 'modified']],
+    \   'left': [['mode', 'paste'], ['virtualenv', 'readonly', 'relativepath', 'modified']],
     \   'right': [['percent'], ['lineinfo'],
     \             ['filetype', 'fileencoding', 'fileformat', 'indentation']]
     \ },
@@ -540,6 +540,7 @@ let g:lightline = {
     \ },
     \ 'component_function': {
     \   'indentation': 'LlIndentation',
+    \   'virtualenv': 'virtualenv#statusline',
     \ }
     \}
 
