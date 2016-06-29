@@ -21,6 +21,7 @@ _vim/bundle/vim-css-color =         [git]https://github.com/ap/vim-css-color.git
 _vim/bundle/vim-jinja2-syntax =     [git]https://github.com/Glench/Vim-Jinja2-Syntax
 _vim/bundle/vim-mercenary =         [git]https://github.com/phleet/vim-mercenary.git
 _vim/bundle/vim-multiple-cursors =  [git]https://github.com/terryma/vim-multiple-cursors.git
+_vim/bundle/vim-python-pep8-indent = [git]https://github.com/hynek/vim-python-pep8-indent.git
 _vim/bundle/vim-repeat =            [git]https://github.com/tpope/vim-repeat.git
 _vim/bundle/vim-surround =          [git]https://github.com/tpope/vim-surround.git
 _vim/bundle/vim-toml =              [git]https://github.com/cespare/vim-toml.git

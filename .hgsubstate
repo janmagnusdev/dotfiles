@@ -9,7 +9,7 @@ d3d7198a1a3342f35363a1a359b0845f953d161e _vim/bundle/khuno.vim
 1fd0382dd299b9feb343b7960f6977de402b0929 _vim/bundle/kwbdi.vim
 430ce2cb063b39a0c7950cafd617e333acb6759a _vim/bundle/lightline.vim
 69760cb3accce488cc072772ca918ac2cbf384ba _vim/bundle/python-syntax
-e064f270e85e0cbb7bd643aeda3e7088378341f7 _vim/bundle/rust.vim
+5dd7ab99103c05a56e059b39ad9f63274d2ae72e _vim/bundle/rust.vim
 5b15d379fbcbb84f82c6a345abc08cea9d374be9 _vim/bundle/salt-vim
 136a9256bec2cc9eb53aa3eaec048f0a3ba20ee5 _vim/bundle/splice.vim
 66511772a430a5eaad7f7d03dbb02e8f33c4a641 _vim/bundle/supertab
@@ -19,6 +19,7 @@ ba98bd138ee15dbf6b6dc3b7080c0e65e0657c76 _vim/bundle/vim-css-color
 ce9edd3e4e6d97d5b4132470f2b5a1cd8cdf0f01 _vim/bundle/vim-jinja2-syntax
 b64904911a0cd60baf86328b21c9a74af30c58cc _vim/bundle/vim-mercenary
 51d0717f63cc231f11b4b63ee5b611f589dce1b3 _vim/bundle/vim-multiple-cursors
+2dcdd210d617e6941ec2d025a80ea16652441a2f _vim/bundle/vim-python-pep8-indent
 7a6675f092842c8f81e71d5345bd7cdbf3759415 _vim/bundle/vim-repeat
 e49d6c2459e0f5569ff2d533b4df995dd7f98313 _vim/bundle/vim-surround
 f6f79f3cc6740dfacca73a195857cbc45e778912 _vim/bundle/vim-toml
