@@ -3,7 +3,7 @@ name = Stefan Scherfke
 email = stefan@sofa-rockers.org
 
 [core]
-excludesfile = /Users/stefan/.gitignore_global
+excludesfile = $HOME/.gitignore_global
 
 [difftool "sourcetree"]
 cmd = opendiff \"$LOCAL\" \"$REMOTE\"
@@ -16,10 +16,6 @@ tool = splice
 cmd = "mvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
 trustExitCode = true
 
-[mergetool "sourcetree"]
-cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-trustExitCode = true
-
 [color]
 diff = auto
 status = auto
@@ -28,3 +24,21 @@ ui = auto
 
 [push]
 default = simple
+
+[alias]
+br = branch
+ci = commit
+co = checkout
+last = log -1 HEAD
+st = status
+unstage = reset HEAD --
+# lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold)%s%C(reset) - %C(cyan)%an%C(reset) %C(green)(%ar)%C(reset)%C(red)%d%C(reset)' --all
+# lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold)%s%C(reset)%n''%C(bold blue)%h%C(reset) - %C(cyan)%an%C(reset) on %C(green)%aD%C(reset) %C(yellow)(%ar)%C(reset)%C(red)%d%C(reset)%n' --all
+lg-short = log --graph --abbrev-commit --decorate --format=format:'%C(blue)%h%C(reset) - %s - %C(cyan)%an%C(reset) %C(green)(%ar)%C(reset)%C(red)%d%C(reset)' --all
+lg-medium = log --graph --abbrev-commit --decorate --format=format:'%s%n''%C(blue)%h%C(reset) - %C(cyan)%an%C(reset) on %C(green)%aD%C(reset) %C(yellow)(%ar)%C(reset)%C(red)%d%C(reset)%n' --all
+lg = !"git lg-medium"
+lg5 = !"git lg-medium -5"
+glog = log --graph
+
+[log]
+decorate = auto
