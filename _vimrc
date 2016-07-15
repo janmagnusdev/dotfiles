@@ -578,15 +578,24 @@ let g:jedi#rename_command = "<leader>r"
 let g:jedi#show_call_signatures = "0"
 
 " }}}
-" Python khuno {{{
-
-let g:khuno_ignore=""
-nnoremap <silent><leader>ks :Khuno show<cr>
-
-" }}}
 " Supertab {{{
 
 let g:SuperTabDefaultCompletionType = "context"
+
+" }}}
+" Syntastic {{{
+
+set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+" let g:syntastic_aggregate_errors = 1
+let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" let g:syntastic_python_checkers = ['python', 'flake8', 'pylint']
 
 " }}}
 " Wildfire {{{

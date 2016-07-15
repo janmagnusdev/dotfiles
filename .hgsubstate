@@ -5,7 +5,6 @@ b44941e03bf831666579d90803a0f6a12b7c5a8e _vim/bundle/braceless.vim
 6554cf59093130ab83f2bafc773e823a3bd936d9 _vim/bundle/ctrlp.vim
 fccd580f5f11d576169ee347907c9fbd77af410a _vim/bundle/html5.vim
 6b7dfe1c1afa9f40df283b2223676ba32f9aa791 _vim/bundle/jedi-vim
-d3d7198a1a3342f35363a1a359b0845f953d161e _vim/bundle/khuno.vim
 1fd0382dd299b9feb343b7960f6977de402b0929 _vim/bundle/kwbdi.vim
 430ce2cb063b39a0c7950cafd617e333acb6759a _vim/bundle/lightline.vim
 69760cb3accce488cc072772ca918ac2cbf384ba _vim/bundle/python-syntax
@@ -13,6 +12,7 @@ d3d7198a1a3342f35363a1a359b0845f953d161e _vim/bundle/khuno.vim
 5b15d379fbcbb84f82c6a345abc08cea9d374be9 _vim/bundle/salt-vim
 136a9256bec2cc9eb53aa3eaec048f0a3ba20ee5 _vim/bundle/splice.vim
 66511772a430a5eaad7f7d03dbb02e8f33c4a641 _vim/bundle/supertab
+ddfa6a88350cd1fbf50e1b90f99d16f9ca982a39 _vim/bundle/syntastic
 a21d1ec9721a71e6beed0da3ddd682d6a2db9f31 _vim/bundle/tcomment_vim
 ce52bbaefb81ad90fdb7ee4ef12bda5731ff3378 _vim/bundle/vim-copy-as-rtf
 ba98bd138ee15dbf6b6dc3b7080c0e65e0657c76 _vim/bundle/vim-css-color
