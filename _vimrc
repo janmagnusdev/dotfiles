@@ -431,7 +431,7 @@ augroup END
 augroup ft_python
     au!
     au FileType python setl fo+=c  " Auto-wrap comments using textwidth
-    au Filetype python abb <buffer> ifmain if __name__ == '__main__':
+    au Filetype python abb <buffer> ifmain if __name__ == '__main__'
 
     au FileType python BracelessEnable +highlight
 
@@ -559,7 +559,7 @@ function! LlIndentation()
 endfunction
 
 " }}}
-" Python-syntax {{
+" Python-syntax {{{
 
 let python_highlight_all = 1
 
