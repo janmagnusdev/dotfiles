@@ -50,4 +50,4 @@ attend = annotate, cat, diff, export, glog, log, qdiff, sglog, slog, nlog
 [web]
 allow_archive = zip, bz2
 pygments_style = tango
-cacerts = /etc/ssl/certs/ca-certificates.crt
+# cacerts = /etc/ssl/certs/ca-certificates.crt

@@ -306,6 +306,7 @@ call s:Hi("Todo",          s:magenta,s:none,   s:none,    s:bold)
 " Braceless {{{
 
 call s:Hi("BracelessIndent", s:none, s:base02)
+" call s:Hi("BracelessIndent", s:base01, s:none, s:none, s:reverse)
 " }}}
 " HTML {{{
 
@@ -326,7 +327,7 @@ call s:Hi("yamlKey",             s:purple,  s:none)
 " }}}
 " Lightline color scheme--------------------------------------------------- {{{
 
-let s:llcs = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}}
+let s:llcs = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
 " Colors:                      ofg       obg          ifg      ibg
 let s:llcs.normal.left =     [[s:base02, s:blue],    [s:base2, s:base01]]
 let s:llcs.normal.right =    [[s:base2,  s:base01],  [s:base2, s:base01]]
@@ -337,6 +338,12 @@ let s:llcs.replace.left =    [[s:base02, s:orange],  [s:base2, s:base01]]
 let s:llcs.visual.left =     [[s:base02, s:magenta], [s:base2, s:base01]]
 let s:llcs.normal.middle =   [[s:base1, s:base01]]
 let s:llcs.inactive.middle = [[s:base1, s:base01]]
+let s:llcs.tabline.left = [[s:base02, s:base00]]
+let s:llcs.tabline.tabsel = [[s:base02, s:blue]]
+let s:llcs.tabline.middle = [[s:base1, s:base01]]
+let s:llcs.tabline.right = [[s:base02, s:red]]
+let s:llcs.normal.error = [[s:red, s:base01]]
+let s:llcs.normal.warning = [[s:yellow, s:base01]]
 
 let g:lightline#colorscheme#Rasta#palette = lightline#colorscheme#fill(s:llcs)
 

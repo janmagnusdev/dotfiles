@@ -77,7 +77,7 @@ set shiftround
 """ Moving around / Editing
 set encoding=utf-8
 set textwidth=79
-set colorcolumn=+1
+set colorcolumn=+1,121
 set autoindent
 set formatoptions=qrn1j
 set virtualedit+=block
@@ -310,6 +310,9 @@ noremap <C-l> <C-w>l
 
 " Create vertical split
 noremap <leader>v <C-w>v
+
+" Create small, vertical split with a terminal
+noremap <leader>t :split<cr>:resize 10<cr>:term<cr>
 
 " }}}
 " Toggles {{{
@@ -559,6 +562,11 @@ function! LlIndentation()
 endfunction
 
 " }}}
+" Neomake {{{
+
+autocmd! BufWritePost,BufRead * Neomake
+
+" }}}
 " Python-syntax {{{
 
 let python_highlight_all = 1
@@ -581,21 +589,6 @@ let g:jedi#show_call_signatures = "0"
 " Supertab {{{
 
 let g:SuperTabDefaultCompletionType = "context"
-
-" }}}
-" Syntastic {{{
-
-set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-" let g:syntastic_aggregate_errors = 1
-let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" let g:syntastic_python_checkers = ['python', 'flake8', 'pylint']
 
 " }}}
 " Wildfire {{{

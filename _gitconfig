@@ -13,7 +13,7 @@ path =
 tool = splice
 
 [mergetool "splice"]
-cmd = "mvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
+cmd = "vim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
 trustExitCode = true
 
 [color]
@@ -35,10 +35,13 @@ unstage = reset HEAD --
 # lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold)%s%C(reset) - %C(cyan)%an%C(reset) %C(green)(%ar)%C(reset)%C(red)%d%C(reset)' --all
 # lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold)%s%C(reset)%n''%C(bold blue)%h%C(reset) - %C(cyan)%an%C(reset) on %C(green)%aD%C(reset) %C(yellow)(%ar)%C(reset)%C(red)%d%C(reset)%n' --all
 lg-short = log --graph --abbrev-commit --decorate --format=format:'%C(blue)%h%C(reset) - %s - %C(cyan)%an%C(reset) %C(green)(%ar)%C(reset)%C(red)%d%C(reset)' --all
-lg-medium = log --graph --abbrev-commit --decorate --format=format:'%s%n''%C(blue)%h%C(reset) - %C(cyan)%an%C(reset) on %C(green)%aD%C(reset) %C(yellow)(%ar)%C(reset)%C(red)%d%C(reset)%n' --all
+lg-medium = log --graph --abbrev-commit --decorate --format=format:'%C(bold)%s%C(reset)%n''%C(blue)%h%C(reset) - %C(cyan)%an%C(reset) on %C(green)%aD%C(reset) %C(yellow)(%ar)%C(reset)%C(red)%d%C(reset)%n' --all
 lg = !"git lg-medium"
 lg5 = !"git lg-medium -5"
 glog = log --graph
+	webui = !/localhome/stefan/.git-webui/release/libexec/git-core/git-webui
 
 [log]
 decorate = auto
+[webui]
+	autoupdate = true
