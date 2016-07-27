@@ -30,27 +30,41 @@ fi
 
 # Prints colorized symbol for hg/git repos indicating the repo’s status
 function git_stat {
-    gitstat=$(git status 2>/dev/null | grep '\(# Untracked\|# Changes\|# Changed but not updated:\)')
+    local gitstat
+    gitstat=$(git status --porcelain 2>/dev/null)
+    # gitstat=$(git status 2>/dev/null | grep '\(# Untracked\|# Changes\|# Changed but not updated:\)')
 
-    if [[ "$gitstat" =~ 'Changes to be committed' ]]; then
+    if [[ $gitstat == '' ]]; then
+        color="\033[01;32m"  # No changes or untracked files
+
+    elif [[ $(echo "$gitstat" | grep '^[^ ?]') != '' ]]; then
         color="\033[01;31m"  # Uncommited changes
 
-    elif [[ "$gitstat" =~ 'Changes not staged for commit' || "$gitstat" =~ 'Untracked files' ]]; then
-        color="\033[01;33m"  # No changes, but untracked files
-
     else
-        color="\033[01;32m"  # No changes or untracked files
+        color="\033[01;33m"  # Unstaged or untracked files
     fi
     echo -ne "${color}"
 }
 
+function git_branch {
+    # Based on: http://stackoverflow.com/a/13003854/170413
+    local branch
+    branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+    if [[ $branch == "HEAD" ]]; then
+        branch='detached*'
+    fi
+    echo -ne "\033[00;34m ($branch)"
+}
+
 function hg_stat {
+    local hgstat
+    local color
     hgstat=$(hg status)
-    if [ "$hgstat" == "" ]; then
+    if [[ $hgstat == "" ]]; then
         color="\033[01;32m"  # No changes or untracked files
     else
         hgstat=$(hg status -mard)
-        if [ "$hgstat" == "" ]; then
+        if [[ $hgstat == "" ]]; then
             color="\033[01;33m"  # No changes, but untracked files
         else
             color="\033[01;31m"  # Uncommited changes
@@ -62,7 +76,7 @@ function hg_stat {
 function repo_stat {
     # Git (needs to come first to detect git sub-repos in hg repos)
     if git branch &>/dev/null; then
-        echo -n "$(git_stat)±"
+        echo -n "$(git_branch)$(git_stat)±"
 
     # Mercurial
     elif hg root &>/dev/null; then

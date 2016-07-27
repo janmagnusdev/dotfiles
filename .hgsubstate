@@ -16,6 +16,7 @@ fccd580f5f11d576169ee347907c9fbd77af410a _vim/bundle/html5.vim
 a21d1ec9721a71e6beed0da3ddd682d6a2db9f31 _vim/bundle/tcomment_vim
 ce52bbaefb81ad90fdb7ee4ef12bda5731ff3378 _vim/bundle/vim-copy-as-rtf
 ba98bd138ee15dbf6b6dc3b7080c0e65e0657c76 _vim/bundle/vim-css-color
+c00ebd75ac23f4080c0d0bf9453b16304a3fb316 _vim/bundle/vim-fugitive
 ce9edd3e4e6d97d5b4132470f2b5a1cd8cdf0f01 _vim/bundle/vim-jinja2-syntax
 b64904911a0cd60baf86328b21c9a74af30c58cc _vim/bundle/vim-mercenary
 51d0717f63cc231f11b4b63ee5b611f589dce1b3 _vim/bundle/vim-multiple-cursors

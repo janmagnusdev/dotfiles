@@ -542,7 +542,7 @@ nnoremap <leader>hh :call HexHighlight()<cr>
 let g:lightline = {
     \ 'colorscheme': 'Rasta',
     \ 'active': {
-    \   'left': [['mode', 'paste'], ['virtualenv', 'readonly', 'relativepath', 'modified']],
+    \   'left': [['mode', 'paste'], ['virtualenv', 'relativepath'], ['readonly', 'modified']],
     \   'right': [['percent'], ['lineinfo'],
     \             ['filetype', 'fileencoding', 'fileformat', 'indentation']]
     \ },
