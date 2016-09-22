@@ -12,8 +12,13 @@ function mcd() {
 
 # Download from URL and copy its sha256 checksum to the clipboard
 function sha256() {
-    curl "$1" | shasum -a 256 | awk '{printf "%s", $1}' | pbcopy
+    if `type pbcopy &> /dev/null`; then
+        curl "$1" | shasum -a 256 | awk '{printf "%s", $1}' | pbcopy
+    else
+        curl "$1" | shasum -a 256 | awk '{printf "%s", $1}' | xclip -selection clipboard
+    fi
 }
+
 
 # Some more ls aliases
 alias ll='ls -alF'
