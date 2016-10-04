@@ -141,6 +141,14 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 if exists('neovim_dot_app')
   call MacSetFont('Menlo', 13)
 
+  " Tab switching
+  nnoremap <C-Tab> <C-PageDown>
+  vnoremap <C-Tab> <C-PageDown>
+  inoremap <C-Tab> <C-O><C-PageDown>
+  nnoremap <C-S-Tab> <C-PageUp>
+  vnoremap <C-S-Tab> <C-PageUp>
+  inoremap <C-S-Tab> <C-O><C-PageUp>
+
 elseif has('gui_running')
   set guioptions-=T  " Hide toolbar
   set guicursor+=a:blinkon0

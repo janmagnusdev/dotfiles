@@ -80,7 +80,7 @@ endif
 let colors_name = "rasta"
 
 let s:USE_TERM_COLORS = ($TERM_PROGRAM ==? "Apple_Terminal")
-let s:HAS_GUI = has("gui_running")
+let s:HAS_GUI = has("gui_running") || exists("neovim_dot_app")
 let s:VMODE = s:HAS_GUI ? "gui" : "cterm"
 " }}}
 " Define color values ----------------------------------------------------- {{{
