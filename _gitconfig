@@ -5,11 +5,14 @@ email = stefan@sofa-rockers.org
 [core]
 excludesfile = $HOME/.gitignore_global
 
-[difftool "sourcetree"]
-cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-path =
+[push]
+default = simple
+
+[diff]
+tool = meld
 
 [merge]
+# tool = meld
 tool = splice
 
 [mergetool "splice"]
@@ -22,8 +25,8 @@ status = auto
 branch = auto
 ui = auto
 
-[push]
-default = simple
+[log]
+decorate = auto
 
 [alias]
 br = branch
@@ -32,16 +35,8 @@ co = checkout
 last = log -1 HEAD
 st = status
 unstage = reset HEAD --
-# lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold)%s%C(reset) - %C(cyan)%an%C(reset) %C(green)(%ar)%C(reset)%C(red)%d%C(reset)' --all
-# lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold)%s%C(reset)%n''%C(bold blue)%h%C(reset) - %C(cyan)%an%C(reset) on %C(green)%aD%C(reset) %C(yellow)(%ar)%C(reset)%C(red)%d%C(reset)%n' --all
 lg-short = log --graph --abbrev-commit --decorate --format=format:'%C(blue)%h%C(reset) - %s - %C(cyan)%an%C(reset) %C(green)(%ar)%C(reset)%C(red)%d%C(reset)' --all
 lg-medium = log --graph --abbrev-commit --decorate --format=format:'%C(bold)%s%C(reset)%n''%C(blue)%h%C(reset) - %C(cyan)%an%C(reset) on %C(green)%aD%C(reset) %C(yellow)(%ar)%C(reset)%C(red)%d%C(reset)%n' --all
 lg = !"git lg-medium"
 lg5 = !"git lg-medium -5"
 glog = log --graph
-	webui = !/localhome/stefan/.git-webui/release/libexec/git-core/git-webui
-
-[log]
-decorate = auto
-[webui]
-	autoupdate = true
