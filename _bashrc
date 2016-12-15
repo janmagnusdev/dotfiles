@@ -133,16 +133,6 @@ if [ `uname -s` = "Darwin" ]; then
 
     # Bash completion for homebrew
     source /usr/local/etc/bash_completion
-
-elif [ `uname -s` = "Linux" ]; then
-    # Some Linux specific stuff
-    # Blurry background for Konsole:
-    konsolex=$(qdbus | grep konsole | cut -f 2 -d\ )
-    if [ -n konsolex ]; then
-        for konsole in $konsolex; do
-            xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id `qdbus $konsole /konsole/MainWindow_1 winId`;
-        done
-    fi
 fi
 
 # enable programmable completion features (you don't need to enable
