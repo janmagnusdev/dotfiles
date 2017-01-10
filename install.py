@@ -6,12 +6,14 @@ starting with an undersore (which will of course be replaced by a dot).
 If a file with that name already exists, it will be moved to
 ``<filename>.orig``.
 
+Also install the Vim plug-in manager "dein.vim".
+
 """
 import glob
 import os
 import re
+import subprocess
 import time
-
 
 home = os.path.expanduser('~')
 extra_links = {}
@@ -30,3 +32,10 @@ for entry in entries:
         os.rename(target, '%s.%s' % (target, time.strftime('%Y%m%d_%H%M%S')))
 
     os.symlink(source, target)
+
+# Install dein.vim
+if not os.path.exists('installer.sh'):
+    subprocess.run('curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh', shell=True)
+    subprocess.run('sh installer.sh _vim/dein', shell=True)
+    os.remove('installer.sh')
+    print('Open vim and run:\n:call dein#install()\n')

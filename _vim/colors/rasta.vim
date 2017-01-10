@@ -305,8 +305,8 @@ call s:Hi("Todo",          s:magenta,s:none,   s:none,    s:bold)
 " }}}
 " Braceless {{{
 
-call s:Hi("BracelessIndent", s:none, s:base02)
-" call s:Hi("BracelessIndent", s:base01, s:none, s:none, s:reverse)
+" call s:Hi("BracelessIndent", s:none, s:base02)
+call s:Hi("BracelessIndent", s:base01, s:none, s:none, s:reverse)
 " }}}
 " HTML {{{
 

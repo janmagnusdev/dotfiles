@@ -1,1 +1,6 @@
-_private
+*.pyc
+*.swp
+.DS_Store
+.netrwhist
+_private/
+_vim/dein

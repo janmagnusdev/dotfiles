@@ -1,19 +1,78 @@
 " Preamble ---------------------------------------------------------------- {{{
+set nocompatible
 
-let g:pathogen_disabled = []
-if has('unix')
-    let s:uname = system('uname')
-    if s:uname != 'Darwin\n'
-        " Disable plugins on non-OSX systems
-        call add(g:pathogen_disabled, 'vim-copy-as-rtf')
-    endif
+" Installation:
+" $ curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+" $ bash ./installer.sh ~/.vim/dein
+
+" Required:
+set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+
+" Required:
+if dein#load_state('~/.vim/dein/')
+  call dein#begin('~/.vim/dein/')
+
+  " Let dein manage dein
+  " Required:
+  call dein#add('~/.vim/dein/repos/github.com/Shougo/dein.vim')
+
+  " Add or remove your plugins here:
+  " Interface plug-ins
+  call dein#add('ctrlpvim/ctrlp.vim')
+  call dein#add('itchyny/lightline.vim')
+  call dein#add('tpope/vim-eunuch')
+  call dein#add('tpope/vim-vinegar')
+  call dein#add('vim-scripts/kwbdi.vim')
+  call dein#add('zerowidth/vim-copy-as-rtf', {'if': has('unix'), 'on_cmd': 'CopyRTF'})
+
+  " Editing plug-ins
+  call dein#add('ervandew/supertab')
+  call dein#add('gcmt/wildfire.vim')
+  call dein#add('terryma/vim-multiple-cursors')
+  call dein#add('tomtom/tcomment_vim')
+  call dein#add('tpope/vim-repeat')
+  call dein#add('tpope/vim-surround')
+  call dein#add('tweekmonster/braceless.vim')
+  call dein#add('vim-scripts/argtextobj.vim')
+
+  " Tools
+  call dein#add('neomake/neomake', {'merged': 0})
+  call dein#add('phleet/vim-mercenary')
+  call dein#add('sjl/splice.vim', {'on_cmd': 'SpliceInit'})
+  call dein#add('tpope/vim-fugitive')
+
+  " Filetype plug-ins
+  call dein#add('ap/vim-css-color',             {'on_ft': ['css','scss','sass','less','styl']})
+  call dein#add('othree/html5.vim',             {'on_ft': 'html'})
+  call dein#add('Glench/Vim-Jinja2-Syntax',     {'on_ft': 'jinja'})
+  call dein#add('davidhalter/jedi-vim',         {'on_ft': 'python'})
+  call dein#add('hdima/python-syntax',          {'on_ft': 'python'})
+  call dein#add('hynek/vim-python-pep8-indent', {'on_ft': 'python'})
+  call dein#add('jmcantrell/vim-virtualenv',    {'on_ft': 'python'})
+  call dein#add('tmhedberg/SimpylFold',         {'on_ft': 'python'})
+  call dein#add('rust-lang/rust.vim',           {'on_ft': 'rust'})
+  call dein#add('saltstack/salt-vim',           {'on_ft': 'sls'})
+  call dein#add('cespare/vim-toml',             {'on_ft': 'toml'})
+  call dein#add('stephpy/vim-yaml',             {'on_ft': 'yaml'})
+
+  " Required:
+  call dein#end()
+  call dein#save_state()
 endif
 
-filetype off
-call pathogen#infect()
+noremap <ENTER> <Plug>(wildfire-fuel)
+vnoremap <BS> <Plug>(wildfire-water)
+
+" Required:
 filetype plugin indent on
-set nocompatible
+syntax enable
+
+" If you want to install not installed plugins on startup.
+" if dein#check_install()
+"   call dein#install()
+" endif
 " }}}
+
 " Basic options ----------------------------------------------------------- {{{
 
 """ Interface
@@ -77,7 +136,7 @@ set shiftround
 """ Moving around / Editing
 set encoding=utf-8
 set textwidth=79
-set colorcolumn=+1,121
+set colorcolumn=+1,101
 set autoindent
 set formatoptions=qrn1j
 set virtualedit+=block
@@ -444,7 +503,7 @@ augroup ft_python
     au FileType python setl fo+=c  " Auto-wrap comments using textwidth
     au Filetype python abb <buffer> ifmain if __name__ == '__main__'
 
-    au FileType python BracelessEnable +highlight
+    au FileType python BracelessEnable +highlight-cc2
 
     " Join and split a strings (enclosed with ')
     " join:  'foo '\n'bar' --> 'foo bar'
@@ -507,7 +566,7 @@ augroup ft_salt
     au BufEnter */etc/salt/* set ft=sls
     au BufEnter */pillar.example set ft=sls
 
-    au FileType sls BracelessEnable +indent +fold +highlight
+    au FileType sls BracelessEnable +indent +fold +highlight-cc2
 
 augroup END
 
@@ -523,7 +582,7 @@ augroup END
 " }}}
 " Yaml {{{
 
-    au FileType yaml BracelessEnable +indent +fold +highlight
+    au FileType yaml BracelessEnable +indent +fold +highlight-cc2
 " }}}
 
 " }}}
