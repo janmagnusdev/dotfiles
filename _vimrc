@@ -22,6 +22,7 @@ if dein#load_state('~/.vim/dein/')
   call dein#add('itchyny/lightline.vim')
   call dein#add('tpope/vim-eunuch')
   call dein#add('tpope/vim-vinegar')
+  call dein#add('vim-scripts/hexHighlight.vim')
   call dein#add('vim-scripts/kwbdi.vim')
   call dein#add('zerowidth/vim-copy-as-rtf', {'if': has('unix'), 'on_cmd': 'CopyRTF'})
 
@@ -36,7 +37,8 @@ if dein#load_state('~/.vim/dein/')
   call dein#add('vim-scripts/argtextobj.vim')
 
   " Tools
-  call dein#add('neomake/neomake', {'merged': 0})
+  " call dein#add('neomake/neomake', {'merged': 0})
+  call dein#add('w0rp/ale')
   call dein#add('phleet/vim-mercenary')
   call dein#add('sjl/splice.vim', {'on_cmd': 'SpliceInit'})
   call dein#add('tpope/vim-fugitive')
@@ -46,10 +48,11 @@ if dein#load_state('~/.vim/dein/')
   call dein#add('othree/html5.vim',             {'on_ft': 'html'})
   call dein#add('Glench/Vim-Jinja2-Syntax',     {'on_ft': 'jinja'})
   call dein#add('davidhalter/jedi-vim',         {'on_ft': 'python'})
-  call dein#add('hdima/python-syntax',          {'on_ft': 'python'})
-  call dein#add('hynek/vim-python-pep8-indent', {'on_ft': 'python'})
+  call dein#add('python-mode/python-mode',      {'on_ft': 'python'})
+  " call dein#add('hdima/python-syntax',          {'on_ft': 'python'})
+  " call dein#add('hynek/vim-python-pep8-indent', {'on_ft': 'python'})
   call dein#add('jmcantrell/vim-virtualenv',    {'on_ft': 'python'})
-  call dein#add('tmhedberg/SimpylFold',         {'on_ft': 'python'})
+  " call dein#add('tmhedberg/SimpylFold',         {'on_ft': 'python'})
   call dein#add('rust-lang/rust.vim',           {'on_ft': 'rust'})
   call dein#add('saltstack/salt-vim',           {'on_ft': 'sls'})
   call dein#add('cespare/vim-toml',             {'on_ft': 'toml'})
@@ -458,6 +461,14 @@ augroup ft_mail
 augroup END
 
 " }}}
+" Makefile {{{
+
+augroup ft_make
+    au!
+    au Filetype make setlocal noexpandtab shiftwidth=4 softtabstop=0
+augroup END
+
+" }}}
 " Markdown {{{
 
 augroup ft_markdown
@@ -587,6 +598,15 @@ augroup END
 
 " }}}
 " Plugin settings --------------------------------------------------------- {{{
+" ALE {{{
+
+let g:ale_sign_error = '⨯'
+let g:ale_sign_warning = '⚠︎'
+let g:ale_statusline_format = ['⨯%d', '⚠%d', '✓']
+nmap <silent> <C-M-S-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-M-S-j> <Plug>(ale_next_wrap)
+
+" }}}
 " CtrlP {{{
 
 " Mnemoic: 'o'pen ('f'ile, 'd'otfiles, 'b'uffer, 'm'ru)
@@ -609,7 +629,7 @@ nnoremap <leader>hh :call HexHighlight()<cr>
 let g:lightline = {
     \ 'colorscheme': 'Rasta',
     \ 'active': {
-    \   'left': [['mode', 'paste'], ['virtualenv', 'relativepath'], ['readonly', 'modified']],
+    \   'left': [['mode', 'paste'], ['virtualenv', 'relativepath'], ['ale', 'readonly', 'modified']],
     \   'right': [['percent'], ['lineinfo'],
     \             ['filetype', 'fileencoding', 'fileformat', 'indentation']]
     \ },
@@ -618,6 +638,7 @@ let g:lightline = {
     \   'right': [['percent'], ['lineinfo']]
     \ },
     \ 'component_function': {
+    \   'ale': 'ALEGetStatusLine',
     \   'indentation': 'LlIndentation',
     \   'virtualenv': 'virtualenv#statusline',
     \ }
@@ -631,12 +652,33 @@ endfunction
 " }}}
 " Neomake {{{
 
-autocmd! BufWritePost,BufRead * Neomake
+" autocmd! BufWritePost,BufRead * Neomake
 
 " }}}
 " Python-syntax {{{
 
-let python_highlight_all = 1
+" let python_highlight_all = 1
+
+" }}}
+" Python-mode {{{
+
+" if has('python3')
+"     let g:pymode_python = 'python3'
+" else
+"     let g:pymode_python = 'python'
+" endif
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_key = '<leader>b'
+let g:pymode_doc = 0
+let g:pymode_lint = 0
+let g:pymode_rope = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope_autoimport = 0
+let g:pymode_virtualenv = 0
+let g:pymode_run = 1
+let g:pymode_run_key = '<leader>pr'
+let g:pymode_syntax_print_as_function = 1
 
 " }}}
 " Python jedi {{{
