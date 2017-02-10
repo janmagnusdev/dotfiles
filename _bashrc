@@ -154,7 +154,7 @@ complete -o default -F _pip_completion pip
 # Python start-up and virtualenv wrapper
 export PYTHONSTARTUP=$HOME/.pythonrc
 export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=`which python3`
+export VIRTUALENVWRAPPER_PYTHON="$(type -P /usr/local/bin/python3 || type -P /usr/bin/python3)"
 venwrap=`type -P virtualenvwrapper.sh`
 if [ "$venwrap" != "" ]; then
     . $venwrap
