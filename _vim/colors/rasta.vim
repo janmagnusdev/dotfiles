@@ -319,8 +319,8 @@ call s:Hi("diffAdded",           s:green,  s:none)
 " }}}
 " Python {{{
 
-call s:Hi("pythonBuiltinObj",    s:yellow, s:none)
-call s:Hi("pythonSelf",          s:blue,   s:none)
+" call s:Hi("pythonBuiltinObj",    s:yellow, s:none)
+call s:Hi("pythonClassVar",          s:blue,   s:none)
 
 call s:Hi("yamlKey",             s:purple,  s:none)
 " }}}

@@ -48,11 +48,14 @@ if dein#load_state('~/.vim/dein/')
   call dein#add('othree/html5.vim',             {'on_ft': 'html'})
   call dein#add('Glench/Vim-Jinja2-Syntax',     {'on_ft': 'jinja'})
   call dein#add('davidhalter/jedi-vim',         {'on_ft': 'python'})
-  call dein#add('python-mode/python-mode',      {'on_ft': 'python'})
+  " call dein#add('python-mode/python-mode',      {'on_ft': 'python'})
   " call dein#add('hdima/python-syntax',          {'on_ft': 'python'})
-  " call dein#add('hynek/vim-python-pep8-indent', {'on_ft': 'python'})
-  call dein#add('jmcantrell/vim-virtualenv',    {'on_ft': 'python'})
-  " call dein#add('tmhedberg/SimpylFold',         {'on_ft': 'python'})
+  call dein#add('vim-python/python-syntax',          {'on_ft': 'python'})
+  call dein#add('Vimjas/vim-python-pep8-indent', {'on_ft': 'python'})
+  " call dein#add('jmcantrell/vim-virtualenv',    {'on_ft': 'python'})
+  " call dein#local('~/.vim/bundle/', {'on_ft': 'python'}, ['vim-virtualenv'])
+  call dein#add('sscherfke/vim-virtualenv',    {'on_ft': 'python'})
+  call dein#add('tmhedberg/SimpylFold',         {'on_ft': 'python'})
   call dein#add('rust-lang/rust.vim',           {'on_ft': 'rust'})
   call dein#add('saltstack/salt-vim',           {'on_ft': 'sls'})
   call dein#add('cespare/vim-toml',             {'on_ft': 'toml'})
@@ -320,11 +323,6 @@ nnoremap <leader>cc :cclose<cr>
 " in the z mark, using gUiw to uppercase inside the current word, moving back
 " to the z mark, and entering insert mode again.
 inoremap <C-u> <esc>mzgUiw`za
-
-" Insert Mode Completion
-inoremap <c-f> <c-x><c-f>
-inoremap <c-]> <c-x><c-]>
-inoremap <c-l> <c-x><c-l>
 
 " }}}
 " Searching and movement {{{
@@ -600,6 +598,9 @@ augroup END
 " Plugin settings --------------------------------------------------------- {{{
 " ALE {{{
 
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 1
+let g:ale_lint_on_enter = 0  " pylint is too slow on larger files
 let g:ale_sign_error = '⨯'
 let g:ale_sign_warning = '⚠︎'
 let g:ale_statusline_format = ['⨯%d', '⚠%d', '✓']
@@ -657,7 +658,7 @@ endfunction
 " }}}
 " Python-syntax {{{
 
-" let python_highlight_all = 1
+let python_highlight_all = 1
 
 " }}}
 " Python-mode {{{
@@ -667,18 +668,19 @@ endfunction
 " else
 "     let g:pymode_python = 'python'
 " endif
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_key = '<leader>b'
-let g:pymode_doc = 0
-let g:pymode_lint = 0
-let g:pymode_rope = 0
-let g:pymode_rope_completion = 0
-let g:pymode_rope_complete_on_dot = 0
-let g:pymode_rope_autoimport = 0
-let g:pymode_virtualenv = 0
-let g:pymode_run = 1
-let g:pymode_run_key = '<leader>pr'
-let g:pymode_syntax_print_as_function = 1
+" let g:pymode_breakpoint = 1
+" let g:pymode_breakpoint_key = '<leader>b'
+" let g:pymode_doc = 0
+" let g:pymode_folding = 0
+" let g:pymode_lint = 0
+" let g:pymode_rope = 0
+" let g:pymode_rope_completion = 0
+" let g:pymode_rope_complete_on_dot = 0
+" let g:pymode_rope_autoimport = 0
+" let g:pymode_virtualenv = 0
+" let g:pymode_run = 1
+" let g:pymode_run_key = '<leader>pr'
+" let g:pymode_syntax_print_as_function = 1
 
 " }}}
 " Python jedi {{{
