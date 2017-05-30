@@ -1,32 +1,44 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# ... or force ignoredups and ignorespace
 HISTCONTROL=ignoredups:ignorespace
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
 HISTFILESIZE=2000
+HISTSIZE=1000
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+shopt -s histappend
 shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+__DEFAULT_COLOR="[00;00m"
+__RED="[00;31m"
+__GREEN="[00;32m"
+__ORANGE="[00;33m"
+__BLUE="[00;34m"
+__PINK="[00;35m"
+__CYAN="[00;36m"
+__GRAY="[00;37m"
+__BOLD_RED="[01;31m"
+__BOLD_GREEN="[01;32m"
+__BOLD_ORANGE="[01;33m"
+__BOLD_BLUE="[01;34m"
+__BOLD_PINK="[01;35m"
+__BOLD_CYAN="[01;36m"
+
+if [ `id -u` == '0' ]; then
+  __USER_COLOR=$__BOLD_RED
+else
+  __USER_COLOR=$__BOLD_GREEN
 fi
+
+
+function lastcommandfailed() {
+  code=$?
+  if [ $code != 0 ]; then
+    echo -ne " \e${__RED}ℯ$code"
+  fi
+}
 
 # Prints colorized symbol for hg/git repos indicating the repo’s status
 function git_stat {
@@ -35,13 +47,13 @@ function git_stat {
     # gitstat=$(git status 2>/dev/null | grep '\(# Untracked\|# Changes\|# Changed but not updated:\)')
 
     if [[ $gitstat == '' ]]; then
-        color="\033[01;32m"  # No changes or untracked files
+        color="\e${__BOLD_GREEN}"  # No changes or untracked files
 
     elif [[ $(echo "$gitstat" | grep '^[^ ?]') != '' ]]; then
-        color="\033[01;31m"  # Uncommited changes
+        color="\e${__BOLD_RED}"  # Uncommited changes
 
     else
-        color="\033[01;33m"  # Unstaged or untracked files
+        color="\e${__BOLD_ORANGE}"  # Unstaged or untracked files
     fi
     echo -ne "${color}"
 }
@@ -54,7 +66,7 @@ function git_branch {
         branch='detached*'
     fi
     # echo -ne "\033[00;34m $branch"  # Only works with a few fonts
-    echo -ne "\033[00;34m ⌥$branch"
+    echo -ne "\e${__BLUE} ⌥$branch"
 }
 
 function hg_stat {
@@ -62,13 +74,13 @@ function hg_stat {
     local color
     hgstat=$(hg status)
     if [[ $hgstat == "" ]]; then
-        color="\033[01;32m"  # No changes or untracked files
+        color="\e[01;32m"  # No changes or untracked files
     else
         hgstat=$(hg status -mard)
         if [[ $hgstat == "" ]]; then
-            color="\033[01;33m"  # No changes, but untracked files
+            color="\e[01;33m"  # No changes, but untracked files
         else
-            color="\033[01;31m"  # Uncommited changes
+            color="\e[01;31m"  # Uncommited changes
         fi
     fi
     echo -ne "${color}"
@@ -83,26 +95,38 @@ function repo_stat {
     elif hg root &>/dev/null; then
         echo -n "$(hg_stat)☿"
 
-    # else
-    #     echo '○'
-
     fi
 }
 
 # Prints "(VIRTUALENV)" if one is active.
+export CONDA_CHANGEPS1=0
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 function virtualenv_prompt() {
     if [ -n "$VIRTUAL_ENV" ]; then
-        echo "(${VIRTUAL_ENV##*/})"
+        echo -ne "\e${__GRAY} ("
+        echo -ne "\e${__PINK}${VIRTUAL_ENV##*/}"
+        echo -ne "\e${__GRAY})"
+    fi
+
+    if [ -n "$CONDA_DEFAULT_ENV" ]; then
+        echo -ne "\e${__GRAY} ("
+        echo -ne "\e${__CYAN}${CONDA_DEFAULT_ENV}"
+        echo -ne "\e${__GRAY})"
     fi
 }
 
 # Prompt
-PS1="$(virtualenv_prompt)"   # (virtualenv) (white, optional)
-PS1+="\[\033[01;32m\]\u@\h"  # user@host (green)
-PS1+="\[\033[00m\]:"         # :
-PS1+="\[\033[01;34m\]\w"     # cwd (blue)
-PS1+="\$(repo_stat)"         # ☿ for hg or ± for git repos
-PS1+="\[\033[00m\]\n\$ "     # $
+export __BASEPROMPT='\e]0;\007\n\
+\e${__USER_COLOR}\u\
+\e$\e${__BOLD_GREEN}@\h\
+\e${__GRAY}:\e${__BOLD_BLUE}\w\
+`lastcommandfailed`\
+\e${__GRAY_COLOR}`repo_stat`\
+`virtualenv_prompt`\
+\e${__DEFAULT_COLOR}'
+export PS1="\[\033[G\]${__BASEPROMPT}\n$ "
+
+export EDITOR="$(which vim)"
 
 # OS X color terminal
 export CLICOLOR=1
@@ -120,16 +144,12 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# Alias definitions.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
 # Some Mac OS X specific stuff
 if [ `uname -s` = "Darwin" ]; then
-    # export MACOSX_DEPLOYMENT_TARGET=10.11
-    # export ARCHFLAGS="-arch x86_64"
+    export ARCHFLAGS="-arch x86_64"
     export HOMEBREW_NO_ANALYTICS=1
+    export LC_CTYPE=en_US.utf-8
+    export LC_ALL=en_US.utf-8
 
     # Bash completion for homebrew
     source /usr/local/etc/bash_completion
@@ -167,9 +187,12 @@ elif [[ -s /usr/local/etc/profile.d/autojump.sh ]]; then  # homebrew
     . /usr/local/etc/profile.d/autojump.sh
 fi
 
+# Alias definitions.
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
 # Source stuff from secret private directory ...
 if [ -d ~/.private ]; then
     . ~/.private/bash_aliases.sh
 fi
-
-export EDITOR="$(which vim)"
