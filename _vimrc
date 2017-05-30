@@ -111,7 +111,7 @@ set history=1000
 set splitbelow
 set splitright
 " Resize splits when the window is resized:
-autocmd VimResized * :wincmd =
+" autocmd VimResized * :wincmd =
 """ Messages, Info, Status
 set confirm                 " Y-N-C promt if closing with unsaved changes
 set ruler                   " Show line and column number
@@ -432,6 +432,14 @@ augroup ft_css
     au!
     au Filetype css setl foldmethod=marker foldmarker={,}
     au Filetype sass setl foldmethod=indent
+augroup END
+
+" }}}
+" Git commit {{{
+
+augroup ft_gitcommit
+    au!
+    au FileType gitcommit set textwidth=72
 augroup END
 
 " }}}
