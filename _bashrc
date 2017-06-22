@@ -1,5 +1,5 @@
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+[[ -z "$PS1" ]] && return
 
 HISTCONTROL=ignoredups:ignorespace
 HISTFILESIZE=2000
@@ -8,10 +8,8 @@ HISTSIZE=1000
 shopt -s histappend
 shopt -s checkwinsize
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-__DEFAULT_COLOR="[00;00m"
+# Prompt
+__RESET_COLOR="[00;00m"
 __RED="[00;31m"
 __GREEN="[00;32m"
 __ORANGE="[00;33m"
@@ -25,115 +23,65 @@ __BOLD_ORANGE="[01;33m"
 __BOLD_BLUE="[01;34m"
 __BOLD_PINK="[01;35m"
 __BOLD_CYAN="[01;36m"
+__BOLD_GRAY="[01;37m"
 
-if [ `id -u` == '0' ]; then
+if [[ $(id -u) == '0' ]]; then
   __USER_COLOR=$__BOLD_RED
 else
   __USER_COLOR=$__BOLD_GREEN
 fi
 
-
 function lastcommandfailed() {
   code=$?
-  if [ $code != 0 ]; then
+  if [[ $code != 0 ]]; then
     echo -ne " \e${__RED}ℯ$code"
   fi
 }
 
-# Prints colorized symbol for hg/git repos indicating the repo’s status
-function git_stat {
-    local gitstat
-    gitstat=$(git status --porcelain 2>/dev/null)
-    # gitstat=$(git status 2>/dev/null | grep '\(# Untracked\|# Changes\|# Changed but not updated:\)')
-
-    if [[ $gitstat == '' ]]; then
-        color="\e${__BOLD_GREEN}"  # No changes or untracked files
-
-    elif [[ $(echo "$gitstat" | grep '^[^ ?]') != '' ]]; then
-        color="\e${__BOLD_RED}"  # Uncommited changes
-
-    else
-        color="\e${__BOLD_ORANGE}"  # Unstaged or untracked files
-    fi
-    echo -ne "${color}"
-}
-
-function git_branch {
-    # Based on: http://stackoverflow.com/a/13003854/170413
-    local branch
-    branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
-    if [[ $branch == "HEAD" ]]; then
-        branch='detached*'
-    fi
-    # echo -ne "\033[00;34m $branch"  # Only works with a few fonts
-    echo -ne "\e${__BLUE} ⌥$branch"
-}
-
-function hg_stat {
-    local hgstat
-    local color
-    hgstat=$(hg status)
-    if [[ $hgstat == "" ]]; then
-        color="\e[01;32m"  # No changes or untracked files
-    else
-        hgstat=$(hg status -mard)
-        if [[ $hgstat == "" ]]; then
-            color="\e[01;33m"  # No changes, but untracked files
-        else
-            color="\e[01;31m"  # Uncommited changes
-        fi
-    fi
-    echo -ne "${color}"
-}
-
-function repo_stat {
-    # Git (needs to come first to detect git sub-repos in hg repos)
-    if git branch &>/dev/null; then
-        echo -n "$(git_branch)$(git_stat)±"
-
-    # Mercurial
-    elif hg root &>/dev/null; then
-        echo -n "$(hg_stat)☿"
-
-    fi
+export VCP_BRANCH="{blue}⌥{value}{reset}"
+function make_prompt {
+    local LAST_CMD_FAILED="$(lastcommandfailed)"
+    echo -n "$(vcprompt --minimal)$(virtualenv_prompt)${LAST_CMD_FAILED}"
 }
 
 # Prints "(VIRTUALENV)" if one is active.
 export CONDA_CHANGEPS1=0
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 function virtualenv_prompt() {
-    if [ -n "$VIRTUAL_ENV" ]; then
-        echo -ne "\e${__GRAY} ("
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        echo -ne "\e${__RESET_COLOR} ("
         echo -ne "\e${__PINK}${VIRTUAL_ENV##*/}"
-        echo -ne "\e${__GRAY})"
+        echo -ne "\e${__RESET_COLOR})"
     fi
 
-    if [ -n "$CONDA_DEFAULT_ENV" ]; then
-        echo -ne "\e${__GRAY} ("
+    if [[ -n "$CONDA_DEFAULT_ENV" ]]; then
+        echo -ne "\e${__RESET_COLOR} ("
         echo -ne "\e${__CYAN}${CONDA_DEFAULT_ENV}"
-        echo -ne "\e${__GRAY})"
+        echo -ne "\e${__RESET_COLOR})"
     fi
 }
 
 # Prompt
-export __BASEPROMPT='\e]0;\007\n\
-\e${__USER_COLOR}\u\
-\e$\e${__BOLD_GREEN}@\h\
-\e${__GRAY}:\e${__BOLD_BLUE}\w\
-`lastcommandfailed`\
-\e${__GRAY_COLOR}`repo_stat`\
-`virtualenv_prompt`\
-\e${__DEFAULT_COLOR}'
-export PS1="\[\033[G\]${__BASEPROMPT}\n$ "
+PS1='\[\033[G\]'  # http://jonisalonen.com/2012/your-bash-prompt-needs-this/
+PS1+='\n'                       # empty line above prompt
+PS1+='\e${__USER_COLOR}\u'      # user
+PS1+='\e${__BOLD_GREEN}@\h'     # @host
+PS1+='\e${__RESET_COLOR}:'      # :
+PS1+='\e${__BOLD_BLUE}\w'       # cwd
+PS1+='\e${__RESET_COLOR}'
+PS1+='$(make_prompt)'           # repo stats, venv, exit code
+PS1+='\e${__RESET_COLOR}\n\$ '  # \n$
 
-export EDITOR="$(which vim)"
+# make less more friendly for non-text input files, see lesspipe(1)
+[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
+
+export LSCOLORS=ExGxFxDxCxHxHxacagaeaf
 
 # OS X color terminal
 export CLICOLOR=1
-export LSCOLORS=ExFxCxDxBxegedabagacad
 
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
+if [[ -x /usr/bin/dircolors ]]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
@@ -144,22 +92,17 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# Some Mac OS X specific stuff
-if [ `uname -s` = "Darwin" ]; then
-    export ARCHFLAGS="-arch x86_64"
-    export HOMEBREW_NO_ANALYTICS=1
-    export LC_CTYPE=en_US.utf-8
-    export LC_ALL=en_US.utf-8
-
-    # Bash completion for homebrew
-    source /usr/local/etc/bash_completion
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
     . /etc/bash_completion
+fi
+
+# Some Mac OS X specific stuff
+if [[ $(uname -s) = 'Darwin' ]]; then
+    # Bash completion for homebrew
+    source /usr/local/etc/bash_completion
 fi
 
 # pip configuration and bash completion
@@ -175,8 +118,8 @@ complete -o default -F _pip_completion pip
 export PYTHONSTARTUP=$HOME/.pythonrc
 export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON="$(type -P /usr/local/bin/python3 || type -P /usr/bin/python3)"
-venwrap=`type -P virtualenvwrapper.sh`
-if [ "$venwrap" != "" ]; then
+venwrap=$(type -P virtualenvwrapper.sh)
+if [[ $venwrap != '' ]]; then
     . $venwrap
 fi
 
@@ -188,11 +131,11 @@ elif [[ -s /usr/local/etc/profile.d/autojump.sh ]]; then  # homebrew
 fi
 
 # Alias definitions.
-if [ -f ~/.bash_aliases ]; then
+if [[ -f ~/.bash_aliases ]]; then
     . ~/.bash_aliases
 fi
 
 # Source stuff from secret private directory ...
-if [ -d ~/.private ]; then
+if [[ -d ~/.private ]]; then
     . ~/.private/bash_aliases.sh
 fi
