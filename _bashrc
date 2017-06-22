@@ -38,12 +38,6 @@ function lastcommandfailed() {
   fi
 }
 
-export VCP_BRANCH="{blue}⌥{value}{reset}"
-function make_prompt {
-    local LAST_CMD_FAILED="$(lastcommandfailed)"
-    echo -n "$(vcprompt --minimal)$(virtualenv_prompt)${LAST_CMD_FAILED}"
-}
-
 # Prints "(VIRTUALENV)" if one is active.
 export CONDA_CHANGEPS1=0
 export VIRTUAL_ENV_DISABLE_PROMPT=1
@@ -59,6 +53,15 @@ function virtualenv_prompt() {
         echo -ne "\e${__CYAN}${CONDA_DEFAULT_ENV}"
         echo -ne "\e${__RESET_COLOR})"
     fi
+}
+
+export VCP_BRANCH="{blue}⌥{value}{reset}"
+function make_prompt {
+    local LAST_CMD_FAILED="$(lastcommandfailed)"
+    if [[ $(which vcprompt) ]]; then
+        echo -n "$(vcprompt --minimal)"
+    fi
+    echo -n "$(virtualenv_prompt)${LAST_CMD_FAILED}"
 }
 
 # Prompt
