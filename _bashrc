@@ -58,7 +58,8 @@ function virtualenv_prompt() {
 export VCP_BRANCH="{blue}⌥{value}{reset}"
 function make_prompt {
     local LAST_CMD_FAILED="$(lastcommandfailed)"
-    if [[ $(which vcprompt) ]]; then
+    if hash vcprompt &>/dev/null; then
+        # echo -n "$(vcprompt)"
         echo -n "$(vcprompt --minimal)"
     fi
     echo -n "$(virtualenv_prompt)${LAST_CMD_FAILED}"
