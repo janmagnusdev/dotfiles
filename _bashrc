@@ -55,12 +55,12 @@ function virtualenv_prompt() {
     fi
 }
 
-export VCP_BRANCH="{blue}⌥{value}{reset}"
+# export VCP_BRANCH="{blue}⌥{value}{reset}"
 function make_prompt {
     local LAST_CMD_FAILED="$(lastcommandfailed)"
     if hash vcprompt &>/dev/null; then
-        # echo -n "$(vcprompt)"
-        echo -n "$(vcprompt --minimal)"
+        echo -n "$(vcprompt)"
+        # echo -n "$(vcprompt --minimal)"
     fi
     echo -n "$(virtualenv_prompt)${LAST_CMD_FAILED}"
 }
@@ -79,22 +79,21 @@ PS1+='\e${__RESET_COLOR}\n\$ '  # \n$
 # make less more friendly for non-text input files, see lesspipe(1)
 [[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
 
+# enable color support of ls and also add handy aliases
+if [[ -x /usr/bin/dircolors ]]; then
+    # test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+fi
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# https://geoff.greer.fm/lscolors/
 export LSCOLORS=ExGxFxDxCxHxHxacagaeaf
+export LS_COLORS="di=1;34:ln=1;36:so=1;35:pi=1;33:ex=1;32:bd=1;37:cd=1;37:su=30;42:sg=30;46:tw=30;44:ow=30;45"
 
 # OS X color terminal
 export CLICOLOR=1
-
-# enable color support of ls and also add handy aliases
-if [[ -x /usr/bin/dircolors ]]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
