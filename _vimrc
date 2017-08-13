@@ -78,7 +78,6 @@ syntax enable
 "   call dein#install()
 " endif
 " }}}
-
 " Basic options ----------------------------------------------------------- {{{
 
 """ Interface
@@ -86,13 +85,16 @@ set title
 set relativenumber
 set cursorline
 set wildmenu
-set wildignore+=.git,.hg,__pycache__,*.pyc
+set wildignore+=.git,.hg,_build,__pycache__,*.pyc
 set wildmode=list:longest,full
 set clipboard=unnamed,unnamedplus  " Use system clipboard
-set listchars=tab:▸\ ,trail:·,nbsp:~,eol:¬,precedes:❮,extends:❯
+" set listchars=tab:▸\ ,trail:·,nbsp:~,eol:¬,precedes:❮,extends:❯
+set listchars=tab:▸\ ,trail:·,nbsp:~,precedes:❮,extends:❯
+set list
 set showbreak=↪
 set fillchars=diff:⣿,vert:│
 set wrap
+set breakindent
 set linebreak
 set scrolloff=3
 set sidescroll=1
@@ -144,11 +146,16 @@ set encoding=utf-8
 set textwidth=79
 set colorcolumn=+1,101
 set autoindent
+set infercase  " Smart casing when completing
+set iskeyword-=_  " Treat underscore as a word boundary
 set formatoptions=qrn1j
 set virtualedit+=block
 set backspace=indent,eol,start
 set foldlevelstart=99  " Start with all folds open
-" set foldlevelstart=0  " Start with all folds open
+" set foldlevelstart=0  " Start with all folds closed
+set foldmethod=indent
+
+"
 
 """ Searching
 set incsearch
@@ -188,7 +195,7 @@ augroup END
 
 syntax on
 set background=light
-set synmaxcol=800  " Don't try to highlight lines longer than 800 characters.
+set synmaxcol=200  " Don't try to highlight lines longer than x characters.
 colorscheme rasta
 
 " Reload the colorscheme whenever we write the file.
@@ -216,8 +223,9 @@ if exists('neovim_dot_app')
 
 elseif has('gui_running')
   set guioptions-=T  " Hide toolbar
-  set guicursor+=a:blinkon0
-  set guicursor+=i-ci:ver10-Cursor-blinkwait500-blinkoff500-blinkon500
+  " set guicursor+=a:blinkon0
+  " set guicursor+=i-ci:ver10-Cursor-blinkwait500-blinkoff500-blinkon500
+  " set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
 
   if has('gui_macvim')
     set guifont=Menlo:h13
@@ -376,8 +384,9 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
-" Create vertical split
-noremap <leader>v <C-w>v
+" Create horizontal/vertical split
+noremap <leader>s :split<cr>
+noremap <leader>v :vsplit<cr>
 
 " Create small, vertical split with a terminal
 noremap <leader>t :split<cr>:resize 10<cr>:term<cr>
@@ -387,14 +396,6 @@ noremap <leader>t :split<cr>:resize 10<cr>:term<cr>
 
 " Toggle line numbers
 nnoremap <leader>nn :setlocal relativenumber!<cr>
-
-" Toggle displaying of whitespaces
-nnoremap <leader>s :set list!<cr>
-
-" Toggle spell check
-nnoremap <leader>sp :set spell!<cr>
-nnoremap <leader>spde :setl spell spelllang=de_de
-nnoremap <leader>spen :setl spell spelllang=en
 
 " Toggle wrap
 nnoremap <leader>w :set wrap!<cr>
@@ -594,6 +595,14 @@ augroup ft_vim
     au!
     au FileType vim setlocal foldmethod=marker
     au FileType help setlocal textwidth=78
+augroup END
+
+" }}}
+" XC (XVM) {{{
+
+augroup ft_xc
+    au!
+    au BufEnter *.xc set ft=javascript
 augroup END
 
 " }}}
@@ -828,6 +837,27 @@ inoremap <silent> <Home> <C-O>:call SmartHome()<cr>
 nnoremap <silent> 0 :call SmartHome()<cr>
 
 " }}}
+" Spelling {{{
+
+" Toggle spelling mode and add the dictionary to the completion list of
+" sources if spelling mode has been entered, otherwise remove it when
+" leaving spelling mode.
+function! Spelling()
+    setlocal spell!
+    if &spell
+        set complete+=kspell
+        echo "Spell mode enabled"
+    else
+        set complete-=kspell
+        echo "Spell mode disabled"
+    endif
+endfunction
+
+nnoremap <leader>sp :call Spelling()<cr>
+nnoremap <leader>spde :setl spell spelllang=de_de
+nnoremap <leader>spen :setl spell spelllang=en
+
+" }}}
 " Switch theme / background {{{
 
 function! SwitchTheme()
@@ -842,16 +872,26 @@ nnoremap <leader>st :call SwitchTheme()<cr>
 " }}}
 " Neovim -------------------------------------------------------------------{{{
 if has('nvim')
-    tnoremap <Esc> <C-\><C-n>
-    tnoremap <C-h> <C-\><C-n><C-w>h
-    tnoremap <C-j> <C-\><C-n><C-w>j
-    tnoremap <C-k> <C-\><C-n><C-w>k
-    tnoremap <C-l> <C-\><C-n><C-w>l
+    set inccommand=nosplit
 
-    if filereadable('/usr/local/bin/python')
-        let g:python_host_prog = '/usr/local/bin/python'
+    " Make escape work in the Neovim terminal.
+    tnoremap <Esc> <C-\><C-n>
+    " Make navigation into and out of Neovim terminal splits nicer.
+    tnoremap <C-h> <C-\><C-N><C-w>h
+    tnoremap <C-j> <C-\><C-N><C-w>j
+    tnoremap <C-k> <C-\><C-N><C-w>k
+    tnoremap <C-l> <C-\><C-N><C-w>l
+
+    " I like relative numbering when in normal mode.
+    autocmd TermOpen * setlocal colorcolumn=0 relativenumber
+
+    " Prefer Neovim terminal insert mode to normal mode.
+    autocmd BufEnter term://* startinsert
+
+    if filereadable('/usr/local/bin/python2')
+        let g:python_host_prog = '/usr/local/bin/python2'
     else
-        let g:python_host_prog = '/usr/bin/python'
+        let g:python_host_prog = '/usr/bin/python2'
     endif
     if filereadable('/usr/local/bin/python3')
         let g:python3_host_prog = '/usr/local/bin/python3'

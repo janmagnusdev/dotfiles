@@ -270,7 +270,7 @@ call s:HiLink("Boolean",   "Constant")
 call s:HiLink("Float",     "Constant")
 
 call s:Hi("Identifier",    s:purple, s:none)
-call s:Hi("Function",      s:purple,    s:none)
+call s:Hi("Function",      s:purple, s:none)
 
 call s:Hi("Statement",     s:yellow, s:none)
 call s:HiLink("Conditional", "Statement")
@@ -302,6 +302,8 @@ call s:Hi("Underlined",    s:none,   s:none,   s:none,    s:underline)
 call s:Hi("Ignore",        s:base01, s:none)
 call s:Hi("Error",         s:red,    s:none,   s:none,    s:bold)
 call s:Hi("Todo",          s:magenta,s:none,   s:none,    s:bold)
+call s:Hi("Whitespace",    s:red,    s:none)
+
 " }}}
 " Braceless {{{
 
