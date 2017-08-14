@@ -551,7 +551,7 @@ augroup ft_rest
     au!
 
     au BufEnter *.txt set ft=rst
-    au FileType rst setl fo+=t sw=3 ts=3 sts=3  " Auto-wrap text using tw
+    au FileType rst setl fo+=t sw=2 ts=2 sts=2  " Auto-wrap text using tw
 
     " Title, parts, chapters and sections 1/2/3/4
     au Filetype rst nnoremap <buffer> <localleader>t "zyy"zPVr="zyyj"zpk
