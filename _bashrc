@@ -25,10 +25,16 @@ __BOLD_PINK="[01;35m"
 __BOLD_CYAN="[01;36m"
 __BOLD_GRAY="[01;37m"
 
-if [[ $(id -u) == '0' ]]; then
+if [[ $(id -u) == '0' ]] || sudo -n true 2>/dev/null; then
   __USER_COLOR=$__BOLD_RED
 else
   __USER_COLOR=$__BOLD_GREEN
+fi
+
+if [[ -n "${SSH_CLIENT-}${SSH2_CLIENT-}${SSH_TTY-}" ]]; then
+    __HOST_COLOR=$__BOLD_CYAN
+else
+    __HOST_COLOR=$__BOLD_GREEN
 fi
 
 function lastcommandfailed() {
@@ -55,6 +61,10 @@ function virtualenv_prompt() {
     fi
 }
 
+function _time {
+    echo -en "\e${__ORANGE}[$(date '+%H:%M')]\e${__RESET_COLOR}"
+}
+
 # export VCP_BRANCH="{blue}⌥{value}{reset}"
 function make_prompt {
     local LAST_CMD_FAILED="$(lastcommandfailed)"
@@ -68,8 +78,10 @@ function make_prompt {
 # Prompt
 PS1='\[\033[G\]'  # http://jonisalonen.com/2012/your-bash-prompt-needs-this/
 PS1+='\n'                       # empty line above prompt
+PS1+='$(_time) '                # current time
 PS1+='\e${__USER_COLOR}\u'      # user
-PS1+='\e${__BOLD_GREEN}@\h'     # @host
+PS1+='\e${__RESET_COLOR}@'      # @
+PS1+='\e${__HOST_COLOR}\h'      # host
 PS1+='\e${__RESET_COLOR}:'      # :
 PS1+='\e${__BOLD_BLUE}\w'       # cwd
 PS1+='\e${__RESET_COLOR}'
