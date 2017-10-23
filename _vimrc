@@ -22,7 +22,7 @@ if dein#load_state('~/.vim/dein/')
   call dein#add('itchyny/lightline.vim')
   call dein#add('tpope/vim-eunuch')
   call dein#add('tpope/vim-vinegar')
-  call dein#add('vim-scripts/hexHighlight.vim')
+  call dein#add('chrisbra/Colorizer')
   call dein#add('vim-scripts/kwbdi.vim')
   call dein#add('zerowidth/vim-copy-as-rtf', {'if': has('unix'), 'on_cmd': 'CopyRTF'})
 
@@ -146,8 +146,6 @@ set encoding=utf-8
 set textwidth=79
 set colorcolumn=+1,101
 set autoindent
-set infercase  " Smart casing when completing
-set iskeyword-=_  " Treat underscore as a word boundary
 set formatoptions=qrn1j
 set virtualedit+=block
 set backspace=indent,eol,start
@@ -317,6 +315,10 @@ nnoremap <leader>cd :cd %:p:h<cr>
 nnoremap <leader>co :copen<cr>
 nnoremap <leader>cc :cclose<cr>
 
+" Convert colors between 0xC0FFEE/#C0FFEE
+nnoremap <leader>c# :%s/\v0x([0-9a-f]{6})/#\1<return>
+nnoremap <leader>cx :%s/\v#([0-9a-f]{6})/0x\1<return>
+
 " "Uppercase word" mapping by Steve Losh
 "
 " This mapping allows you to press <c-u> in insert mode to convert the current
@@ -482,7 +484,7 @@ augroup ft_markdown
     au!
 
     au BufEnter *.md set ft=markdown
-    au FileType markdown setl fo+=t  " Auto-wrap text using textwidth
+    au FileType markdown setl fo+=t sw=2 ts=2 sts=2  " Auto-wrap text using textwidth
 
     " Use <localleader>1/2/3/4 to add headings.
     au Filetype markdown nnoremap <buffer> <localleader>1 "zyy"zpVr=k
@@ -603,6 +605,7 @@ augroup END
 augroup ft_xc
     au!
     au BufEnter *.xc set ft=javascript
+    au BufEnter *.xc setl sw=2 ts=2 sts=2
 augroup END
 
 " }}}
@@ -615,9 +618,12 @@ augroup END
 " Plugin settings --------------------------------------------------------- {{{
 " ALE {{{
 
+let g:ale_lint_on_enter = 0  " pylint is too slow on larger files
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 1
-let g:ale_lint_on_enter = 0  " pylint is too slow on larger files
+let g:ale_linters = {
+\    'python': ['flake8', 'pylint'],
+\}
 let g:ale_sign_error = '⨯'
 let g:ale_sign_warning = '⚠︎'
 let g:ale_statusline_format = ['⨯%d', '⚠%d', '✓']
@@ -635,11 +641,6 @@ nnoremap <leader>om :CtrlPMRU<cr>
 let g:ctrlp_switch_buffer = ''  " Don't jump anywhere!
 let g:ctrlp_open_new_file = 'r'  " Open new files in the current window
 let g:ctrlp_open_multiple_files = '2vjr'  " Vertically split, max. 2 splits
-
-" }}}
-" Hex Highlight {{{
-
-nnoremap <leader>hh :call HexHighlight()<cr>
 
 " }}}
 " Lightline {{{
@@ -676,28 +677,6 @@ endfunction
 " Python-syntax {{{
 
 let python_highlight_all = 1
-
-" }}}
-" Python-mode {{{
-
-" if has('python3')
-"     let g:pymode_python = 'python3'
-" else
-"     let g:pymode_python = 'python'
-" endif
-" let g:pymode_breakpoint = 1
-" let g:pymode_breakpoint_key = '<leader>b'
-" let g:pymode_doc = 0
-" let g:pymode_folding = 0
-" let g:pymode_lint = 0
-" let g:pymode_rope = 0
-" let g:pymode_rope_completion = 0
-" let g:pymode_rope_complete_on_dot = 0
-" let g:pymode_rope_autoimport = 0
-" let g:pymode_virtualenv = 0
-" let g:pymode_run = 1
-" let g:pymode_run_key = '<leader>pr'
-" let g:pymode_syntax_print_as_function = 1
 
 " }}}
 " Python jedi {{{
@@ -881,12 +860,6 @@ if has('nvim')
     tnoremap <C-j> <C-\><C-N><C-w>j
     tnoremap <C-k> <C-\><C-N><C-w>k
     tnoremap <C-l> <C-\><C-N><C-w>l
-
-    " I like relative numbering when in normal mode.
-    autocmd TermOpen * setlocal colorcolumn=0 relativenumber
-
-    " Prefer Neovim terminal insert mode to normal mode.
-    autocmd BufEnter term://* startinsert
 
     if filereadable('/usr/local/bin/python2')
         let g:python_host_prog = '/usr/local/bin/python2'
