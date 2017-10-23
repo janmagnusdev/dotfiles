@@ -15,6 +15,48 @@ import re
 import subprocess
 import time
 
+
+# TODO:
+# - Move install tasks into functions that can be run separately
+# - Actually install packages in PKGs
+PKGS = {
+    'brew': [
+        'asciinema',
+        'autojump',
+        'bash',
+        'bash-completion',
+        'exiftool',
+        'mercurial',
+        'mobile-shell',
+        'neovim',
+        'pypy',
+        'pypy3',
+        'python',
+        'python3',
+        'python32',
+        'python33',
+        'python34',
+        'python35',
+        'rust',
+    ],
+    'brew-cask': [
+        'vimr',
+    ],
+    'cargo': [
+        'fd-find',
+        'vcprompt',
+    ],
+    'dnf': [
+        'autojump',
+    ],
+    'pipsi': [
+        'fabric',
+        'httpie',
+        'salt',
+    ],
+}
+
+
 home = os.path.expanduser('~')
 extra_links = {}
 if os.path.isdir('./_private'):
