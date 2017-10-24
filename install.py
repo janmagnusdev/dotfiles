@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.6
 """
 Creates symlinks in your home directory for each file in this repository
 starting with an undersore (which will of course be replaced by a dot).
@@ -13,7 +13,10 @@ import glob
 import os
 import re
 import subprocess
+import sys
 import time
+
+import click
 
 
 # TODO:
@@ -57,27 +60,51 @@ PKGS = {
 }
 
 
-home = os.path.expanduser('~')
-extra_links = {}
-if os.path.isdir('./_private'):
-    extra_links['_private/ssh/config'] = '.ssh/config'
+@click.group(invoke_without_command=True)
+@click.option('--backup/--no-backup', default=True, show_default=True,
+              help='Backup files before overwriting them.')
+@click.pass_context
+def main(ctx, backup):
+    """Run all sub-commands."""
+    if ctx.invoked_subcommand is None:
+        configs()
+        dein(backup)
 
-entries = glob.glob('_*') + list(extra_links)
-for entry in entries:
-    source = os.path.join(os.getcwd(), entry)
-    target = extra_links[entry] if entry in extra_links else \
-             re.sub('^_', '.', entry)
-    target = os.path.join(home, target)
 
-    if os.path.exists(target):
-        print('Backing up %s' % target)
-        os.rename(target, '%s.%s' % (target, time.strftime('%Y%m%d_%H%M%S')))
+@main.command()
+def configs():
+    """Install/link config files."""
+    home = os.path.expanduser('~')
+    extra_links = {}
+    if os.path.isdir('./_private'):
+        extra_links['_private/ssh/config'] = '.ssh/config'
 
-    os.symlink(source, target)
+    entries = glob.glob('_*') + list(extra_links)
+    for entry in entries:
+        source = os.path.join(os.getcwd(), entry)
+        target = extra_links[entry] if entry in extra_links else \
+                re.sub('^_', '.', entry)
+        target = os.path.join(home, target)
 
-# Install dein.vim
-if not os.path.exists('installer.sh'):
-    subprocess.run('curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh', shell=True)
-    subprocess.run('sh installer.sh _vim/dein', shell=True)
-    os.remove('installer.sh')
-    print('Open vim and run:\n:call dein#install()\n')
+        if os.path.exists(target):
+            print(f'Backing up {target}')
+            os.rename(target, f'{target}.{time.strftime("%Y%m%d_%H%M%S")}')
+
+        os.symlink(source, target)
+
+
+@main.command()
+@click.option('--backup/--no-backup', default=True, show_default=True,
+              help='Backup files before overwriting them.')
+def dein(backup):
+    """Install the "dein.vim" plug-in manager."""
+    # Install dein.vim
+    if not os.path.exists('installer.sh'):
+        subprocess.run('curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh', shell=True)
+        subprocess.run('sh installer.sh _vim/dein', shell=True)
+        os.remove('installer.sh')
+        print('Open vim and run:\n:call dein#install()\n')
+
+
+if __name__ == '__main__':
+    main()
