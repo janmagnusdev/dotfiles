@@ -37,7 +37,7 @@ else
     __HOST_COLOR=$__BOLD_GREEN
 fi
 
-function lastcommandfailed() {
+function _prompt_lastcommandfailed {
   code=$?
   if [[ $code != 0 ]]; then
     echo -ne " \e${__RED}ℯ$code"
@@ -47,7 +47,7 @@ function lastcommandfailed() {
 # Prints "(VIRTUALENV)" if one is active.
 export CONDA_CHANGEPS1=0
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-function virtualenv_prompt() {
+function _prompt_venv {
     if [[ -n "$VIRTUAL_ENV" ]]; then
         echo -ne "\e${__RESET_COLOR} ("
         echo -ne "\e${__PINK}${VIRTUAL_ENV##*/}"
@@ -61,31 +61,37 @@ function virtualenv_prompt() {
     fi
 }
 
-function _time {
+function _prompt_time {
     echo -en "\e${__ORANGE}[$(date '+%H:%M')]\e${__RESET_COLOR}"
 }
 
 # export VCP_BRANCH="{blue}⌥{value}{reset}"
-function make_prompt {
-    local LAST_CMD_FAILED="$(lastcommandfailed)"
+function _prompt_vc_status {
     if hash vcprompt &>/dev/null; then
         echo -n "$(vcprompt)"
         # echo -n "$(vcprompt --minimal)"
     fi
-    echo -n "$(virtualenv_prompt)${LAST_CMD_FAILED}"
 }
+
+PROMPT_COMMAND='\
+LAST_CMD_FAILED="$(_prompt_lastcommandfailed)";\
+TIME="$(_prompt_time)";\
+VC_STATUS="$(_prompt_vc_status)";\
+VENV="$(_prompt_venv)";'
 
 # Prompt
 PS1='\[\033[G\]'  # http://jonisalonen.com/2012/your-bash-prompt-needs-this/
 PS1+='\n'                       # empty line above prompt
-PS1+='$(_time) '                # current time
+PS1+='$TIME '                   # current time
 PS1+='\e${__USER_COLOR}\u'      # user
 PS1+='\e${__RESET_COLOR}@'      # @
 PS1+='\e${__HOST_COLOR}\h'      # host
 PS1+='\e${__RESET_COLOR}:'      # :
 PS1+='\e${__BOLD_BLUE}\w'       # cwd
 PS1+='\e${__RESET_COLOR}'
-PS1+='$(make_prompt)'           # repo stats, venv, exit code
+PS1+='${VC_STATUS}'             # repo stats
+PS1+='${VENV}'                  # venv
+PS1+='${LAST_CMD_FAILED}'       # exit code
 PS1+='\e${__RESET_COLOR}\n\$ '  # \n$
 
 # make less more friendly for non-text input files, see lesspipe(1)
