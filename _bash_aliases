@@ -37,7 +37,9 @@ switch-theme () {
         TERMINAL_THEME='Rasta'
         export VIM_BACKGROUND='dark'
     fi
-    if type -p konsoleprofile &> /dev/null; then
+    if [[ "$(uname)" == 'Darwin' ]]; then
+        echo "tell app \"Terminal\" to set current settings of first window to settings set \"${TERMINAL_THEME}\""|osascript
+    elif type -p konsoleprofile &> /dev/null; then
         konsoleprofile colors="$TERMINAL_THEME"
     fi
 }
