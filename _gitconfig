@@ -35,6 +35,7 @@ co = checkout
 st = status
 last = log -1 HEAD
 unstage = reset HEAD --
+rollback = reset HEAD^
 lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold)%s%C(reset)%n''%C(blue)%h%C(reset) - %C(cyan)%an%C(reset) on %C(green)%aD%C(reset) %C(yellow)(%ar)%C(reset)%C(red)%d%C(reset)%n' --all
 lg5 = !"git lg -5"
 glog = log --graph
