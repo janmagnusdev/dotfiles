@@ -6,12 +6,12 @@ alias md='mkdir -p'
 alias rd='rm -r'
 
 # mkdir & cd to it
-function mcd() {
+mcd () {
     mkdir -p "$1" && cd "$1";
 }
 
 # Download from URL and copy its sha256 checksum to the clipboard
-function sha256() {
+sha256 () {
     if `type pbcopy &> /dev/null`; then
         curl "$1" | shasum -a 256 | awk '{printf "%s", $1}' | pbcopy
     else
@@ -28,6 +28,20 @@ alias p='python3'
 # Grep: search recursively in all Python files
 alias grepy="grep -r --include='*.py'"
 
+# Switch between dark and light theme
+switch-theme () {
+    if [[ "$VIM_BACKGROUND" == 'dark' ]]; then
+        TERMINAL_THEME='Rasta light'
+        export VIM_BACKGROUND='light'
+    else
+        TERMINAL_THEME='Rasta'
+        export VIM_BACKGROUND='dark'
+    fi
+    if type -p konsoleprofile &> /dev/null; then
+        konsoleprofile colors="$TERMINAL_THEME"
+    fi
+}
+
 # Apt
 alias aup='sudo apt-get update'
 alias ainst='sudo apt-get install'
@@ -38,12 +52,12 @@ alias aupgrade='sudo apt-get update; sudo apt-get dist-upgrade; sudo apt-get aut
 alias bup='brew update && brew upgrade'
 
 # Upload SSH key
-function ssh-upload-key {
+ssh-upload-key () {
     cat ~/.ssh/id_rsa.pub | ssh $1 'cat >> ~/.ssh/authorized_keys'
 }
 
 # Extract archive
-function extract() {
+extract () {
     if [ -f $1 ] ; then
         case $1 in
             # *.tar.* should be first to fully extract .tar.* archieves
@@ -68,7 +82,7 @@ function extract() {
 alias x=extract
 
 # Split Dual-Screen Wallpapers
-function splitwp () {
+splitwp () {
     dirname=$(dirname "$1")
     filename=$(basename "$1")
     extension="${filename##*.}"

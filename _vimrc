@@ -93,7 +93,7 @@ set listchars=tab:▸\ ,trail:·,nbsp:~,precedes:❮,extends:❯
 set list
 set showbreak=↪
 set fillchars=diff:⣿,vert:│
-set wrap
+set nowrap
 set breakindent
 set linebreak
 set scrolloff=3
@@ -192,7 +192,11 @@ augroup END
 " Color scheme {{{
 
 syntax on
-set background=light
+if $VIM_BACKGROUND == 'dark'
+    set background=dark
+else
+    set background=light
+endif
 set synmaxcol=200  " Don't try to highlight lines longer than x characters.
 colorscheme rasta
 
