@@ -1,70 +1,50 @@
 " Preamble ---------------------------------------------------------------- {{{
 set nocompatible
 
-" Installation:
-" $ curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-" $ bash ./installer.sh ~/.vim/dein
+call plug#begin('~/.vim/plugged')
 
-" Required:
-set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
-
-" Required:
-if dein#load_state('~/.vim/dein/')
-  call dein#begin('~/.vim/dein/')
-
-  " Let dein manage dein
-  " Required:
-  call dein#add('~/.vim/dein/repos/github.com/Shougo/dein.vim')
-
-  " Add or remove your plugins here:
   " Interface plug-ins
-  call dein#add('ctrlpvim/ctrlp.vim')
-  call dein#add('itchyny/lightline.vim')
-  call dein#add('tpope/vim-eunuch')
-  call dein#add('tpope/vim-vinegar')
-  call dein#add('chrisbra/Colorizer')
-  call dein#add('vim-scripts/kwbdi.vim')
-  call dein#add('zerowidth/vim-copy-as-rtf', {'if': has('unix'), 'on_cmd': 'CopyRTF'})
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-vinegar'
+Plug 'chrisbra/Colorizer'
+Plug 'vim-scripts/kwbdi.vim'
+Plug 'zerowidth/vim-copy-as-rtf', {'on': 'CopyRTF'}
 
   " Editing plug-ins
-  call dein#add('ervandew/supertab')
-  call dein#add('gcmt/wildfire.vim')
-  call dein#add('terryma/vim-multiple-cursors')
-  call dein#add('tomtom/tcomment_vim')
-  call dein#add('tpope/vim-repeat')
-  call dein#add('tpope/vim-surround')
-  call dein#add('tweekmonster/braceless.vim')
-  call dein#add('vim-scripts/argtextobj.vim')
+Plug 'ervandew/supertab'
+Plug 'gcmt/wildfire.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tweekmonster/braceless.vim'
+Plug 'vim-scripts/argtextobj.vim'
 
-  " Tools
-  " call dein#add('neomake/neomake', {'merged': 0})
-  call dein#add('w0rp/ale')
-  call dein#add('phleet/vim-mercenary')
-  call dein#add('sjl/splice.vim', {'on_cmd': 'SpliceInit'})
-  call dein#add('tpope/vim-fugitive')
+" Tools
+Plug 'w0rp/ale'
+Plug 'phleet/vim-mercenary'
+Plug 'sjl/splice.vim', {'on': 'SpliceInit'}
+Plug 'tpope/vim-fugitive'
 
-  " Filetype plug-ins
-  call dein#add('ap/vim-css-color',             {'on_ft': ['css','scss','sass','less','styl']})
-  call dein#add('othree/html5.vim',             {'on_ft': 'html'})
-  call dein#add('Glench/Vim-Jinja2-Syntax',     {'on_ft': 'jinja'})
-  call dein#add('davidhalter/jedi-vim',         {'on_ft': 'python'})
-  " call dein#add('python-mode/python-mode',      {'on_ft': 'python'})
-  " call dein#add('hdima/python-syntax',          {'on_ft': 'python'})
-  call dein#add('vim-python/python-syntax',          {'on_ft': 'python'})
-  call dein#add('Vimjas/vim-python-pep8-indent', {'on_ft': 'python'})
-  " call dein#add('jmcantrell/vim-virtualenv',    {'on_ft': 'python'})
-  " call dein#local('~/.vim/bundle/', {'on_ft': 'python'}, ['vim-virtualenv'])
-  call dein#add('sscherfke/vim-virtualenv',    {'on_ft': 'python'})
-  call dein#add('tmhedberg/SimpylFold',         {'on_ft': 'python'})
-  call dein#add('rust-lang/rust.vim',           {'on_ft': 'rust'})
-  call dein#add('saltstack/salt-vim',           {'on_ft': 'sls'})
-  call dein#add('cespare/vim-toml',             {'on_ft': 'toml'})
-  call dein#add('stephpy/vim-yaml',             {'on_ft': 'yaml'})
+" Filetype plug-ins
+Plug 'ap/vim-css-color',             {'for': ['css','scss','sass','less','styl']}
+Plug 'othree/html5.vim',             {'for': 'html'}
+Plug 'Glench/Vim-Jinja2-Syntax',     {'for': 'jinja'}
+Plug 'davidhalter/jedi-vim',         {'for': 'python'}
+" Plug 'python-mode/python-mode',      {'for': 'python'}
+" Plug 'hdima/python-syntax',          {'for': 'python'}
+Plug 'vim-python/python-syntax',          {'for': 'python'}
+Plug 'Vimjas/vim-python-pep8-indent',{'for': 'python'}
+Plug 'sscherfke/vim-virtualenv',     {'for': 'python'}
+Plug 'tmhedberg/SimpylFold',         {'for': 'python'}
+Plug 'rust-lang/rust.vim',           {'for': 'rust'}
+Plug 'saltstack/salt-vim',           {'for': 'sls'}
+Plug 'cespare/vim-toml',             {'for': 'toml'}
+Plug 'stephpy/vim-yaml',             {'for': 'yaml'}
 
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
+call plug#end()
 
 noremap <ENTER> <Plug>(wildfire-fuel)
 vnoremap <BS> <Plug>(wildfire-water)

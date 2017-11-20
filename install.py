@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3
 """
 Creates symlinks in your home directory for each file in this repository
 starting with an undersore (which will of course be replaced by a dot).
@@ -6,14 +6,13 @@ starting with an undersore (which will of course be replaced by a dot).
 If a file with that name already exists, it will be moved to
 ``<filename>.orig``.
 
-Also install the Vim plug-in manager "dein.vim".
+Also install a Vim plug-in manager.
 
 """
 import glob
 import os
 import re
 import subprocess
-import sys
 import time
 
 import click
@@ -68,7 +67,7 @@ def main(ctx, backup):
     """Run all sub-commands."""
     if ctx.invoked_subcommand is None:
         configs()
-        dein(backup)
+        vimplug(backup)
 
 
 @main.command()
@@ -83,7 +82,7 @@ def configs():
     for entry in entries:
         source = os.path.join(os.getcwd(), entry)
         target = extra_links[entry] if entry in extra_links else \
-                re.sub('^_', '.', entry)
+            re.sub('^_', '.', entry)
         target = os.path.join(home, target)
 
         if os.path.exists(target):
@@ -96,14 +95,12 @@ def configs():
 @main.command()
 @click.option('--backup/--no-backup', default=True, show_default=True,
               help='Backup files before overwriting them.')
-def dein(backup):
-    """Install the "dein.vim" plug-in manager."""
+def vimplug(backup):
+    """Install the "vim-plug" plug-in manager."""
     # Install dein.vim
-    if not os.path.exists('installer.sh'):
-        subprocess.run('curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh', shell=True)
-        subprocess.run('sh installer.sh _vim/dein', shell=True)
-        os.remove('installer.sh')
-        print('Open vim and run:\n:call dein#install()\n')
+    url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    dest = '~/.vim/autoload/plug.vim'
+    subprocess.run(f'curl -fLo {dest} --create-dirs {url}', shell=True)
 
 
 if __name__ == '__main__':
