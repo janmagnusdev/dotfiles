@@ -12,14 +12,14 @@ shopt -s checkwinsize
 __RESET_COLOR="[00;00m"
 __RED="[00;31m"
 __GREEN="[00;32m"
-__ORANGE="[00;33m"
+__YELLOW="[00;33m"
 __BLUE="[00;34m"
 __PINK="[00;35m"
 __CYAN="[00;36m"
 __GRAY="[00;37m"
 __BOLD_RED="[01;31m"
 __BOLD_GREEN="[01;32m"
-__BOLD_ORANGE="[01;33m"
+__BOLD_YELLOW="[01;33m"
 __BOLD_BLUE="[01;34m"
 __BOLD_PINK="[01;35m"
 __BOLD_CYAN="[01;36m"
@@ -62,7 +62,7 @@ function _prompt_venv {
 }
 
 function _prompt_time {
-    echo -en "\e${__ORANGE}[$(date '+%H:%M')]\e${__RESET_COLOR}"
+    echo -en "\e${__YELLOW}[$(date '+%H:%M')]\e${__RESET_COLOR}"
 }
 
 # export VCP_BRANCH="{blue}⌥{value}{reset}"
@@ -123,7 +123,9 @@ fi
 # Some Mac OS X specific stuff
 if [[ $(uname -s) = 'Darwin' ]]; then
     # Bash completion for homebrew
-    source /usr/local/etc/bash_completion
+    if [ -f /usr/local/share/bash-completion/bash_completion ]; then
+        . /usr/local/share/bash-completion/bash_completion
+    fi
 fi
 
 # pip configuration and bash completion
