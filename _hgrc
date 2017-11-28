@@ -19,9 +19,8 @@ transplant =
 [alias]
 incoming = incoming --graph
 outgoing = outgoing --graph
-sglog = glog --style=$HOME/.mercurial/templates/map-cmdline.sglog
-slog = log --style=$HOME/.mercurial/templates/map-cmdline.slog
-nlog = log --style=$HOME/.mercurial/templates/map-cmdline.nlog
+lg = glog --style=$HOME/.mercurial/templates/lg.config
+lg5 = glog --style=$HOME/.mercurial/templates/lg.config -l5
 
 [extdiff]
 cmd.opendiff = opendiff-w
@@ -45,7 +44,7 @@ kdiff3.args = $base $local $other -o $output
 
 [pager]
 pager = LESS='FSRX' less
-attend = annotate, cat, diff, export, glog, log, qdiff, sglog, slog, nlog
+attend = annotate, cat, diff, export, lg, lg5, glog, log, qdiff,
 
 [web]
 allow_archive = zip, bz2
