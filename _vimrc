@@ -602,7 +602,7 @@ augroup END
 " Plugin settings --------------------------------------------------------- {{{
 " ALE {{{
 
-let g:ale_lint_on_enter = 0  " pylint is too slow on larger files
+" let g:ale_lint_on_enter = 0  " pylint is too slow on larger files
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 1
 let g:ale_linters = {
@@ -844,6 +844,10 @@ if has('nvim')
     tnoremap <C-j> <C-\><C-N><C-w>j
     tnoremap <C-k> <C-\><C-N><C-w>k
     tnoremap <C-l> <C-\><C-N><C-w>l
+
+    " With line numbers, long lines are truncated when switching from Normal
+    " Mode to Insert Mode.
+    au TermOpen * setlocal nonumber norelativenumber
 
     if filereadable('/usr/local/bin/python2')
         let g:python_host_prog = '/usr/local/bin/python2'
