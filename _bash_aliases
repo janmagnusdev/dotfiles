@@ -51,7 +51,7 @@ alias asearch='apt-cache search'
 alias aupgrade='sudo apt-get update; sudo apt-get dist-upgrade; sudo apt-get autoremove; sudo apt-get autoclean'
 
 # Homebrew
-alias bup='brew update && brew upgrade'
+alias bup='brew update && brew upgrade && brew cask upgrade'
 
 # Upload SSH key
 ssh-upload-key () {

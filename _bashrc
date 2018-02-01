@@ -92,7 +92,7 @@ PS1+='\e${__RESET_COLOR}'
 PS1+='${VC_STATUS}'             # repo stats
 PS1+='${VENV}'                  # venv
 PS1+='${LAST_CMD_FAILED}'       # exit code
-PS1+='\e${__RESET_COLOR}\n\$ '  # \n$
+PS1+='\e${__RESET_COLOR}\n❯ '   # \n❯
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
