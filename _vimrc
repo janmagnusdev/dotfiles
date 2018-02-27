@@ -3,8 +3,11 @@ set nocompatible
 
 call plug#begin('~/.vim/plugged')
 
-  " Interface plug-ins
+" Interface plug-ins
+" Plug 'junegunn/fzf', { 'dir': '~/.local/fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'jremmen/vim-ripgrep'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vinegar'
@@ -12,7 +15,7 @@ Plug 'chrisbra/Colorizer'
 Plug 'vim-scripts/kwbdi.vim'
 Plug 'zerowidth/vim-copy-as-rtf', {'on': 'CopyRTF'}
 
-  " Editing plug-ins
+" Editing plug-ins
 Plug 'ervandew/supertab'
 Plug 'gcmt/wildfire.vim'
 Plug 'terryma/vim-multiple-cursors'
@@ -33,9 +36,8 @@ Plug 'ap/vim-css-color',             {'for': ['css','scss','sass','less','styl']
 Plug 'othree/html5.vim',             {'for': 'html'}
 Plug 'Glench/Vim-Jinja2-Syntax',     {'for': 'jinja'}
 Plug 'davidhalter/jedi-vim',         {'for': 'python'}
-" Plug 'python-mode/python-mode',      {'for': 'python'}
 " Plug 'hdima/python-syntax',          {'for': 'python'}
-Plug 'vim-python/python-syntax',          {'for': 'python'}
+Plug 'vim-python/python-syntax',     {'for': 'python'}
 Plug 'Vimjas/vim-python-pep8-indent',{'for': 'python'}
 Plug 'sscherfke/vim-virtualenv',     {'for': 'python'}
 Plug 'tmhedberg/SimpylFold',         {'for': 'python'}
@@ -53,10 +55,6 @@ vnoremap <BS> <Plug>(wildfire-water)
 filetype plugin indent on
 syntax enable
 
-" If you want to install not installed plugins on startup.
-" if dein#check_install()
-"   call dein#install()
-" endif
 " }}}
 " Basic options ----------------------------------------------------------- {{{
 
@@ -572,6 +570,14 @@ augroup ft_salt
 
     au FileType sls BracelessEnable +indent +fold +highlight-cc2
 
+augroup END
+
+" }}}
+" TeX {{{
+
+augroup ft_tex
+    au!
+    au FileType tex setl fo+=t sw=2 ts=2 sts=2  " Auto-wrap text using tw
 augroup END
 
 " }}}
