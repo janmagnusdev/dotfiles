@@ -356,6 +356,24 @@ if exists('g:loaded_lightline')
     call lightline#update()
 endif
 " }}}
+" Set neovim embedded terminal colors ------------------------------------- {{{
+let g:terminal_color_0 = s:base01
+let g:terminal_color_1 = s:red
+let g:terminal_color_2 = s:green
+let g:terminal_color_3 = s:yellow
+let g:terminal_color_4 = s:blue
+let g:terminal_color_5 = s:purple
+let g:terminal_color_6 = s:cyan
+let g:terminal_color_7 = s:base1
+let g:terminal_color_8 = s:base01
+let g:terminal_color_9 = s:red
+let g:terminal_color_10 = s:green
+let g:terminal_color_11 = s:yellow
+let g:terminal_color_12 = s:blue
+let g:terminal_color_13 = s:purple
+let g:terminal_color_14 = s:cyan
+let g:terminal_color_15 = s:base1
+" }}}
 " License ----------------------------------------------------------------- {{{
 "
 " The MIT License (MIT)
