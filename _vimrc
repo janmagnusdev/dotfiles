@@ -6,16 +6,18 @@ call plug#begin('~/.vim/plugged')
 " Interface plug-ins
 " Plug 'junegunn/fzf', { 'dir': '~/.local/fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf.vim'
+Plug 'chrisbra/Colorizer'
+" Plug 'chrisbra/vpager'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'jremmen/vim-ripgrep'
 Plug 'itchyny/lightline.vim'
+Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vinegar'
-Plug 'chrisbra/Colorizer'
 Plug 'vim-scripts/kwbdi.vim'
 Plug 'zerowidth/vim-copy-as-rtf', {'on': 'CopyRTF'}
 
 " Editing plug-ins
+Plug 'brooth/far.vim', {'on': ['Far', 'Farp', 'Fardo', 'Farundo', 'Refar', 'F']}
 Plug 'ervandew/supertab'
 Plug 'gcmt/wildfire.vim'
 Plug 'terryma/vim-multiple-cursors'
@@ -608,7 +610,12 @@ augroup END
 " Plugin settings --------------------------------------------------------- {{{
 " ALE {{{
 
-" let g:ale_lint_on_enter = 0  " pylint is too slow on larger files
+let g:ale_fix_on_save = 0
+let g:ale_fixers = {
+\    'python': ['black'],
+\}
+let g:ale_python_black_options='--py36'
+let g:ale_lint_on_enter = 1
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 1
 let g:ale_linters = {
@@ -631,6 +638,9 @@ nnoremap <leader>om :CtrlPMRU<cr>
 let g:ctrlp_switch_buffer = ''  " Don't jump anywhere!
 let g:ctrlp_open_new_file = 'r'  " Open new files in the current window
 let g:ctrlp_open_multiple_files = '2vjr'  " Vertically split, max. 2 splits
+if executable('fd')
+    let g:ctrlp_user_command = 'fd -tf "" %s'
+endif
 
 " }}}
 " Lightline {{{
