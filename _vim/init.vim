@@ -16,13 +16,16 @@ Plug 'zerowidth/vim-copy-as-rtf', {'on': 'CopyRTF'}
 
 " Editing plug-ins
 Plug 'ervandew/supertab'
-Plug 'gcmt/wildfire.vim'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'rhysd/clever-f.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tweekmonster/braceless.vim'
-Plug 'vim-scripts/argtextobj.vim'
+" Plug 'vim-scripts/argtextobj.vim'
+Plug 'wellle/targets.vim'
 
 " Tools
 Plug 'w0rp/ale'
@@ -46,9 +49,6 @@ Plug 'cespare/vim-toml',             {'for': 'toml'}
 Plug 'stephpy/vim-yaml',             {'for': 'yaml'}
 
 call plug#end()
-
-noremap <ENTER> <Plug>(wildfire-fuel)
-vnoremap <BS> <Plug>(wildfire-water)
 
 " Required:
 filetype plugin indent on
@@ -121,7 +121,7 @@ set shiftround
 """ Moving around / Editing
 set encoding=utf-8
 set textwidth=79
-set colorcolumn=+1,101
+set colorcolumn=+1,80,101
 set autoindent
 set formatoptions=qrn1j
 set virtualedit+=block
@@ -501,7 +501,7 @@ augroup END
 
 augroup ft_python
     au!
-    au FileType python setl fo+=c  " Auto-wrap comments using textwidth
+    au FileType python setl textwidth=88 fo+=c  " Auto-wrap comments using textwidth
     au Filetype python abb <buffer> ifmain if __name__ == '__main__'
 
     au FileType python BracelessEnable +highlight-cc2
@@ -630,6 +630,10 @@ nnoremap <leader>om :CtrlPMRU<cr>
 let g:ctrlp_switch_buffer = ''  " Don't jump anywhere!
 let g:ctrlp_open_new_file = 'r'  " Open new files in the current window
 let g:ctrlp_open_multiple_files = '2vjr'  " Vertically split, max. 2 splits
+if executable('fd')
+    let g:ctrlp_user_command = 'fd -tf "" %s'
+    let g:ctrlp_use_caching = 0
+endif
 
 " }}}
 " Lightline {{{
@@ -687,16 +691,6 @@ let g:jedi#show_call_signatures = "0"
 let g:SuperTabDefaultCompletionType = "context"
 
 " }}}
-" Wildfire {{{
-
-" defaults: ip i) i] i} i' i\" it
-let g:wildfire_objects = {
-    \ "*" : split("ip i) i] i} i' i\" it"),
-    \ "html,xml" : split("ip i) i] i} i' i\" it at"),
-    \ "python" : split("ip i) i] i} i' i\" it iP aP"),
-\ }
-
-" }}}
 " }}}
 " Mini-plugins ------------------------------------------------------------ {{{
 " Stuff that should probably be broken out into plugins, but hasn't proved to
@@ -704,7 +698,7 @@ let g:wildfire_objects = {
 
 " Synstack {{{
 
-" Show the stack of syntax hilighting classes affecting whatever is under the
+" Show the stack of syntax highlighting classes affecting whatever is under the
 " cursor.
 function! SynStack()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
@@ -757,12 +751,12 @@ nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
 " }}}
 " Default Highlights {{{
 
-hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
-hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
-hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
-hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
-hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
-hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
+hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#9CDEFF ctermbg=117
+hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#53EFA1 ctermbg=79
+hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#AAE800 ctermbg=148
+hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#FFC866 ctermbg=221
+hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#FFBBAB ctermbg=216
+hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#FFB3FF ctermbg=219
 
 " }}}
 
