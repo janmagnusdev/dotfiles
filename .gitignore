@@ -3,4 +3,5 @@
 .DS_Store
 .netrwhist
 _private/
+_vim/autoload/plug.vim.old
 _vim/plugged/

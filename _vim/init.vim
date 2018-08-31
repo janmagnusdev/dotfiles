@@ -1,18 +1,17 @@
 " Preamble ---------------------------------------------------------------- {{{
-set nocompatible
-
 call plug#begin('~/.vim/plugged')
 
 " Interface plug-ins
 " Plug 'junegunn/fzf', { 'dir': '~/.local/fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf.vim'
+Plug 'chrisbra/Colorizer'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'jremmen/vim-ripgrep'
 Plug 'itchyny/lightline.vim'
+Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vinegar'
-Plug 'chrisbra/Colorizer'
 Plug 'vim-scripts/kwbdi.vim'
+Plug 'yuttie/comfortable-motion.vim'
 Plug 'zerowidth/vim-copy-as-rtf', {'on': 'CopyRTF'}
 
 " Editing plug-ins
