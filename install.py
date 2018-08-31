@@ -28,6 +28,7 @@ PKGS = {
         'bash',
         'bash-completion',
         'exiftool',
+        'fd',
         'mercurial',
         'mobile-shell',
         'neovim',
@@ -39,22 +40,25 @@ PKGS = {
         'python33',
         'python34',
         'python35',
+        'ripgrep',
         'rust',
     ],
     'brew-cask': [
         'vimr',
     ],
     'cargo': [
-        'fd-find',
+        # 'fd-find',
+        # 'ripgrep',
         'vcprompt',
     ],
     'dnf': [
         'autojump',
+        'fd-find',
+        'ripgrep',
     ],
     'pipsi': [
         'fabric',
         'httpie',
-        'salt',
     ],
 }
 
@@ -74,7 +78,9 @@ def main(ctx, backup):
 def configs():
     """Install/link config files."""
     home = os.path.expanduser('~')
-    extra_links = {}
+    extra_links = {
+        '_vim': '.config/nvim',
+    }
     if os.path.isdir('./_private'):
         extra_links['_private/ssh/config'] = '.ssh/config'
 
