@@ -53,11 +53,6 @@ alias aupgrade='sudo apt-get update; sudo apt-get dist-upgrade; sudo apt-get aut
 # Homebrew
 alias bup='brew update && brew upgrade && brew cask upgrade'
 
-# Upload SSH key
-ssh-upload-key () {
-    cat ~/.ssh/id_rsa.pub | ssh $1 'cat >> ~/.ssh/authorized_keys'
-}
-
 # Extract archive
 extract () {
     if [ -f $1 ] ; then
