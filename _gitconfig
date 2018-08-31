@@ -25,6 +25,9 @@ status = auto
 branch = auto
 ui = auto
 
+[color "diff"]
+meta = bold magenta
+
 [log]
 decorate = auto
 
