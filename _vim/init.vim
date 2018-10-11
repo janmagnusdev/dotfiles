@@ -1,3 +1,4 @@
+" https://github.com/romainl/idiomatic-vimrc/blob/master/idiomatic-vimrc.vim
 " Preamble ---------------------------------------------------------------- {{{
 call plug#begin('~/.vim/plugged')
 
@@ -58,39 +59,35 @@ syntax enable
 " Basic options ----------------------------------------------------------- {{{
 
 """ Interface
-set title
-set relativenumber
-set cursorline
-set wildmenu
+set title                   " Set window title
+set relativenumber          " Display relative line numbers
+set cursorline              " Highlight current line
+set wildmenu                " Improved command-line completion
 set wildignore+=.git,.hg,_build,__pycache__,*.pyc
 set wildmode=list:longest,full
-set clipboard=unnamed,unnamedplus  " Use system clipboard
+set clipboard=unnamed,unnamedplus
 " set listchars=tab:▸\ ,trail:·,nbsp:~,eol:¬,precedes:❮,extends:❯
 set listchars=tab:▸\ ,trail:·,nbsp:~,precedes:❮,extends:❯
-set list
-set showbreak=↪
-set fillchars=diff:⣿,vert:│
-set nowrap
-set breakindent
-set linebreak
-set scrolloff=3
-set sidescroll=1
-set sidescrolloff=3
-set ttyfast
-set mouse=a
+set list                    " Display listchars
+set nowrap                  " Don’t wrap long lines
+set breakindent             " Indent continued lines after break
+set showbreak=↪             " Show symbol for contiuned lines after break
+set linebreak               " Don’t wrap long lines in the middle of a word
+set scrolloff=3             " Display at least 3 lines above/below cursor
+set sidescrolloff=3         " Display at least 3 columns right/left of cursor
+set sidescroll=1            " Don’t put cursor in the mid. of the screen on hor. scroll
+set mouse=a                 " Enable the use of mouse in all modes
 
 """ Behavior
-set autoread
-set hidden
-set nostartofline
-set nobackup
-set nomodeline
-set noswapfile
-set history=1000
-set splitbelow
-set splitright
-" Resize splits when the window is resized:
-" autocmd VimResized * :wincmd =
+set autoread                " Reload file if changed outside of vim
+set hidden                  " Don’t unload abandoned buffers
+set nostartofline           " Keep the cursor in the same column when moving
+set nobackup                " Don’t create backups on save
+set noswapfile              " Don’t create swap files
+set nomodeline              " Don’t read modelines from files
+set splitbelow              " Open hsplit below current window
+set splitright              " Open vsplit right of current window
+"
 """ Messages, Info, Status
 set confirm                 " Y-N-C promt if closing with unsaved changes
 set ruler                   " Show line and column number
@@ -111,55 +108,42 @@ set noshowmode              " Disable mode message, Lightline also has it
 " set statusline+=%P                              " file position
 
 """ Tabs & Indentation
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
-set expandtab
-set smarttab
-set shiftround
+set tabstop=4               " Number of spaces a tab in a file counts for
+set shiftwidth=4            " Number of spaces for each step of (auto)indent
+set softtabstop=4           " Number of spaces a tab counts for in editing ops
+set expandtab               " Uses spaces for tabs ...
+set smarttab                " ... except if we are already using tabs
+set shiftround              " Round indent to multiple of shiftwidth
 
 """ Moving around / Editing
-set encoding=utf-8
-set textwidth=79
-set colorcolumn=+1,80,101
-set autoindent
-set formatoptions=qrn1j
-set virtualedit+=block
-set backspace=indent,eol,start
-set foldlevelstart=99  " Start with all folds open
-" set foldlevelstart=0  " Start with all folds closed
-set foldmethod=indent
-
-"
+set encoding=utf-8          " Default character encoding
+set textwidth=79            " Maximum width of text that is being inserted
+set colorcolumn=+1,80,101   " Highlight these columns (+1 == textwidth)
+set autoindent              " Automatically indent new lines
+set formatoptions=qrn1j     " Auto-formatting options, see ":help fo-table"
+set cpoptions+=J            " Two spaces between sentences
+set virtualedit+=block      " Allow placing the cursor anywhere in vis. block mode
+set backspace=indent,eol,start  " Allow backspacing over autoindents, EOLs and start of insert
+set foldlevelstart=99       " Start with all folds open
+set foldmethod=indent       " Default fold method: fold by indent
 
 """ Searching
-set incsearch
-set ignorecase
-set smartcase
-set hlsearch
-set gdefault
+set incsearch               " Show matches while entering the search pattern
+set ignorecase              " Ignore case while searching …
+set smartcase               " … except when pattern contains an upper case character
+set hlsearch                " Keep matches of previous search highlighted
+set gdefault                " Set 'g' flag for substitutions by default
 
 """ Leader
 let mapleader=","
 let maplocalleader="ä"
 
-" TODO: keep?
-" cpoptions+=J, dammit {{{
-
-" Something occasionally removes this.  If I manage to find it I'm going to
-" comment out the line and replace all its characters with 'FUCK'.
-augroup twospace
-    au!
-    au BufRead * :set cpoptions+=J
-augroup END
-
-" }}}
 " Line Return {{{
 
 " Return to the same line when you reopen a file.
 augroup line_return
-    au!
-    au BufReadPost *
+    autocmd!
+    autocmd BufReadPost *
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
         \     execute 'normal! g`"zvzz' |
         \ endif
@@ -179,8 +163,8 @@ colorscheme rasta
 
 " Reload the colorscheme whenever we write the file.
 augroup color_dev
-    au!
-    au BufWritePost rasta.vim color rasta
+    autocmd!
+    autocmd BufWritePost rasta.vim color rasta
 augroup END
 
 " Highlight VCS conflict markers
@@ -405,78 +389,78 @@ nnoremap <c-z> mzzMzvzz15<c-e>`z
 " C {{{
 
 augroup ft_c
-    au!
-    au FileType c setl foldmethod=marker foldmarker={,}
+    autocmd!
+    autocmd FileType c setl foldmethod=marker foldmarker={,}
 augroup END
 
 " }}}
 " CSS and SASS {{{
 
 augroup ft_css
-    au!
-    au Filetype css setl foldmethod=marker foldmarker={,}
-    au Filetype sass setl foldmethod=indent
+    autocmd!
+    autocmd Filetype css setl foldmethod=marker foldmarker={,}
+    autocmd Filetype sass setl foldmethod=indent
 augroup END
 
 " }}}
 " Git commit {{{
 
 augroup ft_gitcommit
-    au!
-    au FileType gitcommit set textwidth=72
+    autocmd!
+    autocmd FileType gitcommit set textwidth=72
 augroup END
 
 " }}}
 " Java {{{
 
 augroup ft_java
-    au!
-    au FileType java setl foldmethod=marker foldmarker={,}
+    autocmd!
+    autocmd FileType java setl foldmethod=marker foldmarker={,}
 augroup END
 
 " }}}
 " Javascript {{{
 
 augroup ft_javascript
-    au!
-    au FileType javascript setl foldmethod=marker foldmarker={,}
+    autocmd!
+    autocmd FileType javascript setl foldmethod=marker foldmarker={,}
 augroup END
 
 " }}}
 " Mail {{{
 
 augroup ft_mail
-    au!
-    au Filetype mail setlocal spell tw=72 fo+=t  " Auto-wrap text using tw
+    autocmd!
+    autocmd Filetype mail setlocal spell tw=72 fo+=t  " Auto-wrap text using tw
 augroup END
 
 " }}}
 " Makefile {{{
 
 augroup ft_make
-    au!
-    au Filetype make setlocal noexpandtab shiftwidth=4 softtabstop=0
+    autocmd!
+    autocmd Filetype make setlocal noexpandtab shiftwidth=4 softtabstop=0
 augroup END
 
 " }}}
 " Markdown {{{
 
 augroup ft_markdown
-    au!
+    autocmd!
 
-    au BufEnter *.md set ft=markdown
-    au FileType markdown setl fo+=t sw=2 ts=2 sts=2  " Auto-wrap text using textwidth
+    autocmd BufEnter *.md set ft=markdown
+    autocmd FileType markdown setl fo+=t sw=2 ts=2 sts=2  " Auto-wrap text using textwidth
 
     " Use <localleader>1/2/3/4 to add headings.
-    au Filetype markdown nnoremap <buffer> <localleader>1 "zyy"zpVr=k
-    au Filetype markdown nnoremap <buffer> <localleader>2 "zyy"zpVr-k
-    au Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space><esc>`zllll
-    au Filetype markdown nnoremap <buffer> <localleader>4 mzI####<space><esc>`zlllll
+    autocmd Filetype markdown nnoremap <buffer> <localleader>1 "zyy"zpVr=k
+    autocmd Filetype markdown nnoremap <buffer> <localleader>2 "zyy"zpVr-k
+    autocmd Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space><esc>`zllll
+    autocmd Filetype markdown nnoremap <buffer> <localleader>4 mzI####<space><esc>`zlllll
     " In insert mode, create to new lines below the heading to continue editing
-    au Filetype markdown inoremap <buffer> <localleader>1 <esc>"zyy"zpVr=o<cr>
-    au Filetype markdown inoremap <buffer> <localleader>2 <esc>"zyy"zpVr-o<cr>
-    au Filetype markdown inoremap <buffer> <localleader>3 <esc>I###<space><esc>o<cr>
-    au Filetype markdown inoremap <buffer> <localleader>4 <esc>I####<space><esc>o<cr>
+    autocmd Filetype markdown inoremap <buffer> <localleader>1 <esc>"zyy"zpVr=o<cr>
+    autocmd Filetype markdown inoremap <buffer> <localleader>2 <esc>"zyy"zpVr-o<cr>
+    autocmd Filetype markdown inoremap <buffer> <localleader>3 <esc>I###<space><esc>o<cr>
+    autocmd Filetype markdown inoremap <buffer> <localleader>4 <esc>I####<space><esc>o<cr>
 
 augroup END
 
@@ -484,77 +468,77 @@ augroup END
 " Mercurial {{{
 
 augroup ft_mercurial
-    au!
-    au BufNewFile,BufRead *hg-editor-*.txt setl filetype=hgcommit
+    autocmd!
+    autocmd BufNewFile,BufRead *hg-editor-*.txt setl filetype=hgcommit
 augroup END
 
 " }}}
 " Nginx {{{
 
 augroup ft_nginx
-    au!
-    au FileType nginx setl foldmethod=marker foldmarker={,}
+    autocmd!
+    autocmd FileType nginx setl foldmethod=marker foldmarker={,}
 augroup END
 
 " }}}
 " Python {{{
 
 augroup ft_python
-    au!
-    au FileType python setl textwidth=88 fo+=c  " Auto-wrap comments using textwidth
-    au Filetype python abb <buffer> ifmain if __name__ == '__main__'
+    autocmd!
+    autocmd FileType python setl textwidth=88 fo+=c  " Auto-wrap comments using textwidth
+    autocmd Filetype python abb <buffer> ifmain if __name__ == '__main__'
 
-    au FileType python BracelessEnable +highlight-cc2
+    autocmd FileType python BracelessEnable +highlight-cc2
 
     " Join and split a strings (enclosed with ')
     " join:  'foo '\n'bar' --> 'foo bar'
     " split: 'foo bar' --> 'foo '\n'bar'
-    au FileType python nnoremap <buffer> <localleader>j Jh3x
-    au FileType python nnoremap <buffer> <localleader>s i'<cr>'<esc>
+    autocmd FileType python nnoremap <buffer> <localleader>j Jh3x
+    autocmd FileType python nnoremap <buffer> <localleader>s i'<cr>'<esc>
 
     " Change dict item to attribute access and keep cursor position
     " aa: foo['bar'] --> foo.bar
     " ia: foo.bar --> foo['bar']
     " Use nmap so that the surround plugin can be utilized.
-    au FileType python nmap <buffer> <localleader>aa mzbi.<esc>ds'ds]`zh
-    au FileType python nmap <buffer> <localleader>ia mzysiw]lysiw'bx`zl
+    autocmd FileType python nmap <buffer> <localleader>aa mzbi.<esc>ds'ds]`zh
+    autocmd FileType python nmap <buffer> <localleader>ia mzysiw]lysiw'bx`zl
 augroup END
 
 " }}}
 " QuickFix {{{
 
 augroup ft_quickfix
-    au!
-    au FileType qf setl nowrap
+    autocmd!
+    autocmd FileType qf setl nowrap
 augroup END
 
 " }}}
 " ReStructuredText {{{
 
 augroup ft_rest
-    au!
+    autocmd!
 
-    au BufEnter *.txt set ft=rst
-    au FileType rst setl fo+=t sw=2 ts=2 sts=2  " Auto-wrap text using tw
+    autocmd BufEnter *.txt set ft=rst
+    autocmd FileType rst setl fo+=t sw=2 ts=2 sts=2  " Auto-wrap text using tw
 
     " Title, parts, chapters and sections 1/2/3/4
-    au Filetype rst nnoremap <buffer> <localleader>t "zyy"zPVr="zyyj"zpk
-    au Filetype rst nnoremap <buffer> <localleader>p "zyy"zpVr#k
-    au Filetype rst nnoremap <buffer> <localleader>c "zyy"zpVr*k
-    au Filetype rst nnoremap <buffer> <localleader>1 "zyy"zpVr=k
-    au Filetype rst nnoremap <buffer> <localleader>2 "zyy"zpVr-k
-    au Filetype rst nnoremap <buffer> <localleader>3 "zyy"zpVr^k
-    au Filetype rst nnoremap <buffer> <localleader>4 "zyy"zpVr"k
+    autocmd Filetype rst nnoremap <buffer> <localleader>t "zyy"zPVr="zyyj"zpk
+    autocmd Filetype rst nnoremap <buffer> <localleader>p "zyy"zpVr#k
+    autocmd Filetype rst nnoremap <buffer> <localleader>c "zyy"zpVr*k
+    autocmd Filetype rst nnoremap <buffer> <localleader>1 "zyy"zpVr=k
+    autocmd Filetype rst nnoremap <buffer> <localleader>2 "zyy"zpVr-k
+    autocmd Filetype rst nnoremap <buffer> <localleader>3 "zyy"zpVr^k
+    autocmd Filetype rst nnoremap <buffer> <localleader>4 "zyy"zpVr"k
     " In insert mode, create to new lines below the heading to continue editing
     " <localleader> is ä and there are just to many German words with "äc(h",
     " "ät" or "äp" ...
-    " au Filetype rst inoremap <buffer> <localleader>t <esc>"zyy"zPVr="zyyj"zpo<cr>
-    " au Filetype rst inoremap <buffer> <localleader>p <esc>"zyy"zpVr#o<cr>
-    " au Filetype rst inoremap <buffer> <localleader>c <esc>"zyy"zpVr*o<cr>
-    au Filetype rst inoremap <buffer> <localleader>1 <esc>"zyy"zpVr=o<cr>
-    au Filetype rst inoremap <buffer> <localleader>2 <esc>"zyy"zpVr-o<cr>
-    au Filetype rst inoremap <buffer> <localleader>3 <esc>"zyy"zpVr^o<cr>
-    au Filetype rst inoremap <buffer> <localleader>4 <esc>"zyy"zpVr"o<cr>
+    " autocmd Filetype rst inoremap <buffer> <localleader>t <esc>"zyy"zPVr="zyyj"zpo<cr>
+    " autocmd Filetype rst inoremap <buffer> <localleader>p <esc>"zyy"zpVr#o<cr>
+    " autocmd Filetype rst inoremap <buffer> <localleader>c <esc>"zyy"zpVr*o<cr>
+    autocmd Filetype rst inoremap <buffer> <localleader>1 <esc>"zyy"zpVr=o<cr>
+    autocmd Filetype rst inoremap <buffer> <localleader>2 <esc>"zyy"zpVr-o<cr>
+    autocmd Filetype rst inoremap <buffer> <localleader>3 <esc>"zyy"zpVr^o<cr>
+    autocmd Filetype rst inoremap <buffer> <localleader>4 <esc>"zyy"zpVr"o<cr>
 
 augroup END
 
@@ -562,12 +546,12 @@ augroup END
 " Salt (SLS) {{{
 
 augroup ft_salt
-    au!
+    autocmd!
 
-    au BufEnter */etc/salt/* set ft=sls
-    au BufEnter */pillar.example set ft=sls
+    autocmd BufEnter */etc/salt/* set ft=sls
+    autocmd BufEnter */pillar.example set ft=sls
 
-    au FileType sls BracelessEnable +indent +fold +highlight-cc2
+    autocmd FileType sls BracelessEnable +indent +fold +highlight-cc2
 
 augroup END
 
@@ -575,32 +559,32 @@ augroup END
 " TeX {{{
 
 augroup ft_tex
-    au!
-    au FileType tex setl fo+=t sw=2 ts=2 sts=2  " Auto-wrap text using tw
+    autocmd!
+    autocmd FileType tex setl fo+=t sw=2 ts=2 sts=2  " Auto-wrap text using tw
 augroup END
 
 " }}}
 " Vim {{{
 
 augroup ft_vim
-    au!
-    au FileType vim setlocal foldmethod=marker
-    au FileType help setlocal textwidth=78
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+    autocmd FileType help setlocal textwidth=78
 augroup END
 
 " }}}
 " XC (XVM) {{{
 
 augroup ft_xc
-    au!
-    au BufEnter *.xc set ft=javascript
-    au BufEnter *.xc setl sw=2 ts=2 sts=2
+    autocmd!
+    autocmd BufEnter *.xc set ft=javascript
+    autocmd BufEnter *.xc setl sw=2 ts=2 sts=2
 augroup END
 
 " }}}
 " Yaml {{{
 
-    au FileType yaml BracelessEnable +indent +fold +highlight-cc2
+    autocmd FileType yaml BracelessEnable +indent +fold +highlight-cc2
 " }}}
 
 " }}}
@@ -776,11 +760,11 @@ function! TrimSpaces(current_line)
     call winrestview(l:state)
 endfunction
 augroup trim_spaces
-    au!
-    au FileWritePre * :call TrimSpaces(0)
-    au FileAppendPre * :call TrimSpaces(0)
-    au FilterWritePre * :call TrimSpaces(0)
-    au BufWritePre * :call TrimSpaces(0)
+    autocmd!
+    autocmd FileWritePre * :call TrimSpaces(0)
+    autocmd FileAppendPre * :call TrimSpaces(0)
+    autocmd FilterWritePre * :call TrimSpaces(0)
+    autocmd BufWritePre * :call TrimSpaces(0)
 augroup END
 nnoremap <leader>ts :call TrimSpaces(0)<cr>
 
@@ -846,7 +830,7 @@ if has('nvim')
 
     " With line numbers, long lines are truncated when switching from Normal
     " Mode to Insert Mode.
-    au TermOpen * setlocal nonumber norelativenumber
+    autocmd TermOpen * setlocal nonumber norelativenumber
 
     if filereadable('/usr/local/bin/python2')
         let g:python_host_prog = '/usr/local/bin/python2'
