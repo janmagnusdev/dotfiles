@@ -1,6 +1,6 @@
 " Name:    Rasta
 " Author:  Stefan Scherfke
-" URL:     https://bitbucket.org/sscherfke/dotfiles/src/tip/_vim/colors
+" URL:     https://gitlab.com/sscherfke/dotfiles/blob/master/_vim/colors/
 " License: OSI approved MIT license (see end of this file)
 "
 " About ------------------------------------------------------------------- {{{

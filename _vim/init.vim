@@ -153,11 +153,30 @@ augroup END
 " Color scheme {{{
 
 syntax on
-if $VIM_BACKGROUND == 'dark'
-    set background=dark
-else
-    set background=light
-endif
+
+function! SetBackgroundMode(...)
+    let s:new_bg = "light"
+    if $TERM_PROGRAM ==? 'Apple_Terminal'
+        let s:mode = systemlist("defaults read -g AppleInterfaceStyle")[0]
+        if s:mode ==? "dark"
+            let s:new_bg = "dark"
+        else
+            let s:new_bg = "light"
+        endif
+    else
+        if $VIM_BACKGROUND ==? 'dark'
+            let s:new_bg = "dark"
+        else
+            let s:new_bg = "light"
+        endif
+    endif
+    if &background !=? s:new_bg
+        let &background = s:new_bg
+    endif
+endfunction
+call SetBackgroundMode()
+call timer_start(1000, 'SetBackgroundMode', {'repeat': -1})
+
 set synmaxcol=200  " Don't try to highlight lines longer than x characters.
 colorscheme rasta
 
@@ -551,7 +570,7 @@ augroup ft_salt
     autocmd BufEnter */etc/salt/* set ft=sls
     autocmd BufEnter */pillar.example set ft=sls
 
-    autocmd FileType sls BracelessEnable +indent +fold +highlight-cc2
+    autocmd FileType sls BracelessEnable +fold +highlight-cc2
 
 augroup END
 
@@ -584,7 +603,7 @@ augroup END
 " }}}
 " Yaml {{{
 
-    autocmd FileType yaml BracelessEnable +indent +fold +highlight-cc2
+    autocmd FileType yaml BracelessEnable +fold +highlight-cc2
 " }}}
 
 " }}}
