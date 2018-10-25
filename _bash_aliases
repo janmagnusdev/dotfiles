@@ -45,10 +45,7 @@ switch-theme () {
 }
 
 # Apt
-alias aup='sudo apt-get update'
-alias ainst='sudo apt-get install'
-alias asearch='apt-cache search'
-alias aupgrade='sudo apt-get update; sudo apt-get dist-upgrade; sudo apt-get autoremove; sudo apt-get autoclean'
+alias aup='sudo apt-get update; sudo apt-get dist-upgrade; sudo apt-get autoremove; sudo apt-get autoclean'
 
 # Homebrew
 alias bup='brew update && brew upgrade && brew cask upgrade'
@@ -87,4 +84,16 @@ splitwp () {
     cd $dirname
     convert -crop 50%x100% +repage "${filename}.${extension}" "${filename}_%d.${extension}"
     cd -
+}
+
+# Development
+blackdiff() { black --py36 -S - < $1 | git diff --no-index -- $1 -; }
+merge-dev() {
+    git checkout develop
+    git pull
+    git checkout master
+    git pull
+    git merge --no-ff develop -m "Merge branch 'develop'"
+    git push
+    git checkout develop
 }
