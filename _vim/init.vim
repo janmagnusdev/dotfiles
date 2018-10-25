@@ -292,6 +292,10 @@ cnoremap w!! w !sudo tee % >/dev/null
 " Unfuck my screen
 nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 
+" Fix width of term windows after switching windows
+nnoremap <silent> <leader>fw :resize -1<cr>:resize +1<cr>:vertical resize -1<cr>:vertical resize +1<cr>
+
+
 " When pressing <leader>cd switch to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>
 
