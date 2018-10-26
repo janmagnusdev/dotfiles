@@ -156,7 +156,7 @@ syntax on
 
 function! SetBackgroundMode(...)
     let s:new_bg = "light"
-    if $TERM_PROGRAM ==? 'Apple_Terminal'
+    if $TERM_PROGRAM ==? "Apple_Terminal"
         let s:mode = systemlist("defaults read -g AppleInterfaceStyle")[0]
         if s:mode ==? "dark"
             let s:new_bg = "dark"
@@ -164,7 +164,7 @@ function! SetBackgroundMode(...)
             let s:new_bg = "light"
         endif
     else
-        if $VIM_BACKGROUND ==? 'dark'
+        if $VIM_BACKGROUND ==? "dark"
             let s:new_bg = "dark"
         else
             let s:new_bg = "light"
@@ -175,7 +175,7 @@ function! SetBackgroundMode(...)
     endif
 endfunction
 call SetBackgroundMode()
-call timer_start(1000, 'SetBackgroundMode', {'repeat': -1})
+call timer_start(3000, "SetBackgroundMode", {"repeat": -1})
 
 set synmaxcol=200  " Don't try to highlight lines longer than x characters.
 colorscheme rasta
