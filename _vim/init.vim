@@ -77,6 +77,7 @@ set scrolloff=3             " Display at least 3 lines above/below cursor
 set sidescrolloff=3         " Display at least 3 columns right/left of cursor
 set sidescroll=1            " Don’t put cursor in the mid. of the screen on hor. scroll
 set mouse=a                 " Enable the use of mouse in all modes
+set termguicolors           " Use "guifg"/"guibg" in term (use 24-bit colors)
 
 """ Behavior
 set autoread                " Reload file if changed outside of vim
@@ -85,6 +86,8 @@ set nostartofline           " Keep the cursor in the same column when moving
 set nobackup                " Don’t create backups on save
 set noswapfile              " Don’t create swap files
 set nomodeline              " Don’t read modelines from files
+" set diffopt+=algorithm:patience
+" set diffopt+=indent-heuristic
 set splitbelow              " Open hsplit below current window
 set splitright              " Open vsplit right of current window
 "

@@ -80,7 +80,7 @@ endif
 let colors_name = 'rasta'
 
 let s:USE_TERM_COLORS = ($TERM_PROGRAM ==? 'Apple_Terminal')
-let s:HAS_GUI = has('gui_running') || exists('neovim_dot_app') || has('gui_vimr')
+let s:HAS_GUI = has('gui_running') || exists('neovim_dot_app') || has('gui_vimr') || &termguicolors
 let s:VMODE = s:HAS_GUI ? 'gui' : 'cterm'
 " }}}
 " Define color values ----------------------------------------------------- {{{
@@ -217,7 +217,7 @@ call s:Hi("FoldColumn",    s:base01, s:none)
 call s:Hi("LineNr",        s:base01, s:none)
 call s:Hi("SignColumn",    s:base01, s:none)
 
-call s:Hi("VertSplit",     s:base01, s:base01)
+call s:Hi("VertSplit",     s:base01, s:none)
 call s:Hi("StatusLine",    s:base2,  s:base01)
 call s:Hi("StatusLineNC",  s:base1,  s:base01)
 call s:Hi("TabLine",       s:base0,  s:base01)
@@ -323,6 +323,7 @@ call s:Hi("diffAdded",           s:green,  s:none)
 
 " call s:Hi("pythonBuiltinObj",    s:yellow, s:none)
 call s:Hi("pythonClassVar",          s:blue,   s:none)
+call s:Hi("pythonExClass",           s:red,    s:none)
 
 call s:Hi("yamlKey",             s:purple,  s:none)
 " }}}
