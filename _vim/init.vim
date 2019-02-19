@@ -296,8 +296,14 @@ cnoremap w!! w !sudo tee % >/dev/null
 nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 
 " Fix width of term windows after switching windows
-nnoremap <silent> <leader>fw :resize -1<cr>:resize +1<cr>:vertical resize -1<cr>:vertical resize +1<cr>
-
+function! FixWidth()
+    resize -1
+    resize +1
+    vertical resize -1
+    vertical resize +1
+endfunction
+" nnoremap <silent> <leader>fw :resize -1<cr>:resize +1<cr>:vertical resize -1<cr>:vertical resize +1<cr>
+nnoremap <silent> <leader>fw :call FixWidth()<cr>
 
 " When pressing <leader>cd switch to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>
@@ -857,6 +863,7 @@ if has('nvim')
     " With line numbers, long lines are truncated when switching from Normal
     " Mode to Insert Mode.
     autocmd TermOpen * setlocal nonumber norelativenumber
+    autocmd BufWinEnter,WinEnter term://* call FixWidth()
 
     if filereadable('/usr/local/bin/python2')
         let g:python_host_prog = '/usr/local/bin/python2'
