@@ -1,12 +1,13 @@
 # If not running interactively, don't do anything
 [[ -z "$PS1" ]] && return
 
-HISTCONTROL=ignoredups:ignorespace
-HISTFILESIZE=2000
-HISTSIZE=1000
+export HISTCONTROL=ignoredups:ignorespace
+export HISTFILESIZE=10000
+export HISTSIZE=10000
+# export HISTIGNORE='ls:ll'
 
-shopt -s histappend
 shopt -s checkwinsize
+shopt -s histappend
 
 # Prompt
 __RESET_COLOR="[00;00m"
@@ -92,7 +93,8 @@ PS1+='\e${__RESET_COLOR}'
 PS1+='${VC_STATUS}'             # repo stats
 PS1+='${VENV}'                  # venv
 PS1+='${LAST_CMD_FAILED}'       # exit code
-PS1+='\e${__RESET_COLOR}\n❯ '   # \n❯
+# PS1+='\e${__RESET_COLOR}\n$ '   # \n❯
+PS1+='\e${__RESET_COLOR}\n\e${__BLUE}❯\e${__CYAN}❯\e${__GREEN}❯\e${__RESET_COLOR} '
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"

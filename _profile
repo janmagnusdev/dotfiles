@@ -1,29 +1,25 @@
-if [ `uname -s` = "Darwin" ]; then
-    # Fix for homebrew:
-    export PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
+export LC_ALL=en_US.utf-8
+export LC_CTYPE=en_US.utf-8
 
-    export ARCHFLAGS="-arch x86_64"
+export EDITOR="$(which vim)"
+
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    # Add Homebrew to path and configure it
+    export PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
     export HOMEBREW_NO_ANALYTICS=1
-    export LC_ALL=en_US.utf-8
-    export LC_CTYPE=en_US.utf-8
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
+# Add user's private bin to PATH if it exists
+if [[ -d "$HOME/bin" ]]; then
     export PATH="$HOME/bin:$PATH"
 fi
 
-# set PATH so it includes .local/bin used by pipsi
-if [ -d "$HOME/.local/bin" ] ; then
+# Add .local/bin used by pipsi to PATH if it exists
+if [[ -d "$HOME/.local/bin" ]]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	    source "$HOME/.bashrc"
-    fi
+# if running bash# if running bash include .bashrc if it exists
+if [[ -n "$BASH_VERSION" && -f "$HOME/.bashrc" ]]; then
+    source "$HOME/.bashrc"
 fi
-
-export EDITOR="$(which vim)"
