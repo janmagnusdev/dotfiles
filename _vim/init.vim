@@ -62,6 +62,7 @@ syntax enable
 set title                   " Set window title
 set relativenumber          " Display relative line numbers
 set cursorline              " Highlight current line
+set pumheight=10            " Height of the popup menu
 set wildmenu                " Improved command-line completion
 set wildignore+=.git,.hg,_build,__pycache__,*.pyc
 set wildmode=list:longest,full
@@ -77,7 +78,7 @@ set scrolloff=3             " Display at least 3 lines above/below cursor
 set sidescrolloff=3         " Display at least 3 columns right/left of cursor
 set sidescroll=1            " Don’t put cursor in the mid. of the screen on hor. scroll
 set mouse=a                 " Enable the use of mouse in all modes
-set termguicolors           " Use "guifg"/"guibg" in term (use 24-bit colors)
+" set termguicolors           " Use "guifg"/"guibg" in term (use 24-bit colors)
 
 """ Behavior
 set autoread                " Reload file if changed outside of vim
@@ -181,12 +182,13 @@ call SetBackgroundMode()
 call timer_start(3000, "SetBackgroundMode", {"repeat": -1})
 
 set synmaxcol=200  " Don't try to highlight lines longer than x characters.
-colorscheme rasta
+colorscheme stylo
 
 " Reload the colorscheme whenever we write the file.
 augroup color_dev
     autocmd!
     autocmd BufWritePost rasta.vim color rasta
+    autocmd BufWritePost stylo.vim color stylo
 augroup END
 
 " Highlight VCS conflict markers
@@ -655,7 +657,7 @@ endif
 " Lightline {{{
 
 let g:lightline = {
-    \ 'colorscheme': 'Rasta',
+    \ 'colorscheme': 'stylo',
     \ 'active': {
     \   'left': [['mode', 'paste'], ['virtualenv', 'relativepath'], ['ale', 'readonly', 'modified']],
     \   'right': [['percent'], ['lineinfo'],
