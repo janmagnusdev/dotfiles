@@ -29,18 +29,21 @@ alias p='python3'
 alias grepy="grep -r --include='*.py'"
 
 # Switch between dark and light theme
+# Also see function SetBackgroundMode in "init.vim"
 switch-theme () {
-    if [[ "$VIM_BACKGROUND" == 'dark' ]]; then
-        TERMINAL_THEME='Rasta light'
-        export VIM_BACKGROUND='light'
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+        python3 $HOME/.python/macos_dark_mode_toggle.py
     else
-        TERMINAL_THEME='Rasta'
-        export VIM_BACKGROUND='dark'
-    fi
-    if [[ "$(uname)" == 'Darwin' ]]; then
-        echo "tell app \"Terminal\" to set current settings of first window to settings set \"${TERMINAL_THEME}\""|osascript
-    elif type -p konsoleprofile &> /dev/null; then
-        konsoleprofile colors="$TERMINAL_THEME"
+        if [[ "$VIM_BACKGROUND" == 'dark' ]]; then
+            TERMINAL_THEME='Stylo Light'
+            export VIM_BACKGROUND='light'
+        else
+            TERMINAL_THEME='Stylo Dark'
+            export VIM_BACKGROUND='dark'
+        fi
+        if type -p konsoleprofile &> /dev/null; then
+            konsoleprofile colors="$TERMINAL_THEME"
+        fi
     fi
 }
 
