@@ -37,14 +37,14 @@ if &background ==? 'dark'
         let s:base01  = "#1F2225"
         let s:base02  = "#2C343A"
         let s:base03  = "#36444F"
-        let s:base04  = "#4C6272"
+        let s:base04  = "#42675E"
         let s:base05  = "#90AFC0"
         let s:base06  = "#C2D9EB"
         let s:base07  = "#E4ECF4"
         let s:red     = "#DA7F71"
         let s:orange  = "#CE8A4F"
         let s:yellow  = "#A99F3A"
-        let s:green   = "#62AF8D"
+        let s:green   = "#6FAE7D"
         let s:cyan    = "#5EACB3"
         let s:blue    = "#75A3D3"
         let s:purple  = "#939AD1"
@@ -215,10 +215,10 @@ call s:HiLink("Number",    "Constant")
 call s:HiLink("Boolean",   "Constant")
 call s:HiLink("Float",     "Constant")
 
-call s:Hi("Identifier",    s:purple, s:none)
-call s:Hi("Function",      s:purple, s:none)
+call s:Hi("Identifier",    s:blue, s:none)
+call s:Hi("Function",      s:blue, s:none)
 
-call s:Hi("Statement",     s:blue, s:none)
+call s:Hi("Statement",     s:yellow, s:none)
 call s:HiLink("Conditional", "Statement")
 call s:HiLink("Repeat",      "Statement")
 call s:HiLink("Label",       "Statement")
@@ -226,21 +226,20 @@ call s:HiLink("Operator",    "Statement")
 call s:HiLink("Keyword",     "Statement")
 call s:HiLink("Exception",   "Statement")
 
-call s:Hi("PreProc",       s:orange,   s:none)
-" call s:Hi("PreProc",       s:blue,   s:none)
+call s:Hi("PreProc",       s:purple, s:none)
 call s:Hi("Include",       s:blue,   s:none)
 call s:HiLink("Define",    "Include")
 call s:HiLink("Macro",     "Include")
 call s:HiLink("PreCondit", "Include")
 
-call s:Hi("Type",          s:blue, s:none)
+call s:Hi("Type",          s:orange, s:none)
 call s:HiLink("StorageClass", "Type")
 call s:HiLink("Structure",    "Type")
 call s:HiLink("Typedef",      "Type")
 
-call s:Hi("Special",       s:magenta,    s:none)
+call s:Hi("Special",       s:magenta, s:none)
 call s:HiLink("SpecialChar",    "Special")
-call s:Hi("Tag",           s:green,  s:none)
+call s:Hi("Tag",           s:green,   s:none)
 call s:HiLink("Delimiter",      "Special")
 call s:HiLink("SpecialComment", "Special")
 call s:HiLink("Debug",          "Special")
@@ -269,10 +268,10 @@ call s:Hi("diffAdded",           s:green,  s:none)
 " Python {{{
 
 " call s:Hi("pythonBuiltinObj",    s:yellow, s:none)
-call s:Hi("pythonClassVar",          s:blue,   s:none)
-call s:Hi("pythonExClass",           s:red,    s:none)
+call s:Hi("pythonClassVar",      s:purple, s:none)
+call s:Hi("pythonExClass",       s:red,    s:none)
 
-call s:Hi("yamlKey",             s:purple,  s:none)
+call s:Hi("yamlKey",             s:blue,   s:none)
 " }}}
 " }}}
 " Lightline color scheme--------------------------------------------------- {{{
