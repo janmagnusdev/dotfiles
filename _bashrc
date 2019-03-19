@@ -17,14 +17,10 @@ __YELLOW="[00;33m"
 __BLUE="[00;34m"
 __PINK="[00;35m"
 __CYAN="[00;36m"
-__GRAY="[00;37m"
 __BOLD_RED="[01;31m"
 __BOLD_GREEN="[01;32m"
-__BOLD_YELLOW="[01;33m"
 __BOLD_BLUE="[01;34m"
-__BOLD_PINK="[01;35m"
 __BOLD_CYAN="[01;36m"
-__BOLD_GRAY="[01;37m"
 
 if [[ $(id -u) == '0' ]] || sudo -n true 2>/dev/null; then
   __USER_COLOR=$__BOLD_RED
@@ -55,7 +51,7 @@ function _prompt_venv {
         echo -ne "\e${__RESET_COLOR})"
     fi
 
-    if [[ -n "$CONDA_DEFAULT_ENV" ]]; then
+    if [[ -n "$CONDA_DEFAULT_ENV" && "$CONDA_DEFAULT_ENV" != 'base' ]]; then
         echo -ne "\e${__RESET_COLOR} ("
         echo -ne "\e${__CYAN}${CONDA_DEFAULT_ENV}"
         echo -ne "\e${__RESET_COLOR})"
@@ -94,7 +90,7 @@ PS1+='${VC_STATUS}'             # repo stats
 PS1+='${VENV}'                  # venv
 PS1+='${LAST_CMD_FAILED}'       # exit code
 # PS1+='\e${__RESET_COLOR}\n$ '   # \n❯
-PS1+='\e${__RESET_COLOR}\n\e${__BLUE}❯\e${__CYAN}❯\e${__GREEN}❯\e${__RESET_COLOR} '
+PS1+='\[\e${__RESET_COLOR}\]\n\[\e${__BLUE}\]❯\[\e${__CYAN}\]❯\[\e${__GREEN}\]❯\[\e${__RESET_COLOR}\] '
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
