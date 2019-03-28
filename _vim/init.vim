@@ -78,7 +78,9 @@ set scrolloff=3             " Display at least 3 lines above/below cursor
 set sidescrolloff=3         " Display at least 3 columns right/left of cursor
 set sidescroll=1            " Don’t put cursor in the mid. of the screen on hor. scroll
 set mouse=a                 " Enable the use of mouse in all modes
-" set termguicolors           " Use "guifg"/"guibg" in term (use 24-bit colors)
+if !empty($KONSOLE_VERSION)
+    set termguicolors           " Use "guifg"/"guibg" in term (use 24-bit colors)
+endif
 
 """ Behavior
 set autoread                " Reload file if changed outside of vim
