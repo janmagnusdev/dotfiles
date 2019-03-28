@@ -1,4 +1,3 @@
-# encoding: utf-8
 """
 Utility functions for my Python prompt
 ======================================
@@ -10,30 +9,26 @@ import subprocess
 import sys
 
 
-class colors:
-    black = '30'
-    darkred = '31'
-    darkgreen = '32'
-    brown = '33'
-    darkblue = '34'
-    purple = '35'
-    teal = '36'
-    lightgray = '37'
-    darkgray = '30;01'
-    red = '31;01'
-    green = '32;01'
-    yellow = '33;01'
-    blue = '34;01'
-    fuchsia = '35;01'
-    turquoise = '36;01'
-    white = '37;01'
+def e(v):
+    """Escape color value *v*."""
+    return f'\001\033[0;{v}m\002'
+
+
+class c:
+    reset = '\001\033[0m\002'
+    red = e('31')
+    green = e('32')
+    yellow = e('33')
+    blue = e('34')
+    purple = e('35')
+    cyan = e('36')
+    magenta = e('95')
 
 
 def setup_colored_promt():
-    """
-    Sets-up a colored promt if readline is available.
+    """Set-up a colored promt if readline is available.
 
-    Unfortunately, libedit-based readline doesn’t work with that.
+    Unfortunately, libedit-based readline doesn't work with that.
 
     """
     try:
@@ -44,10 +39,8 @@ def setup_colored_promt():
     if has_libedit():
         return
 
-    sys.ps1 = '\001\033[0;%sm\002>>> \001\033[0m\002' % colors.darkgreen
-    sys.ps2 = '\001\033[0;%sm\002... \001\033[0m\002' % colors.darkred
-    # sys.ps1 = '\x1b[%sm>>> \x1b[0m' % colors.darkgreen
-    # sys.ps2 = '\x1b[%sm... \x1b[0m' % colors.darkred
+    sys.ps1 = f'{c.yellow}❯{c.yellow}❯{c.blue}❯{c.reset} '
+    sys.ps2 = f'{c.purple}.{c.magenta}.{c.red}.{c.reset} '
 
 
 def setup_persistent_history():
@@ -98,12 +91,7 @@ def has_libedit():
         return False
 
     cmd = ['otool', '-L', readline.__file__]
-    if hasattr(subprocess, 'check_output'):
-        out = subprocess.check_output(cmd).decode()
-    else:  # Delete this to drop Python 2.6 support
-        out, _ = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE).communicate()
-        out = out.decode()
+    out = subprocess.check_output(cmd).decode()
 
     if 'libedit' in out:
         return True
@@ -114,10 +102,7 @@ def has_libedit():
 def pp_displayhook(value):
     """Uses :func:`pprint.pprint` to print *value* to stdout."""
     if value is not None:
-        try:  # Python 2.7 and 3.x
-            import builtins
-        except ImportError:  # Python 2.6
-            import __builtin__ as builtins
+        import builtins
 
         builtins._ = value
 
@@ -135,12 +120,8 @@ class Completer(rlcompleter.Completer):
     <http://codespeak.net/svn/user/antocuni/hack/rlcompleter_ng.py>`_
 
     """
-    def __init__(self, *args, **kwargs):
-        rlcompleter.Completer.__init__(self, *args, **kwargs)
-
     def complete(self, text, state):
-        """
-        Returns a *tab* if you are on the beginning of a line or the next
+        """Return a *tab* if you are on the beginning of a line or the next
         next possible completion else.
 
         """
@@ -150,8 +131,7 @@ class Completer(rlcompleter.Completer):
             return rlcompleter.Completer.complete(self, text, state)
 
     def attr_matches(self, text):
-        """
-        Strips *a.b.* from *a.b.c* when listing the available completion
+        """Strip *a.b.* from *a.b.c* when listing the available completion
         candidates to produce a cleaner output.
 
         """
@@ -164,7 +144,7 @@ class Completer(rlcompleter.Completer):
         # Return the common prefix of all matches
         prefix = self._common_prefix(matches)
         if prefix and prefix != attr:
-            return ['%s.%s' % (expr, prefix)]
+            return [f'{expr}.{prefix}']
 
         # Add '' to the matches to prevent the automatic completion of the
         # common prefix.
@@ -173,7 +153,7 @@ class Completer(rlcompleter.Completer):
         return matches + [' ']
 
     def _common_prefix(self, names):
-        """Returns the common prefix of all strings in *names*."""
+        """Return the common prefix of all strings in *names*."""
         for i, letters in enumerate(zip(*names)):
             for l1, l2 in zip(letters[:-1], letters[1:]):
                 if l1 != l2:

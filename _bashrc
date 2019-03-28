@@ -15,8 +15,9 @@ __RED="[00;31m"
 __GREEN="[00;32m"
 __YELLOW="[00;33m"
 __BLUE="[00;34m"
-__PINK="[00;35m"
+__PURPLE="[00;35m"
 __CYAN="[00;36m"
+__MAGENTA="[00;95m"
 __BOLD_RED="[01;31m"
 __BOLD_GREEN="[01;32m"
 __BOLD_BLUE="[01;34m"
@@ -47,7 +48,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 function _prompt_venv {
     if [[ -n "$VIRTUAL_ENV" ]]; then
         echo -ne "\e${__RESET_COLOR} ("
-        echo -ne "\e${__PINK}${VIRTUAL_ENV##*/}"
+        echo -ne "\e${__PURPLE}${VIRTUAL_ENV##*/}"
         echo -ne "\e${__RESET_COLOR})"
     fi
 
@@ -91,6 +92,7 @@ PS1+='${VENV}'                  # venv
 PS1+='${LAST_CMD_FAILED}'       # exit code
 # PS1+='\e${__RESET_COLOR}\n$ '   # \n❯
 PS1+='\[\e${__RESET_COLOR}\]\n\[\e${__BLUE}\]❯\[\e${__CYAN}\]❯\[\e${__GREEN}\]❯\[\e${__RESET_COLOR}\] '
+PS2='\[\e${__PURPLE}\].\[\e${__MAGENTA}\].\[\e${__RED}\].\[\e${__RESET_COLOR}\] '
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"

@@ -1,22 +1,26 @@
 """
-This file is executed when the Python interactive shell is started if
-$PYTHONSTARTUP is in your environment and points to this file. It's just
-regular Python commands, so do what you will. Your ~/.inputrc file can greatly
-complement this file.
+If $PYTHONSTARTUP is in your environment and points to this file, it is
+executed when a Python interactive shell is started .
+
+It's just regular Python commands, so do what you will.
+Your ~/.inputrc file can greatly complement this file.
 
 """
 import os
 import sys
+
+
 sys.path.append(os.path.join(os.getenv('HOME'), '.python'))
+
+if sys.version_info[:2] >= (3, 6):
+    import _util as util
+
+    util.setup_colored_promt()
+    util.setup_tab_completion()
+    util.setup_persistent_history()
+    util.setup_pretty_printing()
+
+    del util
+
 del os
 del sys
-
-import _util as util
-
-util.setup_colored_promt()
-util.setup_tab_completion()
-util.setup_persistent_history()
-util.setup_pretty_printing()
-
-
-del util
