@@ -5,7 +5,11 @@ call plug#begin('~/.vim/plugged')
 " Interface plug-ins
 " Plug 'junegunn/fzf', { 'dir': '~/.local/fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf.vim'
-Plug 'chrisbra/Colorizer'
+" Colorize kinda works in non-truecolor terms (it shows colors but rounded
+" to 256 colors).  Hexokinase only works with truecolor terms but is generally
+" the better
+" Plug 'chrisbra/Colorizer'  # Kinda works with non-truecolor terms
+Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'jremmen/vim-ripgrep'
@@ -25,12 +29,10 @@ Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tweekmonster/braceless.vim'
-" Plug 'vim-scripts/argtextobj.vim'
 Plug 'wellle/targets.vim'
 
 " Tools
 Plug 'w0rp/ale'
-Plug 'phleet/vim-mercenary'
 Plug 'sjl/splice.vim', {'on': 'SpliceInit'}
 Plug 'tpope/vim-fugitive'
 
@@ -38,8 +40,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'ap/vim-css-color',             {'for': ['css','scss','sass','less','styl']}
 Plug 'othree/html5.vim',             {'for': 'html'}
 Plug 'Glench/Vim-Jinja2-Syntax',     {'for': 'jinja'}
+Plug 'chr4/nginx.vim',               {'for': 'nginx'}
 Plug 'davidhalter/jedi-vim',         {'for': 'python'}
-" Plug 'hdima/python-syntax',          {'for': 'python'}
 Plug 'vim-python/python-syntax',     {'for': 'python'}
 Plug 'Vimjas/vim-python-pep8-indent',{'for': 'python'}
 Plug 'sscherfke/vim-virtualenv',     {'for': 'python'}
@@ -61,6 +63,7 @@ syntax enable
 """ Interface
 set title                   " Set window title
 set relativenumber          " Display relative line numbers
+set number                  " Display the absolute line number for the current line
 set cursorline              " Highlight current line
 set pumheight=10            " Height of the popup menu
 set wildmenu                " Improved command-line completion
@@ -467,7 +470,7 @@ augroup END
 
 augroup ft_mail
     autocmd!
-    autocmd Filetype mail setlocal spell tw=72 fo+=t  " Auto-wrap text using tw
+    autocmd Filetype mail setlocal spell tw=72 fo+=t sw=2 ts=2 sts=2  " Auto-wrap text using tw
 augroup END
 
 " }}}

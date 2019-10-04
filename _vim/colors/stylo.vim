@@ -76,7 +76,7 @@ else
         let s:base01  = "#ECE8DF"
         let s:base02  = "#D5D5D5"
         let s:base03  = "#C0BFBF"
-        let s:base04  = "#9D9D9D"
+        let s:base04  = "#919191"
         let s:base05  = "#5E5E5E"
         let s:base06  = "#2F2F2F"
         let s:base07  = "#1A1A1A"
@@ -193,6 +193,7 @@ call s:Hi("Question",      s:orange, s:none,   s:none,    s:bold)
 call s:Hi("MoreMsg",       s:blue,   s:none)
 call s:Hi("ModeMsg",       s:green,  s:none)
 
+call s:Hi("DiffFile",      s:purple, s:none,   s:none,    s:bold)
 call s:Hi("DiffAdd",       s:green,  s:none,   s:none,    s:reverse)
 call s:Hi("DiffDelete",    s:red,    s:none,   s:none,    s:reverse)
 call s:Hi("DiffChange",    s:yellow, s:none,   s:none,    s:reverse)
