@@ -116,13 +116,14 @@ export CLICOLOR=1
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
-
-# Some Mac OS X specific stuff
-if [[ $(uname -s) = 'Darwin' ]]; then
-    # Bash completion for homebrew
+if ! shopt -oq posix; then
+    # Ubuntu
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        source /usr/share/bash-completion/bash_completion
+    # Ubuntu
+    elif [ -f /etc/bash_completion ]; then
+        source /etc/bash_completion
+    # macOS Homebrew
     if [ -f /usr/local/share/bash-completion/bash_completion ]; then
         . /usr/local/share/bash-completion/bash_completion
     fi

@@ -178,4 +178,4 @@ colors = {k: Color(*v) for k, v in colors.items()}
 convert_colors_from(colors, 'jch')
 print_colors(colors)
 print_vim_colors(colors)
-# print_konsole_scheme(colors, 'Stefan light')
+# print_konsole_scheme(colors, 'Stefan Light')
