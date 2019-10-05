@@ -437,8 +437,9 @@ augroup END
 
 augroup ft_css
     autocmd!
-    autocmd Filetype css setl foldmethod=marker foldmarker={,}
-    autocmd Filetype sass setl foldmethod=indent
+    autocmd Filetype css setl fo+=t sw=2 ts=2 sts=2 foldmethod=marker foldmarker={,}
+    autocmd Filetype scss setl fo+=t sw=2 ts=2 sts=2 foldmethod=marker foldmarker={,}
+    autocmd Filetype sass setl fo+=t sw=2 ts=2 sts=2 foldmethod=indent
 augroup END
 
 " }}}
