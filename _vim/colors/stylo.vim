@@ -24,7 +24,7 @@ endif
 
 let colors_name = 'stylo'
 
-let s:USE_TERM_COLORS = ($TERM_PROGRAM ==? 'Apple_Terminal')
+" let s:USE_TERM_COLORS = ($TERM_PROGRAM ==? 'Apple_Terminal')
 let s:HAS_GUI = has('gui_running') || exists('neovim_dot_app') || has('gui_vimr') || &termguicolors
 let s:VMODE = s:HAS_GUI ? 'gui' : 'cterm'
 " }}}
@@ -37,14 +37,14 @@ if &background ==? 'dark'
         let s:base01  = "#1F2225"
         let s:base02  = "#2C343A"
         let s:base03  = "#36444F"
-        let s:base04  = "#42675E"
+        let s:base04  = "#4C6272"
         let s:base05  = "#90AFC0"
         let s:base06  = "#C2D9EB"
         let s:base07  = "#E4ECF4"
         let s:red     = "#DA7F71"
         let s:orange  = "#CE8A4F"
         let s:yellow  = "#A99F3A"
-        let s:green   = "#6FAE7D"
+        let s:green   = "#62AF8D"
         let s:cyan    = "#5EACB3"
         let s:blue    = "#75A3D3"
         let s:purple  = "#939AD1"

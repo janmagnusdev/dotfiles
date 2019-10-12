@@ -5,10 +5,6 @@ call plug#begin('~/.vim/plugged')
 " Interface plug-ins
 " Plug 'junegunn/fzf', { 'dir': '~/.local/fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf.vim'
-" Colorize kinda works in non-truecolor terms (it shows colors but rounded
-" to 256 colors).  Hexokinase only works with truecolor terms but is generally
-" the better
-" Plug 'chrisbra/Colorizer'  # Kinda works with non-truecolor terms
 Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'itchyny/lightline.vim'
@@ -37,7 +33,6 @@ Plug 'sjl/splice.vim', {'on': 'SpliceInit'}
 Plug 'tpope/vim-fugitive'
 
 " Filetype plug-ins
-Plug 'ap/vim-css-color',             {'for': ['css','scss','sass','less','styl']}
 Plug 'othree/html5.vim',             {'for': 'html'}
 Plug 'Glench/Vim-Jinja2-Syntax',     {'for': 'jinja'}
 Plug 'chr4/nginx.vim',               {'for': 'nginx'}
@@ -81,7 +76,7 @@ set scrolloff=3             " Display at least 3 lines above/below cursor
 set sidescrolloff=3         " Display at least 3 columns right/left of cursor
 set sidescroll=1            " Don’t put cursor in the mid. of the screen on hor. scroll
 set mouse=a                 " Enable the use of mouse in all modes
-if !empty($KONSOLE_VERSION)
+if $TERM_PROGRAM !=? 'Apple_Terminal'
     set termguicolors           " Use "guifg"/"guibg" in term (use 24-bit colors)
 endif
 
@@ -164,8 +159,8 @@ augroup END
 syntax on
 
 function! SetBackgroundMode(...)
-    let s:new_bg = "light"
-    if $TERM_PROGRAM ==? "Apple_Terminal"
+    let s:new_bg = &background
+    if has("macunix")
         let s:mode = systemlist("defaults read -g AppleInterfaceStyle")[0]
         if s:mode ==? "dark"
             let s:new_bg = "dark"
@@ -175,8 +170,10 @@ function! SetBackgroundMode(...)
     else
         if $VIM_BACKGROUND ==? "dark"
             let s:new_bg = "dark"
-        else
+        elseif $VIM_BACKGROUND ==? "light"
             let s:new_bg = "light"
+        " else
+        "   Do not change background if VIM_BACKGROUND is not defined
         endif
     endif
     if &background !=? s:new_bg
@@ -234,8 +231,8 @@ elseif has('gui_running')
     set guifont=Hack\ 11,DejaVu\ Sans\ Mono\ 11,Monospace\ 11
 
     noremap <C-o> :tabnew
-    noremap <C-t> :tabnew .<cr>
-    noremap <C-w> :q<cr>
+    noremap <C-t> :tabnew .<CR>
+    noremap <C-w> :q<CR>
 
     " copy/paste
     vnoremap <special> <C-x> "+x
@@ -254,17 +251,17 @@ endif
 " Editing {{{
 
 " Fast editing of the .vimrc
-nnoremap <leader>ev :e $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>ev :e $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " Set filetype to "mail" (for composing emails)
-nnoremap <leader>Tm :set ft=mail<cr>
+nnoremap <leader>Tm :set ft=mail<CR>
 
 " Toggle paste mode
 set pastetoggle=<F2>
 
 " jj to exit insert mode
-inoremap jj <esc>
+inoremap jj <ESC>
 
 " Swap q and @ for macros, because q is easier to type on German keyboards
 noremap q @
@@ -283,7 +280,7 @@ nnoremap <leader>J mzvipJ`z
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
 " TrimSpaces() is defined in the mini-plugins section.
-nnoremap S i<cr><Esc>:call TrimSpaces(1)<cr>
+nnoremap S i<CR><ESC>:call TrimSpaces(1)<CR>
 
 " Re-hardwrap paragraphs of text
 nnoremap <leader>q gqip
@@ -300,7 +297,7 @@ nnoremap <leader>V `[V`]
 cnoremap w!! w !sudo tee % >/dev/null
 
 " Unfuck my screen
-nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
+nnoremap U :syntax sync fromstart<CR>:redraw!<CR>
 
 " Fix width of term windows after switching windows
 function! FixWidth()
@@ -309,19 +306,15 @@ function! FixWidth()
     vertical resize -1
     vertical resize +1
 endfunction
-" nnoremap <silent> <leader>fw :resize -1<cr>:resize +1<cr>:vertical resize -1<cr>:vertical resize +1<cr>
-nnoremap <silent> <leader>fw :call FixWidth()<cr>
+" nnoremap <silent> <leader>fw :resize -1<CR>:resize +1<CR>:vertical resize -1<CR>:vertical resize +1<CR>
+nnoremap <silent> <leader>fw :call FixWidth()<CR>
 
 " When pressing <leader>cd switch to the directory of the open buffer
-nnoremap <leader>cd :cd %:p:h<cr>
+nnoremap <leader>cd :cd %:p:h<CR>
 
 " open/close the quickfix window
-nnoremap <leader>co :copen<cr>
-nnoremap <leader>cc :cclose<cr>
-
-" Convert colors between 0xC0FFEE/#C0FFEE
-nnoremap <leader>c# :%s/\v0x([0-9a-f]{6})/#\1<return>
-nnoremap <leader>cx :%s/\v#([0-9a-f]{6})/0x\1<return>
+nnoremap <leader>co :copen<CR>
+nnoremap <leader>cc :cclose<CR>
 
 " "Uppercase word" mapping by Steve Losh
 "
@@ -336,7 +329,7 @@ nnoremap <leader>cx :%s/\v#([0-9a-f]{6})/0x\1<return>
 " It works by exiting out of insert mode, recording the current cursor location
 " in the z mark, using gUiw to uppercase inside the current word, moving back
 " to the z mark, and entering insert mode again.
-inoremap <C-u> <esc>mzgUiw`za
+inoremap <C-u> <ESC>mzgUiw`za
 
 " }}}
 " Searching and movement {{{
@@ -349,12 +342,12 @@ noremap Ö ,
 noremap ü `
 
 " Clear search term (remove highlighting)
-noremap <silent> <leader><Space> :nohlsearch<cr>
+noremap <silent> <leader><Space> :nohlsearch<CR>
 
 " Don't move on *
 " I'd use a function for this but Vim clobbers the last search when you're in
 " a function so fuck it, practicality beats purity.
-nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+nnoremap <silent> * :let stay_star_view = winsaveview()<CR>*:call winrestview(stay_star_view)<CR>
 
 " Keep search matches in the middle of the window.
 nnoremap n nzzzv
@@ -366,11 +359,11 @@ nnoremap g, g,zz
 nnoremap <c-o> <c-o>zz
 
 " Find TODOs in all files
-nnoremap <leader>td :vimgrep '\vTODO\|FIXME\|XXX' **/*<cr>:copen<cr>
+nnoremap <leader>td :vimgrep '\vTODO\|FIXME\|XXX' **/*<CR>:copen<CR>
 
 " Heresy (emacs movement to start/end of line while editing)
-inoremap <c-a> <esc>I
-inoremap <c-e> <esc>A
+inoremap <c-a> <ESC>I
+inoremap <c-e> <ESC>A
 cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 
@@ -391,20 +384,20 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
 " Create horizontal/vertical split
-noremap <leader>s :split<cr>
-noremap <leader>v :vsplit<cr>
+noremap <leader>s :split<CR>
+noremap <leader>v :vsplit<CR>
 
 " Create small, vertical split with a terminal
-noremap <leader>t :split<cr>:resize 10<cr>:term<cr>
+noremap <leader>t :split<CR>:resize 10<CR>:term<CR>
 
 " }}}
 " Toggles {{{
 
 " Toggle line numbers
-nnoremap <leader>nn :setlocal relativenumber!<cr>
+nnoremap <leader>nn :setlocal relativenumber!<CR>
 
 " Toggle wrap
-nnoremap <leader>w :set wrap!<cr>
+nnoremap <leader>w :set wrap!<CR>
 
 " }}}
 " Folding ----------------------------------------------------------------- {{{
@@ -494,13 +487,13 @@ augroup ft_markdown
     " Use <localleader>1/2/3/4 to add headings.
     autocmd Filetype markdown nnoremap <buffer> <localleader>1 "zyy"zpVr=k
     autocmd Filetype markdown nnoremap <buffer> <localleader>2 "zyy"zpVr-k
-    autocmd Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space><esc>`zllll
-    autocmd Filetype markdown nnoremap <buffer> <localleader>4 mzI####<space><esc>`zlllll
+    autocmd Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space><ESC>`zllll
+    autocmd Filetype markdown nnoremap <buffer> <localleader>4 mzI####<space><ESC>`zlllll
     " In insert mode, create to new lines below the heading to continue editing
-    autocmd Filetype markdown inoremap <buffer> <localleader>1 <esc>"zyy"zpVr=o<cr>
-    autocmd Filetype markdown inoremap <buffer> <localleader>2 <esc>"zyy"zpVr-o<cr>
-    autocmd Filetype markdown inoremap <buffer> <localleader>3 <esc>I###<space><esc>o<cr>
-    autocmd Filetype markdown inoremap <buffer> <localleader>4 <esc>I####<space><esc>o<cr>
+    autocmd Filetype markdown inoremap <buffer> <localleader>1 <ESC>"zyy"zpVr=o<CR>
+    autocmd Filetype markdown inoremap <buffer> <localleader>2 <ESC>"zyy"zpVr-o<CR>
+    autocmd Filetype markdown inoremap <buffer> <localleader>3 <ESC>I###<space><ESC>o<CR>
+    autocmd Filetype markdown inoremap <buffer> <localleader>4 <ESC>I####<space><ESC>o<CR>
 
 augroup END
 
@@ -534,13 +527,13 @@ augroup ft_python
     " join:  'foo '\n'bar' --> 'foo bar'
     " split: 'foo bar' --> 'foo '\n'bar'
     autocmd FileType python nnoremap <buffer> <localleader>j Jh3x
-    autocmd FileType python nnoremap <buffer> <localleader>s i'<cr>'<esc>
+    autocmd FileType python nnoremap <buffer> <localleader>s i'<CR>'<ESC>
 
     " Change dict item to attribute access and keep cursor position
     " aa: foo['bar'] --> foo.bar
     " ia: foo.bar --> foo['bar']
     " Use nmap so that the surround plugin can be utilized.
-    autocmd FileType python nmap <buffer> <localleader>aa mzbi.<esc>ds'ds]`zh
+    autocmd FileType python nmap <buffer> <localleader>aa mzbi.<ESC>ds'ds]`zh
     autocmd FileType python nmap <buffer> <localleader>ia mzysiw]lysiw'bx`zl
 augroup END
 
@@ -572,13 +565,13 @@ augroup ft_rest
     " In insert mode, create to new lines below the heading to continue editing
     " <localleader> is ä and there are just to many German words with "äc(h",
     " "ät" or "äp" ...
-    " autocmd Filetype rst inoremap <buffer> <localleader>t <esc>"zyy"zPVr="zyyj"zpo<cr>
-    " autocmd Filetype rst inoremap <buffer> <localleader>p <esc>"zyy"zpVr#o<cr>
-    " autocmd Filetype rst inoremap <buffer> <localleader>c <esc>"zyy"zpVr*o<cr>
-    autocmd Filetype rst inoremap <buffer> <localleader>1 <esc>"zyy"zpVr=o<cr>
-    autocmd Filetype rst inoremap <buffer> <localleader>2 <esc>"zyy"zpVr-o<cr>
-    autocmd Filetype rst inoremap <buffer> <localleader>3 <esc>"zyy"zpVr^o<cr>
-    autocmd Filetype rst inoremap <buffer> <localleader>4 <esc>"zyy"zpVr"o<cr>
+    " autocmd Filetype rst inoremap <buffer> <localleader>t <ESC>"zyy"zPVr="zyyj"zpo<CR>
+    " autocmd Filetype rst inoremap <buffer> <localleader>p <ESC>"zyy"zpVr#o<CR>
+    " autocmd Filetype rst inoremap <buffer> <localleader>c <ESC>"zyy"zpVr*o<CR>
+    autocmd Filetype rst inoremap <buffer> <localleader>1 <ESC>"zyy"zpVr=o<CR>
+    autocmd Filetype rst inoremap <buffer> <localleader>2 <ESC>"zyy"zpVr-o<CR>
+    autocmd Filetype rst inoremap <buffer> <localleader>3 <ESC>"zyy"zpVr^o<CR>
+    autocmd Filetype rst inoremap <buffer> <localleader>4 <ESC>"zyy"zpVr"o<CR>
 
 augroup END
 
@@ -647,10 +640,10 @@ nmap <silent> <C-M-S-j> <Plug>(ale_next_wrap)
 " CtrlP {{{
 
 " Mnemoic: 'o'pen ('f'ile, 'd'otfiles, 'b'uffer, 'm'ru)
-nnoremap <leader>of :CtrlP<cr>
-nnoremap <leader>od :CtrlP ~/.dotfiles<cr>
-nnoremap <leader>ob :CtrlPBuffer<cr>
-nnoremap <leader>om :CtrlPMRU<cr>
+nnoremap <leader>of :CtrlP<CR>
+nnoremap <leader>od :CtrlP ~/.dotfiles<CR>
+nnoremap <leader>ob :CtrlPBuffer<CR>
+nnoremap <leader>om :CtrlPMRU<CR>
 let g:ctrlp_switch_buffer = ''  " Don't jump anywhere!
 let g:ctrlp_open_new_file = 'r'  " Open new files in the current window
 let g:ctrlp_open_multiple_files = '2vjr'  " Vertically split, max. 2 splits
@@ -659,6 +652,9 @@ if executable('fd')
     let g:ctrlp_use_caching = 0
 endif
 
+" }}}
+" Hexokinase {{{
+let g:Hexokinase_highlighters = ['virtual']
 " }}}
 " Lightline {{{
 
@@ -728,7 +724,7 @@ function! SynStack()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
 endfunc
 
-nnoremap <leader>hi :call SynStack()<cr>
+nnoremap <leader>hi :call SynStack()<CR>
 
 " }}}
 " Highlight Word {{{
@@ -765,23 +761,22 @@ endfunction " }}}
 
 " Mappings {{{
 
-nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
-nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
-nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
-nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
-nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
-nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
+nnoremap <silent> <leader>1 :call HiInterestingWord(1)<CR>
+nnoremap <silent> <leader>2 :call HiInterestingWord(2)<CR>
+nnoremap <silent> <leader>3 :call HiInterestingWord(3)<CR>
+nnoremap <silent> <leader>4 :call HiInterestingWord(4)<CR>
+nnoremap <silent> <leader>5 :call HiInterestingWord(5)<CR>
+nnoremap <silent> <leader>6 :call HiInterestingWord(6)<CR>
 
 " }}}
 " Default Highlights {{{
 
-hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#9CDEFF ctermbg=117
-hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#53EFA1 ctermbg=79
-hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#AAE800 ctermbg=148
-hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#FFC866 ctermbg=221
-hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#FFBBAB ctermbg=216
-hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#FFB3FF ctermbg=219
-
+hi def InterestingWord1 guibg=#9CDEFF ctermbg=117 guifg=#2F2F2F ctermfg=16
+hi def InterestingWord2 guibg=#53EFA1 ctermbg=79  guifg=#2F2F2F ctermfg=16
+hi def InterestingWord3 guibg=#AAE800 ctermbg=148 guifg=#2F2F2F ctermfg=16
+hi def InterestingWord4 guibg=#FFC866 ctermbg=221 guifg=#2F2F2F ctermfg=16
+hi def InterestingWord5 guibg=#FFBBAB ctermbg=216 guifg=#2F2F2F ctermfg=16
+hi def InterestingWord6 guibg=#FFB3FF ctermbg=219 guifg=#2F2F2F ctermfg=16
 " }}}
 
 " }}}
@@ -806,7 +801,7 @@ augroup trim_spaces
     autocmd FilterWritePre * :call TrimSpaces(0)
     autocmd BufWritePre * :call TrimSpaces(0)
 augroup END
-nnoremap <leader>ts :call TrimSpaces(0)<cr>
+nnoremap <leader>ts :call TrimSpaces(0)<CR>
 
 " }}}
 " SmartHome (vim tip 315) {{{
@@ -818,9 +813,9 @@ function! SmartHome()
         normal! 0
     endif
 endfunction
-nnoremap <silent> <Home> :call SmartHome()<cr>
-inoremap <silent> <Home> <C-O>:call SmartHome()<cr>
-nnoremap <silent> 0 :call SmartHome()<cr>
+nnoremap <silent> <Home> :call SmartHome()<CR>
+inoremap <silent> <Home> <C-O>:call SmartHome()<CR>
+nnoremap <silent> 0 :call SmartHome()<CR>
 
 " }}}
 " Spelling {{{
@@ -839,7 +834,7 @@ function! Spelling()
     endif
 endfunction
 
-nnoremap <leader>sp :call Spelling()<cr>
+nnoremap <leader>sp :call Spelling()<CR>
 nnoremap <leader>spde :setl spell spelllang=de_de
 nnoremap <leader>spen :setl spell spelllang=en
 
@@ -853,7 +848,7 @@ function! SwitchTheme()
         set background=light
     endif
 endfunction
-nnoremap <leader>st :call SwitchTheme()<cr>
+nnoremap <leader>st :call SwitchTheme()<CR>
 " }}}
 " }}}
 " Neovim -------------------------------------------------------------------{{{
@@ -861,7 +856,7 @@ if has('nvim')
     set inccommand=nosplit
 
     " Make escape work in the Neovim terminal.
-    tnoremap <Esc> <C-\><C-n>
+    tnoremap <ESC> <C-\><C-n>
     " Make navigation into and out of Neovim terminal splits nicer.
     tnoremap <C-h> <C-\><C-N><C-w>h
     tnoremap <C-j> <C-\><C-N><C-w>j
