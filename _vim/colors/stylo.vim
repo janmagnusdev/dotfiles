@@ -257,6 +257,15 @@ call s:Hi("Whitespace",    s:red,    s:none)
 " call s:Hi("BracelessIndent", s:none, s:base01)
 call s:Hi("BracelessIndent", s:base02, s:none, s:none, s:reverse)
 " }}}
+" Clap {{{
+call s:HiLink("ClapInput",   "Visual")
+call s:HiLink("ClapDisplay", "Pmenu")
+call s:HiLink("ClapPreview", "PmenuSel")
+call s:HiLink("ClapMatches", "Search")
+call s:HiLink("ClapFpath",   "Directory")
+call s:Hi("ClapSelected", s:purple, s:none, s:none, s:bold.",".s:underline)
+call s:Hi("ClapCurrentSelection", s:magenta, s:none, s:none, s:bold)
+" }}}
 " HTML {{{
 
 call s:Hi("htmlTag",             s:text,   s:none)
@@ -271,7 +280,8 @@ call s:Hi("diffAdded",           s:green,  s:none)
 " call s:Hi("pythonBuiltinObj",    s:yellow, s:none)
 call s:Hi("pythonClassVar",      s:purple, s:none)
 call s:Hi("pythonExClass",       s:red,    s:none)
-
+" }}}
+" YAML {{{
 call s:Hi("yamlKey",             s:blue,   s:none)
 " }}}
 " }}}

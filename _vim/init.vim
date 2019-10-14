@@ -3,12 +3,9 @@
 call plug#begin('~/.vim/plugged')
 
 " Interface plug-ins
-" Plug 'junegunn/fzf', { 'dir': '~/.local/fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
 Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'jremmen/vim-ripgrep'
+Plug 'liuchengxu/vim-clap'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-scripts/kwbdi.vim'
@@ -637,20 +634,26 @@ nmap <silent> <C-M-S-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-M-S-j> <Plug>(ale_next_wrap)
 
 " }}}
-" CtrlP {{{
+" Clap {{{
+
+let g:clap_current_selection_sign_definition = {
+    \ "text": " ➤",
+    \ "texthl": "WarningMsg",
+    \ "linehl": "ClapCurrentSelection"
+    \}
+
+let g:clap_selected_sign_definition = {
+    \ "text": " ✔︎",
+    \ "texthl": "WarningMsg",
+    \ "linehl": "ClapSelected"
+    \}
 
 " Mnemoic: 'o'pen ('f'ile, 'd'otfiles, 'b'uffer, 'm'ru)
-nnoremap <leader>of :CtrlP<CR>
-nnoremap <leader>od :CtrlP ~/.dotfiles<CR>
-nnoremap <leader>ob :CtrlPBuffer<CR>
-nnoremap <leader>om :CtrlPMRU<CR>
-let g:ctrlp_switch_buffer = ''  " Don't jump anywhere!
-let g:ctrlp_open_new_file = 'r'  " Open new files in the current window
-let g:ctrlp_open_multiple_files = '2vjr'  " Vertically split, max. 2 splits
-if executable('fd')
-    let g:ctrlp_user_command = 'fd -tf "" %s'
-    let g:ctrlp_use_caching = 0
-endif
+nnoremap <leader>of :Clap files ++externalfilter=fzy +async<CR>
+nnoremap <leader>ob :Clap buffers  ++externalfilter=fzy +async<CR>
+nnoremap <leader>rg :Clap grep<CR>
+nnoremap <leader>gw :Clap grep <cword><CR>
+nnoremap <leader>ft :Clap filetypes<CR>
 
 " }}}
 " Hexokinase {{{
