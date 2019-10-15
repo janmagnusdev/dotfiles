@@ -173,7 +173,7 @@ call s:Hi("TabLineSel",    s:base01, s:blue)
 call s:Hi("Visual",        s:base07, s:base02)
 call s:Hi("Folded",        s:orange, s:base01)
 
-call s:Hi("Pmenu",         s:base04, s:base01)
+call s:Hi("Pmenu",         s:base05, s:base01)
 call s:Hi("PmenuSbar",     s:base05, s:base02)
 call s:Hi("PmenuThumb",    s:base05, s:base05)
 call s:Hi("PmenuSel",      s:base01, s:green)
@@ -262,9 +262,10 @@ call s:HiLink("ClapInput",   "Visual")
 call s:HiLink("ClapDisplay", "Pmenu")
 call s:HiLink("ClapPreview", "PmenuSel")
 call s:HiLink("ClapMatches", "Search")
-call s:HiLink("ClapFpath",   "Directory")
-call s:Hi("ClapSelected", s:purple, s:none, s:none, s:bold.",".s:underline)
-call s:Hi("ClapCurrentSelection", s:magenta, s:none, s:none, s:bold)
+call s:Hi("ClapFpath",              s:base05, s:none, s:none, s:bold)
+call s:Hi("ClapLinNrColumn",        s:base04, s:none)
+call s:Hi("ClapSelected",           s:green,  s:none, s:none, s:bold.",".s:underline)
+call s:Hi("ClapCurrentSelection",   s:orange, s:none, s:none, s:bold)
 " }}}
 " HTML {{{
 
