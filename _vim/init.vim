@@ -4,7 +4,7 @@ call plug#begin('~/.vim/plugged')
 
 " Interface plug-ins
 Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
-Plug 'jremmen/vim-ripgrep'
+Plug 'jremmen/vim-ripgrep'  " Accepts *all* rg options (':Clap grep' does not)
 Plug 'itchyny/lightline.vim'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'liuchengxu/vim-clap'

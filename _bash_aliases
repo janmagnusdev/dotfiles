@@ -93,7 +93,7 @@ splitwp () {
 }
 
 # Development
-blackdiff() { black --py36 -S - < $1 | git diff --no-index -- $1 -; }
+blackdiff() { black -t py37 -l 79 - < $1 | git diff --no-index -- $1 -; }
 merge-dev() {
     git checkout develop
     git pull
