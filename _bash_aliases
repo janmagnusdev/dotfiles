@@ -5,6 +5,13 @@ alias ....='cd ../../..'
 alias md='mkdir -p'
 alias rd='rm -r'
 
+# Clip
+if `type pbcopy &> /dev/null`; then
+    alias clip="pbcopy"
+else
+    alias clip="xclip -selection clipboard"
+fi
+
 # mkdir & cd to it
 mcd () {
     mkdir -p "$1" && cd "$1";
@@ -12,11 +19,7 @@ mcd () {
 
 # Download from URL and copy its sha256 checksum to the clipboard
 sha256 () {
-    if `type pbcopy &> /dev/null`; then
-        curl "$1" | shasum -a 256 | awk '{printf "%s", $1}' | pbcopy
-    else
-        curl "$1" | shasum -a 256 | awk '{printf "%s", $1}' | xclip -selection clipboard
-    fi
+    curl "$1" | shasum -a 256 | awk '{printf "%s", $1}' | clip
 }
 
 # Some more ls aliases
