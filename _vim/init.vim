@@ -4,7 +4,9 @@ call plug#begin('~/.vim/plugged')
 
 " Interface plug-ins
 Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
+Plug 'jremmen/vim-ripgrep'
 Plug 'itchyny/lightline.vim'
+Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'liuchengxu/vim-clap'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vinegar'
@@ -119,7 +121,7 @@ set shiftround              " Round indent to multiple of shiftwidth
 """ Moving around / Editing
 set encoding=utf-8          " Default character encoding
 set textwidth=79            " Maximum width of text that is being inserted
-set colorcolumn=+1,80,101   " Highlight these columns (+1 == textwidth)
+set colorcolumn=+1          " Highlight these columns (+1 == textwidth)
 set autoindent              " Automatically indent new lines
 set formatoptions=qrn1j     " Auto-formatting options, see ":help fo-table"
 set cpoptions+=J            " Two spaces between sentences
@@ -154,6 +156,7 @@ augroup END
 " Color scheme {{{
 
 syntax on
+set background=light
 
 function! SetBackgroundMode(...)
     let s:new_bg = &background
@@ -515,7 +518,7 @@ augroup END
 
 augroup ft_python
     autocmd!
-    autocmd FileType python setl textwidth=88 fo+=c  " Auto-wrap comments using textwidth
+    autocmd FileType python setl fo+=c  " Auto-wrap comments using textwidth
     autocmd Filetype python abb <buffer> ifmain if __name__ == '__main__'
 
     autocmd FileType python BracelessEnable +highlight-cc2
@@ -625,7 +628,7 @@ augroup END
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 1
 let g:ale_linters = {
-\    'python': ['flake8', 'pylint'],
+\    'python': ['pylint'],
 \}
 let g:ale_sign_error = '⨯'
 let g:ale_sign_warning = '⚠︎'
