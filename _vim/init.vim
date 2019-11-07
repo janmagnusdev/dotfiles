@@ -639,23 +639,23 @@ nmap <silent> <C-M-S-j> <Plug>(ale_next_wrap)
 " }}}
 " Clap {{{
 
-let g:clap_current_selection_sign_definition = {
+let g:clap_current_selection_sign = {
     \ "text": " ➤",
     \ "texthl": "WarningMsg",
     \ "linehl": "ClapCurrentSelection"
     \}
 
-let g:clap_selected_sign_definition = {
+let g:clap_selected_sign = {
     \ "text": " ✔︎",
     \ "texthl": "WarningMsg",
     \ "linehl": "ClapSelected"
     \}
 
 " Mnemoic: 'o'pen ('f'ile, 'd'otfiles, 'b'uffer, 'm'ru)
-nnoremap <leader>of :Clap files ++externalfilter=fzy +async<CR>
-nnoremap <leader>ob :Clap buffers  ++externalfilter=fzy +async<CR>
+nnoremap <leader>of :Clap files<CR>
+nnoremap <leader>ob :Clap buffers<CR>
 nnoremap <leader>rg :Clap grep<CR>
-nnoremap <leader>gw :Clap grep <cword><CR>
+nnoremap <leader>gw :Clap grep ++query=<cword><CR>
 nnoremap <leader>ft :Clap filetypes<CR>
 
 " }}}

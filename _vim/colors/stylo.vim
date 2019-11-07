@@ -266,6 +266,9 @@ call s:Hi("ClapFpath",              s:base05, s:none, s:none, s:bold)
 call s:Hi("ClapLinNrColumn",        s:base04, s:none)
 call s:Hi("ClapSelected",           s:green,  s:none, s:none, s:bold.",".s:underline)
 call s:Hi("ClapCurrentSelection",   s:orange, s:none, s:none, s:bold)
+for i in range(1, 12)
+    call s:Hi("ClapFuzzyMatches".i, s:cyan,   s:none, s:none, s:bold)
+endfor
 " }}}
 " HTML {{{
 
