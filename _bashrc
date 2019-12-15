@@ -116,8 +116,8 @@ export CLICOLOR=1
 if [[ "$(uname -s)" == "Darwin" ]]; then
     # Enable Homebrew bash completion (it is not done automatically via
     # /etc/profile or /etc/bashrc)
-    if [ -f /usr/local/etc/bash-completion ]; then
-        . /usr/local/etc/bash-completion
+    if [[ -f /usr/local/etc/bash_completion ]]; then
+        . /usr/local/etc/bash_completion
     fi
 fi
 
