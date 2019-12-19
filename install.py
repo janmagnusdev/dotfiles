@@ -80,6 +80,7 @@ def configs():
     home = os.path.expanduser('~')
     extra_links = {
         '_vim': '.config/nvim',
+        'darkmode.sh': '.local/bin/dm',
     }
     if os.path.isdir('./_private'):
         extra_links['_private/ssh/config'] = '.ssh/config'

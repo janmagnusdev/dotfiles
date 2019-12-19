@@ -160,23 +160,14 @@ set background=light
 
 function! SetBackgroundMode(...)
     let s:new_bg = &background
-    if has("macunix")
-        let s:mode = systemlist("defaults read -g AppleInterfaceStyle")[0]
-        if s:mode ==? "dark"
-            let s:new_bg = "dark"
-        else
-            let s:new_bg = "light"
-        endif
+    let s:mode = systemlist("dm get")[0]
+    if s:mode ==? "Dark"
+        let s:new_bg = "dark"
     else
-        if $VIM_BACKGROUND ==? "dark"
-            let s:new_bg = "dark"
-        elseif $VIM_BACKGROUND ==? "light"
-            let s:new_bg = "light"
-        " else
-        "   Do not change background if VIM_BACKGROUND is not defined
-        endif
+        let s:new_bg = "light"
     endif
     if &background !=? s:new_bg
+        echo 'changing'.&background . s:new_bg
         let &background = s:new_bg
     endif
 endfunction
