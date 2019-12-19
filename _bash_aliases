@@ -31,25 +31,6 @@ alias p='python3'
 # Grep: search recursively in all Python files
 alias grepy="grep -r --include='*.py'"
 
-# Switch between dark and light theme
-# Also see function SetBackgroundMode in "init.vim"
-switch-theme () {
-    if [[ "$(uname -s)" == "Darwin" ]]; then
-        python3 $HOME/.python/macos_dark_mode_toggle.py
-    else
-        if [[ "$VIM_BACKGROUND" == 'dark' ]]; then
-            TERMINAL_THEME='Stylo Light'
-            export VIM_BACKGROUND='light'
-        else
-            TERMINAL_THEME='Stylo Dark'
-            export VIM_BACKGROUND='dark'
-        fi
-        if type -p konsoleprofile &> /dev/null; then
-            konsoleprofile colors="$TERMINAL_THEME"
-        fi
-    fi
-}
-
 # Apt
 alias aup='sudo apt-get update; sudo apt-get dist-upgrade; sudo apt-get autoremove; sudo apt-get autoclean'
 
@@ -93,7 +74,7 @@ splitwp () {
 }
 
 # Development
-blackdiff() { black -t py37 -l 79 - < $1 | git diff --no-index -- $1 -; }
+blackdiff() { black - < $1 | git diff --no-index -- $1 -; }
 merge-dev() {
     git checkout develop
     git pull

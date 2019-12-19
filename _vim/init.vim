@@ -4,10 +4,12 @@ call plug#begin('~/.vim/plugged')
 
 " Interface plug-ins
 Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
-Plug 'jremmen/vim-ripgrep'  " Accepts *all* rg options (':Clap grep' does not)
+Plug 'glacambre/firenvim', {'do': function('firenvim#install')}
 Plug 'itchyny/lightline.vim'
-Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'jremmen/vim-ripgrep'  " Accepts *all* rg options (':Clap grep' does not)
 Plug 'liuchengxu/vim-clap'
+Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
+Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-scripts/kwbdi.vim'
@@ -35,6 +37,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'othree/html5.vim',             {'for': 'html'}
 Plug 'Glench/Vim-Jinja2-Syntax',     {'for': 'jinja'}
 Plug 'chr4/nginx.vim',               {'for': 'nginx'}
+Plug 'mgedmin/coverage-highlight.vim', {'for': 'python'}
 Plug 'davidhalter/jedi-vim',         {'for': 'python'}
 Plug 'vim-python/python-syntax',     {'for': 'python'}
 Plug 'Vimjas/vim-python-pep8-indent',{'for': 'python'}
@@ -59,10 +62,10 @@ set title                   " Set window title
 set relativenumber          " Display relative line numbers
 set number                  " Display the absolute line number for the current line
 set cursorline              " Highlight current line
-set pumheight=10            " Height of the popup menu
+set pumheight=20            " Height of the popup menu
 set wildmenu                " Improved command-line completion
 set wildignore+=.git,.hg,_build,__pycache__,*.pyc
-set wildmode=list:longest,full
+set wildmode=longest:full,full
 set clipboard=unnamed,unnamedplus
 " set listchars=tab:▸\ ,trail:·,nbsp:~,eol:¬,precedes:❮,extends:❯
 set listchars=tab:▸\ ,trail:·,nbsp:~,precedes:❮,extends:❯
@@ -120,7 +123,7 @@ set shiftround              " Round indent to multiple of shiftwidth
 
 """ Moving around / Editing
 set encoding=utf-8          " Default character encoding
-set textwidth=79            " Maximum width of text that is being inserted
+set textwidth=88            " Maximum width of text that is being inserted
 set colorcolumn=+1          " Highlight these columns (+1 == textwidth)
 set autoindent              " Automatically indent new lines
 set formatoptions=qrn1j     " Auto-formatting options, see ":help fo-table"
@@ -160,23 +163,14 @@ set background=light
 
 function! SetBackgroundMode(...)
     let s:new_bg = &background
-    if has("macunix")
-        let s:mode = systemlist("defaults read -g AppleInterfaceStyle")[0]
-        if s:mode ==? "dark"
-            let s:new_bg = "dark"
-        else
-            let s:new_bg = "light"
-        endif
+    let s:mode = systemlist("dm get")[0]
+    if s:mode ==? "Dark"
+        let s:new_bg = "dark"
     else
-        if $VIM_BACKGROUND ==? "dark"
-            let s:new_bg = "dark"
-        elseif $VIM_BACKGROUND ==? "light"
-            let s:new_bg = "light"
-        " else
-        "   Do not change background if VIM_BACKGROUND is not defined
-        endif
+        let s:new_bg = "light"
     endif
     if &background !=? s:new_bg
+        echo 'changing'.&background . s:new_bg
         let &background = s:new_bg
     endif
 endfunction
@@ -394,7 +388,7 @@ noremap <leader>t :split<CR>:resize 10<CR>:term<CR>
 " Toggles {{{
 
 " Toggle line numbers
-nnoremap <leader>nn :setlocal relativenumber!<CR>
+nnoremap <leader>nn :setlocal number! relativenumber!<CR>
 
 " Toggle wrap
 nnoremap <leader>w :set wrap!<CR>
@@ -482,7 +476,7 @@ augroup ft_markdown
     autocmd!
 
     autocmd BufEnter *.md set ft=markdown
-    autocmd FileType markdown setl fo+=t sw=2 ts=2 sts=2  " Auto-wrap text using textwidth
+    autocmd FileType markdown setl fo+=t tw=72 sw=2 ts=2 sts=2  " Auto-wrap text using textwidth
 
     " Use <localleader>1/2/3/4 to add headings.
     autocmd Filetype markdown nnoremap <buffer> <localleader>1 "zyy"zpVr=k
@@ -552,7 +546,7 @@ augroup ft_rest
     autocmd!
 
     autocmd BufEnter *.txt set ft=rst
-    autocmd FileType rst setl fo+=t sw=2 ts=2 sts=2  " Auto-wrap text using tw
+    autocmd FileType rst setl fo+=t tw=72 sw=2 ts=2 sts=2  " Auto-wrap text using tw
 
     " Title, parts, chapters and sections 1/2/3/4
     autocmd Filetype rst nnoremap <buffer> <localleader>t "zyy"zPVr="zyyj"zpk
@@ -659,6 +653,11 @@ nnoremap <leader>gw :Clap grep ++query=<cword><CR>
 nnoremap <leader>ft :Clap filetypes<CR>
 
 " }}}
+" Git-messenger {{{
+
+nnoremap <leader>gm :GitMessenger<CR>
+
+" }}}
 " Hexokinase {{{
 let g:Hexokinase_highlighters = ['virtual']
 " }}}
@@ -700,16 +699,16 @@ let python_highlight_all = 1
 " }}}
 " Python jedi {{{
 
-let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#popup_on_dot = 0
 let g:jedi#smart_auto_mappings = 0
+let g:jedi#goto_command = "<leader>d"
 let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = "<leader>d"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
+let g:jedi#goto_stubs_command = ""
 let g:jedi#completions_command = "<C-Space>"
+let g:jedi#usages_command = "<leader>n"
 let g:jedi#rename_command = "<leader>r"
-let g:jedi#show_call_signatures = "0"
+let g:jedi#documentation_command = "K"
+let g:jedi#show_call_signatures = "1"
 
 " }}}
 " Supertab {{{
