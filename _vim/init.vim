@@ -475,6 +475,7 @@ augroup END
 augroup ft_markdown
     autocmd!
 
+    autocmd BufEnter *.txt set ft=markdown
     autocmd BufEnter *.md set ft=markdown
     autocmd FileType markdown setl fo+=t tw=72 sw=2 ts=2 sts=2  " Auto-wrap text using textwidth
 
@@ -545,7 +546,6 @@ augroup END
 augroup ft_rest
     autocmd!
 
-    autocmd BufEnter *.txt set ft=rst
     autocmd FileType rst setl fo+=t tw=72 sw=2 ts=2 sts=2  " Auto-wrap text using tw
 
     " Title, parts, chapters and sections 1/2/3/4
