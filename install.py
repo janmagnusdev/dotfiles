@@ -1,113 +1,52 @@
 #!/usr/bin/env python3
 """
-Creates symlinks in your home directory for each file in this repository
-starting with an undersore (which will of course be replaced by a dot).
+Create symlinks in your home directory for each file in this repository
+starting with an undersore (which will be replaced by a dot).
 
-If a file with that name already exists, it will be moved to
-``<filename>.orig``.
-
-Also install a Vim plug-in manager.
+If a destination file already exists, create a backup first.
 
 """
-import glob
 import os
+import pathlib
 import re
-import subprocess
 import time
 
-import click
+
+HOME = pathlib.Path.home()
+HERE = pathlib.Path(__file__).parent.resolve()
 
 
-# TODO:
-# - Move install tasks into functions that can be run separately
-# - Actually install packages in PKGs
-PKGS = {
-    'brew': [
-        'asciinema',
-        'autojump',
-        'bash',
-        'bash-completion',
-        'exiftool',
-        'fd',
-        'mercurial',
-        'mobile-shell',
-        'neovim',
-        'pypy',
-        'pypy3',
-        'python',
-        'python3',
-        'python32',
-        'python33',
-        'python34',
-        'python35',
-        'ripgrep',
-        'rust',
-    ],
-    'brew-cask': [
-        'vimr',
-    ],
-    'cargo': [
-        # 'fd-find',
-        # 'ripgrep',
-        'vcprompt',
-    ],
-    'dnf': [
-        'autojump',
-        'fd-find',
-        'ripgrep',
-    ],
-    'pipsi': [
-        'fabric',
-        'httpie',
-    ],
-}
-
-
-@click.group(invoke_without_command=True)
-@click.option('--backup/--no-backup', default=True, show_default=True,
-              help='Backup files before overwriting them.')
-@click.pass_context
-def main(ctx, backup):
-    """Run all sub-commands."""
-    if ctx.invoked_subcommand is None:
-        configs()
-        vimplug(backup)
-
-
-@main.command()
-def configs():
+def main():
     """Install/link config files."""
-    home = os.path.expanduser('~')
+    links = []
+
+    for src in HERE.glob('_*'):
+        dest = HOME / re.sub('^_', '.', str(src.relative_to(HERE)))
+        links.append((src, dest))
+
     extra_links = {
         '_vim': '.config/nvim',
         'darkmode.sh': '.local/bin/dm',
     }
-    if os.path.isdir('./_private'):
+    if HERE.joinpath('_private').is_dir():
         extra_links['_private/ssh/config'] = '.ssh/config'
+    for src, dest in extra_links.items():
+        links.append((HERE / src, HOME / dest))
 
-    entries = glob.glob('_*') + list(extra_links)
-    for entry in entries:
-        source = os.path.join(os.getcwd(), entry)
-        target = extra_links[entry] if entry in extra_links else \
-            re.sub('^_', '.', entry)
-        target = os.path.join(home, target)
+    bak_suffix = time.strftime('%Y%m%d%H%M%S')
 
-        if os.path.exists(target):
-            print(f'Backing up {target}')
-            os.rename(target, f'{target}.{time.strftime("%Y%m%d_%H%M%S")}')
+    for src, dest in links:
+        assert src.exists(), src
+        if dest.exists():
+            if dest.is_symlink() and dest.resolve() == src:
+                continue
 
-        os.symlink(source, target)
+            bak = dest.with_name(f'{dest.name}.{bak_suffix}')
+            print(f'Backing up {dest} -> {bak}')
+            dest.rename(bak)
 
-
-@main.command()
-@click.option('--backup/--no-backup', default=True, show_default=True,
-              help='Backup files before overwriting them.')
-def vimplug(backup):
-    """Install the "vim-plug" plug-in manager."""
-    # Install dein.vim
-    url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    dest = '~/.vim/autoload/plug.vim'
-    subprocess.run(f'curl -fLo {dest} --create-dirs {url}', shell=True)
+        print(f'Linking {src} -> {dest}')
+        os.symlink(src, dest)
 
 
 if __name__ == '__main__':

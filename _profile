@@ -22,8 +22,10 @@ if [[ -n "$BASH_VERSION" && -f "$HOME/.bashrc" ]]; then
     source "$HOME/.bashrc"
 fi
 
-export EDITOR="$(which vim)"
-
+# iTerm shell integration
+# https://www.iterm2.com/documentation-shell-integration.html
 if [[ -e "${HOME}/.iterm2_shell_integration.bash" ]]; then
     source "${HOME}/.iterm2_shell_integration.bash"
 fi
+
+export EDITOR="$(which vim)"
