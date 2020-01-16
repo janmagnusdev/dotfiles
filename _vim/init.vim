@@ -76,7 +76,6 @@ set showbreak=↪             " Show symbol for contiuned lines after break
 set linebreak               " Don’t wrap long lines in the middle of a word
 set scrolloff=3             " Display at least 3 lines above/below cursor
 set sidescrolloff=3         " Display at least 3 columns right/left of cursor
-set sidescroll=1            " Don’t put cursor in the mid. of the screen on hor. scroll
 set mouse=a                 " Enable the use of mouse in all modes
 if $TERM_PROGRAM !=? 'Apple_Terminal'
     set termguicolors           " Use "guifg"/"guibg" in term (use 24-bit colors)
@@ -870,7 +869,7 @@ if has('nvim')
 
     " With line numbers, long lines are truncated when switching from Normal
     " Mode to Insert Mode.
-    autocmd TermOpen * setlocal nonumber norelativenumber
+    autocmd TermOpen * setlocal nonumber norelativenumber scrolloff=0 sidescrolloff=0
     autocmd BufWinEnter,WinEnter term://* call FixWidth()
 
     if filereadable('/usr/local/bin/python2')
