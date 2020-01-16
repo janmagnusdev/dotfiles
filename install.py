@@ -28,8 +28,8 @@ def main():
         '_vim': '.config/nvim',
         'darkmode.sh': '.local/bin/dm',
     }
-    if HERE.joinpath('_private').is_dir():
-        extra_links['_private/ssh/config'] = '.ssh/config'
+    if HERE.joinpath('private').is_dir():
+        extra_links['private/ssh/config'] = '.ssh/config'
     for src, dest in extra_links.items():
         links.append((HERE / src, HOME / dest))
 
