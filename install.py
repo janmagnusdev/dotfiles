@@ -44,6 +44,8 @@ def main():
             bak = dest.with_name(f'{dest.name}.{bak_suffix}')
             print(f'Backing up {dest} -> {bak}')
             dest.rename(bak)
+        if dest.is_symlink() and not dest.exists():
+            dest.unlink()  # Remove broken symlinks
 
         print(f'Linking {src} -> {dest}')
         os.symlink(src, dest)
