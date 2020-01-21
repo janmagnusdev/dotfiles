@@ -23,11 +23,7 @@ __BOLD_GREEN="[01;32m"
 __BOLD_BLUE="[01;34m"
 __BOLD_CYAN="[01;36m"
 
-if [[ $(id -u) == '0' ]] || sudo -n true 2>/dev/null; then
-  __USER_COLOR=$__BOLD_RED
-else
-  __USER_COLOR=$__BOLD_GREEN
-fi
+__USER_COLOR=$__BOLD_GREEN
 
 if [[ -n "${SSH_CLIENT-}${SSH2_CLIENT-}${SSH_TTY-}" ]]; then
     __HOST_COLOR=$__BOLD_CYAN
