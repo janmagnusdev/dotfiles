@@ -53,6 +53,9 @@ def main():
         print(f'Linking {src} -> {dest}')
         os.symlink(src, dest)
 
+    for f in HOME.joinpath('.ssh').iterdir():
+        f.chmod(0o600)
+
 
 if __name__ == '__main__':
     main()
