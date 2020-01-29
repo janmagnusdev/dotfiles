@@ -74,7 +74,7 @@ splitwp () {
 }
 
 # Development
-blackdiff() { black - < $1 | git diff --no-index -- $1 -; }
+blackdiff() { black -S - < $1 | git diff --no-index -- $1 -; }
 merge-dev() {
     git checkout develop
     git pull
