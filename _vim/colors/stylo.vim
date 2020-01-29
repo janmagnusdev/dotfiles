@@ -260,7 +260,7 @@ call s:Hi("BracelessIndent", s:base02, s:none, s:none, s:reverse)
 " Clap {{{
 call s:HiLink("ClapInput",   "Visual")
 call s:HiLink("ClapDisplay", "Pmenu")
-call s:HiLink("ClapPreview", "PmenuSel")
+call s:HiLink("ClapPreview", "Pmenu")
 call s:HiLink("ClapMatches", "Search")
 call s:Hi("ClapFpath",              s:base05, s:none, s:none, s:bold)
 call s:Hi("ClapLinNrColumn",        s:base04, s:none)

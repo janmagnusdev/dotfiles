@@ -4,7 +4,6 @@ call plug#begin('~/.vim/plugged')
 
 " Interface plug-ins
 Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
-Plug 'glacambre/firenvim', {'do': function('firenvim#install')}
 Plug 'itchyny/lightline.vim'
 Plug 'jremmen/vim-ripgrep'  " Accepts *all* rg options (':Clap grep' does not)
 Plug 'liuchengxu/vim-clap'
@@ -63,6 +62,7 @@ set relativenumber          " Display relative line numbers
 set number                  " Display the absolute line number for the current line
 set cursorline              " Highlight current line
 set pumheight=20            " Height of the popup menu
+set completeopt=menu,preview,longest
 set wildmenu                " Improved command-line completion
 set wildignore+=.git,.hg,_build,__pycache__,*.pyc
 set wildmode=longest:full,full
