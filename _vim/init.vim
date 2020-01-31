@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
 Plug 'itchyny/lightline.vim'
 Plug 'jremmen/vim-ripgrep'  " Accepts *all* rg options (':Clap grep' does not)
-Plug 'liuchengxu/vim-clap'
+Plug 'liuchengxu/vim-clap', {'do': 'Clap install-binary'}
 Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'tpope/vim-eunuch'
@@ -375,6 +375,13 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+augroup netrw_mapping
+    autocmd!
+    autocmd filetype netrw noremap <buffer> <C-h> <C-w>h
+    autocmd filetype netrw noremap <buffer> <C-j> <C-w>j
+    autocmd filetype netrw noremap <buffer> <C-k> <C-w>k
+    autocmd filetype netrw noremap <buffer> <C-l> <C-w>l
+augroup END
 
 " Create horizontal/vertical split
 noremap <leader>s :split<CR>
@@ -632,6 +639,7 @@ nmap <silent> <C-M-S-j> <Plug>(ale_next_wrap)
 " }}}
 " Clap {{{
 
+let g:clap_layout = {'relative': 'editor'}
 let g:clap_current_selection_sign = {
     \ "text": " ➤",
     \ "texthl": "WarningMsg",
