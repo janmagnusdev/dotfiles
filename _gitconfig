@@ -41,10 +41,9 @@ unstage = reset HEAD --
 rollback = reset HEAD^
 lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold)%s%C(reset)%n''%C(blue)%h%C(reset) - %C(cyan)%an%C(reset) on %C(green)%aD%C(reset) %C(yellow)(%ar)%C(reset)%C(red)%d%C(reset)%n' --all
 lg5 = !"git lg -5"
-glog = log --graph
 # Push, skip CI/CD
 pushnoci = push -o ci.skip
 # Push feature branch and merge into develop if pipeline succeeds
-pushfix = push -o merge_request.create -o merge_request.target=develop -o merge_request.merge_when_pipeline_succeeds
+pushmergedevelop = push -o merge_request.create -o merge_request.target=develop -o merge_request.merge_when_pipeline_succeeds
 # Push develop branch and create a request for mergin into master
 pushmergemaster = push -o merge_request.create -o merge_request.target=master
