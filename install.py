@@ -19,6 +19,7 @@ HERE = pathlib.Path(__file__).parent.resolve()
 def main():
     """Install/link config files."""
     HOME.joinpath('.config').mkdir(exist_ok=True)
+    HOME.joinpath('.local', 'bin').mkdir(parents=True, exist_ok=True)
     HOME.joinpath('.ssh').mkdir(mode=0o700, exist_ok=True)
 
     links = []
