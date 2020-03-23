@@ -40,7 +40,6 @@ Plug 'mgedmin/coverage-highlight.vim', {'for': 'python'}
 Plug 'davidhalter/jedi-vim',         {'for': 'python'}
 Plug 'vim-python/python-syntax',     {'for': 'python'}
 Plug 'Vimjas/vim-python-pep8-indent',{'for': 'python'}
-Plug 'sscherfke/vim-virtualenv',     {'for': 'python'}
 Plug 'tmhedberg/SimpylFold',         {'for': 'python'}
 Plug 'rust-lang/rust.vim',           {'for': 'rust'}
 Plug 'saltstack/salt-vim',           {'for': 'sls'}
@@ -684,13 +683,26 @@ let g:lightline = {
     \ 'component_function': {
     \   'ale': 'ALEGetStatusLine',
     \   'indentation': 'LlIndentation',
-    \   'virtualenv': 'virtualenv#statusline',
+    \   'virtualenv': 'GetCurrentEnv',
     \ }
     \}
 
 function! LlIndentation()
     let text = (&et ? 's' : 't').':'.&tabstop
     return winwidth('.') > 70 ? text : ''
+endfunction
+
+function! GetCurrentEnv()
+    let envdir = ''
+    if isdirectory($VIRTUAL_ENV)
+        let envdir = $VIRTUAL_ENV
+    elseif isdirectory($CONDA_PREFIX)
+        let envdir = $CONDA_PREFIX
+    endif
+    if envdir != ''
+        return fnamemodify(envdir, ':t')
+    endif
+    return ''
 endfunction
 
 " }}}
