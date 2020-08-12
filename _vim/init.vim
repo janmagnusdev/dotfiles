@@ -17,10 +17,10 @@ Plug 'zerowidth/vim-copy-as-rtf', {'on': 'CopyRTF'}
 
 " Editing plug-ins
 Plug 'ervandew/supertab'
+Plug 'mg979/vim-visual-multi'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'rhysd/clever-f.vim'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
