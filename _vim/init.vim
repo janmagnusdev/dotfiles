@@ -520,6 +520,7 @@ augroup ft_python
     autocmd!
     autocmd FileType python setl fo+=c  " Auto-wrap comments using textwidth
     autocmd Filetype python abb <buffer> ifmain if __name__ == '__main__'
+    autocmd Filetype python abb <buffer> pyqtbreak from PyQt5.QtCore import pyqtRemoveInputHook; pyqtRemoveInputHook(); breakpoint
 
     autocmd FileType python BracelessEnable +highlight-cc2
 
