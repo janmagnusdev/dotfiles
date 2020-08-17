@@ -1,3 +1,5 @@
+alias rm='rm -I'  # Confirm when removing more than 3 files recursively
+
 # Directories
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -26,10 +28,6 @@ sha256 () {
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias p='python3'
-
-# Grep: search recursively in all Python files
-alias grepy="grep -r --include='*.py'"
 
 # Apt
 alias aup='sudo apt-get update; sudo apt-get dist-upgrade; sudo apt-get autoremove; sudo apt-get autoclean'
