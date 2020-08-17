@@ -628,13 +628,13 @@ augroup END
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 1
 let g:ale_linters = {
-\    'python': ['pylint'],
+\    'python': ['pylint', 'mypy'],
 \}
+let g:ale_python_mypy_ignore_invalid_syntax = 1
+let g:ale_python_mypy_options = '--ignore-missing-imports'
 let g:ale_sign_error = '⨯'
 let g:ale_sign_warning = '⚠︎'
 let g:ale_statusline_format = ['⨯%d', '⚠%d', '✓']
-nmap <silent> <C-M-S-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-M-S-j> <Plug>(ale_next_wrap)
 
 " }}}
 " Clap {{{
