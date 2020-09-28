@@ -1,5 +1,3 @@
-alias rm='rm -I'  # Confirm when removing more than 3 files recursively
-
 # Directories
 alias ..='cd ..'
 alias ...='cd ../..'

@@ -24,13 +24,12 @@ Plug 'rhysd/clever-f.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'tweekmonster/braceless.vim'
 Plug 'wellle/targets.vim'
 
 " Tools
-Plug 'w0rp/ale'
 Plug 'sjl/splice.vim', {'on': 'SpliceInit'}
 Plug 'tpope/vim-fugitive'
+Plug 'w0rp/ale'
 
 " Filetype plug-ins
 Plug 'othree/html5.vim',             {'for': 'html'}
@@ -60,6 +59,7 @@ set title                   " Set window title
 set relativenumber          " Display relative line numbers
 set number                  " Display the absolute line number for the current line
 set cursorline              " Highlight current line
+set cursorcolumn            " Highlight current column
 set pumheight=20            " Height of the popup menu
 set completeopt=menu,preview,longest
 set wildmenu                " Improved command-line completion
@@ -522,8 +522,6 @@ augroup ft_python
     autocmd Filetype python abb <buffer> ifmain if __name__ == '__main__'
     autocmd Filetype python abb <buffer> pyqtbreak from PyQt5.QtCore import pyqtRemoveInputHook; pyqtRemoveInputHook(); breakpoint
 
-    autocmd FileType python BracelessEnable +highlight-cc2
-
     " Join and split a strings (enclosed with ')
     " join:  'foo '\n'bar' --> 'foo bar'
     " split: 'foo bar' --> 'foo '\n'bar'
@@ -584,8 +582,6 @@ augroup ft_salt
     autocmd BufEnter */etc/salt/* set ft=sls
     autocmd BufEnter */pillar.example set ft=sls
 
-    autocmd FileType sls BracelessEnable +fold +highlight-cc2
-
 augroup END
 
 " }}}
@@ -614,10 +610,6 @@ augroup ft_xc
     autocmd BufEnter *.xc setl sw=2 ts=2 sts=2
 augroup END
 
-" }}}
-" Yaml {{{
-
-    autocmd FileType yaml BracelessEnable +fold +highlight-cc2
 " }}}
 
 " }}}
