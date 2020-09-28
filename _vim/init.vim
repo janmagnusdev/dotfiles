@@ -27,6 +27,7 @@ Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
 
 " Tools
+Plug '~/Projects/zettel.vim'
 Plug 'sjl/splice.vim', {'on': 'SpliceInit'}
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
@@ -124,7 +125,7 @@ set encoding=utf-8          " Default character encoding
 set textwidth=88            " Maximum width of text that is being inserted
 set colorcolumn=+1          " Highlight these columns (+1 == textwidth)
 set autoindent              " Automatically indent new lines
-set formatoptions=qrn1j     " Auto-formatting options, see ":help fo-table"
+set formatoptions=rqn2l1j   " Auto-formatting options, see ":help fo-table"
 set cpoptions+=J            " Two spaces between sentences
 set virtualedit+=block      " Allow placing the cursor anywhere in vis. block mode
 set backspace=indent,eol,start  " Allow backspacing over autoindents, EOLs and start of insert
@@ -429,9 +430,9 @@ augroup END
 
 augroup ft_css
     autocmd!
-    autocmd Filetype css setl fo+=t sw=2 ts=2 sts=2 foldmethod=marker foldmarker={,}
-    autocmd Filetype scss setl fo+=t sw=2 ts=2 sts=2 foldmethod=marker foldmarker={,}
-    autocmd Filetype sass setl fo+=t sw=2 ts=2 sts=2 foldmethod=indent
+    autocmd Filetype css  setl sw=2 ts=2 sts=2 foldmethod=marker foldmarker={,}
+    autocmd Filetype scss setl sw=2 ts=2 sts=2 foldmethod=marker foldmarker={,}
+    autocmd Filetype sass setl sw=2 ts=2 sts=2 foldmethod=indent
 augroup END
 
 " }}}
@@ -482,7 +483,7 @@ augroup ft_markdown
 
     autocmd BufEnter *.txt set ft=markdown
     autocmd BufEnter *.md set ft=markdown
-    autocmd FileType markdown setl fo+=t tw=72 sw=2 ts=2 sts=2  " Auto-wrap text using textwidth
+    autocmd FileType markdown setl tw=72 sw=2 ts=2 sts=2
 
     " Use <localleader>1/2/3/4 to add headings.
     autocmd Filetype markdown nnoremap <buffer> <localleader>1 "zyy"zpVr=k
@@ -517,7 +518,9 @@ augroup END
 " Python {{{
 
 augroup ft_python
+
     autocmd!
+    autocmd FileType python execute ":setl tw=".LineLength()
     autocmd FileType python setl fo+=c  " Auto-wrap comments using textwidth
     autocmd Filetype python abb <buffer> ifmain if __name__ == '__main__'
     autocmd Filetype python abb <buffer> pyqtbreak from PyQt5.QtCore import pyqtRemoveInputHook; pyqtRemoveInputHook(); breakpoint
@@ -550,7 +553,7 @@ augroup END
 augroup ft_rest
     autocmd!
 
-    autocmd FileType rst setl fo+=t tw=72 sw=2 ts=2 sts=2  " Auto-wrap text using tw
+    autocmd FileType rst setl tw=72 sw=2 ts=2 sts=2
 
     " Title, parts, chapters and sections 1/2/3/4
     autocmd Filetype rst nnoremap <buffer> <localleader>t "zyy"zPVr="zyyj"zpk
@@ -589,7 +592,7 @@ augroup END
 
 augroup ft_tex
     autocmd!
-    autocmd FileType tex setl fo+=t sw=2 ts=2 sts=2  " Auto-wrap text using tw
+    autocmd FileType tex setl sw=2 ts=2 sts=2
 augroup END
 
 " }}}
@@ -620,7 +623,7 @@ augroup END
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 1
 let g:ale_linters = {
-\    'python': ['pylint', 'mypy'],
+\    'python': ['flake8', 'pylint', 'mypy'],
 \}
 let g:ale_python_mypy_ignore_invalid_syntax = 1
 let g:ale_python_mypy_options = '--ignore-missing-imports'
@@ -737,6 +740,23 @@ let g:SuperTabDefaultCompletionType = "context"
 " Stuff that should probably be broken out into plugins, but hasn't proved to
 " be worth the time to do so just yet.
 
+" Pyproject.toml Line Length {{{
+"
+" Extract a project's line length from pyproject.toml
+
+function! LineLength()
+    let root = clap#path#find_project_root(bufnr('%'))
+    let fname = root . "/pyproject.toml"
+    if filereadable(fname)
+        let tw = str2nr(system("rg -Nr '$1' 'line-length\\s+=\\s+(\\d+)' " . fname))
+        if tw > 0
+            return tw
+        endif
+    endif
+    return 88
+endfunction
+
+" }}}
 " Synstack {{{
 
 " Show the stack of syntax highlighting classes affecting whatever is under the
