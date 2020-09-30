@@ -254,10 +254,10 @@ call s:HiLink("StorageClass", "Type")
 call s:HiLink("Structure",    "Type")
 call s:HiLink("Typedef",      "Type")
 
-call s:Hi("Special",            s:orange, s:none)
+call s:Hi("Special",            s:orange,  s:none)
 call s:HiLink("SpecialChar",    "Special")
-call s:Hi("Tag",                s:green,  s:none)
-call s:HiLink("Delimiter",      "Special")
+call s:Hi("Tag",                s:green,   s:none)
+call s:Hi("Delimiter",          s:magenta, s:none)
 call s:HiLink("SpecialComment", "Special")
 call s:HiLink("Debug",          "Special")
 
@@ -267,10 +267,6 @@ call s:Hi("Error",            s:bright_red, s:none, s:none, s:bold)
 call s:Hi("Todo",             s:magenta,    s:none, s:none, s:bold)
 call s:Hi("Whitespace",       s:bright_red, s:none)
 
-" }}}
-" Braceless {{{
-
-call s:Hi("BracelessIndent", s:base02, s:none, s:none, s:reverse)
 " }}}
 " Clap {{{
 call s:Hi("ClapSpinner",            s:base01, s:blue)
@@ -291,6 +287,10 @@ endfor
 
 call s:Hi("htmlTag",             s:text,   s:none)
 call s:Hi("htmlEndTag",          s:text,   s:none)
+" }}}
+" Markdown {{{
+
+call s:Hi("markdownCode",  s:purple,    s:none)
 " }}}
 " Patch {{{
 
