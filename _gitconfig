@@ -5,9 +5,6 @@ email = stefan@sofa-rockers.org
 [core]
 excludesfile = $HOME/.gitignore_global
 
-[pull]
-rebase = true
-
 [push]
 default = simple
 
