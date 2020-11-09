@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'RRethy/vim-hexokinase', {'do': 'make hexokinase'}
 Plug 'itchyny/lightline.vim'
 Plug 'jremmen/vim-ripgrep'  " Accepts *all* rg options (':Clap grep' does not)
-Plug 'liuchengxu/vim-clap', {'do': 'Clap install-binary'}
+Plug 'liuchengxu/vim-clap', {'do': ':Clap install-binary'}
 Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'tpope/vim-eunuch'
