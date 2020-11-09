@@ -59,7 +59,6 @@ function _prompt_time {
     echo -en "\e${__YELLOW}[$(date '+%H:%M')]\e${__RESET_COLOR}"
 }
 
-# export VCP_BRANCH="{blue}⌥{value}{reset}"
 function _prompt_vc_status {
     if hash vcprompt &>/dev/null; then
         echo -n "$(vcprompt)"
@@ -97,11 +96,11 @@ PS2='\[\e${__PURPLE}\].\[\e${__MAGENTA}\].\[\e${__RED}\].\[\e${__RESET_COLOR}\] 
 if [[ -x /usr/bin/dircolors ]]; then
     # test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
+    alias diff='diff --color=auto'
 fi
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-alias diff='diff --color=auto'
 
 # https://geoff.greer.fm/lscolors/
 export LSCOLORS=ExGxFxDxCxHxHxacagaeaf
