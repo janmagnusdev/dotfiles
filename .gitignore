@@ -1,7 +1,8 @@
 *.pyc
 *.swp
 .DS_Store
+.mypy_cache/
 .netrwhist
-private/
 _vim/autoload/plug.vim.old
 _vim/plugged/
+private/

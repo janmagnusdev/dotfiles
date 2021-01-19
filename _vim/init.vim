@@ -169,7 +169,7 @@ function! SetBackgroundMode(...)
         let s:new_bg = "light"
     endif
     if &background !=? s:new_bg
-        echo 'changing'.&background . s:new_bg
+        " echo 'changing'.&background . s:new_bg
         let &background = s:new_bg
     endif
 endfunction
@@ -522,21 +522,21 @@ augroup ft_python
     autocmd!
     autocmd FileType python execute ":setl tw=".LineLength()
     autocmd FileType python setl fo+=c  " Auto-wrap comments using textwidth
-    autocmd Filetype python abb <buffer> ifmain if __name__ == '__main__'
+    autocmd Filetype python abb <buffer> ifmain if __name__ == "__main__"
     autocmd Filetype python abb <buffer> pyqtbreak from PyQt5.QtCore import pyqtRemoveInputHook; pyqtRemoveInputHook(); breakpoint
 
     " Join and split a strings (enclosed with ')
-    " join:  'foo '\n'bar' --> 'foo bar'
-    " split: 'foo bar' --> 'foo '\n'bar'
-    autocmd FileType python nnoremap <buffer> <localleader>j Jh3x
-    autocmd FileType python nnoremap <buffer> <localleader>s i'<CR>'<ESC>
+    " join:  "foo "\n"bar" --> "foo bar" (also works for f-strings!)
+    " split: "foo bar" --> "foo "\n"bar"
+    autocmd FileType python nnoremap <buffer> <localleader>j JF"df"
+    autocmd FileType python nnoremap <buffer> <localleader>s i"<CR>'<ESC>
 
     " Change dict item to attribute access and keep cursor position
-    " aa: foo['bar'] --> foo.bar
-    " ia: foo.bar --> foo['bar']
+    " aa: foo["bar"] --> foo.bar
+    " ia: foo.bar --> foo["bar"]
     " Use nmap so that the surround plugin can be utilized.
-    autocmd FileType python nmap <buffer> <localleader>aa mzbi.<ESC>ds'ds]`zh
-    autocmd FileType python nmap <buffer> <localleader>ia mzysiw]lysiw'bx`zl
+    autocmd FileType python nmap <buffer> <localleader>aa mzbi.<ESC>ds"ds]`zh
+    autocmd FileType python nmap <buffer> <localleader>ia mzysiw]lysiw"bx`zl
 augroup END
 
 " }}}
