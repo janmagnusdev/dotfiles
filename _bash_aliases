@@ -5,6 +5,12 @@ alias ....='cd ../../..'
 alias md='mkdir -p'
 alias rd='rm -r'
 
+# Use nvim as "vim" if possible
+# This also overrides the pesky "vim" alias in Fedora's /etc/profile
+if which nvim &> /dev/null; then
+    alias vim="nvim"
+fi
+
 # Clip
 if `type pbcopy &> /dev/null`; then
     alias clip="pbcopy"
@@ -23,8 +29,11 @@ sha256 () {
 }
 
 # Some more ls aliases
-alias ll='ls -AFhl'
-alias l='ls -CF'
+# alias ll='ls -AFhl'
+# alias l='ls -CF'
+alias ll='exa -Flag'
+alias l='exa -GF'
+alias delta="delta $([[ $(dm get) == 'Dark' ]] && echo '--dark' || echo '--light')"
 
 # Apt
 alias aup='sudo apt-get update; sudo apt-get dist-upgrade; sudo apt-get autoremove; sudo apt-get autoclean'

@@ -4,6 +4,20 @@ email = stefan@sofa-rockers.org
 
 [core]
 excludesfile = $HOME/.gitignore_global
+pager = delta
+
+[interactive]
+diffFilter = delta --color-only
+
+[delta]
+# features = side-by-side line-numbers decorations
+features = line-numbers decorations
+whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+commit-decoration-style = bold purple box ul
+file-style = bold purple ul
+file-decoration-style = none
 
 [push]
 default = simple
