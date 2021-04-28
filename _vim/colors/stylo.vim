@@ -33,94 +33,110 @@ let s:VMODE = s:HAS_GUI ? 'gui' : 'cterm'
 " background: dark {{{
 if &background ==? 'dark'
     if s:HAS_GUI
-        let s:base00        = "#191A1C"
-        let s:base01        = "#1F2225"
-        let s:base02        = "#2C343A"
-        let s:base03        = "#36444F"
-        let s:base04        = "#4C6272"
-        let s:base05        = "#90AFC0"
-        let s:base06        = "#C2D9EB"
-        let s:base07        = "#E4ECF4"
-        let s:red           = "#DA7F71"
-        let s:orange        = "#CE8A4F"
-        let s:yellow        = "#BB9A3C"
-        let s:green         = "#62AF8D"
-        let s:green2        = "#62AF8D"
-        let s:cyan          = "#5EACB3"
-        let s:blue          = "#75A3D3"
-        let s:purple        = "#939AD1"
-        let s:magenta       = "#CD83A6"
-        let s:bright_red    = "#F75F2C"
-        let s:bright_orange = "#CC7F2B"
-        let s:bright_yellow = "#B28B2B"
+        let s:base00         = "#181A1B"
+        let s:base01         = "#1F2224"
+        let s:base02         = "#31383C"
+        let s:base03         = "#38444B"
+        let s:base04         = "#4E616D"
+        let s:base05         = "#90B0C4"
+        let s:base06         = "#C2DBEB"
+        let s:base07         = "#E2ECF4"
+        let s:red            = "#E18575"
+        let s:orange         = "#D68E4E"
+        let s:yellow         = "#BB9A3C"
+        let s:green          = "#70AA89"
+        let s:cyan           = "#5BAAB0"
+        let s:blue           = "#74A1D4"
+        let s:purple         = "#919BD0"
+        let s:magenta        = "#CD82A6"
+        let s:bright_red     = "#F75F2C"
+        let s:bright_orange  = "#FFA44A"
+        let s:bright_yellow  = "#DEB400"
+        let s:bright_green   = "#00A668"
+        let s:bright_cyan    = "#00A0A8"
+        let s:bright_blue    = "#3596E1"
+        let s:bright_purple  = "#6F8AF4"
+        let s:bright_magenta = "#E363A7"
     else
-        let s:base00        = "234"
-        let s:base01        = "0"
-        let s:base02        = "8"
-        let s:base03        = "238"
-        let s:base04        = "59"
-        let s:base05        = "15"
-        let s:base06        = "7"
-        let s:base07        = "255"
-        let s:red           = "1"
-        let s:orange        = "173"
-        let s:yellow        = "179"
-        let s:green         = "10"
-        let s:green2        = "10"
-        let s:cyan          = "6"
-        let s:blue          = "4"
-        let s:purple        = "5"
-        let s:magenta       = "13"
-        let s:bright_red    = "9"
-        let s:bright_orange = "11"
-        let s:bright_yellow = "3"
+        let s:base00         = "234"
+        let s:base01         = "235"
+        let s:base02         = "8"
+        let s:base03         = "238"
+        let s:base04         = "240"
+        let s:base05         = "110"
+        let s:base06         = "7"
+        let s:base07         = "15"
+        let s:red            = "1"
+        let s:orange         = "173"
+        let s:yellow         = "3"
+        let s:green          = "2"
+        let s:cyan           = "6"
+        let s:blue           = "4"
+        let s:purple         = "5"
+        let s:magenta        = "175"
+        let s:bright_red     = "9"
+        let s:bright_orange  = "215"
+        let s:bright_yellow  = "11"
+        let s:bright_green   = "10"
+        let s:bright_cyan    = "14"
+        let s:bright_blue    = "12"
+        let s:bright_purple  = "13"
+        let s:bright_magenta = "169"
     endif
 " }}}
 
 " background: light {{{
 else
     if s:HAS_GUI
-        let s:base00        = "#FBF6ED"
-        let s:base01        = "#ECE8E0"
-        let s:base02        = "#D5D5D5"
-        let s:base03        = "#BFBFBF"
-        let s:base04        = "#919191"
-        let s:base05        = "#5E5E5E"
-        let s:base06        = "#2F2F2F"
-        let s:base07        = "#1A1A1A"
-        let s:red           = "#A43B31"
-        let s:orange        = "#B75F22"
-        let s:yellow        = "#9D6E22"
-        let s:green         = "#52751d"
-        let s:green2        = "#1F7956"
-        let s:cyan          = "#268389"
-        let s:blue          = "#2F6099"
-        let s:purple        = "#874392"
-        let s:magenta       = "#A73454"
-        let s:bright_red    = "#DC3A23"
-        let s:bright_orange = "#BC5C00"
-        let s:bright_yellow = "#D39100"
+        let s:base00         = "#FBF6ED"
+        let s:base01         = "#ECE8E0"
+        let s:base02         = "#D4D4D4"
+        let s:base03         = "#BEBEBE"
+        let s:base04         = "#919191"
+        let s:base05         = "#5E5E5E"
+        let s:base06         = "#3B3B3B"
+        let s:base07         = "#191919"
+        let s:red            = "#A43B31"
+        let s:orange         = "#BC5C00"
+        let s:yellow         = "#D39100"
+        let s:green          = "#52751D"
+        let s:cyan           = "#268389"
+        let s:blue           = "#2F6099"
+        let s:purple         = "#874392"
+        let s:magenta        = "#A73454"
+        let s:bright_red     = "#DC3A23"
+        let s:bright_orange  = "#FF8D48"
+        let s:bright_yellow  = "#F6AA00"
+        let s:bright_green   = "#77AE00"
+        let s:bright_cyan    = "#2B9197"
+        let s:bright_blue    = "#0087E6"
+        let s:bright_purple  = "#C455D5"
+        let s:bright_magenta = "#E34D76"
     else
-        let s:base00        = "255"
-        let s:base01        = "0"
-        let s:base02        = "8"
-        let s:base03        = "250"
-        let s:base04        = "246"
-        let s:base05        = "15"
-        let s:base06        = "7"
-        let s:base07        = "234"
-        let s:red           = "1"
-        let s:orange        = "172"
-        let s:yellow        = "100"
-        let s:green         = "2"
-        let s:green2        = "10"
-        let s:cyan          = "6"
-        let s:blue          = "4"
-        let s:purple        = "5"
-        let s:magenta       = "13"
-        let s:bright_red    = "9"
-        let s:bright_orange = "11"
-        let s:bright_yellow = "3"
+        let s:base00         = "255"
+        let s:base01         = "0"
+        let s:base02         = "188"
+        let s:base03         = "250"
+        let s:base04         = "246"
+        let s:base05         = "59"
+        let s:base06         = "237"
+        let s:base07         = "234"
+        let s:red            = "1"
+        let s:orange         = "130"
+        let s:yellow         = "11"
+        let s:green          = "64"
+        let s:cyan           = "6"
+        let s:blue           = "4"
+        let s:purple         = "5"
+        let s:magenta        = "96"
+        let s:bright_red     = "9"
+        let s:bright_orange  = "209"
+        let s:bright_yellow  = "214"
+        let s:bright_green   = "10"
+        let s:bright_cyan    = "37"
+        let s:bright_blue    = "12"
+        let s:bright_purple  = "13"
+        let s:bright_magenta = "168"
     endif
 endif
 " }}}
@@ -195,10 +211,10 @@ call s:Hi("PmenuThumb",    s:base05, s:base05)
 call s:Hi("PmenuSel",      s:base01, s:green)
 call s:Hi("WildMenu",      s:base01, s:green)
 
-call s:Hi("MatchParen",    s:bright_red,    s:none, s:none, s:underline)
-call s:Hi("Directory",     s:blue,          s:none)
-call s:Hi("IncSearch",     s:bright_orange, s:none, s:none, s:reverse)
-call s:Hi("Search",        s:bright_yellow, s:none, s:none, s:reverse)
+call s:Hi("MatchParen",    s:bright_red,     s:none, s:none, s:underline)
+call s:Hi("Directory",     s:blue,           s:none)
+call s:Hi("IncSearch",     s:orange, s:none, s:none, s:reverse)
+call s:Hi("Search",        s:yellow, s:none, s:none, s:reverse)
 
 call s:Hi("NonText",       s:base02, s:none, s:none, s:bold)
 call s:Hi("SpecialKey",    s:base02, s:none, s:none, s:bold)
@@ -326,7 +342,7 @@ let s:llcs.tabline.tabsel = [[s:base01, s:blue]]
 let s:llcs.tabline.middle = [[s:base05, s:base02]]
 let s:llcs.tabline.right = [[s:base01, s:bright_red]]
 let s:llcs.normal.error = [[s:bright_red, s:base02]]
-let s:llcs.normal.warning = [[s:bright_yellow, s:base02]]
+let s:llcs.normal.warning = [[s:yellow, s:base02]]
 
 let g:lightline#colorscheme#stylo#palette = lightline#colorscheme#fill(s:llcs)
 
@@ -341,19 +357,19 @@ endif
 let g:terminal_color_0 = s:base01
 let g:terminal_color_1 = s:red
 let g:terminal_color_2 = s:green
-let g:terminal_color_3 = s:bright_yellow
+let g:terminal_color_3 = s:yellow
 let g:terminal_color_4 = s:blue
 let g:terminal_color_5 = s:purple
 let g:terminal_color_6 = s:cyan
-let g:terminal_color_7 = s:base05
+let g:terminal_color_7 = s:base06
 let g:terminal_color_8 = s:base02
 let g:terminal_color_9 = s:bright_red
-let g:terminal_color_10 = s:green2
-let g:terminal_color_11 = s:bright_orange
-let g:terminal_color_12 = s:blue
-let g:terminal_color_13 = s:magenta
-let g:terminal_color_14 = s:cyan
-let g:terminal_color_15 = s:base05
+let g:terminal_color_10 = s:bright_green
+let g:terminal_color_11 = s:bright_yellow
+let g:terminal_color_12 = s:bright_blue
+let g:terminal_color_13 = s:bright_purple
+let g:terminal_color_14 = s:bright_cyan
+let g:terminal_color_15 = s:base07
 " }}}
 " License ----------------------------------------------------------------- {{{
 "
