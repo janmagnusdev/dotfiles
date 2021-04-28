@@ -44,28 +44,28 @@ COLORS["dark"] = {  # dark, futuristic
 COLORS["light"] = {  # light, warm
     "base00":         (( 66,  52,  97), (251, 246, 237), "#FBF6ED", 255),
     "base01":         (( 68,  14,  92), (236, 232, 224), "#ECE8E0",   0),
-    "base02":         ((  0,   0,  85), (213, 213, 213), "#D5D5D5",   8),
-    "base03":         ((  0,   0,  77), (191, 191, 191), "#BFBFBF", 250),
+    "base02":         ((  0,   0,  85), (212, 212, 212), "#D4D4D4", 188),
+    "base03":         ((  0,   0,  77), (190, 190, 190), "#BEBEBE", 250),
     "base04":         ((  0,   0,  60), (145, 145, 145), "#919191", 246),
-    "base05":         ((  0,   0,  40), ( 94,  94,  94), "#5E5E5E",  15),
-    "base06":         ((  0,   0,  25), ( 47,  47,  47), "#2F2F2F",   7),
-    "base07":         ((  0,   0,   9), ( 26,  26,  26), "#1A1A1A", 234),
+    "base05":         ((  0,   0,  40), ( 94,  94,  94), "#5E5E5E",  59),
+    "base06":         ((  0,   0,  25), ( 59,  59,  59), "#3B3B3B", 237),
+    "base07":         ((  0,   0,   9), ( 25,  25,  25), "#191919", 234),
     "red":            (( 15,  70,  40), (164,  59,  49), "#A43B31",   1),
-    "orange":         (( 30, 100,  50), (188,  92,   0), "#BC5C00",  11),
-    "yellow":         (( 50, 100,  65), (211, 145,   0), "#D39100",   3),
-    "green":          ((110,  90,  45), ( 82, 117,  29), "#52751d",   2),
+    "orange":         (( 30, 100,  50), (188,  92,   0), "#BC5C00", 130),
+    "yellow":         (( 50, 100,  65), (211, 145,   0), "#D39100",  11),
+    "green":          ((110,  90,  45), ( 82, 117,  29), "#52751D",  64),
     "cyan":           ((200,  90,  50), ( 38, 131, 137), "#268389",   6),
     "blue":           ((250,  80,  40), ( 47,  96, 153), "#2F6099",   4),
     "purple":         ((300,  60,  40), (135,  67, 146), "#874392",   5),
-    "magenta":        ((  0,  70,  40), (167,  52,  84), "#A73454",  13),
+    "magenta":        ((  0,  70,  40), (167,  52,  84), "#A73454",  96),
     "bright_red":     (( 15,  90,  50), (220,  58,  35), "#DC3A23",   9),
-    "bright_orange":  (( 30, 100,  70), (188,  92,   0), "#BC5C00",  11),
-    "bright_yellow":  (( 50, 100,  75), (211, 145,   0), "#D39100",   3),
-    "bright_green":   ((110, 100,  65), ( 82, 117,  29), "#77AE00",   2),
-    "bright_cyan":    ((200,  90,  55), ( 38, 131, 137), "#00ACCD",   6),
-    "bright_blue":    ((250, 100,  55), ( 47,  96, 153), "#0087E6",   4),
-    "bright_purple":  ((300,  70,  55), (135,  67, 146), "#C455D5",   5),
-    "bright_magenta": ((  0,  70,  55), (167,  52,  84), "#ED4074",  13),
+    "bright_orange":  (( 30, 100,  70), (255, 141,  72), "#FF8D48", 209),
+    "bright_yellow":  (( 50, 100,  75), (246, 170,   0), "#F6AA00", 214),
+    "bright_green":   ((110, 100,  65), (119, 174,   0), "#77AE00",  10),
+    "bright_cyan":    ((200,  90,  55), ( 43, 145, 151), "#2B9197",  37),
+    "bright_blue":    ((250, 100,  55), (  0, 135, 230), "#0087E6",  12),
+    "bright_purple":  ((300,  70,  55), (196,  85, 213), "#C455D5",  13),
+    "bright_magenta": ((  0,  70,  55), (227,  77, 118), "#E34D76", 168),
 }
 
 BACKGROUND = "base00"
@@ -90,6 +90,9 @@ TERM_COLORS = [
     "bright_cyan",
     "base07",
 ]
+ITERM_LINK_COLOR = ((-1, -1, -1), (0, 91, 187), "#005bbb", -1)
+ITERM_BADGE_COLOR = ((-1, -1, -1), (255, 38, 0), "#ff2600", -1)
+ITERM_CURSOR_GUIDE_COLOR = ((-1, -1, -1), (179, 236, 255), "#b3ecff", -1)
 
 
 @attr.dataclass()
@@ -219,6 +222,49 @@ def print_vim_colors(colors: Dict[str, Color]) -> None:
     print("    endif")
 
 
+def print_itermcolors(colors: Dict[str, Color], term_colors: List[str]) -> None:
+    """
+    Prints colors for iTerm2.
+
+    The output can be piped directly into "Theme Name.itermcolors".
+    """
+    color_list = [(f"Ansi {i} Color", colors[name], 1) for i, name in enumerate(term_colors)]
+    color_list.append(("Background Color", colors[BACKGROUND], 1))
+    color_list.append(("Foreground Color", colors[TEXT], 1))
+    color_list.append(("Bold Color", colors[TEXT], 1))
+    color_list.append(("Cursor Color", colors[TEXT], 1))
+    color_list.append(("Cursor Text Color", colors[BACKGROUND], 1))
+    color_list.append(("Cursor Guide Color", Color(*ITERM_CURSOR_GUIDE_COLOR), 0.25))
+    color_list.append(("Selection Color", colors["base02"], 1))
+    color_list.append(("Selected Text Color", colors["base07"], 1))
+    color_list.append(("Link Color", Color(*ITERM_LINK_COLOR), 1))
+    color_list.append(("Badge Color", Color(*ITERM_BADGE_COLOR), 0.5))
+
+    print('<?xml version="1.0" encoding="UTF-8"?>')
+    print('<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">')
+    print('<plist version="1.0">')
+    print("<dict>")
+
+    for name, color, alpha in sorted(color_list):
+        r, g, b = color.rgb
+        print(f"	<key>{name}</key>")
+        print("	<dict>")
+        print("		<key>Alpha Component</key>")
+        print(f"		<real>{alpha}</real>")
+        print("		<key>Blue Component</key>")
+        print(f"		<real>{b/255}</real>")
+        print("		<key>Color Space</key>")
+        print("		<string>sRGB</string>")
+        print("		<key>Green Component</key>")
+        print(f"		<real>{g/255}</real>")
+        print("		<key>Red Component</key>")
+        print(f"		<real>{r/255}</real>")
+        print("	</dict>")
+
+    print("</dict>")
+    print("</plist>")
+
+
 def print_konsole_scheme(colors: Dict[str, Color], name: str) -> None:
     color_types = [
         "Background",
@@ -278,11 +324,12 @@ def print_konsole_scheme(colors: Dict[str, Color], name: str) -> None:
 )
 def main(mode):
     colors = {k: Color(*v) for k, v in COLORS[mode].items()}
-    convert_colors_from("hsluv", colors, TERM_COLORS)
-    print_colors(colors)
+    # convert_colors_from("hsluv", colors, TERM_COLORS)
+    # print_colors(colors)
 
     # print()
     # print_vim_colors(colors)
+    # print_itermcolors(colors, TERM_COLORS)
     # print_konsole_scheme(colors, 'Stylo Light')
 
 
