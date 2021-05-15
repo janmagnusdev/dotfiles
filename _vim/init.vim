@@ -16,6 +16,7 @@ Plug 'zerowidth/vim-copy-as-rtf', {'on': 'CopyRTF'}
 
 " Editing plug-ins
 Plug 'ervandew/supertab'
+Plug 'flwyd/vim-conjoin'
 Plug 'mg979/vim-visual-multi'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nelstrom/vim-visual-star-search'
@@ -706,7 +707,7 @@ endfunction
 " }}}
 " Python-syntax {{{
 
-let python_highlight_all = 1
+let g:python_highlight_all = 1
 
 " }}}
 " Python jedi {{{
