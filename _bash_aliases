@@ -33,7 +33,9 @@ sha256 () {
 # alias l='ls -CF'
 alias ll='exa -Flag'
 alias l='exa -GF'
-alias delta="delta $([[ $(dm get) == 'Dark' ]] && echo '--dark' || echo '--light')"
+alias bat='bat --theme=$([[ $(dm get) = "dark" ]] && echo default || echo GitHub)'
+alias cat='bat --theme=$([[ $(dm get) = "dark" ]] && echo default || echo GitHub)'
+alias delta='delta --$(dm get)'
 
 # Apt
 alias aup='sudo apt-get update; sudo apt-get dist-upgrade; sudo apt-get autoremove; sudo apt-get autoclean'

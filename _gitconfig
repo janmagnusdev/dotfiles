@@ -4,10 +4,10 @@ email = stefan@sofa-rockers.org
 
 [core]
 excludesfile = $HOME/.gitignore_global
-pager = delta
+pager = delta --light
 
 [interactive]
-diffFilter = delta --color-only
+diffFilter = delta --light --color-only
 
 [delta]
 # features = side-by-side line-numbers decorations

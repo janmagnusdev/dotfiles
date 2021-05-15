@@ -161,13 +161,7 @@ syntax on
 set background=light
 
 function! SetBackgroundMode(...)
-    let s:new_bg = &background
-    let s:mode = systemlist("dm get")[0]
-    if s:mode ==? "Dark"
-        let s:new_bg = "dark"
-    else
-        let s:new_bg = "light"
-    endif
+    let s:new_bg = systemlist("dm get")[0]
     if &background !=? s:new_bg
         " echo 'changing'.&background . s:new_bg
         let &background = s:new_bg
