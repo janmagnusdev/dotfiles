@@ -12,7 +12,6 @@ Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-scripts/kwbdi.vim'
-Plug 'yuttie/comfortable-motion.vim'
 Plug 'zerowidth/vim-copy-as-rtf', {'on': 'CopyRTF'}
 
 " Editing plug-ins
