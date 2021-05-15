@@ -1,0 +1,12 @@
+[General]
+Description={{ name }}
+Blur=false
+BrightIntense=false
+ColorRandomization=false
+Opacity=1
+Wallpaper=
+{% for name, color in colors.items() %}
+
+[{{ name }}]
+Color={{ color.rgb.tuple|join(",") }}
+{% endfor %}
