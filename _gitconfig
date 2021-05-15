@@ -19,6 +19,12 @@ commit-decoration-style = bold purple box ul
 file-style = bold purple ul
 file-decoration-style = none
 
+[pull]
+# The "rebase" strategy does not work well when there are uncommited changes,
+# but the "merge" strategy does.  This is more convenient and I do explit
+# "git pull --rebase" when needed.
+rebase = false
+
 [push]
 default = simple
 
