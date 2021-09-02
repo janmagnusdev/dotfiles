@@ -128,7 +128,6 @@ set autoindent              " Automatically indent new lines
 set formatoptions=rqn2l1j   " Auto-formatting options, see ":help fo-table"
 set cpoptions+=J            " Two spaces between sentences
 set virtualedit+=block      " Allow placing the cursor anywhere in vis. block mode
-set backspace=indent,eol,start  " Allow backspacing over autoindents, EOLs and start of insert
 set foldlevelstart=99       " Start with all folds open
 set foldmethod=indent       " Default fold method: fold by indent
 
