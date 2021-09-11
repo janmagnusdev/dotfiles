@@ -643,8 +643,8 @@ let g:clap_selected_sign = {
 " Mnemoic: 'o'pen ('f'ile, 'd'otfiles, 'b'uffer, 'm'ru)
 nnoremap <leader>of :Clap files<CR>
 nnoremap <leader>ob :Clap buffers<CR>
-nnoremap <leader>rg :Clap grep<CR>
-nnoremap <leader>gw :Clap grep ++query=<cword><CR>
+nnoremap <leader>rg :Clap grep2<CR>
+nnoremap <leader>gw :Clap grep2 ++query=<cword><CR>
 nnoremap <leader>ft :Clap filetypes<CR>
 
 " }}}
