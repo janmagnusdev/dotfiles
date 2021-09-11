@@ -146,9 +146,13 @@ _linux_set() {
         DM_VAL=0
     fi
     echo $DM_VAL > $HOME/.config/darkmode
-    for sid in $(qdbus $KONSOLE_DBUS_SERVICE /Windows/1 sessionList); do
-        # qdbus $KONSOLE_DBUS_SERVICE $KONSOLE_DBUS_SESSION org.kde.konsole.Session.setProfile "$PROFILE"
-        qdbus $KONSOLE_DBUS_SERVICE /Sessions/$sid org.kde.konsole.Session.setProfile "$PROFILE" > /dev/null
+    # $KONSOLE_DBUS_SERVICE only contains the service for the current window, but we
+    # want to update *all* windows:
+    for service in $(qdbus | grep org.kde.konsole-); do
+        qdbus $service /Windows/1 setDefaultProfile "$PROFILE"
+        for sid in $(qdbus $service /Windows/1 sessionList); do
+            qdbus $service /Sessions/$sid org.kde.konsole.Session.setProfile "$PROFILE" > /dev/null
+        done
     done
 }
 
@@ -188,14 +192,7 @@ set() {
     # vim uses a timer to auto-detect dm, nothing to do here.
 
     # Update "delta" in .gitconfig
-    gitconfig="$HOME/.gitconfig"
-    if [[ -L $gitconfig ]]; then
-        if [[ -x realpath ]]; then
-            gitconfig="$(realpath "$gitconfig")"
-        else
-            gitconfig="$HOME/$(readlink $gitconfig)"
-        fi
-    fi
+    gitconfig="$HOME/.dotfiles/_gitconfig"
     sd "delta --(light|dark)" "delta --$mode" $gitconfig
 }
 
