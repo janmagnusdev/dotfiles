@@ -260,6 +260,7 @@ call s:Hi("Todo",             s:magenta,    s:none, s:none, s:bold)
 call s:Hi("Whitespace",       s:bright_red, s:none)
 
 " Clap
+call s:Hi("ClapShadow",             s:none,   s:base02)
 call s:Hi("ClapSpinner",            s:base01, s:blue)
 call s:HiLink("ClapInput",   "Visual")
 call s:Hi("ClapDisplay",            s:base03, s:back)
@@ -328,19 +329,19 @@ if exists('g:loaded_lightline')
 endif
 
 " Set neovim embedded terminal colors
-let g:terminal_color_0 = s:base01
-let g:terminal_color_1 = s:red
-let g:terminal_color_2 = s:green
-let g:terminal_color_3 = s:yellow
-let g:terminal_color_4 = s:blue
-let g:terminal_color_5 = s:purple
-let g:terminal_color_6 = s:cyan
-let g:terminal_color_7 = s:base06
-let g:terminal_color_8 = s:base02
-let g:terminal_color_9 = s:bright_red
-let g:terminal_color_10 = s:bright_green
-let g:terminal_color_11 = s:bright_yellow
-let g:terminal_color_12 = s:bright_blue
-let g:terminal_color_13 = s:bright_purple
-let g:terminal_color_14 = s:bright_cyan
-let g:terminal_color_15 = s:base07
+call s:Hi("TermColor0", s:base01, s:none)
+call s:Hi("TermColor1", s:red, s:none)
+call s:Hi("TermColor2", s:green, s:none)
+call s:Hi("TermColor3", s:yellow, s:none)
+call s:Hi("TermColor4", s:blue, s:none)
+call s:Hi("TermColor5", s:purple, s:none)
+call s:Hi("TermColor6", s:cyan, s:none)
+call s:Hi("TermColor7", s:base06, s:none)
+call s:Hi("TermColor8", s:base02, s:none)
+call s:Hi("TermColor9", s:bright_red, s:none)
+call s:Hi("TermColor10", s:bright_green, s:none)
+call s:Hi("TermColor11", s:bright_yellow, s:none)
+call s:Hi("TermColor12", s:bright_blue, s:none)
+call s:Hi("TermColor13", s:bright_purple, s:none)
+call s:Hi("TermColor14", s:bright_cyan, s:none)
+call s:Hi("TermColor15", s:base07, s:none)
