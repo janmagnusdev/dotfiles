@@ -42,7 +42,6 @@ Plug 'vim-python/python-syntax',     {'for': 'python'}
 Plug 'Vimjas/vim-python-pep8-indent',{'for': 'python'}
 Plug 'tmhedberg/SimpylFold',         {'for': 'python'}
 Plug 'rust-lang/rust.vim',           {'for': 'rust'}
-Plug 'saltstack/salt-vim',           {'for': 'sls'}
 Plug 'cespare/vim-toml',             {'for': 'toml'}
 Plug 'stephpy/vim-yaml',             {'for': 'yaml'}
 
@@ -566,17 +565,6 @@ augroup ft_rest
     autocmd Filetype rst inoremap <buffer> <localleader>2 <ESC>"zyy"zpVr-o<CR>
     autocmd Filetype rst inoremap <buffer> <localleader>3 <ESC>"zyy"zpVr^o<CR>
     autocmd Filetype rst inoremap <buffer> <localleader>4 <ESC>"zyy"zpVr"o<CR>
-
-augroup END
-
-" }}}
-" Salt (SLS) {{{
-
-augroup ft_salt
-    autocmd!
-
-    autocmd BufEnter */etc/salt/* set ft=sls
-    autocmd BufEnter */pillar.example set ft=sls
 
 augroup END
 
