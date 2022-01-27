@@ -475,7 +475,7 @@ augroup ft_markdown
 
     autocmd BufEnter *.txt set ft=markdown
     autocmd BufEnter *.md set ft=markdown
-    autocmd FileType markdown setl tw=72 sw=2 ts=2 sts=2
+    autocmd FileType markdown setl tw=72 sw=2 ts=2 sts=2 fo-=t
 
     " Use <localleader>1/2/3/4 to add headings.
     autocmd Filetype markdown nnoremap <buffer> <localleader>1 "zyy"zpVr=k
@@ -521,7 +521,7 @@ augroup ft_python
     " join:  "foo "\n"bar" --> "foo bar" (also works for f-strings!)
     " split: "foo bar" --> "foo "\n"bar"
     autocmd FileType python nnoremap <buffer> <localleader>j JF"df"
-    autocmd FileType python nnoremap <buffer> <localleader>s i"<CR>'<ESC>
+    autocmd FileType python nnoremap <buffer> <localleader>s i"<CR>"<ESC>
 
     " Change dict item to attribute access and keep cursor position
     " aa: foo["bar"] --> foo.bar
@@ -545,7 +545,7 @@ augroup END
 augroup ft_rest
     autocmd!
 
-    autocmd FileType rst setl tw=72 sw=2 ts=2 sts=2
+    autocmd FileType rst setl tw=72 sw=2 ts=2 sts=2 fo-=t
 
     " Title, parts, chapters and sections 1/2/3/4
     autocmd Filetype rst nnoremap <buffer> <localleader>t "zyy"zPVr="zyyj"zpk
@@ -615,7 +615,8 @@ let g:ale_statusline_format = ['⨯%d', '⚠%d', '✓']
 " }}}
 " Clap {{{
 
-let g:clap_layout = {'relative': 'editor'}
+let g:clap_layout = {'relative': 'editor', 'width': '66%', 'height': '40%', 'row': '15%', 'col': '17%'}
+let g:clap_preview_direction = 'UD'
 let g:clap_current_selection_sign = {
     \ "text": " ➤",
     \ "texthl": "WarningMsg",
@@ -879,6 +880,8 @@ if has('nvim')
 
     " Make escape work in the Neovim terminal.
     tnoremap <ESC> <C-\><C-n>
+    " Map C-n C-n to escape for console apps that use this key
+    tnoremap <C-n><C-n> <ESC>
     " Make navigation into and out of Neovim terminal splits nicer.
     tnoremap <C-h> <C-\><C-N><C-w>h
     tnoremap <C-j> <C-\><C-N><C-w>j
