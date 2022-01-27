@@ -84,14 +84,14 @@ blackdiff() { black -S - < $1 | git diff --no-index -- $1 -; }
 merge-dev() {
     git checkout develop
     git pull --rebase
-    git checkout master
+    git checkout main
     git pull
     git merge --no-ff develop -m "Merge branch 'develop'"
     git push
     git checkout develop
 }
 
-# Create a hotfix branch based on "master"
+# Create a hotfix branch based on "main"
 hotfix-prepare() {
     branch="$1"
 
@@ -103,22 +103,22 @@ hotfix-prepare() {
         echo "You already have a hotfix branch: $HOTFIX_BRANCH"
         return 1
     fi
-    git checkout master
+    git checkout main
     git pull                    # Zur Sicherheit
     git checkout -b "$branch"
     export HOTFIX_BRANCH="$branch"
 }
 
-# Merge the hotfix branch into "master" and "develop" and delete it
+# Merge the hotfix branch into "main" and "develop" and delete it
 hotfix-push() {
     if [[ -z "$HOTFIX_BRANCH" ]]; then
         echo "You need to start a hotfix branch with "hotfix-prepare NAME" first"
         return 1
     fi
 
-    git checkout master
+    git checkout main
     git pull
-    git merge --no-ff $HOTFIX_BRANCH -m "Merge branch '$HOTFIX_BRANCH' into master"
+    git merge --no-ff $HOTFIX_BRANCH -m "Merge branch '$HOTFIX_BRANCH' into main"
     git push
 
     git checkout develop
