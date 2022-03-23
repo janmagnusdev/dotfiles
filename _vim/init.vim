@@ -40,7 +40,7 @@ Plug 'mgedmin/coverage-highlight.vim', {'for': 'python'}
 Plug 'davidhalter/jedi-vim',         {'for': 'python'}
 Plug 'vim-python/python-syntax',     {'for': 'python'}
 Plug 'Vimjas/vim-python-pep8-indent',{'for': 'python'}
-Plug 'tmhedberg/SimpylFold',         {'for': 'python'}
+Plug 'kalekundert/vim-coiled-snake', {'for': 'python'}
 Plug 'rust-lang/rust.vim',           {'for': 'rust'}
 Plug 'cespare/vim-toml',             {'for': 'toml'}
 Plug 'stephpy/vim-yaml',             {'for': 'yaml'}
