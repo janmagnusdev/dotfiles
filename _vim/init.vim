@@ -883,10 +883,10 @@ if has('nvim')
     " Map C-n C-n to escape for console apps that use this key
     tnoremap <C-n><C-n> <ESC>
     " Make navigation into and out of Neovim terminal splits nicer.
-    tnoremap <C-h> <C-\><C-N><C-w>h
-    tnoremap <C-j> <C-\><C-N><C-w>j
-    tnoremap <C-k> <C-\><C-N><C-w>k
-    tnoremap <C-l> <C-\><C-N><C-w>l
+    " tnoremap <C-h> <C-\><C-N><C-w>h
+    " tnoremap <C-j> <C-\><C-N><C-w>j
+    " tnoremap <C-k> <C-\><C-N><C-w>k
+    " tnoremap <C-l> <C-\><C-N><C-w>l
 
     " With line numbers, long lines are truncated when switching from Normal
     " Mode to Insert Mode.
