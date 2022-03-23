@@ -70,5 +70,5 @@ lg5 = !"git lg -5"
 pushnoci = push -o ci.skip
 # Push feature branch and merge into develop if pipeline succeeds
 pushmergedevelop = push -o merge_request.create -o merge_request.target=develop -o merge_request.merge_when_pipeline_succeeds
-# Push develop branch and create a request for mergin into master
-pushmergemaster = push -o merge_request.create -o merge_request.target=master
+# Push develop branch and create a request for mergin into main
+pushmergemain = push -o merge_request.create -o merge_request.target=main
