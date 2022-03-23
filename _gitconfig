@@ -29,7 +29,7 @@ defaultBranch = main
 rebase = false
 
 [push]
-default = simple
+default = current
 
 [diff]
 tool = meld
