@@ -195,7 +195,7 @@ call s:Hi("Search",        s:yellow, s:none, s:none, s:reverse)
 
 call s:Hi("NonText",       s:base02, s:none, s:none, s:bold)
 call s:Hi("SpecialKey",    s:base02, s:none, s:none, s:bold)
-call s:Hi("Title",         s:blue,   s:none, s:none, s:bold)
+call s:Hi("Title",         s:purple, s:none, s:none, s:bold)
 call s:Hi("ErrorMsg",      s:red,    s:none, s:none, s:reverse)
 call s:Hi("WarningMsg",    s:orange, s:none, s:none, s:bold)
 call s:Hi("Question",      s:yellow, s:none, s:none, s:bold)
