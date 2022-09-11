@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 import asyncio
+import os
 import subprocess
 from pathlib import Path
 
 import iterm2
 
 
+# We can not access $HOMEBREW_PREFIX from this script
+if os.path.isdir("/opt/homebrew"):
+    HOMEBREW_PREFIX = "/opt/homebrew"
+else:
+    HOMEBREW_PREFIX = "/usr/local"
 GIT_CONFIG = Path.home().joinpath(".dotfiles", "_gitconfig")
 
 
@@ -37,8 +43,8 @@ async def main(connection):
 
 def update_git_config(mode: str) -> None:
     cmd = [
-        "/usr/local/bin/sd",
-        "delta --(light|dark)",
+        f"{HOMEBREW_PREFIX}/bin/sd",
+        f"delta --(light|dark)",
         f"delta --{mode}",
         str(GIT_CONFIG),
     ]

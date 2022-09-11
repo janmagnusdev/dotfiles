@@ -19,8 +19,15 @@
 
 set -Eeuo pipefail
 
-# "/usr/local/bin" is not in PATH when this script is called from AppleScript
-PATH="$PATH:/usr/local/bin"
+# "/opt/homebrew/bin" is not in PATH when this script is called from AppleScript
+if [[ -z "${HOMEBREW_PREFIX:-}" ]]; then
+    if [[ -d /opt/homebrew ]]; then
+        export HOMEBREW_PREFIX="/opt/homebrew"
+    else
+        export HOMEBREW_PREFIX="/usr/local"
+    fi
+fi
+PATH="$PATH:$HOMEBREW_PREFIX/bin"
 
 # This file is used to store the current mode under Linux
 CONFIG_FILE="$HOME/.config/darkmode"

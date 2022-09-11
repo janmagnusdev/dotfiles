@@ -112,8 +112,8 @@ export CLICOLOR=1
 if [[ "$(uname -s)" == "Darwin" ]]; then
     # Enable Homebrew bash completion (it is not done automatically via
     # /etc/profile or /etc/bashrc)
-    if [[ -f /usr/local/etc/bash_completion ]]; then
-        . /usr/local/etc/bash_completion
+    if [[ -f $HOMEBREW_PREFIX/etc/bash_completion ]]; then
+        . $HOMEBREW_PREFIX/etc/bash_completion
     fi
 fi
 
@@ -129,7 +129,7 @@ complete -o default -F _pip_completion pip
 # Python start-up and virtualenv wrapper
 export PYTHONSTARTUP=$HOME/.pythonrc
 export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON="$(type -P /usr/local/bin/python3 || type -P /usr/bin/python3)"
+export VIRTUALENVWRAPPER_PYTHON="$HOMEBREW_PREFIX/bin/python3"
 venwrap=$(type -P virtualenvwrapper.sh)
 if [[ $venwrap != '' ]]; then
     . $venwrap
@@ -138,8 +138,8 @@ fi
 # Load autojump if installed
 if [[ -s /usr/share/autojump/autojump.bash ]]; then  # Ubuntu
     . /usr/share/autojump/autojump.bash
-elif [[ -s /usr/local/etc/profile.d/autojump.sh ]]; then  # homebrew
-    . /usr/local/etc/profile.d/autojump.sh
+elif [[ -s $HOMEBREW_PREFIX/etc/profile.d/autojump.sh ]]; then  # homebrew
+    . $HOMEBREW_PREFIX/etc/profile.d/autojump.sh
 fi
 
 # Alias definitions.

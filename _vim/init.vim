@@ -893,12 +893,9 @@ if has('nvim')
     autocmd TermOpen * setlocal nonumber norelativenumber scrolloff=0 sidescrolloff=0
     autocmd BufWinEnter,WinEnter term://* call FixWidth()
 
-    if filereadable('/usr/local/bin/python2')
-        let g:python_host_prog = '/usr/local/bin/python2'
-    else
-        let g:python_host_prog = '/usr/bin/python2'
-    endif
-    if filereadable('/usr/local/bin/python3')
+    if filereadable('/opt/homebrew/bin/python3')
+        let g:python3_host_prog = '/opt/homebrew/bin/python3'
+    elseif filereadable('/usr/local/bin/python3')
         let g:python3_host_prog = '/usr/local/bin/python3'
     else
         let g:python3_host_prog = '/usr/bin/python3'
