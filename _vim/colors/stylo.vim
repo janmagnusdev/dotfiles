@@ -134,6 +134,7 @@ endif
 " Helpers variables for NONE, bold, ...
 let s:none = "NONE"
 let s:bold = "bold"
+let s:italic = "italic"
 let s:reverse = "reverse"
 let s:standout = "standout"
 let s:undercurl = "undercurl"
@@ -215,7 +216,7 @@ call s:Hi("SpellLocal",    s:none,   s:none, s:cyan,       s:undercurl)
 
 " Highlighting
 
-call s:Hi("Comment",          s:base04,  s:none)
+call s:Hi("Comment",          s:base06,    s:none, s:none, s:italic)
 
 call s:Hi("Constant",         s:cyan,    s:none)
 call s:Hi("String",           s:green,   s:none)
@@ -264,7 +265,7 @@ call s:Hi("ClapShadow",             s:none,   s:base02)
 call s:Hi("ClapSpinner",            s:base01, s:blue)
 call s:HiLink("ClapInput",   "Visual")
 call s:Hi("ClapDisplay",            s:base03, s:back)
-call s:Hi("ClapPreview",            s:text, s:back)
+call s:Hi("ClapPreview",            s:text,   s:back)
 call s:HiLink("ClapMatches", "Search")
 call s:Hi("ClapCurrentSelection",   s:orange, s:none, s:none, s:bold)
 call s:Hi("ClapSelected",           s:green,  s:none, s:none, s:bold.",".s:underline)
