@@ -152,10 +152,16 @@ _linux_set() {
     PROFILE=$1
     if [[ "$1" = dark ]]; then
         DM_VAL=1
+        COLOR_SCHEME='BreezeDark'
     else
         DM_VAL=0
+        COLOR_SCHEME='Breeze2'
     fi
     echo $DM_VAL > $HOME/.config/darkmode
+    # Change Plasma color scheme
+    plasma-apply-colorscheme "$COLOR_SCHEME"
+
+    # Change Konsole profile
     # $KONSOLE_DBUS_SERVICE only contains the service for the current window, but we
     # want to update *all* windows:
     for service in $(qdbus | grep org.kde.konsole-); do
