@@ -81,51 +81,7 @@ splitwp () {
 
 # Development
 blackdiff() { black -S - < $1 | git diff --no-index -- $1 -; }
-merge-dev() {
-    git checkout develop
-    git pull --rebase
-    git checkout main
-    git pull
-    git merge --no-ff develop -m "Merge branch 'develop'"
-    git push
-    git checkout develop
-}
 
-# Create a hotfix branch based on "main"
-hotfix-prepare() {
-    branch="$1"
-
-    if [[ ! $branch ]]; then
-        echo "Please provide a branch name"
-        return 1
-    fi
-    if [[ ! -z "$HOTFIX_BRANCH" ]]; then
-        echo "You already have a hotfix branch: $HOTFIX_BRANCH"
-        return 1
-    fi
-    git checkout main
-    git pull                    # Zur Sicherheit
-    git checkout -b "$branch"
-    export HOTFIX_BRANCH="$branch"
-}
-
-# Merge the hotfix branch into "main" and "develop" and delete it
-hotfix-push() {
-    if [[ -z "$HOTFIX_BRANCH" ]]; then
-        echo "You need to start a hotfix branch with "hotfix-prepare NAME" first"
-        return 1
-    fi
-
-    git checkout main
-    git pull
-    git merge --no-ff $HOTFIX_BRANCH -m "Merge branch '$HOTFIX_BRANCH' into main"
-    git push
-
-    git checkout develop
-    git pull
-    git merge --no-ff $HOTFIX_BRANCH -m "Merge branch '$HOTFIX_BRANCH' into develop"
-    git push
-
-    git branch -d $HOTFIX_BRANCH
-    unset HOTFIX_BRANCH
+git-rm-merged() {
+    git branch --merged | egrep -v "(^\*|main)" | xargs git branch -d;
 }
