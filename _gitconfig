@@ -4,10 +4,10 @@ email = stefan@sofa-rockers.org
 
 [core]
 excludesfile = $HOME/.gitignore_global
-pager = delta --light
+pager = delta --features "$(dm get)-mode"
 
 [interactive]
-diffFilter = delta --light --color-only
+diffFilter = delta --features "$(dm get)-mode" --color-only
 
 [delta]
 # features = side-by-side line-numbers decorations
@@ -18,6 +18,14 @@ whitespace-error-style = 22 reverse
 commit-decoration-style = bold purple box ul
 file-style = bold purple ul
 file-decoration-style = none
+
+[delta "light-mode"]
+light = true
+syntax-theme = GitHub
+
+[delta "dark-mode"]
+light = false
+syntax-theme = Visual Studio Dark+
 
 [init]
 defaultBranch = main

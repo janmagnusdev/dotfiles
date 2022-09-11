@@ -107,8 +107,10 @@ _macos_set() {
             set dark mode to $MODE
         end tell
     end tell
+
     "
     # Apple Terminal is currently not needed.
+    #
     # tell application \"Terminal\"
     #     set default settings to settings set \"${THEME[$1]}\"
     # end tell
@@ -116,6 +118,7 @@ _macos_set() {
     # tell application \"Terminal\"
     #     set current settings of tabs of windows to settings set \"${THEME[$1]}\"
     # end tell
+    # "
     osascript -e "$OSASCRIPT"
 
     # iTerm2 has its own Python script that auto detects dm:
@@ -189,11 +192,7 @@ set() {
     # OS specific setter
     _set $mode
 
-    # vim uses a timer to auto-detect dm, nothing to do here.
-
-    # Update "delta" in .gitconfig
-    gitconfig="$HOME/.dotfiles/_gitconfig"
-    sd "delta --(light|dark)" "delta --$mode" $gitconfig
+    # vim uses a timer to auto-detect dark/light mode, nothing to do here.
 }
 
 
