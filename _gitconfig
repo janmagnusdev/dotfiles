@@ -37,6 +37,9 @@ defaultBranch = main
 rebase = false
 
 [push]
+# "simple" is the default, but "current" automatically creates a remote
+# tracking branch when you push new branches for the first time.
+# This is quite convenient.
 default = current
 
 [diff]
@@ -69,12 +72,13 @@ co = checkout
 rs = restore
 st = status
 sw = switch
+tags = tag -l --sort=v:refname
 last = log -1 HEAD
 unstage = reset HEAD --
 rollback = reset HEAD^
 lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold)%s%C(reset)%n''%C(blue)%h%C(reset) - %C(cyan)%an%C(reset) on %C(green)%aD%C(reset) %C(yellow)(%ar)%C(reset)%C(red)%d%C(reset)%n' --all
 lg5 = !"git lg -5"
-# Push, skip CI/CD
+# Push and skip CI/CD
 pushnoci = push -o ci.skip
-# Push develop branch and create a request for mergin into main
+# Push feature branch and create a MR for "main"
 pushmergemain = push -o merge_request.create -o merge_request.target=main
