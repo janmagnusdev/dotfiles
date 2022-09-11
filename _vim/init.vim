@@ -600,6 +600,9 @@ augroup END
 " Plugin settings --------------------------------------------------------- {{{
 " ALE {{{
 
+let g:ale_fixers = {
+\    'python': ['black', 'isort', 'autoflake'],
+\}
 " let g:ale_lint_on_enter = 0  " pylint is too slow on larger files
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 1
