@@ -619,6 +619,8 @@ let g:ale_statusline_format = ['⨯%d', '⚠%d', '✓']
 " Clap {{{
 
 let g:clap_layout = {'relative': 'editor', 'width': '66%', 'height': '40%', 'row': '15%', 'col': '17%'}
+let g:clap_popup_border = 'rounded'
+let g:clap_enable_background_shadow = 1
 let g:clap_preview_direction = 'UD'
 let g:clap_current_selection_sign = {
     \ "text": " ➤",
