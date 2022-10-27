@@ -1,4 +1,5 @@
 # pylint: disable=redefined-builtin,redefined-outer-name
+import re
 import subprocess
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -50,8 +51,8 @@ class Color:
         Returns a pretty and colorful representation of this color.
         """
         return (
-            f"\033[38;2;{self.rgb.r};{self.rgb.g};{self.rgb.b}m"
-            f"("
+            f"\033[1m\033[38;2;{self.rgb.r};{self.rgb.g};{self.rgb.b}m"
+            f"Color("
             f"({self.hsluv.h:3}, {self.hsluv.s:3}, {self.hsluv.l:3}), "
             f"({self.rgb.r:3}, {self.rgb.g:3}, {self.rgb.b:3}), "
             f'"{self.hex}"'
@@ -148,9 +149,9 @@ THEME_NAME = {
 COLORS = {
     "dark": {  # dark, futuristic
         "base00":         Color((230,   7,   9), ( 24,  26,  27), "#181A1B"),
-        "base01":         Color((230,  15,  13), ( 31,  34,  36), "#1F2224"),
-        "base02":         Color((230,  20,  23), ( 49,  56,  60), "#31383C"),
-        "base03":         Color((230,  30,  28), ( 56,  68,  75), "#38444B"),
+        "base01":         Color((230,  15,  15), ( 35,  38,  41), "#232629"),
+        "base02":         Color((230,  20,  24), ( 51,  58,  63), "#333A3F"),
+        "base03":         Color((230,  30,  30), ( 60,  72,  80), "#3C4850"),
         "base04":         Color((230,  35,  40), ( 78,  97, 109), "#4E616D"),
         "base05":         Color((230,  35,  70), (144, 176, 196), "#90B0C4"),
         "base06":         Color((230,  50,  86), (194, 219, 235), "#C2DBEB"),
@@ -190,14 +191,14 @@ COLORS = {
         "blue":           Color((250,  80,  40), ( 47,  96, 153), "#2F6099"),
         "purple":         Color((300,  60,  40), (135,  67, 146), "#874392"),
         "magenta":        Color((  0,  70,  40), (167,  52,  84), "#A73454"),
-        "bright_red":     Color(( 15,  90,  50), (220,  58,  35), "#DC3A23"),
-        "bright_orange":  Color(( 30, 100,  70), (255, 141,  72), "#FF8D48"),
-        "bright_yellow":  Color(( 50, 100,  75), (246, 170,   0), "#F6AA00"),
-        "bright_green":   Color((110, 100,  65), (119, 174,   0), "#77AE00"),
+        "bright_red":     Color(( 15,  70,  50), (205,  76,  64), "#CD4C40"),
+        "bright_orange":  Color(( 30, 100,  65), (247, 123,   0), "#F77B00"),
+        "bright_yellow":  Color(( 50, 100,  70), (228, 157,   0), "#E49D00"),
+        "bright_green":   Color((110,  90,  55), (102, 144,  38), "#669026"),
         "bright_cyan":    Color((200,  90,  55), ( 43, 145, 151), "#2B9197"),
-        "bright_blue":    Color((250, 100,  55), (  0, 135, 230), "#0087E6"),
-        "bright_purple":  Color((300,  70,  55), (196,  85, 213), "#C455D5"),
-        "bright_magenta": Color((  0,  70,  55), (227,  77, 118), "#E34D76"),
+        "bright_blue":    Color((250,  80,  50), ( 61, 121, 191), "#3D79BF"),
+        "bright_purple":  Color((300,  60,  50), (169,  86, 183), "#A956B7"),
+        "bright_magenta": Color((  0,  70,  50), (208,  66, 106), "#D0426A"),
     },
 }
 # fmt: on
@@ -255,11 +256,11 @@ def convert_colors_from(attr: str, colors: Dict[str, Color]) -> None:
 
 def print_colors(colors: Dict[str, Color]) -> None:
     max_len = max(len(name) for name in colors)
-    print("colors = {")
+    print("    colors = {")
     for name, color in colors.items():
         spaces = " " * (max_len - len(name) + 1)
-        print(f'    "{name}":{spaces}{color.pretty_str()},')
-    print("}")
+        print(f'        "{name}":{spaces}{color.pretty_str()},')
+    print("    }")
 
 
 def render_vim_colors() -> None:
@@ -288,8 +289,13 @@ def render_vim_colors() -> None:
     #     attr_str = '.",".'.join(attrs)
     #     context[scope_name] = f"s:{fg}, s:{bg}, s:{sp}, {attr_str}"
 
-    data = render("stylo.vim.j2", context)
-    Path("_vim/colors/stylo.vim").write_text(data)
+    pattern = r'(" Generated color values \{\{\{\n).*\n(" \}\}\} Generated color values\n)'
+    new_data = render("stylo.vim.j2", context)
+
+    stylo_vim = Path("_vim/colors/stylo.vim")
+    data = stylo_vim.read_text()
+    data = re.sub(pattern, rf"\1{new_data}\2", data, flags=re.DOTALL)
+    stylo_vim.write_text(data)
 
 
 def render_iterm_colors() -> None:

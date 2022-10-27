@@ -16,12 +16,13 @@ let colors_name = 'stylo'
 let s:HAS_GUI = has('gui_running') || exists('neovim_dot_app') || has('gui_vimr') || &termguicolors
 let s:VMODE = s:HAS_GUI ? 'gui' : 'cterm'
 
+" Generated color values {{{
 if &background ==? 'dark'
     if s:HAS_GUI
         let s:base00 = "#181A1B"
-        let s:base01 = "#1F2224"
-        let s:base02 = "#31383C"
-        let s:base03 = "#38444B"
+        let s:base01 = "#232629"
+        let s:base02 = "#333A3F"
+        let s:base03 = "#3C4850"
         let s:base04 = "#4E616D"
         let s:base05 = "#90B0C4"
         let s:base06 = "#C2DBEB"
@@ -86,14 +87,14 @@ else
         let s:blue = "#2F6099"
         let s:purple = "#874392"
         let s:magenta = "#A73454"
-        let s:bright_red = "#DC3A23"
-        let s:bright_orange = "#FF8D48"
-        let s:bright_yellow = "#F6AA00"
-        let s:bright_green = "#77AE00"
+        let s:bright_red = "#CD4C40"
+        let s:bright_orange = "#F77B00"
+        let s:bright_yellow = "#E49D00"
+        let s:bright_green = "#669026"
         let s:bright_cyan = "#2B9197"
-        let s:bright_blue = "#0087E6"
-        let s:bright_purple = "#C455D5"
-        let s:bright_magenta = "#E34D76"
+        let s:bright_blue = "#3D79BF"
+        let s:bright_purple = "#A956B7"
+        let s:bright_magenta = "#D0426A"
     else
         let s:base00 = "255"
         let s:base01 = "0"
@@ -112,13 +113,13 @@ else
         let s:purple = "5"
         let s:magenta = "96"
         let s:bright_red = "9"
-        let s:bright_orange = "209"
+        let s:bright_orange = "208"
         let s:bright_yellow = "11"
         let s:bright_green = "10"
         let s:bright_cyan = "14"
         let s:bright_blue = "12"
         let s:bright_purple = "13"
-        let s:bright_magenta = "168"
+        let s:bright_magenta = "132"
     endif
 endif
 
@@ -130,6 +131,25 @@ else
     let s:back = "NONE"
     let s:text = "NONE"
 endif
+
+" Set neovim embedded terminal colors
+call s:Hi("TermColor0", s:base01, s:none)
+call s:Hi("TermColor1", s:red, s:none)
+call s:Hi("TermColor2", s:green, s:none)
+call s:Hi("TermColor3", s:yellow, s:none)
+call s:Hi("TermColor4", s:blue, s:none)
+call s:Hi("TermColor5", s:purple, s:none)
+call s:Hi("TermColor6", s:cyan, s:none)
+call s:Hi("TermColor7", s:base06, s:none)
+call s:Hi("TermColor8", s:base02, s:none)
+call s:Hi("TermColor9", s:bright_red, s:none)
+call s:Hi("TermColor10", s:bright_green, s:none)
+call s:Hi("TermColor11", s:bright_yellow, s:none)
+call s:Hi("TermColor12", s:bright_blue, s:none)
+call s:Hi("TermColor13", s:bright_purple, s:none)
+call s:Hi("TermColor14", s:bright_cyan, s:none)
+call s:Hi("TermColor15", s:base07, s:none)
+" }}} Generated color values
 
 " Helpers variables for NONE, bold, ...
 let s:none = "NONE"
@@ -328,21 +348,3 @@ if exists('g:loaded_lightline')
     call lightline#colorscheme()
     call lightline#update()
 endif
-
-" Set neovim embedded terminal colors
-call s:Hi("TermColor0", s:base01, s:none)
-call s:Hi("TermColor1", s:red, s:none)
-call s:Hi("TermColor2", s:green, s:none)
-call s:Hi("TermColor3", s:yellow, s:none)
-call s:Hi("TermColor4", s:blue, s:none)
-call s:Hi("TermColor5", s:purple, s:none)
-call s:Hi("TermColor6", s:cyan, s:none)
-call s:Hi("TermColor7", s:base06, s:none)
-call s:Hi("TermColor8", s:base02, s:none)
-call s:Hi("TermColor9", s:bright_red, s:none)
-call s:Hi("TermColor10", s:bright_green, s:none)
-call s:Hi("TermColor11", s:bright_yellow, s:none)
-call s:Hi("TermColor12", s:bright_blue, s:none)
-call s:Hi("TermColor13", s:bright_purple, s:none)
-call s:Hi("TermColor14", s:bright_cyan, s:none)
-call s:Hi("TermColor15", s:base07, s:none)
