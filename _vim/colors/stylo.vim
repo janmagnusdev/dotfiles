@@ -16,6 +16,33 @@ let colors_name = 'stylo'
 let s:HAS_GUI = has('gui_running') || exists('neovim_dot_app') || has('gui_vimr') || &termguicolors
 let s:VMODE = s:HAS_GUI ? 'gui' : 'cterm'
 
+" Helpers variables for NONE, bold, ...
+let s:none = "NONE"
+let s:bold = "bold"
+let s:italic = "italic"
+let s:reverse = "reverse"
+let s:standout = "standout"
+let s:undercurl = "undercurl"
+let s:underline = "underline"
+
+function! s:Hi(group, fg, bg, ...)
+    " Execute ``hi <group> <VMODE>fg=<fg> <VMODE>bg=<bg> <VMODE>sp=<sp>
+    "           <VMODE>=<fmt>``
+    let sp  = a:0 >= 1 ? a:1 : s:none
+    let fmt = a:0 >= 2 ? a:2 : s:none
+
+    let fg = s:VMODE . "fg=" . a:fg
+    let bg = s:VMODE . "bg=" . a:bg
+    let sp = s:HAS_GUI ? s:VMODE . "sp=" . sp : ""
+    let fmt = s:VMODE . "=" . fmt
+    execute "hi" a:group fg bg sp fmt
+endfunction
+
+function! s:HiLink(group, target)
+    "Execute ``hi link <group> <target>``
+    execute "hi link" a:group a:target
+endfunction
+
 " Generated color values {{{
 if &background ==? 'dark'
     if s:HAS_GUI
@@ -150,33 +177,6 @@ call s:Hi("TermColor13", s:bright_purple, s:none)
 call s:Hi("TermColor14", s:bright_cyan, s:none)
 call s:Hi("TermColor15", s:base07, s:none)
 " }}} Generated color values
-
-" Helpers variables for NONE, bold, ...
-let s:none = "NONE"
-let s:bold = "bold"
-let s:italic = "italic"
-let s:reverse = "reverse"
-let s:standout = "standout"
-let s:undercurl = "undercurl"
-let s:underline = "underline"
-
-function! s:Hi(group, fg, bg, ...)
-    " Execute ``hi <group> <VMODE>fg=<fg> <VMODE>bg=<bg> <VMODE>sp=<sp>
-    "           <VMODE>=<fmt>``
-    let sp  = a:0 >= 1 ? a:1 : s:none
-    let fmt = a:0 >= 2 ? a:2 : s:none
-
-    let fg = s:VMODE . "fg=" . a:fg
-    let bg = s:VMODE . "bg=" . a:bg
-    let sp = s:HAS_GUI ? s:VMODE . "sp=" . sp : ""
-    let fmt = s:VMODE . "=" . fmt
-    execute "hi" a:group fg bg sp fmt
-endfunction
-
-function! s:HiLink(group, target)
-    "Execute ``hi link <group> <target>``
-    execute "hi link" a:group a:target
-endfunction
 
 " General interface
 
