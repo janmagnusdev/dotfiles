@@ -895,6 +895,8 @@ if has('nvim')
     tnoremap <ESC> <C-\><C-n>
     " Map C-n C-n to escape for console apps that use this key
     tnoremap <C-n><C-n> <ESC>
+    " Map Shift+Space to Space as I hit this combo by accident a lot ...
+    tnoremap <S-Space> <Space>
     " Make navigation into and out of Neovim terminal splits nicer.
     " tnoremap <C-h> <C-\><C-N><C-w>h
     " tnoremap <C-j> <C-\><C-N><C-w>j
@@ -903,7 +905,7 @@ if has('nvim')
 
     " With line numbers, long lines are truncated when switching from Normal
     " Mode to Insert Mode.
-    autocmd TermOpen * setlocal nonumber norelativenumber scrolloff=0 sidescrolloff=0
+    autocmd TermOpen * setlocal nonumber norelativenumber nocursorcolumn scrolloff=0 sidescrolloff=0
     autocmd BufWinEnter,WinEnter term://* call FixWidth()
 
     if filereadable('/opt/homebrew/bin/python3')
