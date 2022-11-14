@@ -595,6 +595,14 @@ augroup ft_xc
 augroup END
 
 " }}}
+" YAML {{{
+
+augroup ft_yaml
+    autocmd!
+    autocmd BufEnter *.yaml.j2 set ft=yaml
+augroup END
+
+" }}}
 
 " }}}
 " Plugin settings --------------------------------------------------------- {{{
