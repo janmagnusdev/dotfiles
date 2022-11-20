@@ -202,6 +202,7 @@ call s:Hi("TabLineSel",    s:base01, s:blue)
 call s:Hi("Visual",        s:base07, s:base02)
 call s:Hi("Folded",        s:orange, s:base01)
 
+call s:Hi("FloatBorder",   s:base05, s:base01)
 call s:Hi("Pmenu",         s:base05, s:base01)
 call s:Hi("PmenuSbar",     s:base05, s:base02)
 call s:Hi("PmenuThumb",    s:base05, s:base05)
