@@ -1,9 +1,8 @@
-# pylint: disable=redefined-builtin,redefined-outer-name
 import math
 import re
 import subprocess
 from pathlib import Path
-from typing import Any, NamedTuple, Tuple, NewType
+from typing import Any, NamedTuple, Tuple
 
 import attr
 import click
@@ -13,6 +12,106 @@ import jinja2
 
 
 coloraide.Color.register(coloraide.spaces.okhsl.Okhsl())
+
+
+Colors = tuple[tuple[int ,int, int], tuple[int, int, int], str]
+
+
+TEMPLATE_DIR = Path(__file__).parent.joinpath("templates")
+THEME_NAME = {
+    "dark": "Stylo Dark",
+    "light": "Stylo Light",
+}
+
+# fmt: off
+#       Color             Okhsl             HSL              HEX
+COLORS: dict[str, dict[str, Colors]] = {
+    "dark": {  # dark, futuristic
+        "base00":         ((229,   4,  11), (200,   6,  10), "#181A1B"),
+        "base01":         ((248,   7,  16), (210,   8,  15), "#232629"),
+        "base02":         ((239,  10,  25), (205,  11,  22), "#333A3F"),
+        "base03":         ((237,  15,  30), (204,  14,  27), "#3C4850"),
+        "base04":         ((236,  19,  40), (203,  17,  37), "#4E616D"),
+        "base05":         ((236,  28,  70), (203,  31,  67), "#90B0C4"),
+        "base06":         ((236,  41,  86), (203,  51,  84), "#C2DBEB"),
+        "base07":         ((242,  36,  93), (207,  45,  92), "#E2ECF4"),
+        "red":            (( 31,  65,  66), (  9,  64,  67), "#E18575"),
+        "orange":         (( 61,  68,  66), ( 28,  62,  57), "#D68E4E"),
+        "yellow":         (( 89,  74,  65), ( 44,  51,  48), "#BB9A3C"),
+        "green":          ((159,  46,  64), (146,  25,  55), "#70AA89"),
+        "cyan":           ((202,  54,  64), (184,  35,  52), "#5BAAB0"),
+        "blue":           ((252,  52,  65), (212,  53,  64), "#74A1D4"),
+        "purple":         ((276,  45,  65), (230,  40,  69), "#919BD0"),
+        "magenta":        ((350,  49,  65), (331,  43,  66), "#CD82A6"),
+        "bright_red":     (( 38,  95,  62), ( 15,  93,  57), "#F75F2C"),
+        "bright_orange":  (( 62, 100,  76), ( 30, 100,  65), "#FFA44A"),
+        "bright_yellow":  (( 92, 100,  75), ( 49, 100,  44), "#DEB400"),
+        "bright_green":   ((158, 100,  58), (158, 100,  33), "#00A668"),
+        "bright_cyan":    ((201, 100,  58), (183, 100,  33), "#00A0A8"),
+        "bright_blue":    ((246,  85,  60), (206,  74,  55), "#3596E1"),
+        "bright_purple":  ((271,  87,  61), (228,  86,  70), "#6F8AF4"),
+        "bright_magenta": ((350,  74,  63), (328,  70,  64), "#E363A7"),
+    },
+
+    "light": {  # light, warm
+        "base00":         (( 66,  52,  97), (251, 246, 237), "#FBF6ED"),
+        "base01":         (( 68,  14,  92), (236, 232, 224), "#ECE8E0"),
+        "base02":         ((  0,   0,  85), (212, 212, 212), "#D4D4D4"),
+        "base03":         ((  0,   0,  77), (190, 190, 190), "#BEBEBE"),
+        "base04":         ((  0,   0,  60), (145, 145, 145), "#919191"),
+        "base05":         ((  0,   0,  40), ( 94,  94,  94), "#5E5E5E"),
+        "base06":         ((  0,   0,  25), ( 59,  59,  59), "#3B3B3B"),
+        "base07":         ((  0,   0,   9), ( 25,  25,  25), "#191919"),
+        "red":            (( 15,  70,  40), (164,  59,  49), "#A43B31"),
+        "orange":         (( 30, 100,  50), (188,  92,   0), "#BC5C00"),
+        "yellow":         (( 50, 100,  65), (211, 145,   0), "#D39100"),
+        "green":          ((110,  90,  45), ( 82, 117,  29), "#52751D"),
+        "cyan":           ((200,  90,  50), ( 38, 131, 137), "#268389"),
+        "blue":           ((250,  80,  40), ( 47,  96, 153), "#2F6099"),
+        "purple":         ((300,  60,  40), (135,  67, 146), "#874392"),
+        "magenta":        ((  0,  70,  40), (167,  52,  84), "#A73454"),
+        "bright_red":     (( 15,  70,  50), (205,  76,  64), "#CD4C40"),
+        "bright_orange":  (( 30, 100,  65), (247, 123,   0), "#F77B00"),
+        "bright_yellow":  (( 50, 100,  70), (228, 157,   0), "#E49D00"),
+        "bright_green":   ((110,  90,  55), (102, 144,  38), "#669026"),
+        "bright_cyan":    ((200,  90,  55), ( 43, 145, 151), "#2B9197"),
+        "bright_blue":    ((250,  80,  50), ( 61, 121, 191), "#3D79BF"),
+        "bright_purple":  ((300,  60,  50), (169,  86, 183), "#A956B7"),
+        "bright_magenta": ((  0,  70,  50), (208,  66, 106), "#D0426A"),
+    },
+}
+# fmt: on
+
+ITERM_COLORS = {
+    "link_color": "#005BBB",
+    "badge_color": "#FF2600",
+    "cursor_guide_color": "#B3ECFF",
+}
+
+BACKGROUND = "base00"
+TEXT = "base05"
+CURSOR = "base05"
+CURSOR_TEXT = "base00"
+TERM_COLORS = [
+    # 30-37
+    "base01",
+    "red",
+    "green",
+    "yellow",
+    "blue",
+    "purple",
+    "cyan",
+    "base06",
+    # 90-97
+    "base02",
+    "bright_red",
+    "bright_green",
+    "bright_yellow",
+    "bright_blue",
+    "bright_purple",
+    "bright_cyan",
+    "base07",
+]
 
 
 class Okhsl(NamedTuple):
@@ -31,9 +130,6 @@ class RGB(NamedTuple):
     r: int  # 0-255
     g: int  # 0-255
     b: int  # 0-255
-
-
-Colors = tuple[tuple[int ,int, int], tuple[int, int, int], str]
 
 
 @attr.frozen
@@ -147,118 +243,6 @@ class Color:
         return candidates[0][1]
 
 
-@attr.frozen
-class Style:
-    fg: str | None = None
-    bg: str | None = None
-    sp: str | None = None  # special (e.g.: underline, undercurl)
-    bold: bool = False
-    italic: bool = False
-    underline: bool = False
-    undercurl: bool = False
-    inverse: bool = False
-
-
-TEMPLATE_DIR = Path(__file__).parent.joinpath("templates")
-THEME_NAME = {
-    "dark": "Stylo Dark",
-    "light": "Stylo Light",
-}
-
-# fmt: off
-#       Color             Okhsl             HSL              HEX
-COLORS: dict[str, dict[str, Colors]] = {
-    "dark": {  # dark, futuristic
-        "base00":         ((229,   4,  11), (200,   6,  10), "#181A1B"),
-        "base01":         ((248,   7,  16), (210,   8,  15), "#232629"),
-        "base02":         ((239,  10,  25), (205,  11,  22), "#333A3F"),
-        "base03":         ((237,  15,  30), (204,  14,  27), "#3C4850"),
-        "base04":         ((236,  19,  40), (203,  17,  37), "#4E616D"),
-        "base05":         ((236,  28,  70), (203,  31,  67), "#90B0C4"),
-        "base06":         ((236,  41,  86), (203,  51,  84), "#C2DBEB"),
-        "base07":         ((242,  36,  93), (207,  45,  92), "#E2ECF4"),
-        "red":            (( 31,  65,  66), (  9,  64,  67), "#E18575"),
-        "orange":         (( 61,  68,  66), ( 28,  62,  57), "#D68E4E"),
-        "yellow":         (( 89,  74,  65), ( 44,  51,  48), "#BB9A3C"),
-        "green":          ((159,  46,  64), (146,  25,  55), "#70AA89"),
-        "cyan":           ((202,  54,  64), (184,  35,  52), "#5BAAB0"),
-        "blue":           ((252,  52,  65), (212,  53,  64), "#74A1D4"),
-        "purple":         ((276,  45,  65), (230,  40,  69), "#919BD0"),
-        "magenta":        ((350,  49,  65), (331,  43,  66), "#CD82A6"),
-        "bright_red":     (( 38,  95,  62), ( 15,  93,  57), "#F75F2C"),
-        "bright_orange":  (( 62, 100,  76), ( 30, 100,  65), "#FFA44A"),
-        "bright_yellow":  (( 92, 100,  75), ( 49, 100,  44), "#DEB400"),
-        "bright_green":   ((158, 100,  58), (158, 100,  33), "#00A668"),
-        "bright_cyan":    ((201, 100,  58), (183, 100,  33), "#00A0A8"),
-        "bright_blue":    ((246,  85,  60), (206,  74,  55), "#3596E1"),
-        "bright_purple":  ((271,  87,  61), (228,  86,  70), "#6F8AF4"),
-        "bright_magenta": ((350,  74,  63), (328,  70,  64), "#E363A7"),
-    },
-
-    "light": {  # light, warm
-        "base00":         (( 66,  52,  97), (251, 246, 237), "#FBF6ED"),
-        "base01":         (( 68,  14,  92), (236, 232, 224), "#ECE8E0"),
-        "base02":         ((  0,   0,  85), (212, 212, 212), "#D4D4D4"),
-        "base03":         ((  0,   0,  77), (190, 190, 190), "#BEBEBE"),
-        "base04":         ((  0,   0,  60), (145, 145, 145), "#919191"),
-        "base05":         ((  0,   0,  40), ( 94,  94,  94), "#5E5E5E"),
-        "base06":         ((  0,   0,  25), ( 59,  59,  59), "#3B3B3B"),
-        "base07":         ((  0,   0,   9), ( 25,  25,  25), "#191919"),
-        "red":            (( 15,  70,  40), (164,  59,  49), "#A43B31"),
-        "orange":         (( 30, 100,  50), (188,  92,   0), "#BC5C00"),
-        "yellow":         (( 50, 100,  65), (211, 145,   0), "#D39100"),
-        "green":          ((110,  90,  45), ( 82, 117,  29), "#52751D"),
-        "cyan":           ((200,  90,  50), ( 38, 131, 137), "#268389"),
-        "blue":           ((250,  80,  40), ( 47,  96, 153), "#2F6099"),
-        "purple":         ((300,  60,  40), (135,  67, 146), "#874392"),
-        "magenta":        ((  0,  70,  40), (167,  52,  84), "#A73454"),
-        "bright_red":     (( 15,  70,  50), (205,  76,  64), "#CD4C40"),
-        "bright_orange":  (( 30, 100,  65), (247, 123,   0), "#F77B00"),
-        "bright_yellow":  (( 50, 100,  70), (228, 157,   0), "#E49D00"),
-        "bright_green":   ((110,  90,  55), (102, 144,  38), "#669026"),
-        "bright_cyan":    ((200,  90,  55), ( 43, 145, 151), "#2B9197"),
-        "bright_blue":    ((250,  80,  50), ( 61, 121, 191), "#3D79BF"),
-        "bright_purple":  ((300,  60,  50), (169,  86, 183), "#A956B7"),
-        "bright_magenta": ((  0,  70,  50), (208,  66, 106), "#D0426A"),
-    },
-}
-# fmt: on
-
-ITERM_LINK_COLOR = Color(coloraide.Color("#005BBB"))
-ITERM_BADGE_COLOR = Color(coloraide.Color("#FF2600"))
-ITERM_CURSOR_GUIDE_COLOR = Color(coloraide.Color("#B3ECFF"))
-
-BACKGROUND = "base00"
-TEXT = "base05"
-CURSOR = "base05"
-CURSOR_TEXT = "base00"
-# SCOPES = {
-#     "cursor_line": Style(bg="base01"),
-#     "cursor_line_nr": Style(bg="base01", fg="red"),
-#     "line_nr": Style(fg="base03"),
-# }
-TERM_COLORS = [
-    # 30-37
-    "base01",
-    "red",
-    "green",
-    "yellow",
-    "blue",
-    "purple",
-    "cyan",
-    "base06",
-    # 90-97
-    "base02",
-    "bright_red",
-    "bright_green",
-    "bright_yellow",
-    "bright_blue",
-    "bright_purple",
-    "bright_cyan",
-    "base07",
-]
-
-
 def render(template_file: str, context: dict[str, Any]) -> str:
     env = jinja2.Environment(trim_blocks=True, lstrip_blocks=True, keep_trailing_newline=True)
     template = TEMPLATE_DIR.joinpath(template_file).read_text()
@@ -294,15 +278,6 @@ def render_vim_colors(all_colors: dict[str, dict[str, Color]]) -> None:
         context[f"cterm_colors_{mode}"] = {
             n: c.to_xterm256(term_colors) for n, c in colors.items()
         }
-    # # Scope styles
-    # for scope_name, style in SCOPES.items():
-    #     fg = style.fg or "none"
-    #     bg = style.bg or "none"
-    #     sp = style.sp or "none"
-    #     attrs = ["bold", "inverse", "underline", "undercurl"]
-    #     attrs = [f"s:{a}" for a in attrs if getattr(style, a)]
-    #     attr_str = '.",".'.join(attrs)
-    #     context[scope_name] = f"s:{fg}, s:{bg}, s:{sp}, {attr_str}"
 
     pattern = (
         r'(" Generated color values \{\{\{\n).*\n(" \}\}\} Generated color values\n)'
@@ -316,6 +291,9 @@ def render_vim_colors(all_colors: dict[str, dict[str, Color]]) -> None:
 
 
 def render_iterm_colors(all_colors: dict[str, dict[str, Color]]) -> None:
+    iterm = {
+        key: Color(coloraide.Color(val)) for key, val in ITERM_COLORS.items()
+    }
     for mode, colors in all_colors.items():
         color_list = [
             (f"Ansi {i} Color", colors[name], 1.0) for i, name in enumerate(TERM_COLORS)
@@ -325,11 +303,11 @@ def render_iterm_colors(all_colors: dict[str, dict[str, Color]]) -> None:
         color_list.append(("Bold Color", colors[TEXT], 1.0))
         color_list.append(("Cursor Color", colors[CURSOR], 1.0))
         color_list.append(("Cursor Text Color", colors[CURSOR_TEXT], 1.0))
-        color_list.append(("Cursor Guide Color", ITERM_CURSOR_GUIDE_COLOR, 0.25))
+        color_list.append(("Cursor Guide Color", iterm["cursor_guide_color"], 0.25))
         color_list.append(("Selection Color", colors["base02"], 1.0))
         color_list.append(("Selected Text Color", colors["base07"], 1.0))
-        color_list.append(("Link Color", ITERM_LINK_COLOR, 1.0))
-        color_list.append(("Badge Color", ITERM_BADGE_COLOR, 0.5))
+        color_list.append(("Link Color", iterm["link_color"], 1.0))
+        color_list.append(("Badge Color", iterm["badge_color"], 0.5))
 
         context = {"colors": sorted(color_list)}
         data = render("Stylo.itermcolors.j2", context)
