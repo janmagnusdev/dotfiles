@@ -112,23 +112,6 @@ export LS_COLORS="di=1;34:ln=1;36:so=1;35:pi=1;33:ex=1;32:bd=1;37:cd=1;37:su=30;
 # OS X color terminal
 export CLICOLOR=1
 
-if [[ "$(uname -s)" == "Darwin" ]]; then
-    # Enable Homebrew bash completion (it is not done automatically via
-    # /etc/profile or /etc/bashrc)
-    if [[ -f $HOMEBREW_PREFIX/etc/bash_completion ]]; then
-        . $HOMEBREW_PREFIX/etc/bash_completion
-    fi
-fi
-
-# pip configuration and bash completion
-_pip_completion()
-{
-    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
-                   COMP_CWORD=$COMP_CWORD \
-                   PIP_AUTO_COMPLETE=1 $1 ) )
-}
-complete -o default -F _pip_completion pip
-
 # Python start-up and virtualenv wrapper
 export PYTHONSTARTUP=$HOME/.pythonrc
 export WORKON_HOME=$HOME/.virtualenvs
@@ -154,3 +137,17 @@ fi
 if [[ -d ~/.private ]]; then
     . ~/.private/bash_aliases.sh
 fi
+
+# Source bash-completion
+# Should be at the end to take updated XDG_DATA_DIRS into account.
+OS_NAME="$(uname -s)"
+if [[ $OS_NAME == "Darwin" ]]; then
+    if [[ -f $HOMEBREW_PREFIX/etc/bash_completion ]]; then
+        . $HOMEBREW_PREFIX/etc/bash_completion
+    fi
+
+elif [[ $OS_NAME == 'Linux' ]]; then
+    . /usr/share/bash-completion/bash_completion
+fi
+
+source <(op completion bash)
