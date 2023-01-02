@@ -138,6 +138,16 @@ TERM_COLORS = [
     "bright_cyan",
     "base07",
 ]
+TERM_COLORS_EXTRA = [
+    "base01",
+    "dim_red",
+    "dim_green",
+    "dim_yellow",
+    "dim_blue",
+    "dim_purple",
+    "dim_cyan",
+    "base06",
+]
 
 
 class Okhsl(NamedTuple):
@@ -352,7 +362,7 @@ def render_konsole_scheme(all_colors: dict[str, dict[str, Colors]]) -> None:
         for i, cname in enumerate(TERM_COLORS[:8]):
             cmap[f"Color{i}"] = colors[cname]
             cmap[f"Color{i}Intense"] = colors[TERM_COLORS[i + 8]]
-            cmap[f"Color{i}Faint"] = colors[cname]
+            cmap[f"Color{i}Faint"] = colors[TERM_COLORS_EXTRA[i]]
 
         context = {
             "name": THEME_NAME[mode],

@@ -8,5 +8,5 @@ Wallpaper=
 {% for name, color in colors.items() %}
 
 [{{ name }}]
-Color={{ color.rgb.tuple|join(",") }}
+Color={{ color.rgb|join(",") }}
 {% endfor %}

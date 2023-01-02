@@ -7,91 +7,91 @@ Opacity=1
 Wallpaper=
 
 [Background]
-Color=
+Color=24,25,26
 
 [BackgroundIntense]
-Color=
+Color=24,25,26
 
 [BackgroundFaint]
-Color=
+Color=24,25,26
 
 [Foreground]
-Color=
+Color=150,174,199
 
 [ForegroundIntense]
-Color=
+Color=150,174,199
 
 [ForegroundFaint]
-Color=
+Color=150,174,199
 
 [Color0]
-Color=
+Color=34,37,40
 
 [Color0Intense]
-Color=
+Color=53,59,65
 
 [Color0Faint]
-Color=
+Color=34,37,40
 
 [Color1]
-Color=
+Color=205,123,130
 
 [Color1Intense]
-Color=
+Color=243,74,103
 
 [Color1Faint]
-Color=
+Color=128,20,44
 
 [Color2]
-Color=
+Color=104,176,138
 
 [Color2Intense]
-Color=
+Color=45,169,116
 
 [Color2Faint]
-Color=
+Color=10,86,56
 
 [Color3]
-Color=
+Color=178,157,90
 
 [Color3Intense]
-Color=
+Color=205,167,18
 
 [Color3Faint]
-Color=
+Color=96,77,5
 
 [Color4]
-Color=
+Color=112,163,214
 
 [Color4Intense]
-Color=
+Color=51,149,237
 
 [Color4Faint]
-Color=
+Color=5,76,133
 
 [Color5]
-Color=
+Color=161,145,217
 
 [Color5Intense]
-Color=
+Color=147,105,242
 
 [Color5Faint]
-Color=
+Color=75,40,140
 
 [Color6]
-Color=
+Color=92,173,178
 
 [Color6Intense]
-Color=
+Color=29,170,177
 
 [Color6Faint]
-Color=
+Color=4,88,92
 
 [Color7]
-Color=
+Color=200,218,236
 
 [Color7Intense]
-Color=
+Color=228,236,245
 
 [Color7Faint]
-Color=
+Color=200,218,236
