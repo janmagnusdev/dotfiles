@@ -17,18 +17,21 @@ __YELLOW="[00;33m"
 __BLUE="[00;34m"
 __PURPLE="[00;35m"
 __CYAN="[00;36m"
-__MAGENTA="[00;95m"
+__BRIGHT_GREEN="[00;92m"
+__BRIGHT_BLUE="[00;94m"
+__BRIGHT_PURPLE="[00;95m"
+__BRIGHT_CYAN="[00;96m"
 __BOLD_RED="[01;31m"
-__BOLD_GREEN="[01;32m"
-__BOLD_BLUE="[01;34m"
-__BOLD_CYAN="[01;36m"
+__BOLD_BRIGHT_GREEN="[01;92m"
+__BOLD_BRIGHT_BLUE="[01;34m"
+__BOLD_BRIGHT_CYAN="[01;36m"
 
-__USER_COLOR=$__BOLD_GREEN
+__USER_COLOR=$__BOLD_BRIGHT_GREEN
 
 if [[ -n "${SSH_CLIENT-}${SSH2_CLIENT-}${SSH_TTY-}" ]]; then
-    __HOST_COLOR=$__BOLD_CYAN
+    __HOST_COLOR=$__BOLD_BRIGHT_CYAN
 else
-    __HOST_COLOR=$__BOLD_GREEN
+    __HOST_COLOR=$__BOLD_BRIGHT_GREEN
 fi
 
 function _prompt_lastcommandfailed {
@@ -80,14 +83,14 @@ PS1+='\e${__USER_COLOR}\u'      # user
 PS1+='\e${__RESET_COLOR}@'      # @
 PS1+='\e${__HOST_COLOR}\h'      # host
 PS1+='\e${__RESET_COLOR}:'      # :
-PS1+='\e${__BOLD_BLUE}\w'       # cwd
+PS1+='\e${__BOLD_BRIGHT_BLUE}\w'       # cwd
 PS1+='\e${__RESET_COLOR}'
 PS1+='${VC_STATUS}'             # repo stats
 PS1+='${VENV}'                  # venv
 PS1+='${LAST_CMD_FAILED}'       # exit code
 # PS1+='\e${__RESET_COLOR}\n$ '   # \n❯
-PS1+='\[\e${__RESET_COLOR}\]\n\[\e${__BLUE}\]❯\[\e${__CYAN}\]❯\[\e${__GREEN}\]❯\[\e${__RESET_COLOR}\] '
-PS2='\[\e${__PURPLE}\].\[\e${__MAGENTA}\].\[\e${__RED}\].\[\e${__RESET_COLOR}\] '
+PS1+='\[\e${__RESET_COLOR}\]\n\[\e${__BRIGHT_BLUE}\]❯\[\e${__BRIGHT_CYAN}\]❯\[\e${__BRIGHT_GREEN}\]❯\[\e${__RESET_COLOR}\] '
+PS2='\[\e${__BLUE}\].\[\e${__CYAN}\].\[\e${__GREEN}\].\[\e${__RESET_COLOR}\] '
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"

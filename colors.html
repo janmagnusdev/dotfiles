@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stylo</title>
+  <!-- <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/main.css"> -->
+  <style type="text/css">
+
+:root {
+  --background-color: hsl( 38,  64%,  96%);
+  --text-color:       hsl(224,   0%,  37%);
+  --red:              hsl(  6,  54%,  42%);
+  --orange:           hsl( 30, 100%,  36%);
+  --yellow:           hsl( 41, 100%,  42%);
+  --green:            hsl( 84,  60%,  29%);
+  --cyan:             hsl(183,  57%,  34%);
+  --blue:             hsl(212,  53%,  39%);
+  --purple:           hsl(292,  37%,  42%);
+  --magenta:          hsl(344,  53%,  42%);
+  --bright-red:       hsl(  6,  54%,  50%);
+  --bright-orange:    hsl( 27,  76%,  48%);
+  --bright-yellow:    hsl( 41, 100%,  44%);
+  --bright-green:     hsl( 83,  62%,  36%);
+  --bright-cyan:      hsl(183,  64%,  37%);
+  --bright-blue:      hsl(212,  53%,  49%);
+  --bright-purple:    hsl(292,  41%,  50%);
+  --bright-magenta:   hsl(345,  49%,  51%);
+  --dim-red:          hsl(  9,  51%,  85%);
+  --dim-orange:       hsl( 23,  55%,  83%);
+  --dim-yellow:       hsl( 35,  54%,  80%);
+  --dim-green:        hsl( 90,  40%,  78%);
+  --dim-cyan:         hsl(184,  48%,  78%);
+  --dim-blue:         hsl(213,  53%,  85%);
+  --dim-purple:       hsl(292,  35%,  85%);
+  --dim-magenta:      hsl(351,  49%,  86%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: hsl(211,   5%,  10%);
+    --text-color:       hsl(211,  31%,  69%);
+    --red:              hsl(355,  45%,  64%);
+    --orange:           hsl( 21,  45%,  61%);
+    --yellow:           hsl( 45,  37%,  52%);
+    --green:            hsl(149,  31%,  55%);
+    --cyan:             hsl(183,  36%,  53%);
+    --blue:             hsl(210,  56%,  64%);
+    --purple:           hsl(254,  48%,  71%);
+    --magenta:          hsl(289,  40%,  66%);
+    --bright-red:       hsl(350,  88%,  62%);
+    --bright-orange:    hsl( 24,  85%,  55%);
+    --bright-yellow:    hsl( 48,  84%,  44%);
+    --bright-green:     hsl(154,  58%,  42%);
+    --bright-cyan:      hsl(183,  71%,  40%);
+    --bright-blue:      hsl(209,  84%,  57%);
+    --bright-purple:    hsl(258,  85%,  68%);
+    --bright-magenta:   hsl(289,  56%,  58%);
+    --dim-red:          hsl(346,  73%,  29%);
+    --dim-orange:       hsl( 26,  89%,  25%);
+    --dim-yellow:       hsl( 48,  91%,  20%);
+    --dim-green:        hsl(156,  79%,  19%);
+    --dim-cyan:         hsl(183,  91%,  19%);
+    --dim-blue:         hsl(206,  93%,  27%);
+    --dim-purple:       hsl(261,  56%,  35%);
+    --dim-magenta:      hsl(289,  57%,  27%);
+  }
+}
+
+body {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: "SF Mono";
+  font-size: 16px;
+  margin: 2em auto;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.text p { margin: .5em 0em; }
+.box { margin-top: 2em; }
+.box .row { margin-top: 1em; }
+.box .row div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+}
+.examples {
+  font-size: 12px;
+  margin-top: 2em;
+}
+.examples .row {
+  align-items: flex-start;
+}
+
+.text .normal .none { color: var(--text-color); }
+.text .normal .red { color: var(--red); }
+.text .normal .orange { color: var(--orange); }
+.text .normal .yellow { color: var(--yellow); }
+.text .normal .green { color: var(--green); }
+.text .normal .cyan { color: var(--cyan); }
+.text .normal .blue { color: var(--blue); }
+.text .normal .purple { color: var(--purple); }
+.text .normal .magenta { color: var(--magenta); }
+
+.box .normal div p { color: var(--background-color); }
+.box .normal .none { background: var(--background-color); }
+.box .normal .red { background: var(--red); color: var(--red); }
+.box .normal .orange { background: var(--orange); }
+.box .normal .yellow { background: var(--yellow); }
+.box .normal .green { background: var(--green); }
+.box .normal .cyan { background: var(--cyan); }
+.box .normal .blue { background: var(--blue); }
+.box .normal .purple { background: var(--purple); }
+.box .normal .magenta { background: var(--magenta); }
+
+.text .bright .none { color: var(--bright-text-color); }
+.text .bright .red { color: var(--bright-red); }
+.text .bright .orange { color: var(--bright-orange); }
+.text .bright .yellow { color: var(--bright-yellow); }
+.text .bright .green { color: var(--bright-green); }
+.text .bright .cyan { color: var(--bright-cyan); }
+.text .bright .blue { color: var(--bright-blue); }
+.text .bright .purple { color: var(--bright-purple); }
+.text .bright .magenta { color: var(--bright-magenta); }
+
+.box .bright div p { color: var(--background-color); }
+.box .bright .none { background: var(--bright-background-color); }
+.box .bright .red { background: var(--bright-red); color: var(--bright-red); }
+.box .bright .orange { background: var(--bright-orange); }
+.box .bright .yellow { background: var(--bright-yellow); }
+.box .bright .green { background: var(--bright-green); }
+.box .bright .cyan { background: var(--bright-cyan); }
+.box .bright .blue { background: var(--bright-blue); }
+.box .bright .purple { background: var(--bright-purple); }
+.box .bright .magenta { background: var(--bright-magenta); }
+
+.text .dim .none { color: var(--dim-color-color); }
+.text .dim .red { color: var(--dim-red); }
+.text .dim .orange { color: var(--dim-orange); }
+.text .dim .yellow { color: var(--dim-yellow); }
+.text .dim .green { color: var(--dim-green); }
+.text .dim .cyan { color: var(--dim-cyan); }
+.text .dim .blue { color: var(--dim-blue); }
+.text .dim .purple { color: var(--dim-purple); }
+.text .dim .magenta { color: var(--dim-magenta); }
+
+.box .dim .none { background: var(--dim-background-color); }
+.box .dim .red { background: var(--dim-red); color: var(--dim-red); }
+.box .dim .orange { background: var(--dim-orange); }
+.box .dim .yellow { background: var(--dim-yellow); }
+.box .dim .green { background: var(--dim-green); }
+.box .dim .cyan { background: var(--dim-cyan); }
+.box .dim .blue { background: var(--dim-blue); }
+.box .dim .purple { background: var(--dim-purple); }
+.box .dim .magenta { background: var(--dim-magenta); }
+.box .dim .none p { color: var(--background-color); }
+.box .dim .red p { color: var(--red); }
+.box .dim .orange p { color: var(--orange); }
+.box .dim .yellow p { color: var(--yellow); }
+.box .dim .green p { color: var(--green); }
+.box .dim .cyan p { color: var(--cyan); }
+.box .dim .blue p { color: var(--blue); }
+.box .dim .purple p { color: var(--purple); }
+.box .dim .magenta p { color: var(--magenta); }
+
+.examples .import { color: var(--magenta); }
+.examples .kw { color: var(--purple); }
+.examples .decorator { color: var(--magenta); }
+.examples .type { color: var(--blue); }
+.examples .funcname { color: var(--blue); }
+.examples .const { color: var(--yellow); }
+.examples .str { color: var(--green); }
+.examples .self { color: var(--cyan); }
+.examples .hl { background: var(--bright-yellow); color: var(--background-color); }
+.examples .err { color: var(--red); }
+.examples .bright-err { color: var(--bright-red); font-weight: bold; }
+.examples .warn { color: var(--yellow); }
+.examples .bright-warn { color: var(--bright-yellow); font-weight: bold; }
+.examples .okay { color: var(--green); }
+.examples .bright-okay { color: var(--bright-green); font-weight: bold; }
+.examples .info { color: var(--blue); }
+.examples .bright-info { color: var(--bright-blue); font-weight: bold; }
+.examples .cyan { color: var(--cyan); }
+.examples .bright-cyan { color: var(--bright-cyan); font-weight: bold; }
+.examples .status { color: var(--purple); }
+.examples .bright-status { color: var(--bright-purple); font-weight: bold; }
+    </style>
+</head>
+
+
+<body>
+
+<header>
+</header>
+
+<main>
+  <div class="text">
+    <div class="row normal">
+      <p class="none">Stylo</p>
+      <p class="red">Stylo</p>
+      <p class="orange">Stylo</p>
+      <p class="yellow">Stylo</p>
+      <p class="green">Stylo</p>
+      <p class="cyan">Stylo</p>
+      <p class="blue">Stylo</p>
+      <p class="purple">Stylo</p>
+      <p class="magenta">Stylo</p>
+    </div>
+    <div class="row bright">
+      <p class="none">Stylo</p>
+      <p class="red">Stylo</p>
+      <p class="orange">Stylo</p>
+      <p class="yellow">Stylo</p>
+      <p class="green">Stylo</p>
+      <p class="cyan">Stylo</p>
+      <p class="blue">Stylo</p>
+      <p class="purple">Stylo</p>
+      <p class="magenta">Stylo</p>
+    </div>
+    <div class="row dim">
+      <p class="none">Stylo</p>
+      <p class="red">Stylo</p>
+      <p class="orange">Stylo</p>
+      <p class="yellow">Stylo</p>
+      <p class="green">Stylo</p>
+      <p class="cyan">Stylo</p>
+      <p class="blue">Stylo</p>
+      <p class="purple">Stylo</p>
+      <p class="magenta">Stylo</p>
+    </div>
+  </div>
+  <div class="box">
+    <div class="row normal">
+      <div class="none"><p>Stylo</p></div>
+      <div class="red"><p>Stylo</p></div>
+      <div class="orange"><p>Stylo</p></div>
+      <div class="yellow"><p>Stylo</p></div>
+      <div class="green"><p>Stylo</p></div>
+      <div class="cyan"><p>Stylo</p></div>
+      <div class="blue"><p>Stylo</p></div>
+      <div class="purple"><p>Stylo</p></div>
+      <div class="magenta"><p>Stylo</p></div>
+    </div>
+    <div class="row bright">
+      <div class="none"><p>Stylo</p></div>
+      <div class="red"><p>Stylo</p></div>
+      <div class="orange"><p>Stylo</p></div>
+      <div class="yellow"><p>Stylo</p></div>
+      <div class="green"><p>Stylo</p></div>
+      <div class="cyan"><p>Stylo</p></div>
+      <div class="blue"><p>Stylo</p></div>
+      <div class="purple"><p>Stylo</p></div>
+      <div class="magenta"><p>Stylo</p></div>
+    </div>
+    <div class="row dim">
+      <div class="none"><p>Stylo</p></div>
+      <div class="red"><p>Stylo</p></div>
+      <div class="orange"><p>Stylo</p></div>
+      <div class="yellow"><p>Stylo</p></div>
+      <div class="green"><p>Stylo</p></div>
+      <div class="cyan"><p>Stylo</p></div>
+      <div class="blue"><p>Stylo</p></div>
+      <div class="purple"><p>Stylo</p></div>
+      <div class="magenta"><p>Stylo</p></div>
+    </div>
+  </div>
+  <div class="examples">
+    <div class="row">
+      <pre class="python">
+<span class="import">import</span> asyncio
+<span class="import">import</span> sys
+<span class="import">from</span> dataclasses <span class="import">import</span> dataclass, field
+<span class="import">from</span> pathlib <span class="import">import</span> Path
+
+
+<span class="decorator">@</span><span class="funcname">dataclass</span>(frozen=True)
+<span class="kw">class</span> <span class="type">Data</span>:
+    <span class="str">"""My data"""</span>
+
+    id: <span class="type">int</span> = <span class="funcname">field</span>(validator=<span class="kw">lambda</span> v: v > <span class="const">0</span>)
+    msg: <span class="type">str</span>
+
+    <span class="kw">def</span> <span class="funcname">do_stuff</span>(<span class="self">self</span>, var: <span class="type">int</span>, flag: <span class="type">bool</span> = <span class="const">True</span>) -> <span class="type">int</span> | <span class="const">None</span>:
+        <span class="str">"""
+        Do Fancy stuff and return the result!
+        """</span>
+        <span class="kw">try</span>:
+            <span class="hl">copy</span> = <span class="type">int</span>(var)
+        <span class="kw">except</span> <span class="err">ValueError</span> <span class="kw">as</span> e:
+            <span class="kw">raise</span> <span class="err">TypeError</span>(e) <span class="kw">from</span> e
+
+        <span class="kw">if</span> flag <span class="kw">is</span> <span class="const">True</span>:
+            result = var * <span class="const">3.14</span>
+            log(<span class="str">"Result calculated"</span>)
+
+        result <span class="self">self</span>.<span class="funcname">do_suff</span>(x, y)
+        <span class="kw">return</span> result
+      </pre>
+      <pre class="shell">
+<span class="bright-status">STATUS:</span> <span class="status">gitlab.com/sscherfke/dotfiles</span>
+<span class="bright-info">INFO:</span> <span class="info">Cloning repository ...</span>
+<span class="bright-okay">OK:</span> <span class="okay">Everything went fine</span>
+<span class="bright-warn">WARNING:</span> <span class="warn">This does not look good</span>
+<span class="bright-err">ERROR:</span> <span class="err">All is broken!</span>
+tests/test_types.py .............................   <span class="okay">[100%]</span>
+<span class="okay">================ <span class="bright-okay">566 passed in 1.70s</span> =================</span>
+
+<span class="warn">[13:29]</span> <span class="bright-okay">stefan</span>@<span class="bright-cyan">bender</span>:<span class="bright-info">~/Projects/typed-settings</span> ±<span class="info">main</span>|<span class="info">✚1</span>…11 (<span class="kw">typed-settings</span>)
+<span class="bright-info">❯</span><span class="bright-cyan">❯</span><span class="bright-okay">❯</span>
+      </pre>
+    </div>
+  </div>
+</main>
+
+<footer>
+</footer>
+
+</body>
+
+</html>

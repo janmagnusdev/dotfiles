@@ -1,7 +1,5 @@
 """
 Utility functions for my Python prompt
-======================================
-
 """
 import os
 import rlcompleter
@@ -22,7 +20,10 @@ class c:
     blue = e('34')
     purple = e('35')
     cyan = e('36')
-    magenta = e('95')
+    bright_green = e('92')
+    bright_yellow = e('93')
+    bright_blue = e('94')
+    bright_cyan = e('96')
 
 
 def setup_colored_promt():
@@ -39,8 +40,8 @@ def setup_colored_promt():
     if has_libedit():
         return
 
-    sys.ps1 = f'{c.yellow}❯{c.yellow}❯{c.blue}❯{c.reset} '
-    sys.ps2 = f'{c.purple}.{c.magenta}.{c.red}.{c.reset} '
+    sys.ps1 = f'{c.bright_cyan}❯{c.bright_green}❯{c.yellow}❯{c.reset} '
+    sys.ps2 = f'{c.cyan}.{c.green}.{c.yellow}.{c.reset} '
 
 
 def setup_persistent_history():

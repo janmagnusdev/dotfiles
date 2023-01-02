@@ -46,55 +46,71 @@ endfunction
 " Generated color values {{{
 if &background ==? 'dark'
     if s:HAS_GUI
-        let s:base00 = "#181A1B"
-        let s:base01 = "#232629"
-        let s:base02 = "#333A3F"
-        let s:base03 = "#3C4850"
-        let s:base04 = "#4E616D"
-        let s:base05 = "#90B0C4"
-        let s:base06 = "#C2DBEB"
-        let s:base07 = "#E2ECF4"
-        let s:red = "#E18575"
-        let s:orange = "#D68E4E"
-        let s:yellow = "#BB9A3C"
-        let s:green = "#70AA89"
-        let s:cyan = "#5BAAB0"
-        let s:blue = "#74A1D4"
-        let s:purple = "#919BD0"
-        let s:magenta = "#CD82A6"
-        let s:bright_red = "#F75F2C"
-        let s:bright_orange = "#FFA44A"
-        let s:bright_yellow = "#DEB400"
-        let s:bright_green = "#00A668"
-        let s:bright_cyan = "#00A0A8"
-        let s:bright_blue = "#3596E1"
-        let s:bright_purple = "#6F8AF4"
-        let s:bright_magenta = "#E363A7"
+        let s:base00 = "#18191A"
+        let s:base01 = "#222528"
+        let s:base02 = "#353B41"
+        let s:base03 = "#3D4751"
+        let s:base04 = "#516070"
+        let s:base05 = "#96AEC7"
+        let s:base06 = "#C8DAEC"
+        let s:base07 = "#E4ECF5"
+        let s:red = "#CD7B82"
+        let s:orange = "#C88F70"
+        let s:yellow = "#B29D5A"
+        let s:green = "#6EAE8C"
+        let s:cyan = "#63ACB0"
+        let s:blue = "#70A3D6"
+        let s:purple = "#A191D9"
+        let s:magenta = "#BE85CB"
+        let s:bright_red = "#F34A67"
+        let s:bright_orange = "#EE7928"
+        let s:bright_yellow = "#CDA712"
+        let s:bright_green = "#2DA974"
+        let s:bright_cyan = "#1DAAB1"
+        let s:bright_blue = "#3395ED"
+        let s:bright_purple = "#9369F2"
+        let s:bright_magenta = "#BA59D0"
+        let s:dim_red = "#80142C"
+        let s:dim_orange = "#793807"
+        let s:dim_yellow = "#604D05"
+        let s:dim_green = "#0A5638"
+        let s:dim_cyan = "#04585C"
+        let s:dim_blue = "#054C85"
+        let s:dim_purple = "#4B288C"
+        let s:dim_magenta = "#601E6E"
     else
         let s:base00 = "234"
         let s:base01 = "0"
         let s:base02 = "8"
         let s:base03 = "238"
-        let s:base04 = "240"
+        let s:base04 = "59"
         let s:base05 = "110"
         let s:base06 = "7"
         let s:base07 = "15"
         let s:red = "1"
-        let s:orange = "173"
+        let s:orange = "137"
         let s:yellow = "3"
         let s:green = "2"
         let s:cyan = "6"
         let s:blue = "4"
         let s:purple = "5"
-        let s:magenta = "175"
+        let s:magenta = "140"
         let s:bright_red = "9"
-        let s:bright_orange = "215"
+        let s:bright_orange = "166"
         let s:bright_yellow = "11"
         let s:bright_green = "10"
         let s:bright_cyan = "14"
         let s:bright_blue = "12"
         let s:bright_purple = "13"
-        let s:bright_magenta = "169"
+        let s:bright_magenta = "134"
+        let s:dim_red = "52"
+        let s:dim_orange = "52"
+        let s:dim_yellow = "58"
+        let s:dim_green = "23"
+        let s:dim_cyan = "23"
+        let s:dim_blue = "24"
+        let s:dim_purple = "54"
+        let s:dim_magenta = "53"
     endif
 else
     if s:HAS_GUI
@@ -104,26 +120,34 @@ else
         let s:base03 = "#BEBEBE"
         let s:base04 = "#919191"
         let s:base05 = "#5E5E5E"
-        let s:base06 = "#3B3B3B"
+        let s:base06 = "#3C3C3C"
         let s:base07 = "#191919"
-        let s:red = "#A43B31"
-        let s:orange = "#BC5C00"
-        let s:yellow = "#D39100"
+        let s:red = "#A43C31"
+        let s:orange = "#BA5C00"
+        let s:yellow = "#D59200"
         let s:green = "#52751D"
         let s:cyan = "#268389"
-        let s:blue = "#2F6099"
-        let s:purple = "#874392"
-        let s:magenta = "#A73454"
-        let s:bright_red = "#CD4C40"
-        let s:bright_orange = "#F77B00"
-        let s:bright_yellow = "#E49D00"
-        let s:bright_green = "#669026"
-        let s:bright_cyan = "#2B9197"
-        let s:bright_blue = "#3D79BF"
-        let s:bright_purple = "#A956B7"
-        let s:bright_magenta = "#D0426A"
+        let s:blue = "#2F5F98"
+        let s:purple = "#874292"
+        let s:magenta = "#A63352"
+        let s:bright_red = "#C5473A"
+        let s:bright_orange = "#D8711D"
+        let s:bright_yellow = "#E39B00"
+        let s:bright_green = "#689423"
+        let s:bright_cyan = "#22959C"
+        let s:bright_blue = "#3C79C0"
+        let s:bright_purple = "#A54BB4"
+        let s:bright_magenta = "#C04665"
+        let s:dim_red = "#ECCCC7"
+        let s:dim_orange = "#ECCEBC"
+        let s:dim_yellow = "#E8D1B1"
+        let s:dim_green = "#C8DDB1"
+        let s:dim_cyan = "#AEDFE2"
+        let s:dim_blue = "#C5D6ED"
+        let s:dim_purple = "#E3CCE6"
+        let s:dim_magenta = "#EDCBD0"
     else
-        let s:base00 = "255"
+        let s:base00 = "231"
         let s:base01 = "0"
         let s:base02 = "8"
         let s:base03 = "250"
@@ -138,15 +162,23 @@ else
         let s:cyan = "6"
         let s:blue = "4"
         let s:purple = "5"
-        let s:magenta = "96"
+        let s:magenta = "125"
         let s:bright_red = "9"
-        let s:bright_orange = "208"
+        let s:bright_orange = "166"
         let s:bright_yellow = "11"
         let s:bright_green = "10"
         let s:bright_cyan = "14"
         let s:bright_blue = "12"
         let s:bright_purple = "13"
-        let s:bright_magenta = "132"
+        let s:bright_magenta = "168"
+        let s:dim_red = "224"
+        let s:dim_orange = "224"
+        let s:dim_yellow = "223"
+        let s:dim_green = "151"
+        let s:dim_cyan = "152"
+        let s:dim_blue = "189"
+        let s:dim_purple = "225"
+        let s:dim_magenta = "224"
     endif
 endif
 
@@ -211,15 +243,15 @@ call s:Hi("WildMenu",      s:base01, s:green)
 
 call s:Hi("MatchParen",    s:bright_red,     s:none, s:none, s:underline)
 call s:Hi("Directory",     s:blue,           s:none)
-call s:Hi("IncSearch",     s:orange, s:none, s:none, s:reverse)
-call s:Hi("Search",        s:yellow, s:none, s:none, s:reverse)
+call s:Hi("IncSearch",     s:bright_orange, s:none, s:none, s:reverse)
+call s:Hi("Search",        s:bright_yellow, s:none, s:none, s:reverse)
 
 call s:Hi("NonText",       s:base02, s:none, s:none, s:bold)
 call s:Hi("SpecialKey",    s:base02, s:none, s:none, s:bold)
 call s:Hi("Title",         s:purple, s:none, s:none, s:bold)
 call s:Hi("ErrorMsg",      s:red,    s:none, s:none, s:reverse)
-call s:Hi("WarningMsg",    s:orange, s:none, s:none, s:bold)
-call s:Hi("Question",      s:yellow, s:none, s:none, s:bold)
+call s:Hi("WarningMsg",    s:yellow, s:none, s:none, s:bold)
+call s:Hi("Question",      s:purple, s:none, s:none, s:bold)
 call s:Hi("MoreMsg",       s:blue,   s:none)
 call s:Hi("ModeMsg",       s:green,  s:none)
 
@@ -237,9 +269,9 @@ call s:Hi("SpellLocal",    s:none,   s:none, s:cyan,       s:undercurl)
 
 " Highlighting
 
-call s:Hi("Comment",          s:base06,    s:none, s:none, s:italic)
+call s:Hi("Comment",          s:magenta, s:none, s:none, s:italic)
 
-call s:Hi("Constant",         s:cyan,    s:none)
+call s:Hi("Constant",         s:yellow,  s:none)
 call s:Hi("String",           s:green,   s:none)
 call s:HiLink("Character",    "Constant")
 call s:HiLink("Number",       "Constant")
@@ -268,7 +300,7 @@ call s:HiLink("StorageClass", "Type")
 call s:HiLink("Structure",    "Type")
 call s:HiLink("Typedef",      "Type")
 
-call s:Hi("Special",            s:orange,  s:none)
+call s:Hi("Special",            s:cyan,  s:none)
 call s:HiLink("SpecialChar",    "Special")
 call s:Hi("Tag",                s:green,   s:none)
 call s:Hi("Delimiter",          s:magenta, s:none)
@@ -283,63 +315,57 @@ call s:Hi("Whitespace",       s:bright_red, s:none)
 
 " Clap
 call s:Hi("ClapShadow",             s:none,   s:base02)
-call s:Hi("ClapSpinner",            s:base01, s:blue)
+call s:Hi("ClapSpinner",            s:blue,   s:dim_blue)
 call s:HiLink("ClapInput",   "Visual")
 call s:Hi("ClapDisplay",            s:base05, s:base01)
 call s:Hi("ClapPreview",            s:text,   s:base01)
 call s:HiLink("ClapMatches", "Search")
-call s:Hi("ClapCurrentSelection",   s:orange, s:none, s:none, s:bold)
-call s:Hi("ClapSelected",           s:green,  s:none, s:none, s:bold.",".s:underline)
+call s:Hi("ClapCurrentSelection",   s:green, s:none, s:none, s:bold)
+call s:Hi("ClapSelected",           s:yellow,  s:none, s:none, s:bold.",".s:underline)
 call s:Hi("ClapFile",               s:base05, s:none)
 call s:Hi("ClapFpath",              s:base05, s:none, s:none, s:bold)
 call s:Hi("ClapLinNrColumn",        s:base04, s:none)
 for i in range(1, 12)
-    call s:Hi("ClapFuzzyMatches".i, s:cyan,   s:none, s:none, s:bold)
+    call s:Hi("ClapFuzzyMatches".i, s:bright_blue,   s:none, s:none, s:bold)
 endfor
 
 " HTML
-
 call s:Hi("htmlTag",             s:text,   s:none)
 call s:Hi("htmlEndTag",          s:text,   s:none)
 
 " Markdown
-
 call s:Hi("markdownCode",  s:purple,    s:none)
 
 " Patch
-
 call s:Hi("diffLine",      s:cyan,      s:none,   s:none,        s:bold)
 call s:Hi("diffAdded",     s:green,     s:none,   s:none,        s:none)
 call s:Hi("diffRemoved",   s:red,       s:none,   s:none,        s:none)
 
 " Python
-
-" call s:Hi("pythonBuiltinObj",    s:yellow, s:none)
-call s:Hi("pythonClassVar",      s:orange, s:none)
+call s:Hi("pythonClassVar",      s:cyan,   s:none)
 call s:Hi("pythonExClass",       s:red,    s:none)
 
 " YAML
 call s:Hi("yamlKey",             s:blue,   s:none)
 
 " Lightline color scheme
-
 let s:llcs = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
-" Colors:                      ofg       obg          ifg      ibg
-let s:llcs.normal.left =     [[s:base01, s:blue],    [s:base06, s:base02]]
-let s:llcs.normal.right =    [[s:base06,  s:base02],  [s:base06, s:base02]]
-let s:llcs.inactive.right =  [[s:base05,  s:base02],  [s:base05, s:base02]]
-let s:llcs.inactive.left =   [[s:base05,  s:base02],  [s:base05, s:base02]]
-let s:llcs.insert.left =     [[s:base01, s:green],   [s:base06, s:base02]]
-let s:llcs.replace.left =    [[s:base01, s:orange],  [s:base06, s:base02]]
-let s:llcs.visual.left =     [[s:base01, s:magenta], [s:base06, s:base02]]
-let s:llcs.normal.middle =   [[s:base05, s:base02]]
-let s:llcs.inactive.middle = [[s:base05, s:base02]]
-let s:llcs.tabline.left = [[s:base05, s:base03]]
-let s:llcs.tabline.tabsel = [[s:base01, s:blue]]
-let s:llcs.tabline.middle = [[s:base05, s:base02]]
-let s:llcs.tabline.right = [[s:base01, s:bright_red]]
-let s:llcs.normal.error = [[s:bright_red, s:base02]]
-let s:llcs.normal.warning = [[s:yellow, s:base02]]
+" Colors:                      ofg              obg              ifg       ibg
+let s:llcs.normal.left =     [[s:blue,          s:dim_blue],    [s:base06, s:base02]]
+let s:llcs.normal.right =    [[s:base06,        s:base02],      [s:base06, s:base02]]
+let s:llcs.inactive.right =  [[s:base05,        s:base02],      [s:base05, s:base02]]
+let s:llcs.inactive.left =   [[s:base05,        s:base02],      [s:base05, s:base02]]
+let s:llcs.insert.left =     [[s:green,         s:dim_green],   [s:base06, s:base02]]
+let s:llcs.replace.left =    [[s:orange,        s:dim_orange],  [s:base06, s:base02]]
+let s:llcs.visual.left =     [[s:magenta,       s:dim_magenta], [s:base06, s:base02]]
+let s:llcs.normal.middle =   [[s:base05,        s:base02]]
+let s:llcs.inactive.middle = [[s:base05,        s:base02]]
+let s:llcs.tabline.left =    [[s:base05,        s:base03]]
+let s:llcs.tabline.tabsel =  [[s:blue,          s:dim_blue]]
+let s:llcs.tabline.middle =  [[s:base05,        s:base02]]
+let s:llcs.tabline.right =   [[s:red,           s:dim_red]]
+let s:llcs.normal.error =    [[s:bright_red,    s:base02]]
+let s:llcs.normal.warning =  [[s:bright_yellow, s:base02]]
 
 let g:lightline#colorscheme#stylo#palette = lightline#colorscheme#fill(s:llcs)
 
