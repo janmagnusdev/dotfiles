@@ -1,0 +1,17 @@
+:root {
+  --background-color: {{ colors_light[background].hsl_html }};
+  --text-color:       {{ colors_light[text].hsl_html }};
+{% for name, color in colors_light.items() %}
+  --{{ name|replace("_", "-") }}:{{ " " * (17 - name|length) }}{{ color.hsl_html }};
+{% endfor %}
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: {{ colors_dark[background].hsl_html }};
+    --text-color:       {{ colors_dark[text].hsl_html }};
+{% for name, color in colors_dark.items() %}
+    --{{ name|replace("_", "-") }}:{{ " " * (17 - name|length) }}{{ color.hsl_html }};
+{% endfor %}
+  }
+}

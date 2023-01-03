@@ -4,7 +4,7 @@ import subprocess
 from pathlib import Path
 from typing import Any, NamedTuple, Tuple
 
-import attr
+import attrs
 import click
 import coloraide
 import coloraide.spaces.okhsl
@@ -152,13 +152,13 @@ TERM_COLORS_EXTRA = [
 
 class Okhsl(NamedTuple):
     h: float  # 0-360
-    s: float  # 0-360
+    s: float  # 0-100
     l: float  # 0-100
 
 
 class HSL(NamedTuple):
     h: float  # 0-360
-    s: float  # 0-360
+    s: float  # 0-100
     l: float  # 0-100
 
 
@@ -168,7 +168,7 @@ class RGB(NamedTuple):
     b: int  # 0-255
 
 
-@attr.frozen
+@attrs.frozen
 class Color:
     c: coloraide.Color
 
@@ -227,6 +227,14 @@ class Color:
         h, s, l = self.c.convert("hsl")[:3]
         h, s, l = round(h), round(s * 100), round(l * 100)
         return HSL(h, s, l)
+
+    @property
+    def hsl_html(self) -> str:
+        """
+        Return an HTML HSL string, e.g. ``hsl(6, 54%, 42%)``.
+        """
+        h, s, l = self.hsl
+        return f"hsl({h:3}, {s:3}%, {l:3}%)"
 
     @property
     def rgb(self) -> RGB:
@@ -297,6 +305,26 @@ def print_colors(colors: dict[str, Color]) -> None:
         spaces = " " * (max_len - len(name) + 1)
         print(f'        "{name}":{spaces}{color.pretty_str()},')
     print("    }")
+
+
+def render_html_preview(all_colors: dict[str, dict[str, Color]]) -> None:
+    context: dict[str, Any] = {
+        "background": BACKGROUND,
+        "text": TEXT,
+    }
+    for mode, colors in all_colors.items():
+        # GUI colors
+        context[f"colors_{mode}"] = colors
+
+    start_marker = "/* Generated color values */"
+    end_marker = "/* End generated color values */"
+    pattern = f'({re.escape(start_marker)}\n).*\n({re.escape(end_marker)}\n)'
+    new_data = render("colors.html.j2", context)
+
+    colors_html = Path("colors.html")
+    data = colors_html.read_text()
+    data = re.sub(pattern, rf"\1{new_data}\2", data, flags=re.DOTALL)
+    colors_html.write_text(data)
 
 
 def render_vim_colors(all_colors: dict[str, dict[str, Color]]) -> None:
@@ -442,6 +470,7 @@ def main(mode: str, space: str) -> None:
     }
     print_colors(colors[mode])
 
+    render_html_preview(colors)
     render_vim_colors(colors)
     render_iterm_colors(colors)
     render_konsole_scheme(colors)
