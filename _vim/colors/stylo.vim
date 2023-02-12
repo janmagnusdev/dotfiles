@@ -57,8 +57,8 @@ if &background ==? 'dark'
         let s:red = "#CD7B82"
         let s:orange = "#C88F70"
         let s:yellow = "#B29D5A"
-        let s:green = "#68B08A"
-        let s:cyan = "#5CADB2"
+        let s:green = "#6EAE8C"
+        let s:cyan = "#63ACB0"
         let s:blue = "#70A3D6"
         let s:purple = "#A191D9"
         let s:magenta = "#BE85CB"
@@ -108,7 +108,7 @@ if &background ==? 'dark'
         let s:dim_yellow = "58"
         let s:dim_green = "23"
         let s:dim_cyan = "23"
-        let s:dim_blue = "25"
+        let s:dim_blue = "24"
         let s:dim_purple = "54"
         let s:dim_magenta = "53"
     endif
@@ -124,20 +124,20 @@ else
         let s:base07 = "#191919"
         let s:red = "#A43C31"
         let s:orange = "#BA5C00"
-        let s:yellow = "#D59200"
+        let s:yellow = "#C78800"
         let s:green = "#52751D"
         let s:cyan = "#268389"
         let s:blue = "#2F5F98"
         let s:purple = "#874292"
         let s:magenta = "#A63352"
-        let s:bright_red = "#C5473A"
-        let s:bright_orange = "#D8711D"
-        let s:bright_yellow = "#E39B00"
-        let s:bright_green = "#689423"
-        let s:bright_cyan = "#22959C"
-        let s:bright_blue = "#3C79C0"
+        let s:bright_red = "#CA4134"
+        let s:bright_orange = "#E27415"
+        let s:bright_yellow = "#EAA000"
+        let s:bright_green = "#618F00"
+        let s:bright_cyan = "#0D8D94"
+        let s:bright_blue = "#2F78CA"
         let s:bright_purple = "#A54BB4"
-        let s:bright_magenta = "#C04665"
+        let s:bright_magenta = "#C44164"
         let s:dim_red = "#ECCCC7"
         let s:dim_orange = "#ECCEBC"
         let s:dim_yellow = "#E8D1B1"
@@ -320,11 +320,16 @@ call s:HiLink("ClapInput",   "Visual")
 call s:Hi("ClapDisplay",            s:base05, s:base01)
 call s:Hi("ClapPreview",            s:text,   s:base01)
 call s:HiLink("ClapMatches", "Search")
-call s:Hi("ClapCurrentSelection",   s:green, s:none, s:none, s:bold)
-call s:Hi("ClapSelected",           s:yellow,  s:none, s:none, s:bold.",".s:underline)
+call s:Hi("ClapCurrentSelection",   s:green,  s:none, s:none, s:bold)
+call s:Hi("ClapSelected",           s:yellow, s:none, s:none, s:bold.",".s:underline)
+call s:Hi("ClapBuffersNumber",      s:blue,   s:none)
+call s:Hi("ClapBuffersNumberBracket", s:blue, s:none)
+call s:Hi("ClapBuffersFsize",       s:base04, s:none)
+call s:Hi("ClapBuffersFname",       s:purple, s:none)
 call s:Hi("ClapFile",               s:base05, s:none)
-call s:Hi("ClapFpath",              s:base05, s:none, s:none, s:bold)
+call s:Hi("ClapFpath",              s:purple, s:none)
 call s:Hi("ClapLinNrColumn",        s:base04, s:none)
+call s:Hi("ClapColumn",             s:base04, s:none)
 for i in range(1, 12)
     call s:Hi("ClapFuzzyMatches".i, s:bright_blue,   s:none, s:none, s:bold)
 endfor
@@ -349,12 +354,13 @@ call s:Hi("pythonExClass",       s:red,    s:none)
 call s:Hi("yamlKey",             s:blue,   s:none)
 
 " Lightline color scheme
-let s:llcs = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
+let s:llcs = {'normal': {}, 'inactive': {}, 'command': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
 " Colors:                      ofg              obg              ifg       ibg
 let s:llcs.normal.left =     [[s:blue,          s:dim_blue],    [s:base06, s:base02]]
 let s:llcs.normal.right =    [[s:base06,        s:base02],      [s:base06, s:base02]]
 let s:llcs.inactive.right =  [[s:base05,        s:base02],      [s:base05, s:base02]]
 let s:llcs.inactive.left =   [[s:base05,        s:base02],      [s:base05, s:base02]]
+let s:llcs.command.left =    [[s:yellow,        s:dim_yellow],    [s:base06, s:base02]]
 let s:llcs.insert.left =     [[s:green,         s:dim_green],   [s:base06, s:base02]]
 let s:llcs.replace.left =    [[s:orange,        s:dim_orange],  [s:base06, s:base02]]
 let s:llcs.visual.left =     [[s:magenta,       s:dim_magenta], [s:base06, s:base02]]
