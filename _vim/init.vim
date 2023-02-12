@@ -236,8 +236,8 @@ endif
 " Editing {{{
 
 " Fast editing of the .vimrc
-nnoremap <leader>ev :e $MYVIMRC<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>ve :e $MYVIMRC<CR>
+nnoremap <leader>vs :source $MYVIMRC<CR>
 
 " Set filetype to "mail" (for composing emails)
 nnoremap <leader>Tm :set ft=mail<CR>
@@ -300,6 +300,8 @@ nnoremap <leader>cd :cd %:p:h<CR>
 " open/close the quickfix window
 nnoremap <leader>co :copen<CR>
 nnoremap <leader>cc :cclose<CR>
+nnoremap <leader>lo :lopen<CR>
+nnoremap <leader>lc :lclose<CR>
 
 " "Uppercase word" mapping by Steve Losh
 "
@@ -356,12 +358,6 @@ cnoremap <c-e> <end>
 " something similar: move to last change
 nnoremap gI `.
 
-" Let j/k work on screen lines, and gj/gk on actual lines
-noremap j gj
-noremap k gk
-noremap gj j
-noremap gk k
-
 " Ctrl-jklm to move between windows
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -376,11 +372,12 @@ augroup netrw_mapping
 augroup END
 
 " Create horizontal/vertical split
-noremap <leader>s :split<CR>
-noremap <leader>v :vsplit<CR>
-
+noremap <leader>sh :split<CR>
+noremap <leader>sv :vsplit<CR>
+noremap <leader>se <C-w>=
+noremap <leader>sx :close<CR>
 " Create small, vertical split with a terminal
-noremap <leader>t :split<CR>:resize 10<CR>:term<CR>
+noremap <leader>st :split<CR>:resize 10<CR>:term<CR>
 
 " }}}
 " Toggles {{{
@@ -433,6 +430,14 @@ augroup END
 augroup ft_gitcommit
     autocmd!
     autocmd FileType gitcommit set textwidth=72
+augroup END
+
+" }}}
+" HTML {{{
+
+augroup ft_html
+    autocmd!
+    autocmd BufEnter *.html setl sw=2 ts=2 sts=2
 augroup END
 
 " }}}
@@ -609,7 +614,7 @@ augroup END
 " ALE {{{
 
 let g:ale_fixers = {
-\    'python': ['black', 'isort', 'autoflake'],
+\    'python': ['autoflake', 'isort', 'black'],
 \}
 " let g:ale_lint_on_enter = 0  " pylint is too slow on larger files
 let g:ale_lint_on_save = 1
@@ -643,10 +648,10 @@ let g:clap_selected_sign = {
     \}
 
 " Mnemoic: 'o'pen ('f'ile, 'd'otfiles, 'b'uffer, 'm'ru)
-nnoremap <leader>of :Clap files<CR>
-nnoremap <leader>ob :Clap buffers<CR>
-nnoremap <leader>rg :Clap grep<CR>
-nnoremap <leader>gw :Clap grep ++query=<cword><CR>
+nnoremap <leader>ff :Clap files<CR>
+nnoremap <leader>fb :Clap buffers<CR>
+nnoremap <leader>fs :Clap grep<CR>
+nnoremap <leader>fc :Clap grep ++query=<cword><CR>
 nnoremap <leader>ft :Clap filetypes<CR>
 
 " }}}
