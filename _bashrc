@@ -149,5 +149,11 @@ if [[ $OS_NAME == "Darwin" ]]; then
 elif [[ $OS_NAME == 'Linux' ]]; then
     . /usr/share/bash-completion/bash_completion
 fi
+if type -P op > /dev/null; then
+    source <(op completion bash)
+fi
 
-source <(op completion bash)
+# direnv
+if type -P direnv > /dev/null; then
+    eval "$(direnv hook bash)"
+fi
