@@ -86,6 +86,17 @@ keymap.set("n", "Y", "y$")
 -- delete single character without copying into register
 keymap.set("n", "x", '"_x')
 
+-- Swap q and @ for macros, because q is easier to type on German keyboards
+keymap.set("n", "q", "@", { noremap = true })
+keymap.set("n", "@", "q", { noremap = true })
+
+-- Join an entire paragraph.
+keymap.set("n", "<leader>J", "mzvipJ`z", { noremap = true })
+
+-- Split line (sister to [J]oin lines)
+-- The normal use of S is covered by cc, so don't worry about shadowing it.
+keymap.set("n", "S", "i<CR><ESC>")
+
 -- Re-hardwrap paragraphs of text
 keymap.set("n", "<leader>q", "gqip")
 keymap.set("v", "<leader>q", "gq")
@@ -150,6 +161,7 @@ keymap.set("n", "<leader>sm", ":MaximizerToggle<CR>") -- toggle split window max
 
 -- nvim-tree
 -- keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>") -- toggle file explorer
+keymap.set("n", "-", ":NvimTreeFindFileToggle<CR>") -- toggle file explorer, show current file
 keymap.set("n", "<leader>e", ":NvimTreeFindFileToggle<CR>") -- toggle file explorer, show current file
 
 -- telescope

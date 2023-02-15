@@ -6,7 +6,7 @@ opt.signcolumn = "yes" -- Show sign column so that text doesn't shift
 opt.relativenumber = true -- Show relative line numbers
 opt.number = true -- Show absolute line number on cursor line (when relative number is on)
 opt.cursorline = true -- highlight the current cursor line
-opt.cursorcolumn = true -- highlight the current cursor line
+-- opt.cursorcolumn = true -- highlight the current cursor line
 -- set pumheight=20                -- Height of the popup menu
 -- set completeopt=menu,preview,longest  -- set in nvim-cmp.lua
 -- set wildmenu                    -- Improved command-line completion
@@ -32,7 +32,7 @@ end
 -- opt.hidden = true               -- Don’t unload abandoned buffers
 -- opt.startofline = false         -- Keep the cursor in the same column when moving
 -- opt.backup = false              -- Don’t create backups on save
-opt.swapfile = false               -- Don’t create swap files
+opt.swapfile = false -- Don’t create swap files
 opt.modeline = false -- Don’t read modelines from files
 opt.confirm = true -- Y-N-C promt if closing with unsaved changes
 opt.showmode = false -- Disable mode message, Lualine also has it

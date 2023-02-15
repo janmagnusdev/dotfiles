@@ -30,17 +30,18 @@ return require("packer").startup(function(use)
    use("nvim-lua/plenary.nvim") -- lua functions that many plugins use
 
    -- Interface plug-ins
-   -- use "RRethy/vim-hexokinase", {"do": "make hexokinase"}
-   -- use "jremmen/vim-ripgrep")  " Accepts *all* rg options (":Clap grep" does not
-   -- use "stefandtw/quickfix-reflector.vim"
-   -- use "tpope/vim-eunuch"
-   -- use "tpope/vim-vinegar"
-   -- use "vim-scripts/kwbdi.vim"  -- Delete buffer w/o closing splits or windows
+   use({ "RRethy/vim-hexokinase", run = "make hexokinase" }) -- Display colors in-line
+   use("jremmen/vim-ripgrep") -- Run "rg", accepting all cmd line args.  Use quickfix window.
+   --use "kyoh86/vim-ripgrep"  -- Run "rg" async, still experimental
+   use("stefandtw/quickfix-reflector.vim") -- Change code right in the quickfix window
+   use("tpope/vim-eunuch") -- Helpers (:Rename, :Remove, :Delete, :SudoWrite, :SudoEdit)
+   use("vim-scripts/kwbdi.vim") -- Delete buffer w/o closing splits or windows
    -- use "moll/vim-bbye"  -- Delete buffer w/o closing splits or windows
-   -- use "zerowidth/vim-copy-as-rtf", {"on": "CopyRTF"}
-   -- use "lukas-reineke/indent-blankline.nvim"  -- Indent guides
+   use({ "zerowidth/vim-copy-as-rtf", cmd = "CopyRTF" })
+   use("lukas-reineke/indent-blankline.nvim") -- Indent guides
    -- use "akinsho/toggleterm.nvim"  -- Toggle terminal windows
    use("nvim-tree/nvim-web-devicons") -- Icons used by other plugins (lualine, tree, ...)
+   -- use "tpope/vim-vinegar"  -- Open slightly improved netrw on pressing "-"
    use("nvim-lualine/lualine.nvim") -- statusline
    use({
       "nvim-tree/nvim-tree.lua",
@@ -59,10 +60,10 @@ return require("packer").startup(function(use)
    -- use "michaeljsmith/vim-indent-object"
    -- use "nelstrom/vim-visual-star-search"
    use("numToStr/Comment.nvim") -- Comment lines/blocks with "gc"
-   -- use "rhysd/clever-f.vim"
+   use("rhysd/clever-f.vim")
    use("tpope/vim-repeat") -- enable repeating with "." for vim-surround
    use("tpope/vim-surround") -- add, delete, change surroundings
-   -- use "wellle/targets.vim"  -- Adds new text objects (e.g, func args)
+   use("wellle/targets.vim") -- Adds new text objects (e.g, func args)
    -- use "nvim-treesitter/nvim-treesitter-textobjects"  -- Text objects from treesitter nodes
    -- autocompletion
    use("hrsh7th/nvim-cmp") -- completion plugin

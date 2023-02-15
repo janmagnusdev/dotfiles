@@ -322,6 +322,12 @@ hi("pythonExClass", { fg = red, bg = none })
 -- YAML
 hi("yamlKey", { fg = blue, bg = none })
 
+-- Indent Blankline (indent guides)
+hi("IndentBlanklineChar", { fg = base02, nocombine = true })
+hi("IndentBlanklineContextChar", { fg = base04, nocombine = true })
+hi("IndentBlanklineContextStart", { sp = base04, underline = true })
+hi("IndentBlanklineContextSpaceChar", { nocombine = true })
+
 -- -- -- Clap
 -- -- hi("ClapShadow",          {fg=none,   bg=base02})
 -- -- hi("ClapSpinner",         {fg=blue,   bg=dim_blue})
