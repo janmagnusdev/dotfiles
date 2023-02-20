@@ -47,14 +47,10 @@ opt.expandtab = true -- Uses spaces for tabs
 opt.shiftround = true -- Round indent to multiple of shiftwidth
 
 -- Moving around / Editing
--- old:
--- opt.autoindent = true           -- Automatically indent new lines
--- opt.textwidth = 88              -- Maximum width of text that is being inserted
--- opt.colorcolumn =+ 1            -- Highlight these columns (+1 == textwidth)
+-- textwidht only for certain file types
+-- Rely on autoformatters for code and use sembr for text files
+opt.colorcolumn = "+1" -- Highlight these columns (+1 == textwidth)
 -- opt.formatoptions = "rqnl1j"    -- Auto-formatting options, see ":help fo-table"
--- new:
--- - Set textwidht/colorcolumn only for certain file types
--- - Rely on autoformatters for code and se sembr for text files
 opt.formatoptions = "tcrqn1j" -- Auto-formatting options, see ":help fo-table"
 opt.cpoptions:append("J") -- Two spaces between sentences
 opt.virtualedit:append("block") -- Allow placing the cursor anywhere in vis. block mode
@@ -112,7 +108,7 @@ augroup END
 vim.cmd([[
 augroup ft_gitcommit
     autocmd!
-    autocmd FileType gitcommit set textwidth=72
+    autocmd FileType gitcommit set textwidth=72 colorcolumn=+1
 augroup END
 ]])
 
@@ -214,28 +210,34 @@ augroup END
 -- }}}
 -- Python {{{
 
-vim.cmd([[
-augroup ft_python
-    autocmd!
+local ft_python = vim.api.nvim_create_augroup("ft_python", { clear = true })
+vim.api.nvim_create_autocmd({ "FileType" }, {
+   pattern = "python",
+   group = ft_python,
+   callback = function()
+      vim.opt_local.textwidth = PyLineLength()
+   end,
+})
+vim.api.nvim_create_autocmd({ "FileType" }, {
+   pattern = "python",
+   group = ft_python,
+   callback = function()
+      vim.opt_local.textwidth = PyLineLength()
+      vim.opt_local.formatoptions:append("c") -- Auto-wrap comments using textwidth
+      vim.cmd('abb <buffer> ifmain if __name__ == "__main__"')
 
-    " autocmd FileType python execute ":setl tw=".LineLength()
-    autocmd FileType python setl fo+=c  " Auto-wrap comments using textwidth
-    autocmd Filetype python abb <buffer> ifmain if __name__ == "__main__"
+      -- Join and split a strings (enclosed with ')
+      -- join:  "foo "\n"bar" --> "foo bar" (also works for f-strings!)
+      -- split: "foo bar" --> "foo "\n"bar"
+      vim.keymap.set("n", "<localleader>j", 'JF"df"', { buffer = true })
+      vim.keymap.set("n", "<localleader>s", 'i"<CR>"<ESC>', { buffer = true })
+   end,
+})
 
-    " Join and split a strings (enclosed with ')
-    " join:  "foo "\n"bar" --> "foo bar" (also works for f-strings!)
-    " split: "foo bar" --> "foo "\n"bar"
-    autocmd FileType python nnoremap <buffer> <localleader>j JF"df"
-    autocmd FileType python nnoremap <buffer> <localleader>s i"<CR>"<ESC>
-
-    " Change dict item to attribute access and keep cursor position
-    " aa: foo["bar"] --> foo.bar
-    " ia: foo.bar --> foo["bar"]
-    " Use nmap so that the surround plugin can be utilized.
-    autocmd FileType python nmap <buffer> <localleader>aa mzbi.<ESC>ds"ds]`zh
-    autocmd FileType python nmap <buffer> <localleader>ia mzysiw]lysiw"bx`zl
-augroup END
-]])
+-- vim.cmd([[
+-- augroup ft_python
+-- augroup END
+-- ]])
 
 -- }}}
 -- QuickFix {{{

@@ -1,6 +1,6 @@
 require("stefan.plugins-setup")
-require("stefan.options")
 require("stefan.mini-plugins")
+require("stefan.options")
 require("stefan.keymaps")
 require("stefan.colorscheme")
 require("stefan.plugins.comment")

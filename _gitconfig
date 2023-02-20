@@ -1,6 +1,7 @@
 [user]
 name = Stefan Scherfke
 email = stefan@sofa-rockers.org
+signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKtITP7uaCjMS2vsbiMvA7n+d09SoBAS6KF7tX83hn/p
 
 [core]
 excludesfile = $HOME/.gitignore_global
@@ -82,3 +83,15 @@ lg5 = !"git lg -5"
 pushnoci = push -o ci.skip
 # Push feature branch and create a MR for "main"
 pushmergemain = push -o merge_request.create -o merge_request.target=main
+
+[gpg]
+format = ssh
+
+[gpg "ssh"]
+program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[commit]
+gpgsign = true
+
+[tag]
+gpgsign = true
