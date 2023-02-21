@@ -205,6 +205,13 @@ hi("TermColor15", { fg = base07, bg = none })
 
 hi("Normal", { fg = text, bg = back })
 
+hi("FloatBorder", { fg = base04, bg = base00 })
+hi("Pmenu", { fg = base05, bg = base00 })
+hi("PmenuSbar", { fg = base05, bg = base02 })
+hi("PmenuThumb", { fg = base05, bg = base05 })
+hi("PmenuSel", { fg = base01, bg = green })
+hi("WildMenu", { fg = base01, bg = green })
+
 hi("Cursor", { fg = base00, bg = base03 })
 hi("CursorLineNr", { fg = red, bg = base01 })
 hi("CursorLine", { fg = none, bg = base01 })
@@ -224,13 +231,6 @@ hi("TabLineSel", { fg = base01, bg = blue })
 
 hi("Visual", { fg = base07, bg = base02 })
 hi("Folded", { fg = orange, bg = base01 })
-
-hi("FloatBorder", { fg = base05, bg = base01 })
-hi("Pmenu", { fg = base05, bg = base01 })
-hi("PmenuSbar", { fg = base05, bg = base02 })
-hi("PmenuThumb", { fg = base05, bg = base05 })
-hi("PmenuSel", { fg = base01, bg = green })
-hi("WildMenu", { fg = base01, bg = green })
 
 hi("MatchParen", { fg = bright_red, bg = none, underline = true })
 hi("Directory", { fg = blue, bg = none })
@@ -327,6 +327,18 @@ hi("IndentBlanklineChar", { fg = base02, nocombine = true })
 hi("IndentBlanklineContextChar", { fg = base04, nocombine = true })
 hi("IndentBlanklineContextStart", { sp = base04, underline = true })
 hi("IndentBlanklineContextSpaceChar", { nocombine = true })
+
+-- Lspsaga
+-- bg of "Normal" is "none" in the terminal which leads to
+-- base01 beging used by plugins that link to "Normal".
+hi("SagaNormal", { bg = base00 })
+hi("SagaBorder", { link = "FloatBorder" })
+
+-- Telescope
+-- bg of "Normal" is "none" in the terminal which leads to
+-- base01 beging used by plugins that link to "Normal".
+hi("TelescopeNormal", { bg = base00 })
+hi("TelescopeBorder", { link = "FloatBorder" })
 
 -- -- -- Clap
 -- -- hi("ClapShadow",          {fg=none,   bg=base02})

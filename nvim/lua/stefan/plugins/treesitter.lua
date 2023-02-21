@@ -22,6 +22,7 @@ treesitter.setup({
       "lua",
       "make",
       "markdown",
+      "markdown_inline",
       "python",
       "typescript",
       "rego",

@@ -6,13 +6,16 @@ end
 saga.setup({
    -- keybinds for navigation in lspsaga window
    scroll_preview = { scroll_down = "<C-f>", scroll_up = "<C-b>" },
-   -- use enter to open file with definition preview
+   code_action = {
+      extend_gitsigns = false, -- explicitly add this in null-ls.lua
+   },
    definition = {
       edit = "<CR>",
    },
-   -- ui = {
-   --    colors = {
-   --       normal_bg = "#022746",
-   --    },
-   -- },
+   lightbulb = {
+      enable = false,
+   },
+   ui = {
+      border = "rounded",
+   },
 })
