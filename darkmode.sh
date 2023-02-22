@@ -155,7 +155,7 @@ _linux_set() {
         COLOR_SCHEME='BreezeDark'
     else
         DM_VAL=0
-        COLOR_SCHEME='Breeze2'
+        COLOR_SCHEME='BreezeClassic'
     fi
     echo $DM_VAL > $HOME/.config/darkmode
     # Change Plasma color scheme
