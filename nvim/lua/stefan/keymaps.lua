@@ -83,9 +83,6 @@ keymap.set("n", "gI", "`.", { noremap = true })
 -- Make Y behave like D (instead Y is the same as yy), fix this:
 keymap.set("n", "Y", "y$")
 
--- delete single character without copying into register
-keymap.set("n", "x", '"_x')
-
 -- Swap q and @ for macros, because q is easier to type on German keyboards
 keymap.set("n", "q", "@", { noremap = true })
 keymap.set("n", "@", "q", { noremap = true })

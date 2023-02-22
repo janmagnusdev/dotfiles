@@ -47,11 +47,9 @@ opt.expandtab = true -- Uses spaces for tabs
 opt.shiftround = true -- Round indent to multiple of shiftwidth
 
 -- Moving around / Editing
--- textwidht only for certain file types
--- Rely on autoformatters for code and use sembr for text files
+-- set "opt.textwidth" only for certain file types (see below)
 opt.colorcolumn = "+1" -- Highlight these columns (+1 == textwidth)
--- opt.formatoptions = "rqnl1j"    -- Auto-formatting options, see ":help fo-table"
-opt.formatoptions = "tcrqn1j" -- Auto-formatting options, see ":help fo-table"
+opt.formatoptions = "tcrqnl1j" -- Auto-formatting options, see ":help fo-table"
 opt.cpoptions:append("J") -- Two spaces between sentences
 opt.virtualedit:append("block") -- Allow placing the cursor anywhere in vis. block mode
 opt.iskeyword:append("-") -- consider "string-string" as *one* word
@@ -158,7 +156,7 @@ augroup END
 vim.cmd([[
 augroup ft_mail
     autocmd!
-    autocmd Filetype mail setlocal spell tw=72 fo+=t sw=2 ts=2 " Auto-wrap text using tw
+    autocmd Filetype mail setlocal spell tw=72 sw=2 ts=2 " Auto-wrap text using tw
 augroup END
 ]])
 
@@ -181,7 +179,7 @@ augroup ft_markdown
 
     autocmd BufEnter *.txt set ft=markdown
     autocmd BufEnter *.md set ft=markdown
-    autocmd FileType markdown setl tw=72 sw=2 ts=2 fo-=t
+    autocmd FileType markdown setl tw=72 sw=2 ts=2 fo-=tc
 
     " Use <localleader>1/2/3/4 to add headings.
     autocmd Filetype markdown nnoremap <buffer> <localleader>1 "zyy"zpVr=k
@@ -216,14 +214,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
    group = ft_python,
    callback = function()
       vim.opt_local.textwidth = PyLineLength()
-   end,
-})
-vim.api.nvim_create_autocmd({ "FileType" }, {
-   pattern = "python",
-   group = ft_python,
-   callback = function()
-      vim.opt_local.textwidth = PyLineLength()
-      vim.opt_local.formatoptions:append("c") -- Auto-wrap comments using textwidth
+      vim.opt_local.formatoptions:remove("t") -- Auto-wrap comments using textwidth
       vim.cmd('abb <buffer> ifmain if __name__ == "__main__"')
 
       -- Join and split a strings (enclosed with ')
@@ -256,7 +247,7 @@ vim.cmd([[
 augroup ft_rest
     autocmd!
 
-    autocmd FileType rst setl tw=72 sw=2 ts=2 fo-=t
+    autocmd FileType rst setl tw=72 sw=2 ts=2 fo-=tc
 
     " Title, parts, chapters and sections 1/2/3/4
     autocmd Filetype rst nnoremap <buffer> <localleader>t "zyy"zPVr="zyyj"zpk
