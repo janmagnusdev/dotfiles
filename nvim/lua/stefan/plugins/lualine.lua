@@ -3,34 +3,48 @@ if not ok then
    return
 end
 
--- -- get lualine nightfly theme
--- local lualine_nightfly = require("lualine.themes.nightfly")
---
--- -- new colors for theme
--- local new_colors = {
---   blue = "#65D1FF",
---   green = "#3EFFDC",
---   violet = "#FF61EF",
---   yellow = "#FFDA7B",
---   black = "#000000",
--- }
---
--- -- change nightlfy theme colors
--- lualine_nightfly.normal.a.bg = new_colors.blue
--- lualine_nightfly.insert.a.bg = new_colors.green
--- lualine_nightfly.visual.a.bg = new_colors.violet
--- lualine_nightfly.command = {
---   a = {
---     gui = "bold",
---     bg = new_colors.yellow,
---     fg = new_colors.black, -- black
---   },
--- }
---
--- -- configure lualine with modified theme
--- lualine.setup({
---   options = {
---     theme = lualine_nightfly,
---   },
--- })
-lualine.setup()
+-- Return indentation info:
+-- "s:3" means "3 spaces", "t:4" means tabs with 4 spaces width
+local indentinfo = function()
+   local et = vim.api.nvim_get_option_value("expandtab", { scope = "local" })
+   local ts = vim.api.nvim_get_option_value("tabstop", { scope = "local" })
+   local text = (et and "s" or "t") .. ":" .. ts
+   return text
+end
+
+local Path = require("plenary.path")
+
+-- Return name of current virtual/Conda env
+local function get_venvname()
+   for _, v in pairs({ vim.env.VIRTUAL_ENV, vim.env.CONDA_PREFIX }) do
+      if vim.fn.isdirectory(v) == 1 then
+         return vim.fn.fnamemodify(v, ":t")
+      end
+   end
+   return ""
+end
+vim.g.venvname = get_venvname() -- Only call once, venv does not change
+
+lualine.setup({
+   options = {
+      theme = vim.g.lualine_stylo_theme,
+      component_separators = { left = "|", right = "|" },
+      section_separators = { left = "", right = "" },
+   },
+   sections = {
+      lualine_a = { "mode" },
+      lualine_b = { "g:venvname", "branch", "diff", "diagnostics", "filename" },
+      lualine_c = {},
+      lualine_x = {},
+      lualine_y = { "filetype", "encoding", "fileformat", indentinfo, "location", "progress" },
+      lualine_z = {},
+   },
+   inactive_sections = {
+      lualine_a = {},
+      lualine_b = { "filename" },
+      lualine_c = {},
+      lualine_x = {},
+      lualine_y = { "location", "progress" },
+      lualine_z = {},
+   },
+})

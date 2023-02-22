@@ -16,6 +16,7 @@ local function check_is_dark_mode()
       vim.opt.background = os_mode
    end
 end
+check_is_dark_mode()
 vim.fn.timer_start(3000, check_is_dark_mode, { ["repeat"] = -1 })
 
 -- Reload the colorscheme whenever we write the file.

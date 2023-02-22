@@ -328,6 +328,9 @@ hi("IndentBlanklineContextChar", { fg = base04, nocombine = true })
 hi("IndentBlanklineContextStart", { sp = base04, underline = true })
 hi("IndentBlanklineContextSpaceChar", { nocombine = true })
 
+-- Plugins
+-------------
+
 -- Lspsaga
 -- bg of "Normal" is "none" in the terminal which leads to
 -- base01 beging used by plugins that link to "Normal".
@@ -340,52 +343,45 @@ hi("SagaBorder", { link = "FloatBorder" })
 hi("TelescopeNormal", { bg = base00 })
 hi("TelescopeBorder", { link = "FloatBorder" })
 
--- -- -- Clap
--- -- hi("ClapShadow",          {fg=none,   bg=base02})
--- -- hi("ClapSpinner",         {fg=blue,   bg=dim_blue})
--- -- hi("ClapInput",   {link="Visual"})
--- -- hi("ClapDisplay",         {fg=base05, bg=base01})
--- -- hi("ClapPreview",         {fg=text,   bg=base01})
--- -- hi("ClapMatches", {link="Search"})
--- -- hi("ClapCurrentSelection",   s:green,  s:none, {fg=none, bg=bold})
--- -- hi("ClapSelected",         s:yellow, s:none, s:none, s:bold.",".s:underline)
--- -- hi("ClapBuffersNumber",     {fg=blue,   bg=none})
--- -- hi("ClapBuffersNumberBracket", {fg=blue, bg=none})
--- -- hi("ClapBuffersFsize",      {fg=base04, bg=none})
--- -- hi("ClapBuffersFname",      {fg=purple, bg=none})
--- -- hi("ClapFile",            {fg=base05, bg=none})
--- -- hi("ClapFpath",           {fg=purple, bg=none})
--- -- hi("ClapLinNrColumn",      {fg=base04, bg=none})
--- -- hi("ClapColumn",          {fg=base04, bg=none})
--- -- for i in range(1, 12)
--- --    hi("ClapFuzzyMatches".i, s:bright_blue,   s:none, {fg=none, bg=bold})
--- -- endfor
-
--- -- -- Lightline color scheme
--- -- local llcs = {'normal': {}, 'inactive': {}, 'command': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
--- -- -- Colors:                 ofg           obg           ifg      ibg
--- -- local llcs.normal.left =    [[s:blue,        s:dim_blue],   [s:base06, s:base02]]
--- -- local llcs.normal.right =   [[s:base06,      s:base02],     [s:base06, s:base02]]
--- -- local llcs.inactive.right =  [[s:base05,      s:base02],     [s:base05, s:base02]]
--- -- local llcs.inactive.left =   [[s:base05,      s:base02],     [s:base05, s:base02]]
--- -- local llcs.command.left =   [[s:yellow,      s:dim_yellow],   [s:base06, s:base02]]
--- -- local llcs.insert.left =    [[s:green,       s:dim_green],   [s:base06, s:base02]]
--- -- local llcs.replace.left =   [[s:orange,      s:dim_orange],  [s:base06, s:base02]]
--- -- local llcs.visual.left =    [[s:magenta,      s:dim_magenta], [s:base06, s:base02]]
--- -- local llcs.normal.middle =   [[s:base05,      s:base02]]
--- -- local llcs.inactive.middle = [[s:base05,      s:base02]]
--- -- local llcs.tabline.left =   [[s:base05,      s:base03]]
--- -- local llcs.tabline.tabsel =  [[s:blue,        s:dim_blue]]
--- -- local llcs.tabline.middle =  [[s:base05,      s:base02]]
--- -- local llcs.tabline.right =   [[s:red,         s:dim_red]]
--- -- local llcs.normal.error =   [[s:bright_red,   s:base02]]
--- -- local llcs.normal.warning =  [[s:bright_yellow, s:base02]]
--- --
--- -- let g:lightline#colorscheme#stylo#palette = lightline#colorscheme#fill(s:llcs)
--- --
--- -- -- Reload lightline colors when colorscheme is reloaded (e.g, bg is changed)
--- -- if exists('g:loaded_lightline')
--- --    call lightline#init()
--- --    call lightline#colorscheme()
--- --    call lightline#update()
--- -- endif
+-- Lualine
+local lualine_bg_center = base02
+local lualine_bg_mid = base02
+local lualine_fg = base05
+vim.g.lualine_stylo_theme = {
+   normal = {
+      a = { fg = blue, bg = dim_blue },
+      b = { fg = lualine_fg, bg = lualine_bg_mid },
+      c = { fg = lualine_fg, bg = lualine_bg_center },
+   },
+   insert = {
+      a = { fg = green, bg = dim_green },
+      b = { fg = lualine_fg, bg = lualine_bg_mid },
+      c = { fg = lualine_fg, bg = lualine_bg_center },
+   },
+   visual = {
+      a = { fg = magenta, bg = dim_magenta },
+      b = { fg = lualine_fg, bg = lualine_bg_mid },
+      c = { fg = lualine_fg, bg = lualine_bg_center },
+   },
+   replace = {
+      a = { fg = orange, bg = dim_orange },
+      b = { fg = lualine_fg, bg = lualine_bg_mid },
+      c = { fg = lualine_fg, bg = lualine_bg_center },
+   },
+   command = {
+      a = { fg = yellow, bg = dim_yellow },
+      b = { fg = lualine_fg, bg = lualine_bg_mid },
+      c = { fg = lualine_fg, bg = lualine_bg_center },
+   },
+   terminal = {
+      a = { fg = purple, bg = dim_purple },
+      b = { fg = lualine_fg, bg = lualine_bg_mid },
+      c = { fg = lualine_fg, bg = lualine_bg_center },
+   },
+   inactive = {
+      a = { fg = lualine_fg, bg = lualine_bg_mid },
+      b = { fg = lualine_fg, bg = lualine_bg_mid },
+      c = { fg = lualine_fg, bg = lualine_bg_center },
+   },
+}
+require("lualine").setup({ options = { theme = vim.g.lualine_stylo_theme } })
