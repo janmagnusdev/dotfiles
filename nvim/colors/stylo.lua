@@ -206,7 +206,7 @@ hi("TermColor15", { fg = base07, bg = none })
 hi("Normal", { fg = text, bg = back })
 
 hi("FloatBorder", { fg = base04, bg = base00 })
-hi("Pmenu", { fg = base05, bg = base00 })
+hi("Pmenu", { fg = base05, bg = base01 })
 hi("PmenuSbar", { fg = base05, bg = base02 })
 hi("PmenuThumb", { fg = base05, bg = base05 })
 hi("PmenuSel", { fg = base01, bg = green })
@@ -311,9 +311,10 @@ hi("htmlEndTag", { fg = text, bg = none })
 hi("markdownCode", { fg = purple, bg = none })
 
 -- Patch
-hi("diffLine", { fg = cyan, bg = none, bold = true })
-hi("diffAdded", { fg = green, bg = none })
-hi("diffRemoved", { fg = red, bg = none })
+hi("diffLine", { fg = cyan, bold = true })
+hi("diffAdded", { fg = green })
+hi("diffChanged", { fg = yellow })
+hi("diffRemoved", { fg = red })
 
 -- Python
 hi("pythonClassVar", { fg = cyan, bg = none })
@@ -342,6 +343,11 @@ hi("SagaBorder", { link = "FloatBorder" })
 -- base01 beging used by plugins that link to "Normal".
 hi("TelescopeNormal", { bg = base00 })
 hi("TelescopeBorder", { link = "FloatBorder" })
+
+-- Gitsigns
+hi("GitSignsAdd", { fg = dim_green })
+hi("GitSignsChange", { fg = dim_yellow })
+hi("GitSignsDelete", { fg = dim_red })
 
 -- Lualine
 local lualine_bg_center = base02
@@ -384,4 +390,4 @@ vim.g.lualine_stylo_theme = {
       c = { fg = lualine_fg, bg = lualine_bg_center },
    },
 }
-require("lualine").setup({ options = { theme = vim.g.lualine_stylo_theme } })
+require("stefan.plugins.lualine").setup()

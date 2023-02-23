@@ -12,7 +12,7 @@ end
 -- TODO: Maybe replace with an async lua job?
 local function check_is_dark_mode()
    local os_mode = vim.fn.systemlist("dm get")[1]
-   if vim.opt.background ~= os_mode then
+   if vim.opt.background:get() ~= os_mode then
       vim.opt.background = os_mode
    end
 end
