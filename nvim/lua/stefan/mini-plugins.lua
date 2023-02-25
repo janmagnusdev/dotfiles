@@ -39,3 +39,45 @@ vim.keymap.set("n", "<Home>", SmartHome, { silent = true })
 vim.keymap.set("i", "<Home>", SmartHome, { silent = true })
 
 -- }}}
+
+-- Highlight Word {{{
+--
+-- This mini-plugin provides a few mappings for highlighting words temporarily.
+--
+-- Sometimes you're looking at a hairy piece of code and would like a certain
+-- word or two to stand out temporarily.  You can search for it, but that only
+-- gives you one color of highlighting.  Now you can use <leader>N where N is
+-- a number from 1-6 to highlight the current word in a specific color.
+
+local function _hiInterestingWord(n)
+   -- Get word ("w") under cursor
+   local word = vim.fn.expand("<cword>")
+   -- Calculate an arbitrary match ID.  Hopefully nothing else is using it.
+   local match_id = 86750 + n
+   -- Clear existing matches, but don't worry if they don't exist.
+   pcall(vim.fn.matchdelete, match_id)
+   -- Construct a literal pattern that has to match at boundaries.
+   local pattern = "\\V\\<" .. vim.fn.escape(word, "\\") .. "\\>"
+   -- Actually match the words.
+   vim.fn.matchadd("InterestingWord" .. n, pattern, 1, match_id)
+end
+local function hiInterestingWord(n)
+   return function()
+      _hiInterestingWord(n)
+   end
+end
+
+vim.keymap.set("n", "<leader>1", hiInterestingWord(1), { silent = true })
+vim.keymap.set("n", "<leader>2", hiInterestingWord(2), { silent = true })
+vim.keymap.set("n", "<leader>3", hiInterestingWord(3), { silent = true })
+vim.keymap.set("n", "<leader>4", hiInterestingWord(4), { silent = true })
+vim.keymap.set("n", "<leader>5", hiInterestingWord(5), { silent = true })
+vim.keymap.set("n", "<leader>6", hiInterestingWord(6), { silent = true })
+
+vim.cmd("hi def InterestingWord1 guibg=#9bdeff ctermbg=117 guifg=#2F2F2F ctermfg=16")
+vim.cmd("hi def InterestingWord2 guibg=#00f8c3 ctermbg=50  guifg=#2F2F2F ctermfg=16")
+vim.cmd("hi def InterestingWord3 guibg=#88ff6d ctermbg=82  guifg=#2F2F2F ctermfg=16")
+vim.cmd("hi def InterestingWord4 guibg=#ffcb71 ctermbg=222 guifg=#2F2F2F ctermfg=16")
+vim.cmd("hi def InterestingWord5 guibg=#ffc0c8 ctermbg=224 guifg=#2F2F2F ctermfg=16")
+vim.cmd("hi def InterestingWord6 guibg=#ddb1ff ctermbg=225 guifg=#2F2F2F ctermfg=16")
+-- }}}
