@@ -324,9 +324,9 @@ hi("pythonExClass", { fg = red, bg = none })
 hi("yamlKey", { fg = blue, bg = none })
 
 -- Indent Blankline (indent guides)
-hi("IndentBlanklineChar", { fg = base02, nocombine = true })
-hi("IndentBlanklineContextChar", { fg = base04, nocombine = true })
-hi("IndentBlanklineContextStart", { sp = base04, underline = true })
+hi("IndentBlanklineChar", { fg = base01, nocombine = true })
+hi("IndentBlanklineContextChar", { fg = base03, nocombine = true })
+hi("IndentBlanklineContextStart", { sp = base03, underline = true })
 hi("IndentBlanklineContextSpaceChar", { nocombine = true })
 
 -- Plugins
