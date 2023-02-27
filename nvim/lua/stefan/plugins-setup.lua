@@ -41,7 +41,7 @@ return require("packer").startup(function(use)
    use("lukas-reineke/indent-blankline.nvim") -- Indent guides
    -- use "akinsho/toggleterm.nvim"  -- Toggle terminal windows
    use("nvim-tree/nvim-web-devicons") -- Icons used by other plugins (lualine, tree, ...)
-   -- use "tpope/vim-vinegar"  -- Open slightly improved netrw on pressing "-"
+   use("tpope/vim-vinegar") -- Open slightly improved netrw on pressing "-"
    use("nvim-lualine/lualine.nvim") -- statusline
    use({
       "nvim-tree/nvim-tree.lua",

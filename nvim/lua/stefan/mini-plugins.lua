@@ -25,6 +25,7 @@ end
 PyLineLength()
 
 -- }}}
+
 -- SmartHome (vim tip 315) {{{
 
 function SmartHome()
@@ -37,6 +38,18 @@ end
 vim.keymap.set("n", "0", SmartHome, { silent = true })
 vim.keymap.set("n", "<Home>", SmartHome, { silent = true })
 vim.keymap.set("i", "<Home>", SmartHome, { silent = true })
+
+-- }}}
+
+-- Synstack {{{
+
+-- Show the stack of syntax highlighting classes affecting whatever is under the
+-- cursor.
+function SynStack()
+   vim.cmd([[echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")]])
+end
+
+vim.keymap.set("n", "<leader>hi", SynStack)
 
 -- }}}
 
