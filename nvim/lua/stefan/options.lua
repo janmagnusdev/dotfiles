@@ -53,8 +53,8 @@ opt.formatoptions = "tcrqnl1j" -- Auto-formatting options, see ":help fo-table"
 opt.cpoptions:append("J") -- Two spaces between sentences
 opt.virtualedit:append("block") -- Allow placing the cursor anywhere in vis. block mode
 opt.iskeyword:append("-") -- consider "string-string" as *one* word
--- opt.foldlevelstart = 99         -- Start with all folds open
--- opt.foldmethod = "indent"       -- Default fold method: fold by indent
+opt.foldlevelstart = 99         -- Start with all folds open
+opt.foldmethod = "indent"       -- Default fold method: fold by indent
 
 -- Searching
 opt.incsearch = true -- Show matches while entering the search pattern
@@ -146,7 +146,7 @@ augroup END
 vim.cmd([[
 augroup ft_lua
     autocmd!
-    autocmd BufEnter *.lua setl sw=3 ts=3
+    autocmd BufEnter *.lua setl sw=3 ts=3 foldmethod=marker
 augroup END
 ]])
 

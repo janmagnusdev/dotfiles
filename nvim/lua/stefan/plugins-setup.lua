@@ -103,17 +103,17 @@ return require("packer").startup(function(use)
    -- use "sjl/splice.vim", {"on": "SpliceInit"}
    --
    -- Filetype plug-ins
-   -- use "othree/html5.vim",             {"for": "html"}
-   -- use "Glench/Vim-Jinja2-Syntax",     {"for": "jinja"}
-   -- use "chr4/nginx.vim",               {"for": "nginx"}
-   -- use "mgedmin/coverage-highlight.vim", {"for": "python"}
-   -- use "davidhalter/jedi-vim",         {"for": "python"}
-   -- use "vim-python/python-syntax",     {"for": "python"}
-   -- use "Vimjas/vim-python-pep8-indent",{"for": "python"}
-   -- use "kalekundert/vim-coiled-snake", {"for": "python"}
-   -- use "rust-lang/rust.vim",           {"for": "rust"}
-   -- use "cespare/vim-toml",             {"for": "toml"}
-   -- use "stephpy/vim-yaml",             {"for": "yaml"}
+   -- use {"othree/html5.vim",             ft = "html"}
+   -- use {"Glench/Vim-Jinja2-Syntax",     ft = "jinja"}
+   -- use {"chr4/nginx.vim",               ft = "nginx"}
+   use({ "mgedmin/coverage-highlight.vim", ft = "python" })
+   -- use {"davidhalter/jedi-vim",         ft = "python"}
+   -- use {"vim-python/python-syntax",     ft = "python"}
+   -- use {"Vimjas/vim-python-pep8-indent",ft = "python"}
+   use({ "kalekundert/vim-coiled-snake", ft = "python" })
+   -- use {"rust-lang/rust.vim",           ft = "rust"}
+   -- use {"cespare/vim-toml",             ft = "toml"}
+   -- use {"stephpy/vim-yaml",             ft = "yaml"}
 
    if packer_bootstrap then
       require("packer").sync()
