@@ -176,3 +176,37 @@ keymap.set("n", "<leader>ft", "<cmd>Telescope filetypes<cr>") -- list available 
 --
 -- -- restart lsp server (not on youtube nvim video)
 -- keymap.set("n", "<leader>rs", ":LspRestart<CR>") -- mapping to restart lsp if necessary
+
+-- Lsp / Lspsaga
+
+-- Many examples/guides wrap this in an "on_attach" function for an actual LSP
+-- server.  We can do this here, because
+-- - we currently don't map to "vim.lsp...." 
+-- - we use null-ls with Gitsigns and formatters for *all* filetypes
+-- These bindings also make more sense in this file.
+local opts = { noremap = true, silent = true }
+keymap.set("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opts) -- show definition, references
+-- keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts) -- got to declaration
+keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
+keymap.set("n", "gD", "<cmd>Lspsaga goto_definition<CR>", opts) -- see definition and make edits in window
+-- keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
+keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts) -- see available code actions
+keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts) -- smart rename
+keymap.set("n", "<leader>df", "<cmd>Lspsaga show_buf_diagnostics<CR>", opts) -- show diagnostics for cursor
+keymap.set("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<CR>", opts) -- show  diagnostics for line
+keymap.set("n", "<leader>dc", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- show diagnostics for cursor
+-- keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
+-- keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
+keymap.set("n", "üd", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
+keymap.set("n", "+d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
+keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
+keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>", opts) -- see outline on right hand side
+keymap.set("n", "<leader>t", "<cmd>Lspsaga term_toggle<CR>", opts) -- open a floating terminal
+keymap.set("n", "<leader>fm", function()
+   vim.lsp.buf.format({
+      filter = function(lsp_client)
+         --  only use null-ls for formatting instead of lsp server
+         return lsp_client.name == "null-ls"
+      end,
+   })
+end, opts)
