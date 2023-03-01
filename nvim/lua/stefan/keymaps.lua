@@ -95,8 +95,8 @@ keymap.set("n", "<leader>J", "mzvipJ`z", { noremap = true })
 keymap.set("n", "S", "i<CR><ESC>")
 
 -- Re-hardwrap paragraphs of text
-keymap.set("n", "<leader>q", "gqip")
-keymap.set("v", "<leader>q", "gq")
+keymap.set("n", "<leader>q", "gwip")
+keymap.set("v", "<leader>q", "gw")
 
 -- Keep visual selection when indenting
 keymap.set("v", "<", "<gv")
