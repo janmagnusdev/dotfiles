@@ -93,10 +93,10 @@ return require("packer").startup(function(use)
    use("williamboman/mason-lspconfig.nvim") -- bridges gap b/w mason & lspconfig
    use("neovim/nvim-lspconfig") -- easily configure language servers
    use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
-   use("glepnir/lspsaga.nvim") -- enhanced lsp uis
-   use("onsails/lspkind.nvim") -- vs-code like icons for autocompletion
    use("jose-elias-alvarez/null-ls.nvim") -- configure formatters & linters
    use("jay-babu/mason-null-ls.nvim") -- bridges gap b/w mason & null-ls
+   use("glepnir/lspsaga.nvim") -- enhanced lsp uis
+   use("onsails/lspkind.nvim") -- vs-code like icons for autocompletion
 
    -- Tools
    -- use "~/Projects/zettel.vim"

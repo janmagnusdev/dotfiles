@@ -332,6 +332,13 @@ hi("IndentBlanklineContextSpaceChar", { nocombine = true })
 -- Plugins
 -------------
 
+-- LSP
+
+hi("DiagnosticError", { fg = bright_red })
+hi("DiagnosticWarn", { fg = bright_yellow })
+hi("DiagnosticInfo", { fg = bright_blue })
+hi("DiagnosticHint", { fg = bright_purple })
+
 -- Lspsaga
 -- bg of "Normal" is "none" in the terminal which leads to
 -- base01 beging used by plugins that link to "Normal".
@@ -390,4 +397,4 @@ vim.g.lualine_stylo_theme = {
       c = { fg = lualine_fg, bg = lualine_bg_center },
    },
 }
-require("stefan.plugins.lualine").setup()
+require("stefan.plugins.lualine").setup() -- Reload colors

@@ -15,6 +15,11 @@ saga.setup({
    lightbulb = {
       enable = false,
    },
+   outline = {
+      keys = {
+         expand_collapse = "<space>",
+      },
+   },
    ui = {
       border = "rounded",
    },

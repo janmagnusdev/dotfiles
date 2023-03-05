@@ -48,7 +48,15 @@ local function setup()
                symbols = { added = " ", modified = " ", removed = " " },
             },
             "diagnostics",
-            "filename",
+            {
+               "filename",
+               path = 1,
+               -- shorting_target = 40, -- Shortens path to leave 40 spaces in the window
+               symbols = {
+                  modified = "",
+                  readonly = "",
+               },
+            },
          },
          lualine_c = {},
          lualine_x = {},
@@ -57,7 +65,17 @@ local function setup()
       },
       inactive_sections = {
          lualine_a = {},
-         lualine_b = { "filename" },
+         lualine_b = {
+            {
+               "filename",
+               path = 1,
+               -- shorting_target = 40, -- Shortens path to leave 40 spaces in the window
+               symbols = {
+                  modified = "",
+                  readonly = "",
+               },
+            },
+         },
          lualine_c = {},
          lualine_x = {},
          lualine_y = { "location", "progress" },
