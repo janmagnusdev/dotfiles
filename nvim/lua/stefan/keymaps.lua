@@ -157,7 +157,7 @@ keymap.set("t", "<S-Space>", "<Space>")
 keymap.set("n", "<leader>sm", ":MaximizerToggle<CR>") -- toggle split window maximization
 
 -- nvim-tree
--- keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>") -- toggle file explorer
+keymap.set("n", "-", ":NvimTreeToggleReplace<CR>") -- Show file explorer, replace current buffer
 keymap.set("n", "<leader>e", ":NvimTreeFindFileToggle<CR>") -- toggle file explorer, show current file
 
 -- telescope

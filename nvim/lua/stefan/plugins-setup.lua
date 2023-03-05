@@ -35,7 +35,7 @@ return require("packer").startup(function(use)
    use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- dependency for better sorting performance
    use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- fuzzy finder
    use({ "nvim-tree/nvim-tree.lua", tag = "nightly" }) -- updated every week (see issue #1193)
-   use({ "tpope/vim-vinegar" }) -- Open slightly improved netrw on pressing "-"
+   -- use({ "tpope/vim-vinegar" }) -- Open slightly improved netrw on pressing "-"
    use({ "tpope/vim-eunuch" }) -- Helpers (:Rename, :Remove, :Delete, :SudoWrite, :SudoEdit)
    use({ "RRethy/vim-hexokinase", run = "make hexokinase" }) -- Display colors in-line
    use({ "lukas-reineke/indent-blankline.nvim" }) -- Indent guides
