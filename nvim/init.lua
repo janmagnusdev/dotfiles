@@ -9,7 +9,7 @@ require("stefan.plugins.nvim-tree")
 require("stefan.plugins.hexokinase")
 require("stefan.plugins.indent-blankline")
 require("stefan.plugins.gitsigns")
--- require("stefan.plugins.treesitter")  -- Not working well enough yet
+require("stefan.plugins.treesitter")
 require("stefan.plugins.comment")
 require("stefan.plugins.autopairs")
 require("stefan.plugins.nvim-cmp")

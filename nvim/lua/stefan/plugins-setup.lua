@@ -107,9 +107,7 @@ return require("packer").startup(function(use)
    -- use {"Glench/Vim-Jinja2-Syntax",     ft = "jinja"}
    -- use {"chr4/nginx.vim",               ft = "nginx"}
    use({ "mgedmin/coverage-highlight.vim", ft = "python" })
-   -- use {"davidhalter/jedi-vim",         ft = "python"}
-   -- use {"vim-python/python-syntax",     ft = "python"}
-   -- use {"Vimjas/vim-python-pep8-indent",ft = "python"}
+   use({ "Vimjas/vim-python-pep8-indent", ft = "python" })
    use({ "kalekundert/vim-coiled-snake", ft = "python" })
    -- use {"rust-lang/rust.vim",           ft = "rust"}
    -- use {"cespare/vim-toml",             ft = "toml"}
