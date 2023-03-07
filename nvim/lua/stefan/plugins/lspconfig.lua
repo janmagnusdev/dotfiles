@@ -8,7 +8,7 @@ if not ok then
    return
 end
 
--- used to enable autocompletion (assign to every lsp server config)
+-- Used to enable autocompletion (assign to every lsp server config)
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
 -- Change the Diagnostic symbols in the sign column (gutter)
@@ -19,7 +19,6 @@ for type, icon in pairs(signs) do
    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
--- configure lua server (with special settings)
 lspconfig.lua_ls.setup({
    capabilities = capabilities,
    settings = { -- custom settings for lua
@@ -39,7 +38,10 @@ lspconfig.lua_ls.setup({
    },
 })
 
--- configure Python servers
 lspconfig.jedi_language_server.setup({
+   capabilities = capabilities,
+})
+
+lspconfig.taplo.setup({
    capabilities = capabilities,
 })

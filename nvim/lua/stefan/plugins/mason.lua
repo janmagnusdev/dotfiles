@@ -17,7 +17,9 @@ if not mason_null_ls_ok then
 end
 
 -- enable mason
-mason.setup()
+mason.setup({
+   PATH = "append",
+})
 
 mason_lspconfig.setup({
    -- list of servers for mason to install
@@ -31,12 +33,9 @@ mason_lspconfig.setup({
       -- "prosemd_lsp",
       -- "remark_ls",
       -- "zk",
-      -- Python
       "jedi_language_server",
-      -- "pylsp",
-      -- "ruff_lsp",
       -- "rust_analyzer",
-      -- "taplo",
+      "taplo",
       -- "yamlls",
    },
    -- auto-install configured servers (with lspconfig)
@@ -46,12 +45,10 @@ mason_lspconfig.setup({
 mason_null_ls.setup({
    -- list of formatters & linters for mason to install
    ensure_installed = {
-      "stylua", -- Lua formatter
-      -- "autoflake",
-      -- "black",
-      -- "flake8",
-      -- "isort",
-      -- "mypy",
+      "stylua",
+      "black",
+      "mypy",
+      "ruff",
    },
    -- auto-install configured formatters & linters (with null-ls)
    automatic_installation = true,
