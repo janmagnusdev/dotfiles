@@ -82,7 +82,7 @@ lg5 = !"git lg -5"
 # Push and skip CI/CD
 pushnoci = push -o ci.skip
 # Push feature branch and create a MR for "main"
-pushmergemain = push -o merge_request.create -o merge_request.target=main
+pushmergemain = -u push -o merge_request.create -o merge_request.target=main
 
 [gpg]
 format = ssh
