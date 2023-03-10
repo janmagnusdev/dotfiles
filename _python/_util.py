@@ -9,21 +9,21 @@ import sys
 
 def e(v):
     """Escape color value *v*."""
-    return f'\001\033[0;{v}m\002'
+    return f"\033[0;{v}m"
 
 
 class c:
-    reset = '\001\033[0m\002'
-    red = e('31')
-    green = e('32')
-    yellow = e('33')
-    blue = e('34')
-    purple = e('35')
-    cyan = e('36')
-    bright_green = e('92')
-    bright_yellow = e('93')
-    bright_blue = e('94')
-    bright_cyan = e('96')
+    reset = "\033[0m"
+    red = e("31")
+    green = e("32")
+    yellow = e("33")
+    blue = e("34")
+    purple = e("35")
+    cyan = e("36")
+    bright_green = e("92")
+    bright_yellow = e("93")
+    bright_blue = e("94")
+    bright_cyan = e("96")
 
 
 def setup_colored_promt():
@@ -37,11 +37,8 @@ def setup_colored_promt():
     except ImportError:
         return
 
-    if has_libedit():
-        return
-
-    sys.ps1 = f'{c.bright_cyan}❯{c.bright_green}❯{c.yellow}❯{c.reset} '
-    sys.ps2 = f'{c.cyan}.{c.green}.{c.yellow}.{c.reset} '
+    sys.ps1 = f"{c.bright_cyan}❯{c.bright_green}❯{c.yellow}❯{c.reset} "
+    sys.ps2 = f"{c.cyan}.{c.green}.{c.yellow}.{c.reset} "
 
 
 def setup_persistent_history():
@@ -52,7 +49,7 @@ def setup_persistent_history():
     except ImportError:
         return
 
-    histfile = os.path.expanduser('~/.pyhistory')
+    histfile = os.path.expanduser("~/.pyhistory")
     try:
         readline.read_history_file(histfile)
     except IOError:
@@ -71,7 +68,7 @@ def setup_tab_completion():
     if has_libedit():
         readline.parse_and_bind("bind ^I rl_complete")
     else:
-        readline.parse_and_bind('tab: complete')
+        readline.parse_and_bind("tab: complete")
     readline.set_completer(completer.complete)
 
 
@@ -88,13 +85,13 @@ def has_libedit():
     """
     import readline
 
-    if sys.platform != 'darwin':
+    if sys.platform != "darwin":
         return False
 
-    cmd = ['otool', '-L', readline.__file__]
+    cmd = ["otool", "-L", readline.__file__]
     out = subprocess.check_output(cmd).decode()
 
-    if 'libedit' in out:
+    if "libedit" in out:
         return True
 
     return False
@@ -108,6 +105,7 @@ def pp_displayhook(value):
         builtins._ = value
 
         import pprint
+
         pprint.pprint(value)
 
 
@@ -121,13 +119,14 @@ class Completer(rlcompleter.Completer):
     <http://codespeak.net/svn/user/antocuni/hack/rlcompleter_ng.py>`_
 
     """
+
     def complete(self, text, state):
         """Return a *tab* if you are on the beginning of a line or the next
         next possible completion else.
 
         """
-        if text == '':
-            return ['\t', None][state]
+        if text == "":
+            return ["\t", None][state]
         else:
             return rlcompleter.Completer.complete(self, text, state)
 
@@ -138,20 +137,20 @@ class Completer(rlcompleter.Completer):
         """
         # Strip "a.b." from "a.b.c" for all matches
         matches = rlcompleter.Completer.attr_matches(self, text)
-        matches = [attr[attr.rfind('.') + 1:] for attr in matches]
+        matches = [attr[attr.rfind(".") + 1 :] for attr in matches]
 
-        expr, attr = text.rsplit('.', 1)
+        expr, attr = text.rsplit(".", 1)
 
         # Return the common prefix of all matches
         prefix = self._common_prefix(matches)
         if prefix and prefix != attr:
-            return [f'{expr}.{prefix}']
+            return [f"{expr}.{prefix}"]
 
         # Add '' to the matches to prevent the automatic completion of the
         # common prefix.
         # Without it, "sys.path<tab>" would produce "path" and not display
         # the available methods ("path" and various "path_*").
-        return matches + [' ']
+        return matches + [" "]
 
     def _common_prefix(self, names):
         """Return the common prefix of all strings in *names*."""
@@ -159,4 +158,4 @@ class Completer(rlcompleter.Completer):
             for l1, l2 in zip(letters[:-1], letters[1:]):
                 if l1 != l2:
                     return names[0][:i]
-        return names[0][:i+1]
+        return names[0][: i + 1]
