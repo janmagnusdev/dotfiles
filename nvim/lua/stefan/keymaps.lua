@@ -202,6 +202,7 @@ keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>", opts) -- see outline on
 keymap.set("n", "<leader>t", "<cmd>Lspsaga term_toggle<CR>", opts) -- open a floating terminal
 keymap.set("n", "<leader>fm", function()
    vim.lsp.buf.format({
+      timeout_ms = 5000, -- Some formatters taker longer than 1000ms
       filter = function(lsp_client)
          --  only use null-ls for formatting instead of lsp server
          return lsp_client.name == "null-ls"
