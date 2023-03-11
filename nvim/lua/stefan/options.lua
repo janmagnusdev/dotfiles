@@ -151,7 +151,7 @@ augroup END
 vim.cmd([[
 augroup ft_lua
     autocmd!
-    autocmd BufEnter *.lua setl sw=3 ts=3 foldmethod=marker
+    autocmd BufEnter *.lua setl sw=2 ts=2 foldmethod=marker
 augroup END
 ]])
 
