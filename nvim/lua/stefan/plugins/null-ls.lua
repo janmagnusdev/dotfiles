@@ -21,14 +21,7 @@ null_ls.setup({
       code_actions.gitsigns,
       formatting.trim_newlines,
       formatting.trim_whitespace,
-      formatting.stylua.with({ -- lua formatter
-         extra_args = {
-            "--column-width=100",
-            "--indent-type=Spaces",
-            "--indent-width=3",
-            "--quote-style=AutoPreferDouble",
-         },
-      }),
+      formatting.stylua,
       formatting.black,
       formatting.ruff,
       diagnostics.mypy,

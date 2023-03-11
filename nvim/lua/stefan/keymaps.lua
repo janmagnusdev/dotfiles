@@ -177,7 +177,7 @@ keymap.set("n", "<leader>ft", "<cmd>Telescope filetypes<cr>") -- list available 
 
 -- Many examples/guides wrap this in an "on_attach" function for an actual LSP
 -- server.  We can do this here, because
--- - we currently don't map to "vim.lsp...." 
+-- - we currently don't map to "vim.lsp...."
 -- - we use null-ls with Gitsigns and formatters for *all* filetypes
 -- These bindings also make more sense in this file.
 local opts = { noremap = true, silent = true }

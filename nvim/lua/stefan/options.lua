@@ -55,11 +55,11 @@ opt.shiftround = true -- Round indent to multiple of shiftwidth
 opt.colorcolumn = "+1" -- Highlight these columns (+1 == textwidth)
 opt.formatoptions = "tcrqnl1j" -- Auto-formatting options, see ":help fo-table"
 opt.cpoptions:append("J") -- Two spaces between sentences
-opt.joinspaces = true     -- Join sentences with two spaces
+opt.joinspaces = true -- Join sentences with two spaces
 opt.virtualedit:append("block") -- Allow placing the cursor anywhere in vis. block mode
 opt.iskeyword:append("-") -- consider "string-string" as *one* word
-opt.foldlevelstart = 99         -- Start with all folds open
-opt.foldmethod = "indent"       -- Default fold method: fold by indent
+opt.foldlevelstart = 99 -- Start with all folds open
+opt.foldmethod = "indent" -- Default fold method: fold by indent
 
 -- Searching
 opt.incsearch = true -- Show matches while entering the search pattern
