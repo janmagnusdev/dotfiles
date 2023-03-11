@@ -1,5 +1,9 @@
 local opt = vim.opt
 
+-- Leader
+vim.g.mapleader = ","
+vim.g.maplocalleader = "ä"
+
 -- Interface
 opt.title = true -- Set window title to current filename
 opt.signcolumn = "yes" -- Show sign column so that text doesn't shift

@@ -1,9 +1,5 @@
 local keymap = vim.keymap
 
--- Leader
-vim.g.mapleader = ","
-vim.g.maplocalleader = "ä"
-
 ---------------------
 -- General Keymaps
 ---------------------
