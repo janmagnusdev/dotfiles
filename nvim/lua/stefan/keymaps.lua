@@ -4,6 +4,8 @@ local keymap = vim.keymap
 -- General Keymaps
 ---------------------
 
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
 -- Use jj to exit insert mode
 keymap.set("i", "jj", "<ESC>")
 
@@ -124,8 +126,8 @@ keymap.set("i", "<C-u>", "<ESC>mzgUiw`za")
 -------------
 
 -- Use space to toggle folds
-keymap.set("n", "<Space>", "za")
-keymap.set("v", "<Space>", "za")
+-- keymap.set("n", "<Space>", "za")
+-- keymap.set("v", "<Space>", "za")
 
 -- Make zO recursively open whatever fold we're in, even if it's partially open.
 keymap.set("n", "zO", "zczO", { noremap = true })

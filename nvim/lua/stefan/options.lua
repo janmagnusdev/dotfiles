@@ -1,8 +1,8 @@
 local opt = vim.opt
 
 -- Leader
-vim.g.mapleader = ","
-vim.g.maplocalleader = "ä"
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Interface
 opt.title = true -- Set window title to current filename
