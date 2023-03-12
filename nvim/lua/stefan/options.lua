@@ -11,10 +11,7 @@ opt.relativenumber = true -- Show relative line numbers
 opt.number = true -- Show absolute line number on cursor line (when relative number is on)
 opt.cursorline = true -- highlight the current cursor line
 -- opt.cursorcolumn = true -- highlight the current cursor line
--- set pumheight=20                -- Height of the popup menu
--- set completeopt=menu,preview,longest  -- set in nvim-cmp.lua
--- set wildmenu                    -- Improved command-line completion
--- set wildignore+=.git,.hg,_build,__pycache__,*.pyc
+vim.opt.completeopt = "menu,menuone,noselect" -- Completion options recommended by nvim-cmp
 opt.wildmode = "longest:full,full"
 opt.clipboard:append({ "unnamed", "unnamedplus" }) -- use system clipboard as default register
 opt.list = true -- Show listchars
@@ -69,7 +66,6 @@ opt.hlsearch = true -- Keep matches of previous search highlighted
 opt.gdefault = true -- Set 'g' flag for substitutions by default
 
 -- Line Return {{{
-
 -- Return to the same line when you reopen a file.
 vim.cmd([[
 augroup line_return
@@ -80,7 +76,18 @@ augroup line_return
         \ endif
 augroup END
 ]])
+-- }}}
 
+-- [[ Highlight on yank ]] {{{
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = '*',
+})
 -- }}}
 
 -- Filetype-specific settings ----------------------------------------------{{{

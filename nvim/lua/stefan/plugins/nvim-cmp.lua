@@ -18,8 +18,6 @@ end
 -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
 require("luasnip.loaders.from_vscode").lazy_load()
 
-vim.opt.completeopt = "menu,menuone,noselect"
-
 -- Helper for <Tab> completion
 local has_words_before = function()
    unpack = unpack or table.unpack
