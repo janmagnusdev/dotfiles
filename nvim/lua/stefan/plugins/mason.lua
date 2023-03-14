@@ -18,7 +18,7 @@ end
 
 -- enable mason
 mason.setup({
-   PATH = "append",
+   PATH = "append",  -- Give precedence to (Python) tools installed in the current venv
 })
 
 mason_lspconfig.setup({

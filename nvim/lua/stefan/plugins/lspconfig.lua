@@ -8,8 +8,9 @@ if not ok then
    return
 end
 
--- Used to enable autocompletion (assign to every lsp server config)
-local capabilities = cmp_nvim_lsp.default_capabilities()
+-- nvim-cmp suppohts additional completion capabilities, so broadcast that to servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 
 -- Change the Diagnostic symbols in the sign column (gutter)
 -- local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
@@ -19,6 +20,8 @@ for type, icon in pairs(signs) do
    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
+-- See https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua#L404-L449
+-- for an alternative way to setup mason-lspconfig and the individual LSPs
 lspconfig.lua_ls.setup({
    capabilities = capabilities,
    settings = { -- custom settings for lua
