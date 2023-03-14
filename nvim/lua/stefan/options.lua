@@ -23,9 +23,10 @@ opt.showbreak = "↪" -- Show symbol for continued lines after break
 opt.linebreak = true -- Don’t wrap long lines in the middle of a word
 opt.scrolloff = 3 -- Display at least 3 lines above/below cursor
 opt.sidescrolloff = 3 -- Display at least 3 columns right/left of cursor
+opt.timeoutlen = 500 -- Reduce timeout for key combos to open "which-key" plug-in faster
 opt.mouse = "a" -- Enable the use of mouse in all modes
 if vim.env.TERM_PROGRAM ~= "Apple_Terminal" then
-   opt.termguicolors = true -- Enable 24-bit RGB color in the TUI
+  opt.termguicolors = true -- Enable 24-bit RGB color in the TUI
 end
 
 -- Behavior
@@ -39,12 +40,15 @@ opt.confirm = true -- Y-N-C promt if closing with unsaved changes
 opt.showmode = false -- Disable mode message, Lualine also has it
 opt.splitbelow = true -- Open hsplit below current window
 opt.splitright = true -- Open vsplit right of current window
+opt.shortmess:append({ W = true, I = true, c = true }) -- Don't show "file written", Intro, completion msg
 opt.diffopt:append({ "indent-heuristic", "algorithm:patience" })
+opt.undofile = true -- Save undo history to a file and restore on next load
 
 -- Tabs & Indentation
 opt.tabstop = 4 -- Number of spaces a tab in a file counts for
 opt.shiftwidth = 4 -- Number of spaces for each step of (auto)indent
 opt.expandtab = true -- Uses spaces for tabs
+opt.smartindent = true -- Insert indents automatically
 opt.shiftround = true -- Round indent to multiple of shiftwidth
 
 -- Moving around / Editing
@@ -63,7 +67,10 @@ opt.incsearch = true -- Show matches while entering the search pattern
 opt.ignorecase = true -- Ignore case while searching …
 opt.smartcase = true -- … except when pattern contains an upper case character
 opt.hlsearch = true -- Keep matches of previous search highlighted
+opt.inccommand = "nosplit" -- Live preview of substitions while typing
 opt.gdefault = true -- Set 'g' flag for substitutions by default
+opt.grepprg = "rg --vimgrep" -- Use ripgrep as grep command ...
+opt.grepformat = "%f:%l:%c:%m" -- ... and adjust the grepformat for it
 
 -- Line Return {{{
 -- Return to the same line when you reopen a file.
@@ -80,13 +87,13 @@ augroup END
 
 -- [[ Highlight on yank ]] {{{
 -- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
   end,
   group = highlight_group,
-  pattern = '*',
+  pattern = "*",
 })
 -- }}}
 
@@ -222,19 +229,19 @@ augroup END
 
 local ft_python = vim.api.nvim_create_augroup("ft_python", { clear = true })
 vim.api.nvim_create_autocmd({ "FileType" }, {
-   pattern = "python",
-   group = ft_python,
-   callback = function()
-      vim.opt_local.textwidth = PyLineLength()
-      vim.opt_local.formatoptions:remove("t") -- Auto-wrap comments using textwidth
-      vim.cmd('abb <buffer> ifmain if __name__ == "__main__"')
+  pattern = "python",
+  group = ft_python,
+  callback = function()
+    vim.opt_local.textwidth = PyLineLength()
+    vim.opt_local.formatoptions:remove("t") -- Auto-wrap comments using textwidth
+    vim.cmd('abb <buffer> ifmain if __name__ == "__main__"')
 
-      -- Join and split a strings (enclosed with ')
-      -- join:  "foo "\n"bar" --> "foo bar" (also works for f-strings!)
-      -- split: "foo bar" --> "foo "\n"bar"
-      vim.keymap.set("n", "<localleader>j", 'JF"df"', { buffer = true })
-      vim.keymap.set("n", "<localleader>s", 'i"<CR>"<ESC>', { buffer = true })
-   end,
+    -- Join and split a strings (enclosed with ')
+    -- join:  "foo "\n"bar" --> "foo bar" (also works for f-strings!)
+    -- split: "foo bar" --> "foo "\n"bar"
+    vim.keymap.set("n", "<localleader>j", 'JF"df"', { buffer = true })
+    vim.keymap.set("n", "<localleader>s", 'i"<CR>"<ESC>', { buffer = true })
+  end,
 })
 
 -- vim.cmd([[

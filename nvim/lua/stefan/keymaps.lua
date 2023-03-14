@@ -4,9 +4,8 @@ local keymap = vim.keymap
 -- General Keymaps
 ---------------------
 
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+
 -- Use jj to exit insert mode
 keymap.set("i", "jj", "<ESC>")
 
@@ -16,11 +15,11 @@ keymap.set("n", "<leader>vs", ":source $MYVIMRC<CR>")
 
 -- Window management
 -----------------------
-keymap.set("n", "<leader>sv", "<C-w>v") -- split window vertically
-keymap.set("n", "<leader>sh", "<C-w>s") -- split window horizontally
-keymap.set("n", "<leader>se", "<C-w>=") -- make split windows equal width & height
-keymap.set("n", "<leader>sx", ":close<CR>") -- close current split window
-keymap.set("n", "<leader>st", ":split<CR>:resize 10<CR>:term<CR>") -- split 10-row terminal
+keymap.set("n", "<leader>sv", "<C-w>v", { desc = "[S]plit [v]ertically" })
+keymap.set("n", "<leader>sh", "<C-w>s", { desc = "[S]plit [h]orizontally" })
+keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make width/height of [s]plits [e]qual" })
+keymap.set("n", "<leader>sx", ":close<CR>", { desc = "Close current [s]plit [x]" }) -- close current split window
+keymap.set("n", "<leader>st", ":split<CR>:resize 10<CR>:term<CR>", { desc = " Open small h[s]plit with a [t]erminal"}) -- split 10-row terminal
 
 keymap.set("n", "<leader>to", ":tabnew<CR>") -- open new tab
 keymap.set("n", "<leader>tx", ":tabclose<CR>") -- close current gab
@@ -44,16 +43,27 @@ keymap.set("n", "<leader>w", ":set wrap!<CR>")
 -- Searching and moving around
 --------------------------------
 
+-- Work on visual lines when 'wrap' is set and j/k are used w/o a count.
+-- With a count (e.g., 3j, 5k), work on real lines (works well with 'relativenumber').
+keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
 -- Clear search highlights
 keymap.set("n", "<leader><Space>", ":nohlsearch<CR>", { silent = true })
+keymap.set(
+  { "i", "n" },
+  "<esc>",
+  "<cmd>noh<cr><esc>",
+  { desc = "Escape and clear hlsearch", silent = true }
+)
 -- keymap.set("n", "<leader>nh", ":nohlsearch<CR>", {silent=true})
 -- I'd use a function for this but Vim clobbers the last search when you're in
 -- a function so fuck it, practicality beats purity.
 keymap.set(
-   "n",
-   "*",
-   ":let stay_star_view = winsaveview()<CR>*:call winrestview(stay_star_view)<CR>",
-   { silent = true }
+  "n",
+  "*",
+  ":let stay_star_view = winsaveview()<CR>*:call winrestview(stay_star_view)<CR>",
+  { silent = true }
 )
 
 -- , is my leader, but ö/Ö are unused
@@ -153,17 +163,21 @@ keymap.set("t", "<S-Space>", "<Space>")
 ----------------------
 
 -- vim-maximizer
-keymap.set("n", "<leader>sm", ":MaximizerToggle<CR>") -- toggle split window maximization
+keymap.set("n", "<leader>sm", ":MaximizerToggle<CR>", { desc = "[M]aximize current [s]plit" }) -- toggle split window maximization
 
 -- nvim-tree
 keymap.set("n", "-", ":NvimTreeToggleReplace<CR>") -- Show file explorer, replace current buffer
 keymap.set("n", "<leader>e", ":NvimTreeFindFileToggle<CR>") -- toggle file explorer, show current file
 
 -- telescope
+-- See https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua#L361-L402
+-- for additional bindings
+keymap.set("n", "<leader>,", "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>")
+keymap.set("n", "<leader>/", "<cmd>Telescope find_in_file<cr>") -- TODO
+keymap.set("n", "<leader>:", "<cmd>Telescope command_history<cr>")
 keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
 keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>") -- find string in current working directory as you type
 keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>") -- find string under cursor in current working directory
-keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>") -- list open buffers in current neovim instance
 keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>") -- list available help tags
 keymap.set("n", "<leader>ft", "<cmd>Telescope filetypes<cr>") -- list available filetypes tags
 
@@ -200,11 +214,11 @@ keymap.set("n", "<leader>dn", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- 
 keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>", opts) -- see outline on right hand side
 keymap.set("n", "<leader>t", "<cmd>Lspsaga term_toggle<CR>", opts) -- open a floating terminal
 keymap.set("n", "<leader>fm", function()
-   vim.lsp.buf.format({
-      timeout_ms = 5000, -- Some formatters taker longer than 1000ms
-      filter = function(lsp_client)
-         --  only use null-ls for formatting instead of lsp server
-         return lsp_client.name == "null-ls"
-      end,
-   })
+  vim.lsp.buf.format({
+    timeout_ms = 5000, -- Some formatters taker longer than 1000ms
+    filter = function(lsp_client)
+      --  only use null-ls for formatting instead of lsp server
+      return lsp_client.name == "null-ls"
+    end,
+  })
 end, opts)
