@@ -45,7 +45,7 @@ cmp.setup({
     ["<C-e>"] = cmp.mapping.abort(), -- close completion window
     ["<CR>"] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace, -- https://github.com/hrsh7th/nvim-cmp/issues/664#issuecomment-999993360
-      select = true, -- auto-select 1st item if nothing is selected
+      select = false, -- Don't auto-select 1st item if nothing is selected
     }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
