@@ -1,4 +1,5 @@
 require("stefan.options")
+require("stefan.autocmds")
 require("stefan.keymaps")
 require("stefan.plugins-setup")
 require("stefan.colorscheme")

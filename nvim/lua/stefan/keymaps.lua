@@ -89,6 +89,11 @@ keymap.set("n", "gI", "`.", { noremap = true })
 -- Editing
 -------------
 
+-- Toggle spelling and set spell language
+keymap.set("n", "<leader>sp", "<cmd>setlocal spell!<cr>")
+keymap.set("n", "<leader>spde", "<cmd>setlocal spell spelllang=de_de<cr>")
+keymap.set("n", "<leader>spen", "<cmd>setlocal spell spelllang=en<cr>")
+
 -- Make Y behave like D (instead Y is the same as yy), fix this:
 keymap.set("n", "Y", "y$")
 
@@ -173,8 +178,10 @@ keymap.set("n", "<leader>e", ":NvimTreeFindFileToggle<CR>") -- toggle file explo
 -- See https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua#L361-L402
 -- for additional bindings
 keymap.set("n", "<leader>,", "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>")
+keymap.set("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>")
 keymap.set("n", "<leader>/", "<cmd>Telescope find_in_file<cr>") -- TODO
 keymap.set("n", "<leader>:", "<cmd>Telescope command_history<cr>")
+keymap.set("n", "<leader>.", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
 keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
 keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>") -- find string in current working directory as you type
 keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>") -- find string under cursor in current working directory
@@ -182,13 +189,10 @@ keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>") -- list available 
 keymap.set("n", "<leader>ft", "<cmd>Telescope filetypes<cr>") -- list available filetypes tags
 
 -- telescope git commands (not on youtube nvim video)
--- keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>") -- list all git commits (use <cr> to checkout) ["gc" for git commits]
--- keymap.set("n", "<leader>gfc", "<cmd>Telescope git_bcommits<cr>") -- list git commits for current file/buffer (use <cr> to checkout) ["gfc" for git file commits]
--- keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>") -- list git branches (use <cr> to checkout) ["gb" for git branch]
--- keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current changes per file with diff preview ["gs" for git status]
---
--- -- restart lsp server (not on youtube nvim video)
--- keymap.set("n", "<leader>rs", ":LspRestart<CR>") -- mapping to restart lsp if necessary
+keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>") -- list all git commits (use <cr> to checkout) ["gc" for git commits]
+keymap.set("n", "<leader>gf", "<cmd>Telescope git_bcommits<cr>") -- list git commits for current file/buffer (use <cr> to checkout) ["gfc" for git file commits]
+keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>") -- list git branches (use <cr> to checkout) ["gb" for git branch]
+keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current changes per file with diff preview ["gs" for git status]
 
 -- Lsp / Lspsaga
 
