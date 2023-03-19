@@ -1,127 +1,143 @@
-local keymap = vim.keymap
+-- Cheat sheets for default key bindings:
+-- - https://cdn.shopify.com/s/files/1/0165/4168/files/preview.png
+-- - https://michael.peopleofhonoronly.com/vim/vim_cheat_sheet_for_programmers_screen.png
+-- - https://www.rosipov.com/images/posts/vim-movement-commands-cheatsheet.png
+
+local function map(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.noremap = opts.noremap ~= false -- set default noremap=true
+
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
+
+local function dmap(mode, lhs, rhs, desc, opts)
+  opts = opts or {}
+  opts.desc = desc
+  map(mode, lhs, rhs, opts)
+end
 
 ---------------------
 -- General Keymaps
 ---------------------
-
-keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+-- Make <space> a no-op, b/c it's also the leader key
+map({ "n", "v" }, "<space>", "<Nop>")
 
 -- Use jj to exit insert mode
-keymap.set("i", "jj", "<ESC>")
+map("i", "jj", "<ESC>")
 
 -- Fast editing of the init.lua
-keymap.set("n", "<leader>ve", ":edit $MYVIMRC<CR>")
-keymap.set("n", "<leader>vs", ":source $MYVIMRC<CR>")
+map("n", "<leader>ve", ":edit $MYVIMRC<cr>")
+map("n", "<leader>vs", ":source $MYVIMRC<cr>")
+--
+-- Clear search, diff update and redraw
+map(
+  "n",
+  "<leader>ur",
+  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+  { desc = "Redraw / clear hlsearch / diff update" }
+)
 
 -- Window management
 -----------------------
-keymap.set("n", "<leader>sv", "<C-w>v", { desc = "[S]plit [v]ertically" })
-keymap.set("n", "<leader>sh", "<C-w>s", { desc = "[S]plit [h]orizontally" })
-keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make width/height of [s]plits [e]qual" })
-keymap.set("n", "<leader>sx", ":close<CR>", { desc = "Close current [s]plit [x]" }) -- close current split window
-keymap.set("n", "<leader>st", ":split<CR>:resize 10<CR>:term<CR>", { desc = " Open small h[s]plit with a [t]erminal"}) -- split 10-row terminal
-
-keymap.set("n", "<leader>to", ":tabnew<CR>") -- open new tab
-keymap.set("n", "<leader>tx", ":tabclose<CR>") -- close current gab
-keymap.set("n", "<leader>tn", ":tabn<CR>") -- go to next tab
-keymap.set("n", "<leader>tp", ":tabp<CR>") -- go to previous tab
-
-keymap.set("n", "<leader>co", ":copen<CR>") -- open quickfix window
-keymap.set("n", "<leader>cc", ":cclose<CR>") -- close quickfix window
-keymap.set("n", "<leader>lo", ":lopen<CR>") -- open location list
-keymap.set("n", "<leader>lc", ":lclose<CR>") -- close quickfix window
+-- Buffers
+dmap("n", "<leader>bb", "<C-^", "[B]buffer: toggle between two buffers")
+dmap("n", "<leader>bd", "<Plug>Kwbd", "[B]uffer: [d]elete (but keep split open)")
+-- Windows
+dmap("n", "<leader>wv", "<C-w>v", "[W]indow: split [v]ertically")
+dmap("n", "<leader>wh", "<C-w>s", "[W]indow: split [h]orizontally")
+dmap("n", "<leader>we", "<C-w>=", "[W]indow: make widths/heights [e]qual")
+dmap("n", "<leader>wc", ":close<cr>", "[W]indow: [c]lose current")
+dmap("n", "<leader>wt", ":split<cr>:resize 10<cr>:term<cr>", "[W]indow: open 10-row [t]erminal")
+-- Tabs
+dmap("n", "<leader>to", ":tabnew<cr>", "[Tab]: [o]pen")
+dmap("n", "<leader>tc", ":tabclose<cr>", "[Tab]: [c]lose")
+dmap("n", "<leader>tn", ":tabn<cr>", "[Tab]: go to [n]next") dmap("n", "<leader>tp", ":tabp<cr>", "[Tab]: go to [p]revious")
+-- Quickfix / location list
+dmap("n", "<leader>co", ":copen<cr>", "Quickfix: open")
+dmap("n", "<leader>cc", ":cclose<cr>", "Quickfix: close")
+dmap("n", "<leader>cp", vim.cmd.cprev, "Quickfix: Previous quickfix")
+dmap("n", "<leader>cn", vim.cmd.cnext, "Quickfix: Next quickfix")
+dmap("n", "<leader>lo", ":lopen<cr>", "Location list: open")
+dmap("n", "<leader>lc", ":lclose<cr>", "Location list: close")
+dmap("n", "<leader>lp", vim.cmd.lprev, "Location list: Previous location")
+dmap("n", "<leader>ln", vim.cmd.lnext, "Location list: Next location")
 
 -- UI toggles
 ----------------
-
 -- Toggle line numbers
-keymap.set("n", "<leader>nn", ":setlocal number! relativenumber!<CR>")
-
+dmap("n", "<leader>nn", ":setlocal number! relativenumber!<cr>", "Toggle [n]o[n]umber")
 -- Toggle wrap
-keymap.set("n", "<leader>w", ":set wrap!<CR>")
+dmap("n", "<leader>w", ":set wrap!<cr>", "Toggle line [w]rapping")
 
 -- Searching and moving around
 --------------------------------
 
 -- Work on visual lines when 'wrap' is set and j/k are used w/o a count.
 -- With a count (e.g., 3j, 5k), work on real lines (works well with 'relativenumber').
-keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- Clear search highlights
-keymap.set("n", "<leader><Space>", ":nohlsearch<CR>", { silent = true })
-keymap.set(
-  { "i", "n" },
-  "<esc>",
-  "<cmd>noh<cr><esc>",
-  { desc = "Escape and clear hlsearch", silent = true }
-)
--- keymap.set("n", "<leader>nh", ":nohlsearch<CR>", {silent=true})
+-- map("n", "<leader>nh", ":nohlsearch<cr>", {silent=true})
+-- map("n", "<leader><space>", ":nohlsearch<cr>", { silent = true })
+dmap({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", "Escape and clear hlsearch")
+
 -- I'd use a function for this but Vim clobbers the last search when you're in
 -- a function so fuck it, practicality beats purity.
-keymap.set(
-  "n",
-  "*",
-  ":let stay_star_view = winsaveview()<CR>*:call winrestview(stay_star_view)<CR>",
-  { silent = true }
-)
+map("n", "*", ":let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>", { silent = true })
 
--- , is my leader, but ö/Ö are unused
-keymap.set("n", "ö", ";", { noremap = true })
-keymap.set("n", "Ö", ",", { noremap = true })
-
--- ` for jumping to a mark does not work well on German keyboards
-keymap.set("n", "ü", "`", { noremap = true })
+-- `/' for jumping to a mark does not work well on German keyboards
+map("n", "ä", "`")
 
 -- Keep search matches in the middle of the window.
-keymap.set("n", "n", "nzzzv", { noremap = true })
-keymap.set("n", "N", "Nzzzv", { noremap = true })
+map("n", "n", "nzzzv")
+map("n", "N", "Nzzzv")
 
 -- Same when jumping around
-keymap.set("n", "g;", "g;zz", { noremap = true })
-keymap.set("n", "g,", "g,zz", { noremap = true })
-keymap.set("n", "<C-o>", "<C-o>zz", { noremap = true })
+map("n", "g;", "g;zz")
+map("n", "g,", "g,zz")
+map("n", "<C-o>", "<C-o>zz")
 
 -- gi already moves to "last place you exited insert mode", so we'll map gI to
 -- something similar: move to last change
-keymap.set("n", "gI", "`.", { noremap = true })
+map("n", "gI", "`.")
 
 -- Editing
 -------------
 
 -- Toggle spelling and set spell language
-keymap.set("n", "<leader>sp", "<cmd>setlocal spell!<cr>")
-keymap.set("n", "<leader>spde", "<cmd>setlocal spell spelllang=de_de<cr>")
-keymap.set("n", "<leader>spen", "<cmd>setlocal spell spelllang=en<cr>")
+dmap("n", "<leader>sp", "<cmd>setlocal spell!<cr>", "[Sp]elling: toggle")
+dmap("n", "<leader>spde", "<cmd>setlocal spell spelllang=de_de<cr>", "[Sp]elling: enable and set lang to [de]")
+dmap("n", "<leader>spen", "<cmd>setlocal spell spelllang=en<cr>", "[Sp]elling: enable and set lang to [en]")
 
 -- Make Y behave like D (instead Y is the same as yy), fix this:
-keymap.set("n", "Y", "y$")
+map("n", "Y", "y$")
 
 -- Swap q and @ for macros, because q is easier to type on German keyboards
-keymap.set("n", "q", "@", { noremap = true })
-keymap.set("n", "@", "q", { noremap = true })
+map("n", "q", "@")
+map("n", "@", "q")
 
 -- Join an entire paragraph.
-keymap.set("n", "<leader>J", "mzvipJ`z", { noremap = true })
+dmap("n", "<leader>J", "mzvipJ`z", "[J]oin entire paragraph")
 
 -- Split line (sister to [J]oin lines)
 -- The normal use of S is covered by cc, so don't worry about shadowing it.
-keymap.set("n", "S", "i<CR><ESC>")
+dmap("n", "S", "i<cr><ESC>", "[S]plit line")
 
 -- Re-hardwrap paragraphs of text
-keymap.set("n", "<leader>q", "gwip")
-keymap.set("v", "<leader>q", "gw")
+dmap("n", "<leader>q", "gwip", "Re-hardwrap current paragraph")
+dmap("v", "<leader>q", "gw", "Re-hardwrap current paragraph")
 
 -- Keep visual selection when indenting
-keymap.set("v", "<", "<gv")
-keymap.set("v", ">", ">gv")
+map("v", "<", "<gv")
+map("v", ">", ">gv")
 
 -- Easier linewise reselection of what you just pasted.
-keymap.set("n", "<leader>V", "`[V`]")
+dmap("n", "<leader>V", "`[V`]", "Re-select what you just pasted")
 
 -- -- increment/decrement numbers
--- keymap.set("n", "<leader>+", "<C-a>") -- increment
--- keymap.set("n", "<leader>-", "<C-x>") -- decrement
+-- map("n", "<leader>+", "<C-a>") -- increment
+-- map("n", "<leader>-", "<C-x>") -- decrement
 
 -- "Uppercase word" mapping by Steve Losh
 --
@@ -136,63 +152,76 @@ keymap.set("n", "<leader>V", "`[V`]")
 -- It works by exiting out of insert mode, recording the current cursor location
 -- in the z mark, using gUiw to uppercase inside the current word, moving back
 -- to the z mark, and entering insert mode again.
-keymap.set("i", "<C-u>", "<ESC>mzgUiw`za")
+dmap("i", "<C-u>", "<ESC>mzgUiw`za", "[U]ppercase current word in insert mode")
 
 -- Folding
 -------------
 
 -- Use space to toggle folds
--- keymap.set("n", "<Space>", "za")
--- keymap.set("v", "<Space>", "za")
+-- map("n", "<space>", "za")
+-- map("v", "<space>", "za")
 
 -- Make zO recursively open whatever fold we're in, even if it's partially open.
-keymap.set("n", "zO", "zczO", { noremap = true })
+dmap("n", "zO", "zczO", "Recursively open fold we're in")
 
 -- "Focus" the current line.  Basically:
 -- 1. Close all folds.
 -- 2. Open just the folds containing the current line.
 -- 3. Move the line to a little bit (15 lines) above the center of the screen.
-keymap.set("n", "<C-z>", "mzzMzvzz15<c-e>`z")
+dmap("n", "<C-z>", "mzzMzvzz15<c-e>`z", "Focus current line (and fold everything else)")
 
 -- Term
 ----------
 -- Make Escape work in the Neovim terminal.
-keymap.set("t", "<ESC>", "<C-\\><C-n>")
+map("t", "<ESC>", "<C-\\><C-n>")
 -- Map C-n C-n to Escape for console apps that use this key
-keymap.set("t", "<C-n><C-n>", "<ESC>")
--- Map Shift+Space to Space as I hit this combo by accident a lot ...
-keymap.set("t", "<S-Space>", "<Space>")
+map("t", "<C-n><C-n>", "<ESC>")
+-- Map Shift+space to space as I hit this combo by accident a lot ...
+map("t", "<S-space>", "<space>")
 
 ----------------------
 -- Plugin Keybinds
 ----------------------
 
 -- vim-maximizer
-keymap.set("n", "<leader>sm", ":MaximizerToggle<CR>", { desc = "[M]aximize current [s]plit" }) -- toggle split window maximization
+dmap("n", "<leader>wm", ":MaximizerToggle<cr>", "[W]indow: toggle [m]aximization")
 
 -- nvim-tree
-keymap.set("n", "-", ":NvimTreeToggleReplace<CR>") -- Show file explorer, replace current buffer
-keymap.set("n", "<leader>e", ":NvimTreeFindFileToggle<CR>") -- toggle file explorer, show current file
+map("n", "-", ":NvimTreeToggleReplace<cr>") -- Show file explorer, replace current buffer
+map("n", "<leader>e", ":NvimTreeFindFileToggle<cr>") -- toggle file explorer, show current file
 
 -- telescope
 -- See https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua#L361-L402
 -- for additional bindings
-keymap.set("n", "<leader>,", "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>")
-keymap.set("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>")
-keymap.set("n", "<leader>/", "<cmd>Telescope find_in_file<cr>") -- TODO
-keymap.set("n", "<leader>:", "<cmd>Telescope command_history<cr>")
-keymap.set("n", "<leader>.", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
-keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
-keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>") -- find string in current working directory as you type
-keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>") -- find string under cursor in current working directory
-keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>") -- list available help tags
-keymap.set("n", "<leader>ft", "<cmd>Telescope filetypes<cr>") -- list available filetypes tags
+-- Maybe create a utility func "get_root" to open telescope from the 
+-- current buffer's project instead of the cwd.  See: 
+-- - https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/init.lua#L49
+-- - https://github.com/LazyVim/LazyVim/discussions/83
+
+map(
+  "n",
+  "<leader>,",
+  "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>"
+)
+map(
+  "n",
+  "<leader>fb",
+  "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>"
+)
+map("n", "<leader>/", "<cmd>Telescope find_in_file<cr>") -- TODO
+map("n", "<leader>:", "<cmd>Telescope command_history<cr>")
+map("n", "<leader>.", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
+map("n", "<leader>ff", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
+map("n", "<leader>fs", "<cmd>Telescope live_grep<cr>") -- find string in current working directory as you type
+map("n", "<leader>fc", "<cmd>Telescope grep_string<cr>") -- find string under cursor in current working directory
+map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>") -- list available help tags
+map("n", "<leader>ft", "<cmd>Telescope filetypes<cr>") -- list available filetypes tags
 
 -- telescope git commands (not on youtube nvim video)
-keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>") -- list all git commits (use <cr> to checkout) ["gc" for git commits]
-keymap.set("n", "<leader>gf", "<cmd>Telescope git_bcommits<cr>") -- list git commits for current file/buffer (use <cr> to checkout) ["gfc" for git file commits]
-keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>") -- list git branches (use <cr> to checkout) ["gb" for git branch]
-keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current changes per file with diff preview ["gs" for git status]
+map("n", "<leader>gc", "<cmd>Telescope git_commits<cr>") -- list all git commits (use <cr> to checkout) ["gc" for git commits]
+map("n", "<leader>gf", "<cmd>Telescope git_bcommits<cr>") -- list git commits for current file/buffer (use <cr> to checkout) ["gfc" for git file commits]
+map("n", "<leader>gb", "<cmd>Telescope git_branches<cr>") -- list git branches (use <cr> to checkout) ["gb" for git branch]
+map("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current changes per file with diff preview ["gs" for git status]
 
 -- Lsp / Lspsaga
 
@@ -202,22 +231,22 @@ keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current c
 -- - we use null-ls with Gitsigns and formatters for *all* filetypes
 -- These bindings also make more sense in this file.
 local opts = { noremap = true, silent = true }
-keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
-keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
-keymap.set("n", "gD", "<cmd>Lspsaga goto_definition<CR>", opts) -- see definition and make edits in window
-keymap.set("n", "<leader>ld", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts) -- got to declaration
-keymap.set("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
-keymap.set("n", "<leader>lf", "<cmd>Lspsaga lsp_finder<CR>", opts) -- show definition, references
-keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts) -- see available code actions
-keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts) -- smart rename
-keymap.set("n", "<leader>df", "<cmd>Lspsaga show_buf_diagnostics<CR>", opts) -- show diagnostics for cursor
-keymap.set("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<CR>", opts) -- show  diagnostics for line
-keymap.set("n", "<leader>dc", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- show diagnostics for cursor
-keymap.set("n", "<leader>dp", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
-keymap.set("n", "<leader>dn", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
-keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>", opts) -- see outline on right hand side
-keymap.set("n", "<leader>t", "<cmd>Lspsaga term_toggle<CR>", opts) -- open a floating terminal
-keymap.set("n", "<leader>fm", function()
+map("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts) -- show documentation for what is under cursor
+map("n", "gd", "<cmd>Lspsaga peek_definition<cr>", opts) -- see definition and make edits in window
+map("n", "gD", "<cmd>Lspsaga goto_definition<cr>", opts) -- see definition and make edits in window
+map("n", "<leader>ld", "<Cmd>lua vim.lsp.buf.declaration()<cr>", opts) -- got to declaration
+map("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts) -- go to implementation
+map("n", "<leader>lf", "<cmd>Lspsaga lsp_finder<cr>", opts) -- show definition, references
+map("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts) -- see available code actions
+map("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", opts) -- smart rename
+map("n", "<leader>df", "<cmd>Lspsaga show_buf_diagnostics<cr>", opts) -- show diagnostics for cursor
+map("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<cr>", opts) -- show  diagnostics for line
+map("n", "<leader>dc", "<cmd>Lspsaga show_cursor_diagnostics<cr>", opts) -- show diagnostics for cursor
+map("n", "<leader>dp", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opts) -- jump to previous diagnostic in buffer
+map("n", "<leader>dn", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts) -- jump to next diagnostic in buffer
+map("n", "<leader>o", "<cmd>Lspsaga outline<cr>", opts) -- see outline on right hand side
+map("n", "<leader>t", "<cmd>Lspsaga term_toggle<cr>", opts) -- open a floating terminal
+map("n", "<leader>fm", function()
   vim.lsp.buf.format({
     timeout_ms = 5000, -- Some formatters taker longer than 1000ms
     filter = function(lsp_client)
