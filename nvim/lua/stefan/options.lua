@@ -42,7 +42,7 @@ opt.splitbelow = true -- Open hsplit below current window
 opt.splitright = true -- Open vsplit right of current window
 opt.shortmess:append({ W = true, I = true, c = true }) -- Don't show "file written", Intro, completion msg
 opt.diffopt:append({ "indent-heuristic", "algorithm:patience" })
-opt.undofile = true -- Save undo history to a file and restore on next load
+-- opt.undofile = true -- Save undo history to a file and restore on next load
 
 -- Tabs & Indentation
 opt.tabstop = 4 -- Number of spaces a tab in a file counts for

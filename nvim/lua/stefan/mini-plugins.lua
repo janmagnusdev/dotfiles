@@ -5,9 +5,8 @@
 --
 -- Extract a project's line length from pyproject.toml
 
-local Path = require("plenary.path")
-
-function PyLineLength()
+local function PyLineLength()
+   local Path = require("plenary.path")
    local cur_path = Path:new(vim.fn.expand("%:p:h"))
    local pyproject
    for _, p in pairs(cur_path:parents()) do
@@ -22,13 +21,12 @@ function PyLineLength()
    end
    return 88
 end
-PyLineLength()
 
 -- }}}
 
 -- SmartHome (vim tip 315) {{{
 
-function SmartHome()
+local function SmartHome()
    local col = vim.fn.col(".")
    vim.cmd("normal! ^")
    if col == vim.fn.col(".") then
@@ -45,7 +43,7 @@ vim.keymap.set("i", "<Home>", SmartHome, { silent = true })
 
 -- Show the stack of syntax highlighting classes affecting whatever is under the
 -- cursor.
-function SynStack()
+local function SynStack()
    vim.cmd([[echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")]])
 end
 
@@ -94,3 +92,7 @@ vim.cmd("hi def InterestingWord4 guibg=#ffcb71 ctermbg=222 guifg=#2F2F2F ctermfg
 vim.cmd("hi def InterestingWord5 guibg=#ffc0c8 ctermbg=224 guifg=#2F2F2F ctermfg=16")
 vim.cmd("hi def InterestingWord6 guibg=#ddb1ff ctermbg=225 guifg=#2F2F2F ctermfg=16")
 -- }}}
+
+return {
+  py_line_length = PyLineLength,
+}

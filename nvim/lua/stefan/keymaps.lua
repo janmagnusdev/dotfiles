@@ -16,6 +16,12 @@ local function dmap(mode, lhs, rhs, desc, opts)
   map(mode, lhs, rhs, opts)
 end
 
+local function make_dmap(prefix)
+  return function(mode, lhs, rhs, desc, opts)
+    return dmap(mode, lhs, rhs, prefix .. desc, opts)
+  end
+end
+
 ---------------------
 -- General Keymaps
 ---------------------
@@ -183,75 +189,35 @@ map("t", "<S-space>", "<space>")
 -- Plugin Keybinds
 ----------------------
 
--- vim-maximizer
-dmap("n", "<leader>wm", ":MaximizerToggle<cr>", "[W]indow: toggle [m]aximization")
-
--- nvim-tree
-map("n", "-", ":NvimTreeToggleReplace<cr>") -- Show file explorer, replace current buffer
-map("n", "<leader>e", ":NvimTreeFindFileToggle<cr>") -- toggle file explorer, show current file
-
--- telescope
--- See https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua#L361-L402
--- for additional bindings
--- Maybe create a utility func "get_root" to open telescope from the 
--- current buffer's project instead of the cwd.  See: 
--- - https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/init.lua#L49
--- - https://github.com/LazyVim/LazyVim/discussions/83
-
-map(
-  "n",
-  "<leader>,",
-  "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>"
-)
-map(
-  "n",
-  "<leader>fb",
-  "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>"
-)
-map("n", "<leader>/", "<cmd>Telescope find_in_file<cr>") -- TODO
-map("n", "<leader>:", "<cmd>Telescope command_history<cr>")
-map("n", "<leader>.", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
-map("n", "<leader>ff", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
-map("n", "<leader>fs", "<cmd>Telescope live_grep<cr>") -- find string in current working directory as you type
-map("n", "<leader>fc", "<cmd>Telescope grep_string<cr>") -- find string under cursor in current working directory
-map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>") -- list available help tags
-map("n", "<leader>ft", "<cmd>Telescope filetypes<cr>") -- list available filetypes tags
-
--- telescope git commands (not on youtube nvim video)
-map("n", "<leader>gc", "<cmd>Telescope git_commits<cr>") -- list all git commits (use <cr> to checkout) ["gc" for git commits]
-map("n", "<leader>gf", "<cmd>Telescope git_bcommits<cr>") -- list git commits for current file/buffer (use <cr> to checkout) ["gfc" for git file commits]
-map("n", "<leader>gb", "<cmd>Telescope git_branches<cr>") -- list git branches (use <cr> to checkout) ["gb" for git branch]
-map("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current changes per file with diff preview ["gs" for git status]
-
--- Lsp / Lspsaga
-
--- Many examples/guides wrap this in an "on_attach" function for an actual LSP
--- server.  We can do this here, because
--- - we currently don't map to "vim.lsp...."
--- - we use null-ls with Gitsigns and formatters for *all* filetypes
--- These bindings also make more sense in this file.
-local opts = { noremap = true, silent = true }
-map("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts) -- show documentation for what is under cursor
-map("n", "gd", "<cmd>Lspsaga peek_definition<cr>", opts) -- see definition and make edits in window
-map("n", "gD", "<cmd>Lspsaga goto_definition<cr>", opts) -- see definition and make edits in window
-map("n", "<leader>ld", "<Cmd>lua vim.lsp.buf.declaration()<cr>", opts) -- got to declaration
-map("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts) -- go to implementation
-map("n", "<leader>lf", "<cmd>Lspsaga lsp_finder<cr>", opts) -- show definition, references
-map("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts) -- see available code actions
-map("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", opts) -- smart rename
-map("n", "<leader>df", "<cmd>Lspsaga show_buf_diagnostics<cr>", opts) -- show diagnostics for cursor
-map("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<cr>", opts) -- show  diagnostics for line
-map("n", "<leader>dc", "<cmd>Lspsaga show_cursor_diagnostics<cr>", opts) -- show diagnostics for cursor
-map("n", "<leader>dp", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opts) -- jump to previous diagnostic in buffer
-map("n", "<leader>dn", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts) -- jump to next diagnostic in buffer
-map("n", "<leader>o", "<cmd>Lspsaga outline<cr>", opts) -- see outline on right hand side
-map("n", "<leader>t", "<cmd>Lspsaga term_toggle<cr>", opts) -- open a floating terminal
-map("n", "<leader>fm", function()
-  vim.lsp.buf.format({
-    timeout_ms = 5000, -- Some formatters taker longer than 1000ms
-    filter = function(lsp_client)
-      --  only use null-ls for formatting instead of lsp server
-      return lsp_client.name == "null-ls"
-    end,
-  })
-end, opts)
+-- -- Lsp / Lspsaga
+--
+-- -- Many examples/guides wrap this in an "on_attach" function for an actual LSP
+-- -- server.  We can do this here, because
+-- -- - we currently don't map to "vim.lsp...."
+-- -- - we use null-ls with Gitsigns and formatters for *all* filetypes
+-- -- These bindings also make more sense in this file.
+-- local opts = { noremap = true, silent = true }
+-- map("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts) -- show documentation for what is under cursor
+-- map("n", "gd", "<cmd>Lspsaga peek_definition<cr>", opts) -- see definition and make edits in window
+-- map("n", "gD", "<cmd>Lspsaga goto_definition<cr>", opts) -- see definition and make edits in window
+-- map("n", "<leader>ld", "<Cmd>lua vim.lsp.buf.declaration()<cr>", opts) -- got to declaration
+-- map("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts) -- go to implementation
+-- map("n", "<leader>lf", "<cmd>Lspsaga lsp_finder<cr>", opts) -- show definition, references
+-- map("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts) -- see available code actions
+-- map("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", opts) -- smart rename
+-- map("n", "<leader>df", "<cmd>Lspsaga show_buf_diagnostics<cr>", opts) -- show diagnostics for cursor
+-- map("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<cr>", opts) -- show  diagnostics for line
+-- map("n", "<leader>dc", "<cmd>Lspsaga show_cursor_diagnostics<cr>", opts) -- show diagnostics for cursor
+-- map("n", "<leader>dp", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opts) -- jump to previous diagnostic in buffer
+-- map("n", "<leader>dn", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts) -- jump to next diagnostic in buffer
+-- map("n", "<leader>o", "<cmd>Lspsaga outline<cr>", opts) -- see outline on right hand side
+-- map("n", "<leader>t", "<cmd>Lspsaga term_toggle<cr>", opts) -- open a floating terminal
+-- map("n", "<leader>fm", function()
+--   vim.lsp.buf.format({
+--     timeout_ms = 5000, -- Some formatters taker longer than 1000ms
+--     filter = function(lsp_client)
+--       --  only use null-ls for formatting instead of lsp server
+--       return lsp_client.name == "null-ls"
+--     end,
+--   })
+-- end, opts)
