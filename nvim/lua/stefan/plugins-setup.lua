@@ -12,7 +12,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-return require("lazy").setup("stefan.plugins")
+require("lazy").setup("stefan.plugins", {ui = {border="rounded"}})
+vim.keymap.set("n", "<leader>t", require("lazy.util").float_term)
 -- return require("lazy").setup({
 --   -- Syntax and text objects
 --   -- use "michaeljsmith/vim-indent-object"

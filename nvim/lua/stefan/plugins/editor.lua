@@ -116,11 +116,11 @@ return {
       -- - https://github.com/LazyVim/LazyVim/discussions/83
       {
         "<leader>,",
-        "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true },)<cr>",
+        "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>",
       },
       {
         "<leader>fb",
-        "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true },)<cr>",
+        "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>",
       },
       { "<leader>/", "<cmd>Telescope find_in_file<cr>" }, -- TODO
       { "<leader>:", "<cmd>Telescope command_history<cr>" },

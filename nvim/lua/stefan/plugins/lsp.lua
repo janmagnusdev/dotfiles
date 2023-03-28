@@ -212,6 +212,37 @@ return {
         border = "rounded",
       },
     },
+    init = function()
+      -- Many examples/guides wrap this in an "on_attach" function for an actual LSP
+      -- server.  We can do this here, because
+      -- - we currently don't map to "vim.lsp...."
+      -- - we use null-ls with Gitsigns and formatters for *all* filetypes
+      -- These bindings also make more sense in this file.
+      local opts = { noremap = true, silent = true }
+      vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts) -- show documentation for what is under cursor
+      vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<cr>", opts) -- see definition and make edits in window
+      vim.keymap.set("n", "gD", "<cmd>Lspsaga goto_definition<cr>", opts) -- see definition and make edits in window
+      vim.keymap.set("n", "<leader>ld", "<Cmd>lua vim.lsp.buf.declaration()<cr>", opts) -- got to declaration
+      vim.keymap.set("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts) -- go to implementation
+      vim.keymap.set("n", "<leader>lf", "<cmd>Lspsaga lsp_finder<cr>", opts) -- show definition, references
+      vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts) -- see available code actions
+      vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", opts) -- smart rename
+      vim.keymap.set("n", "<leader>df", "<cmd>Lspsaga show_buf_diagnostics<cr>", opts) -- show diagnostics for cursor
+      vim.keymap.set("n", "<leader>dl", "<cmd>Lspsaga show_line_diagnostics<cr>", opts) -- show  diagnostics for line
+      vim.keymap.set("n", "<leader>dc", "<cmd>Lspsaga show_cursor_diagnostics<cr>", opts) -- show diagnostics for cursor
+      vim.keymap.set("n", "<leader>dp", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opts) -- jump to previous diagnostic in buffer
+      vim.keymap.set("n", "<leader>dn", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts) -- jump to next diagnostic in buffer
+      vim.keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<cr>", opts) -- see outline on right hand side
+      vim.keymap.set("n", "<leader>fm", function()
+        vim.lsp.buf.format({
+          timeout_ms = 5000, -- Some formatters taker longer than 1000ms
+          filter = function(lsp_client)
+            --  only use null-ls for formatting instead of lsp server
+            return lsp_client.name == "null-ls"
+          end,
+        })
+      end, opts)
+    end,
   },
 
   -- VS-code like icons for autocompletion

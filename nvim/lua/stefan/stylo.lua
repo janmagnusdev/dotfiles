@@ -224,6 +224,7 @@ M.load = function()
   hi("Normal", { fg = c_text, bg = c_back })
 
   hi("FloatBorder", { fg = c.base04, bg = c.base00 })
+  hi("NormalFloat", { fg = c.base05, bg = c.base00 })
   hi("Pmenu", { fg = c.base05, bg = c.base01 })
   hi("PmenuSbar", { fg = c.base05, bg = c.base02 })
   hi("PmenuThumb", { fg = c.base05, bg = c.base05 })
