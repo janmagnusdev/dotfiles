@@ -11,7 +11,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 require("lazy").setup("stefan.plugins", {ui = {border="rounded"}})
 vim.keymap.set("n", "<leader>t", require("lazy.util").float_term)
 -- return require("lazy").setup({

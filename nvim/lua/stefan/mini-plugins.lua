@@ -1,28 +1,6 @@
 -- Stuff that should probably be broken out into plugins, but hasn't proved to
 -- be worth the time to do so just yet.
 
--- Pyproject.toml Line Length {{{
---
--- Extract a project's line length from pyproject.toml
-
-local function PyLineLength()
-   local Path = require("plenary.path")
-   local cur_path = Path:new(vim.fn.expand("%:p:h"))
-   local pyproject
-   for _, p in pairs(cur_path:parents()) do
-      pyproject = Path:new(p, "pyproject.toml")
-      if pyproject:exists() then
-         local data = pyproject:read()
-         local ll = string.match(data, "line.length%s*=%s*(%d+)")
-         if ll then
-            return tonumber(ll)
-         end
-      end
-   end
-   return 88
-end
-
--- }}}
 
 -- SmartHome (vim tip 315) {{{
 
@@ -92,7 +70,3 @@ vim.cmd("hi def InterestingWord4 guibg=#ffcb71 ctermbg=222 guifg=#2F2F2F ctermfg
 vim.cmd("hi def InterestingWord5 guibg=#ffc0c8 ctermbg=224 guifg=#2F2F2F ctermfg=16")
 vim.cmd("hi def InterestingWord6 guibg=#ddb1ff ctermbg=225 guifg=#2F2F2F ctermfg=16")
 -- }}}
-
-return {
-  py_line_length = PyLineLength,
-}

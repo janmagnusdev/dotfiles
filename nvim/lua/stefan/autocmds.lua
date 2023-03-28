@@ -168,7 +168,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = "python",
   group = ft_python,
   callback = function()
-    vim.opt_local.textwidth = require("stefan.mini-plugins").py_line_length()
+    vim.opt_local.textwidth = require("stefan.util").py_line_length()
     vim.opt_local.formatoptions:remove("t") -- Auto-wrap comments using textwidth
     vim.cmd('abb <buffer> ifmain if __name__ == "__main__"')
 

@@ -9,17 +9,7 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    opts = function(plugin)
-      --- Return name of current virtual env
-      local function get_venvname()
-        for _, v in pairs({ vim.env.VIRTUAL_ENV, vim.env.CONDA_PREFIX }) do
-          if vim.fn.isdirectory(v) == 1 then
-            return vim.fn.fnamemodify(v, ":t")
-          end
-        end
-        return ""
-      end
-
+    opts = function()
       -- Return indentation info:
       -- "s:3" means "3 spaces", "t:4" means tabs with 4 spaces width
       local indentinfo = function()
@@ -28,7 +18,7 @@ return {
         local text = (et and "s" or "t") .. ":" .. ts
         return text
       end
-      vim.g.venvname = get_venvname() -- Only call once, venv does not change
+      vim.g.venvname = require("stefan.util").get_venvname() -- Only call once, venv does not change
 
       local get_color = require("lualine.utils.utils").extract_highlight_colors
 

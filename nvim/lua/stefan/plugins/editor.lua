@@ -23,79 +23,115 @@ return {
   -- Copy text as RTF (only macOS)
   { "zerowidth/vim-copy-as-rtf", cmd = "CopyRTF" },
 
+  -- File browser
+  -- Behave like netrw/vinegar, see:
+  -- https://github.com/nvim-neo-tree/neo-tree.nvim/discussions/813
   {
-    "nvim-tree/nvim-tree.lua",
-    tag = "nightly", -- updated every week (see issue #1193,
-    keys = {
-      { "-", ":NvimTreeToggleReplace<cr>" }, -- Show file explorer, replace current buffer
-      { "<leader>e", ":NvimTreeFindFileToggle<cr>" }, -- toggle file explorer, show current file
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
     },
-    opts = function(plugin)
-      local api = require("nvim-tree.api")
-      local function on_attach(bufnr)
-        local function opts(desc)
-          return {
-            desc = "nvim-tree: " .. desc,
-            buffer = bufnr,
-            noremap = true,
-            silent = true,
-            nowait = true,
-          }
+    keys = {
+      {
+        "<leader>e",
+        function()
+          require("neo-tree.command").execute({ toggle = true, dir = require("stefan.util").get_root() })
+        end,
+        desc = "Explorer NeoTree (root dir)",
+      },
+      {
+        "<leader>E",
+        function()
+          require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
+        end,
+        desc = "Explorer NeoTree (cwd)",
+      },
+      {
+        "-",
+        function()
+          if vim.bo.filetype ~= "neo-tree" then
+            require("neo-tree.command").execute({
+              position = "current",
+              reveal = true, -- follow_current_file doesn't work since we replace the buffer
+              dir = require("stefan.util").get_root(),
+            })
+          end
+        end,
+        desc = "Open NeoTree in current buffer (like netrw/vinegar)",
+      },
+      {
+        "<C-^",
+        function()
+          local alternate_nr = vim.w.neo_tree_alternate_nr or vim.fn.bufnr("#") ---@diagnostic disable-line: param-type-mismatch
+          vim.w.neo_tree_alternate_nr = nil
+          vim.cmd.buffer(alternate_nr)
+        end,
+        desc = "Switch to alternate file",
+      },
+    },
+    init = function()
+      vim.g.neo_tree_remove_legacy_commands = 1
+      if vim.fn.argc() == 1 then
+        local stat = vim.loop.fs_stat(vim.fn.argv(0))
+        if stat and stat.type == "directory" then
+          require("neo-tree")
         end
-        vim.keymap.set("n", "<CR>", api.node.open.replace_tree_buffer, opts("Open in-place"))
+      end
+    end,
+    opts = function()
+      local function reveal_parent(state)
+        require("neo-tree.ui.renderer").focus_node(state, state.tree:get_node():get_parent_id())
       end
 
       return {
-        on_attach = on_attach,
-        actions = {
-          open_file = {
-            window_picker = {
-              enable = false, -- Open file in window from which you opend n.t.
+        default_component_configs = {
+          indent = {
+            with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+            expander_collapsed = "",
+            expander_expanded = "",
+            expander_highlight = "NeoTreeExpander",
+          },
+        },
+        filesystem = {
+          follow_current_file = true,
+          bind_to_cwd = false, -- Don't let neo-tree change the cwd
+          hijack_netrw_behavior = "open_current",
+          window = {
+            mappings = {
+              ["-"] = reveal_parent,
             },
           },
         },
-        -- git = {
-        --    ignore = false,
-        -- },
+        window = {
+          mappings = {
+            -- TODO: keep default or use one of the other two choices?
+            -- ["<space>"] = { "toggle_node", nowait = false },  -- default
+            -- ["<space>"] = "none",
+            -- ["<space>"] = { "toggle_node", nowait = true },
+          },
+        },
       }
     end,
-    init = function()
-      local nvimtree = require("nvim-tree")
-      local view = require("nvim-tree.view")
-      local api = require("nvim-tree.api")
-
-      -- Recommended settings from nvim-tree documentation
-      vim.g.loaded_netrw = 1
-      vim.g.loaded_netrwPlugin = 1
-
-      -- Configure nvim-tree to behave like vim-vinegar:
-      -- - Open current file's parent directory via "-" and replace current buffer
-      -- - Open file with <CR> and replace current buffer
-      -- - But keep <leader>e (Toggle nvim-tree in vsplit) intact
-
-      local function toggle_replace()
-        if view.is_visible() then
-          api.tree.close()
-        else
-          nvimtree.open_replacing_current_buffer()
+    config = function(_, opts)
+      require("neo-tree").setup(opts)
+      -- removes the "Window settings restored" message
+      vim.api.nvim_del_augroup_by_name("NeoTree_BufLeave")
+      local bufenter = function(data)
+        local pattern = "neo%-tree [^ ]+ %[1%d%d%d%]"
+        if string.match(data.file, pattern) then
+          vim.w.neo_tree_alternate_nr = vim.fn.bufnr("#") ---@diagnostic disable-line: param-type-mismatch
         end
       end
-      vim.api.nvim_create_user_command(
-        "NvimTreeToggleReplace",
-        toggle_replace,
-        { desc = "nvim-tree: Open nvim-tree in-place" }
-      )
+      vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+        group = vim.api.nvim_create_augroup("NeoTree_BufEnter", { clear = true }),
+        pattern = "neo-tree *",
+        callback = bufenter,
+      })
     end,
   },
-  -- { "nvim-neo-tree/neo-tree.nvim",
-  --   branch = "v2.x",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-  --     "MunifTanjim/nui.nvim",
-  --   }
-  -- },
-  -- { "tpope/vim-vinegar" }, -- Open slightly improved netrw on pressing "-"
 
   -- fuzzy finder
   {
