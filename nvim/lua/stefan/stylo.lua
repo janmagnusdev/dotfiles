@@ -374,6 +374,20 @@ M.load = function()
   hi("GitSignsAdd", { fg = c.dim_green })
   hi("GitSignsChange", { fg = c.dim_yellow })
   hi("GitSignsDelete", { fg = c.dim_red })
+
+  -- Neotree
+  hi("NeoTreeDimText", { fg = c.base04 }) -- dim text, expanders, indent markers
+  hi("NeoTreeMessage", { fg = c.base04, italic = true })  -- num. of hidden files
+  hi("NeoTreeDotfile", { fg = c.base04 })  -- names of hidden files
+  hi("NeoTreeModified", { link = "diffChanged" }) -- file as unsaved changes
+  hi("NeoTreeGitAdded", { link = "diffAdded" })
+  hi("NeoTreeGitModified", { link = "diffChanged" })
+  hi("NeoTreeGitDeleted", { link = "diffRemoved" })
+  hi("NeoTreeGitUntracked", { fg = c.purple })
+  hi("NeoTreeGitIgnored", { link = "NeoTreeDotfile" })
+  hi("NeoTreeGitUnstaged", { fg = c.orange })
+  hi("NeoTreeGitStaged", { link = "diffAdded" })
+  hi("NeoTreeGitConflict", { fg = c.bright_red, bold = true })
 end
 
 --- Return the lualine theme
