@@ -94,6 +94,12 @@ return {
             expander_expanded = "",
             expander_highlight = "NeoTreeExpander",
           },
+          modified = {
+            symbol = require("stefan.icons").file.modified,
+          },
+          git_status = {
+            symbols = require("stefan.icons").git,
+          },
         },
         filesystem = {
           follow_current_file = true,

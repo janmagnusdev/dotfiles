@@ -89,8 +89,7 @@ return {
       capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 
       -- Change the Diagnostic symbols in the sign column (gutter)
-      -- local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-      local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+      local signs = require("stefan.icons").diagnostics
       for type, icon in pairs(signs) do
         local hl = "DiagnosticSign" .. type
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -246,5 +245,6 @@ return {
   },
 
   -- VS-code like icons for autocompletion
+  -- TODO: Manually add icons? https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance
   { "onsails/lspkind.nvim" },
 }

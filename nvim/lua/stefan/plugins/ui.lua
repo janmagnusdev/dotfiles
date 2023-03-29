@@ -10,8 +10,12 @@ return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     opts = function()
+      local icons = require("stefan.icons")
+      local get_color = require("lualine.utils.utils").extract_highlight_colors
+
       -- Return indentation info:
       -- "s:3" means "3 spaces", "t:4" means tabs with 4 spaces width
+      ---@return string
       local indentinfo = function()
         local et = vim.opt.expandtab:get()
         local ts = vim.opt.tabstop:get()
@@ -19,8 +23,6 @@ return {
         return text
       end
       vim.g.venvname = require("stefan.util").get_venvname() -- Only call once, venv does not change
-
-      local get_color = require("lualine.utils.utils").extract_highlight_colors
 
       return {
         options = {
@@ -43,19 +45,14 @@ return {
                 modified = { fg = get_color("diffChanged", "fg") },
                 removed = { fg = get_color("diffRemoved", "fg") },
               },
-              symbols = { added = " ", modified = " ", removed = " " },
+              symbols = icons.git_lines,
             },
             "diagnostics",
             {
               "filename",
               path = 1,
               -- shorting_target = 40, -- Shortens path to leave 40 spaces in the window
-              symbols = {
-                -- modified = "",
-                modified = "",
-                -- modified = "  ",
-                readonly = "",
-              },
+              symbols = icons.file,
             },
             -- -- stylua: ignore
             -- {
@@ -97,10 +94,7 @@ return {
               "filename",
               path = 1,
               -- shorting_target = 40, -- Shortens path to leave 40 spaces in the window
-              symbols = {
-                modified = "",
-                readonly = "",
-              },
+              symbols = icons.file,
             },
           },
           lualine_c = {},
