@@ -26,8 +26,7 @@ return {
 
       return {
         options = {
-          -- theme = require("stefan.stylo").lualine_theme,
-          theme = "stylo",
+          theme = require("stefan.stylo").lualine_theme,
           globalstatus = true,
           component_separators = { left = "|", right = "|" },
           section_separators = { left = "", right = "" },
