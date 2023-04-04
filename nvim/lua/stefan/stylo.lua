@@ -171,14 +171,14 @@ local term_colors = {
 
 --- Return a table with the proper for the current mode (dark|light)
 --- and GUI capabilities (vim.o.termguicolors)
-M.get_colors = function()
+function M.get_colors()
   local mode = vim.o.background
   local gui = vim.o.termguicolors and "gui" or "cterm"
   return colors[mode][gui]
 end
 
 --- Load the actual colorscheme and apply highlights
-M.load = function()
+function M.load()
   local c = M.get_colors()
 
   vim.api.nvim_command("hi clear")
@@ -200,6 +200,8 @@ M.load = function()
     c_back = nil
     c_text = nil
   end
+  c_back = c[back]
+  c_text = c[text]
 
   -- Set neovim embedded terminal colors
   hi("TermColor0", { fg = c[term_colors.term0] })
@@ -244,6 +246,8 @@ M.load = function()
   hi("VertSplit", { fg = c.base02 })
   hi("StatusLine", { fg = c.base06, bg = c.base02 })
   hi("StatusLineNC", { fg = c.base05, bg = c.base02 })
+  hi("StatusLine", { fg = c.base06, bg = c_back })
+  hi("StatusLineNC", { fg = c.base05, bg = c_back })
   hi("TabLine", { fg = c.base05, bg = c.base03 })
   hi("TabLineFill", { fg = c.base05, bg = c.base02 })
   hi("TabLineSel", { fg = c.base01, bg = c.blue })
@@ -351,8 +355,25 @@ M.load = function()
   -- Plugins
   -------------
 
-  -- LSP
+  -- Notify
+  hi("NotifyBackground", { fg = c_text, bg = c_back })
+  hi("NotifyTRACEBorder", { fg = c.purple })
+  hi("NotifyTRACEIcon", { fg = c.bright_purple })
+  hi("NotifyTRACETitle", { fg = c.bright_purple })
+  hi("NotifyDEBUGBorder", { fg = c.blue })
+  hi("NotifyDEBUGIcon", { fg = c.bright_blue })
+  hi("NotifyDEBUGTitle", { fg = c.bright_blue })
+  hi("NotifyINFOBorder", { fg = c.green })
+  hi("NotifyINFOIcon", { fg = c.bright_green })
+  hi("NotifyINFOTitle", { fg = c.bright_green })
+  hi("NotifyWARNBorder", { fg = c.yellow })
+  hi("NotifyWARNIcon", { fg = c.bright_yellow })
+  hi("NotifyWARNTitle", { fg = c.bright_yellow })
+  hi("NotifyERRORBorder", { fg = c.red })
+  hi("NotifyERRORIcon", { fg = c.bright_red })
+  hi("NotifyERRORTitle", { fg = c.bright_red })
 
+  -- LSP
   hi("DiagnosticError", { fg = c.bright_red })
   hi("DiagnosticWarn", { fg = c.bright_yellow })
   hi("DiagnosticInfo", { fg = c.bright_blue })
@@ -363,6 +384,7 @@ M.load = function()
   -- c.base01 beging used by plugins that link to "Normal".
   hi("SagaNormal", { bg = c.base00 })
   hi("SagaBorder", { link = "FloatBorder" })
+  hi("SagaWinbarSep", { fg = c.bright_blue })
 
   -- Telescope
   -- bg of "Normal" is "none" in the terminal which leads to
@@ -377,60 +399,75 @@ M.load = function()
 
   -- Neotree
   hi("NeoTreeDimText", { fg = c.base04 }) -- dim text, expanders, indent markers
-  hi("NeoTreeMessage", { fg = c.base04, italic = true })  -- num. of hidden files
-  hi("NeoTreeDotfile", { fg = c.base04 })  -- names of hidden files
+  hi("NeoTreeMessage", { fg = c.base04, italic = true }) -- num. of hidden files
+  hi("NeoTreeDotfile", { fg = c.base04 }) -- names of hidden files
   hi("NeoTreeModified", { link = "diffChanged" }) -- file as unsaved changes
   hi("NeoTreeGitAdded", { link = "diffAdded" })
   hi("NeoTreeGitModified", { link = "diffChanged" })
   hi("NeoTreeGitDeleted", { link = "diffRemoved" })
   hi("NeoTreeGitUntracked", { fg = c.purple })
   hi("NeoTreeGitIgnored", { link = "NeoTreeDotfile" })
-  hi("NeoTreeGitUnstaged", { fg = c.orange })
+  hi("NeoTreeGitUnstaged", { link = "diffRemoved" })
   hi("NeoTreeGitStaged", { link = "diffAdded" })
   hi("NeoTreeGitConflict", { fg = c.bright_red, bold = true })
+
+  -- Lualine
+  -- Reload lualine to update its theme.
+  -- It automatically generates some highlight groups that are not affected
+  -- by the theme defined in "lualine_theme()".
+  -- Wrap it with "pcall" because this will only work once Lazy has loaded
+  -- the plugin
+  pcall(function()
+    local ui_plugins = require("stefan.plugins.ui")
+    for _, plugin in pairs(ui_plugins) do
+      if plugin[1] == "nvim-lualine/lualine.nvim" then
+        require("lualine").setup(plugin.opts())
+        return
+      end
+    end
+  end)
 end
 
 --- Return the lualine theme
-M.lualine_theme = function()
+function M.lualine_theme()
   local c = M.get_colors()
-  local lualine_bg_center = c.base02
-  local lualine_bg_mid = c.base02
-  local lualine_fg = c.base05
+  local style_b = { fg = c.base05, bg = c.base03 }
+  local style_c = { fg = c.base04, bg = c.base02 }
   return {
     normal = {
       a = { fg = c.blue, bg = c.dim_blue },
-      b = { fg = lualine_fg, bg = lualine_bg_mid },
-      c = { fg = lualine_fg, bg = lualine_bg_center },
+      b = style_b,
+      c = style_c,
     },
     insert = {
       a = { fg = c.green, bg = c.dim_green },
-      b = { fg = lualine_fg, bg = lualine_bg_mid },
-      c = { fg = lualine_fg, bg = lualine_bg_center },
+      b = style_b,
+      c = style_c,
     },
     visual = {
       a = { fg = c.magenta, bg = c.dim_magenta },
-      b = { fg = lualine_fg, bg = lualine_bg_mid },
-      c = { fg = lualine_fg, bg = lualine_bg_center },
+      b = style_b,
+      c = style_c,
     },
     replace = {
       a = { fg = c.orange, bg = c.dim_orange },
-      b = { fg = lualine_fg, bg = lualine_bg_mid },
-      c = { fg = lualine_fg, bg = lualine_bg_center },
+      b = style_b,
+      c = style_c,
     },
     command = {
       a = { fg = c.yellow, bg = c.dim_yellow },
-      b = { fg = lualine_fg, bg = lualine_bg_mid },
-      c = { fg = lualine_fg, bg = lualine_bg_center },
+      b = style_b,
+      c = style_c,
     },
     terminal = {
       a = { fg = c.cyan, bg = c.dim_cyan },
-      b = { fg = lualine_fg, bg = lualine_bg_mid },
-      c = { fg = lualine_fg, bg = lualine_bg_center },
+      b = style_b,
+      c = style_c,
     },
     inactive = {
-      a = { fg = lualine_fg, bg = lualine_bg_mid },
-      b = { fg = lualine_fg, bg = lualine_bg_mid },
-      c = { fg = lualine_fg, bg = lualine_bg_center },
+      a = {},
+      b = style_b,
+      c = style_c,
     },
   }
 end

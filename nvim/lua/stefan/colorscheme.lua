@@ -1,5 +1,12 @@
 local colorscheme = "stylo"
-local ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
+
+-- Actually set colorscheme
+local ok, os_mode
+ok, os_mode = pcall(vim.fn.systemlist, "dm get")
+if ok then
+  vim.opt.background = os_mode[1]
+end
+ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not ok then
   vim.notify("colorscheme " .. colorscheme .. " not found!")
   return

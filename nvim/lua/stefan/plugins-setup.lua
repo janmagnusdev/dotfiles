@@ -11,7 +11,17 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("stefan.plugins", {ui = {border="rounded"}})
+require("lazy").setup(
+  "stefan.plugins",
+  {
+    ui = { border = "rounded" },
+    change_detection = { notify = false },
+    checker = {
+      enabled = true,
+      notify = false,
+    },
+  }
+)
 vim.keymap.set("n", "<leader>t", require("lazy.util").float_term)
 -- return require("lazy").setup({
 --   -- Syntax and text objects

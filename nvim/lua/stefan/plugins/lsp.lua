@@ -9,10 +9,6 @@ return {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
 
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { "j-hui/fidget.nvim", opts = {} },
-
       -- Additional lua configuration, makes nvim stuff amazing!
       "folke/neodev.nvim",
     },
@@ -190,6 +186,7 @@ return {
   -- Enhanced LSP UIs
   {
     "glepnir/lspsaga.nvim",
+    event = "LspAttach",
     opts = {
       -- keybinds for navigation in lspsaga window
       scroll_preview = { scroll_down = "<C-f>", scroll_up = "<C-b>" },
@@ -201,6 +198,9 @@ return {
       },
       lightbulb = {
         enable = false,
+      },
+      symbol_in_winbar = {
+        separator = "  ",
       },
       outline = {
         keys = {
