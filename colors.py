@@ -41,7 +41,7 @@ COLORS: dict[str, dict[str, Colors]] = {
         "base01":         ((250,   7,  16), (211,   8,  15), "#222528"),
         "base02":         ((250,  10,  25), (211,  10,  23), "#353B41"),
         "base03":         ((250,  15,  30), (211,  14,  28), "#3D4751"),
-        "base04":         ((250,  19,  40), (211,  16,  38), "#516070"),
+        "base04":         ((250,  19,  50), (211,  16,  38), "#516070"),
         "base05":         ((250,  28,  70), (211,  31,  69), "#96AEC7"),
         "base06":         ((250,  41,  86), (211,  49,  86), "#C8DAEC"),
         "base07":         ((250,  36,  93), (211,  44,  93), "#E4ECF5"),
@@ -75,7 +75,7 @@ COLORS: dict[str, dict[str, Colors]] = {
         "base00":         (( 82,  54,  97), ( 38,  64,  96), "#FBF6ED"),
         "base01":         (( 85,  20,  92), ( 40,  24,  90), "#ECE8E0"),
         "base02":         ((  0,   0,  85), (224,   0,  83), "#D4D4D4"),
-        "base03":         ((  0,   0,  77), (224,   0,  75), "#BEBEBE"),
+        "base03":         ((  0,   0,  80), (224,   0,  75), "#BEBEBE"),
         "base04":         ((  0,   0,  60), (224,   0,  57), "#919191"),
         "base05":         ((  0,   0,  40), (224,   0,  37), "#5E5E5E"),
         "base06":         ((  0,   0,  26), (224,   0,  24), "#3C3C3C"),
@@ -355,6 +355,34 @@ def render_vim_colors(all_colors: dict[str, dict[str, Color]]) -> None:
     stylo_vim.write_text(data)
 
 
+def render_neovim_colors(all_colors: dict[str, dict[str, Color]]) -> None:
+    context: dict[str, Any] = {
+        "background": BACKGROUND,
+        "text": TEXT,
+        "cursor": CURSOR,
+        "cursor_text": CURSOR_TEXT,
+        "term_colors": TERM_COLORS,
+    }
+    for mode, colors in all_colors.items():
+        # GUI colors
+        context[f"colors_{mode}"] = colors
+        # CTERM colors
+        term_colors = [colors[c].hex for c in TERM_COLORS]
+        context[f"cterm_colors_{mode}"] = {
+            n: c.to_xterm256(term_colors) for n, c in colors.items()
+        }
+
+    pattern = (
+        r'(-- Generated color values \{\{\{\n).*\n(-- \}\}\} Generated color values\n)'
+    )
+    new_data = render("stylo.lua.j2", context)
+
+    stylo_vim = Path("nvim/lua/stefan/stylo.lua")
+    data = stylo_vim.read_text()
+    data = re.sub(pattern, rf"\1{new_data}\2", data, flags=re.DOTALL)
+    stylo_vim.write_text(data)
+
+
 def render_iterm_colors(all_colors: dict[str, dict[str, Color]]) -> None:
     iterm = {
         key: Color(coloraide.Color(val)) for key, val in ITERM_COLORS.items()
@@ -379,7 +407,7 @@ def render_iterm_colors(all_colors: dict[str, dict[str, Color]]) -> None:
         Path(f"{THEME_NAME[mode]}.itermcolors").write_text(data)
 
 
-def render_konsole_scheme(all_colors: dict[str, dict[str, Colors]]) -> None:
+def render_konsole_scheme(all_colors: dict[str, dict[str, Color]]) -> None:
     variations = ["", "Intense", "Faint"]
 
     for mode, colors in all_colors.items():
@@ -474,6 +502,7 @@ def main(mode: str, space: str) -> None:
 
     render_html_preview(colors)
     render_vim_colors(colors)
+    render_neovim_colors(colors)
     render_iterm_colors(colors)
     render_konsole_scheme(colors)
     # render_tmtheme(colors)
