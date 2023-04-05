@@ -85,4 +85,13 @@ function M.get_venvname()
   return ""
 end
 
+-- Strip spaces from text
+---@param text string
+---@return string
+function M.strip(text)
+  ---@type string
+  local result = string.gsub(text, "%s+", "")
+  return result
+end
+
 return M
