@@ -18,9 +18,21 @@ return {
         desc = "Delete all Notifications",
       },
     },
-    -- opts = {
-    --   timeout = 3000,
-    -- },
+    opts = {
+      timeout = 3000,
+    },
+  },
+
+  -- Use notify for LSP status messages
+  {
+    "mrded/nvim-lsp-notify",
+    lazy = true,
+    dependencies = { "rcarriga/nvim-notify" },
+    init = function()
+      require("lsp-notify").setup({
+        notify = require("notify"),
+      })
+    end,
   },
 
   -- Better vim.ui
@@ -35,18 +47,18 @@ return {
       },
     },
     init = function()
-      vim.ui.select = function(...)
+      vim.ui.select = function(...) ---@diagnostic disable-line
         require("lazy").load({ plugins = { "dressing.nvim" } })
         return vim.ui.select(...)
       end
-      vim.ui.input = function(...)
+      vim.ui.input = function(...) ---@diagnostic disable-line
         require("lazy").load({ plugins = { "dressing.nvim" } })
         return vim.ui.input(...)
       end
     end,
   },
 
-  -- noicer ui
+  -- Noicer UI
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -68,6 +80,8 @@ return {
           ["vim.lsp.util.stylize_markdown"] = true,
           ["cmp.entry.get_documentation"] = true,
         },
+        -- Disable lsp-progress in bottom-right corner, use nvim-lsp-notify instead
+        progress = { enabled = false },
       },
       presets = {
         bottom_search = true, -- use a classic bottom cmdline for search
