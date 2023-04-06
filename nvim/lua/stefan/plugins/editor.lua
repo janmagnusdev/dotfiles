@@ -2,13 +2,18 @@
 -- Editor plugins add commands for window management and normal mode file operations
 --
 return {
-  -- Window management
   -- Delete buffer w/o closing splits or windows
-  { "vim-scripts/kwbdi.vim", event = "VeryLazy" },
-  -- use "moll/vim-bbye"  -- Delete buffer w/o closing splits or windows
-  -- tmux & split window navigation
+  {
+    "moll/vim-bbye",
+    keys = {
+      { "<leader>bd", "<cmd>Bdelete<cr>", desc = "[B]uffer [D]elete" },
+    },
+  },
+
+  -- Tmux & Split window navigation
   { "christoomey/vim-tmux-navigator", event = "VeryLazy" },
-  -- maximizes and restores current window
+
+  -- Maximizes and restores current window
   {
     "szw/vim-maximizer",
     keys = {
@@ -40,14 +45,14 @@ return {
         function()
           require("neo-tree.command").execute({ toggle = true, dir = require("stefan.util").get_root() })
         end,
-        desc = "Explorer NeoTree (root dir)",
+        desc = "File browser: [E]xplore project root dir",
       },
       {
         "<leader>E",
         function()
           require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
         end,
-        desc = "Explorer NeoTree (cwd)",
+        desc = "File browser: [E]xplore cwd",
       },
       {
         "-",
@@ -60,23 +65,14 @@ return {
             })
           end
         end,
-        desc = "Open NeoTree in current buffer (like netrw/vinegar)",
-      },
-      {
-        "<C-^",
-        function()
-          local alternate_nr = vim.w.neo_tree_alternate_nr or vim.fn.bufnr("#") ---@diagnostic disable-line: param-type-mismatch
-          vim.w.neo_tree_alternate_nr = nil
-          vim.cmd.buffer(alternate_nr)
-        end,
-        desc = "Switch to alternate file",
+        desc = "File browser: Open in current buffer (like netrw/vinegar)",
       },
       {
         "<leader>gs",
         function()
           require("neo-tree.command").execute({ toggle = true, source = "git_status" })
         end,
-        desc = "Explorer NeoTree (root dir)",
+        desc = "File browser: [G]it [S]tatus",
       },
     },
     init = function()
@@ -130,7 +126,7 @@ return {
     end,
     config = function(_, opts)
       require("neo-tree").setup(opts)
-      -- removes the "Window settings restored" message
+      -- Removes the "Window settings restored" message
       vim.api.nvim_del_augroup_by_name("NeoTree_BufLeave")
       local bufenter = function(data)
         local pattern = "neo%-tree [^ ]+ %[1%d%d%d%]"
@@ -146,7 +142,7 @@ return {
     end,
   },
 
-  -- fuzzy finder
+  -- Fuzzy finder
   {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
@@ -222,35 +218,33 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    -- opts = {
-    --   plugins = { spelling = true },
-    -- },
-    -- config = function(_, opts)
-    --   local wk = require("which-key")
-    --   wk.setup(opts)
-    --   local keymaps = {
-    --     mode = { "n", "v" },
-    --     ["g"] = { name = "+goto" },
-    --     ["gz"] = { name = "+surround" },
-    --     ["]"] = { name = "+next" },
-    --     ["["] = { name = "+prev" },
-    --     ["<leader><tab>"] = { name = "+tabs" },
-    --     ["<leader>b"] = { name = "+buffer" },
-    --     ["<leader>c"] = { name = "+code" },
-    --     ["<leader>f"] = { name = "+file/find" },
-    --     ["<leader>g"] = { name = "+git" },
-    --     ["<leader>gh"] = { name = "+hunks" },
-    --     ["<leader>q"] = { name = "+quit/session" },
-    --     ["<leader>s"] = { name = "+search" },
-    --     ["<leader>u"] = { name = "+ui" },
-    --     ["<leader>w"] = { name = "+windows" },
-    --     ["<leader>x"] = { name = "+diagnostics/quickfix" },
-    --   }
-    --   if Util.has("noice.nvim") then
-    --     keymaps["<leader>sn"] = { name = "+noice" }
-    --   end
-    --   wk.register(keymaps)
-    -- end,
+    opts = {
+      plugins = { spelling = { enabled = true } },
+    },
+    config = function(_, opts)
+      local wk = require("which-key")
+      wk.setup(opts)
+      local keymaps = {
+        mode = { "n", "v" },
+        ["g"] = { name = "+goto" },
+        ["gz"] = { name = "+surround" },
+        ["]"] = { name = "+next" },
+        ["["] = { name = "+prev" },
+        ["<leader><tab>"] = { name = "+tabs" },
+        ["<leader>b"] = { name = "+buffer" },
+        ["<leader>c"] = { name = "+code" },
+        ["<leader>f"] = { name = "+file/find" },
+        ["<leader>g"] = { name = "+git" },
+        ["<leader>gh"] = { name = "+hunks" },
+        ["<leader>q"] = { name = "+quit/session" },
+        ["<leader>s"] = { name = "+search" },
+        ["<leader>u"] = { name = "+ui" },
+        ["<leader>w"] = { name = "+windows" },
+        ["<leader>x"] = { name = "+diagnostics/quickfix" },
+        ["<leader>sn"] = { name = "+noice" },
+      }
+      wk.register(keymaps)
+    end,
   },
 
   -- Searching and moving around

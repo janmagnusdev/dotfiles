@@ -46,8 +46,7 @@ map(
 -- Window management
 -----------------------
 -- Buffers
-dmap("n", "<leader>bb", "<C-^", "[B]buffer: toggle between two buffers")
-dmap("n", "<leader>bd", "<Plug>Kwbd", "[B]uffer: [d]elete (but keep split open)")
+dmap("n", "<leader>bb", "<C-^>", "[B]buffer: toggle between two buffers")
 -- Windows
 dmap("n", "<leader>wv", "<C-w>v", "[W]indow: split [v]ertically")
 dmap("n", "<leader>wh", "<C-w>s", "[W]indow: split [h]orizontally")
