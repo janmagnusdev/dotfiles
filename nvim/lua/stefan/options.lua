@@ -40,9 +40,15 @@ opt.confirm = true -- Y-N-C promt if closing with unsaved changes
 opt.showmode = false -- Disable mode message, Lualine also has it
 opt.splitbelow = true -- Open hsplit below current window
 opt.splitright = true -- Open vsplit right of current window
+opt.splitkeep = "cursor"  -- Keep text on same screen line on hsplit
 -- opt.shortmess:append({ W = true, I = true, c = true }) -- Don't show "file written", Intro, completion msg
 -- When using noice, "W" must be false or filtering will not work properly:
-opt.shortmess:append({ W = false, I = true, c = true }) -- Don't show "file written", Intro, completion msg
+opt.shortmess:append({ -- Don't show ...
+  W = false, -- ... "file written"
+  I = true, -- ... intro
+  c = true, -- ... completion message
+  C = true, -- ... "scanning tags"
+})
 opt.diffopt:append({ "indent-heuristic", "algorithm:patience" })
 -- opt.undofile = true -- Save undo history to a file and restore on next load
 
