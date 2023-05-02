@@ -73,6 +73,8 @@ dmap("n", "<leader>ln", vim.cmd.lnext, "Location list: Next location")
 dmap("n", "<leader>nn", ":setlocal number! relativenumber!<cr>", "Toggle [n]o[n]umber")
 -- Toggle wrap
 dmap("n", "<leader>w", ":set wrap!<cr>", "Toggle line [w]rapping")
+-- Toggle cursorcolumn
+dmap("n", "<leader>c", ":set cursorcolumn!<cr>", "Toggle [c]ursorcolumn")
 
 -- Searching and moving around
 --------------------------------
