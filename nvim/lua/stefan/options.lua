@@ -44,7 +44,7 @@ opt.splitkeep = "cursor"  -- Keep text on same screen line on hsplit
 -- opt.shortmess:append({ W = true, I = true, c = true }) -- Don't show "file written", Intro, completion msg
 -- When using noice, "W" must be false or filtering will not work properly:
 opt.shortmess:append({ -- Don't show ...
-  W = false, -- ... "file written"
+  W = true, -- ... "file written"
   I = true, -- ... intro
   c = true, -- ... completion message
   C = true, -- ... "scanning tags"

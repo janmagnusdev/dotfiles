@@ -5,35 +5,35 @@ return {
   -- Icons used by other plugins (lualine, tree, ...,
   { "nvim-tree/nvim-web-devicons", lazy = true },
 
-  -- Better `vim.notify()`
-  {
-    "rcarriga/nvim-notify",
-    event = "VeryLazy",
-    keys = {
-      {
-        "<leader>un",
-        function()
-          require("notify").dismiss({ silent = true, pending = true })
-        end,
-        desc = "Delete all Notifications",
-      },
-    },
-    opts = {
-      timeout = 3000,
-    },
-  },
+  -- -- Better `vim.notify()`
+  -- {
+  --   "rcarriga/nvim-notify",
+  --   event = "VeryLazy",
+  --   keys = {
+  --     {
+  --       "<leader>un",
+  --       function()
+  --         require("notify").dismiss({ silent = true, pending = true })
+  --       end,
+  --       desc = "Delete all Notifications",
+  --     },
+  --   },
+  --   opts = {
+  --     timeout = 3000,
+  --   },
+  -- },
 
-  -- Use notify for LSP status messages
-  {
-    "mrded/nvim-lsp-notify",
-    lazy = true,
-    dependencies = { "rcarriga/nvim-notify" },
-    init = function()
-      require("lsp-notify").setup({
-        notify = require("notify"),
-      })
-    end,
-  },
+  -- -- Use notify for LSP status messages
+  -- {
+  --   "mrded/nvim-lsp-notify",
+  --   lazy = true,
+  --   dependencies = { "rcarriga/nvim-notify" },
+  --   init = function()
+  --     require("lsp-notify").setup({
+  --       notify = require("notify"),
+  --     })
+  --   end,
+  -- },
 
   -- Better vim.ui
   {
@@ -64,7 +64,7 @@ return {
     event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
+      -- "rcarriga/nvim-notify",
     },
     opts = {
       cmdline = {
@@ -80,8 +80,8 @@ return {
           ["vim.lsp.util.stylize_markdown"] = true,
           ["cmp.entry.get_documentation"] = true,
         },
-        -- Disable lsp-progress in bottom-right corner, use nvim-lsp-notify instead
-        progress = { enabled = false },
+        -- -- Disable lsp-progress in bottom-right corner, use nvim-lsp-notify instead
+        -- progress = { enabled = false },
       },
       presets = {
         bottom_search = true, -- use a classic bottom cmdline for search
@@ -93,12 +93,12 @@ return {
       messages = {
         view_search = false, -- disable virtualtext overlays for search count msg.
       },
-      routes = {
-        { -- Don't show "<file> written"
-          filter = { event = "msg_show", kind = "", find = "written" },
-          opts = { skip = true },
-        },
-      },
+      -- routes = {
+      --   { -- Don't show "<file> written"
+      --     filter = { event = "msg_show", kind = "", find = "written" },
+      --     opts = { skip = true },
+      --   },
+      -- },
     },
     -- stylua: ignore
     keys = {

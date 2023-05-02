@@ -176,14 +176,14 @@ return {
       { "<leader>fh", "<cmd>Telescope help_tags<cr>" }, -- list available help tags
       { "<leader>ft", "<cmd>Telescope filetypes<cr>" }, -- list available filetypes tags
 
-      {
-        "<leader>sn",
-        "<cmd>Telescope notify<cr>",
-        -- function()
-        --   require("telescope").extensions.notify.notify()
-        -- end,
-        { desc = "[S]earch [n]otifications" },
-      },
+      -- {
+      --   "<leader>sn",
+      --   "<cmd>Telescope notify<cr>",
+      --   -- function()
+      --   --   require("telescope").extensions.notify.notify()
+      --   -- end,
+      --   { desc = "[S]earch [n]otifications" },
+      -- },
 
       -- telescope git commands (not on youtube nvim video)
       { "<leader>gc", "<cmd>Telescope git_commits<cr>" }, -- list all git commits (use <cr> to checkout) ["gc" for git commits]
@@ -192,7 +192,7 @@ return {
       -- { "<leader>gs", "<cmd>Telescope git_status<cr>" }, -- list current changes per file with diff preview ["gs" for git status]
     },
     opts = function()
-      require("telescope").load_extension("notify")
+      -- require("telescope").load_extension("notify")
       require("telescope").load_extension("noice")
       local actions = require("telescope.actions")
       return {
