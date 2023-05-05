@@ -102,12 +102,12 @@ return {
     },
     -- stylua: ignore
     keys = {
+      { "<leader>nl", function() require("noice").cmd("last") end, desc = "[N]oice [l]ast message" },
+      { "<leader>nh", function() require("noice").cmd("history") end, desc = "[N]oice [h]istory" },
+      { "<leader>ne", function() require("noice").cmd("errors") end, desc = "[N]oice [e]rrors" },
       { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
       { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll forward", mode = {"i", "n", "s"} },
       { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll backward", mode = {"i", "n", "s"}},
-      { "<leader>snl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
-      { "<leader>snh", function() require("noice").cmd("history") end, desc = "Noice History" },
-      { "<leader>sne", function() require("noice").cmd("errors") end, desc = "Noice Errors" },
     },
   },
 

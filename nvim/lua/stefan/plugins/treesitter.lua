@@ -3,6 +3,7 @@
 --
 return {
   -- Highlight, edit, and navigate code
+  -- Also see: https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua#L287-L351
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",

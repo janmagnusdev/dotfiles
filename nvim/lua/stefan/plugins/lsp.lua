@@ -212,6 +212,8 @@ return {
       },
     },
     init = function()
+      -- See https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua#L361-L402
+      -- for additional bindings
       -- Many examples/guides wrap this in an "on_attach" function for an actual LSP
       -- server.  We can do this here, because
       -- - we currently don't map to "vim.lsp...."
@@ -221,8 +223,8 @@ return {
       vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts) -- show documentation for what is under cursor
       vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<cr>", opts) -- see definition and make edits in window
       vim.keymap.set("n", "gD", "<cmd>Lspsaga goto_definition<cr>", opts) -- see definition and make edits in window
-      vim.keymap.set("n", "<leader>ld", "<Cmd>lua vim.lsp.buf.declaration()<cr>", opts) -- got to declaration
-      vim.keymap.set("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts) -- go to implementation
+      -- vim.keymap.set("n", "<leader>ld", "<Cmd>lua vim.lsp.buf.declaration()<cr>", opts) -- got to declaration
+      -- vim.keymap.set("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts) -- go to implementation
       vim.keymap.set("n", "<leader>lf", "<cmd>Lspsaga lsp_finder<cr>", opts) -- show definition, references
       vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts) -- see available code actions
       vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", opts) -- smart rename

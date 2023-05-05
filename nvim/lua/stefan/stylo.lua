@@ -380,16 +380,12 @@ function M.load()
   hi("DiagnosticHint", { fg = c.bright_purple })
 
   -- Lspsaga
-  -- bg of "Normal" is "none" in the terminal which leads to
-  -- c.base01 beging used by plugins that link to "Normal".
-  hi("SagaNormal", { bg = c.base00 })
+  hi("SagaNormal", { link = "NormalFloat"})
   hi("SagaBorder", { link = "FloatBorder" })
   hi("SagaWinbarSep", { fg = c.bright_blue })
 
   -- Telescope
-  -- bg of "Normal" is "none" in the terminal which leads to
-  -- c.base01 beging used by plugins that link to "Normal".
-  hi("TelescopeNormal", { bg = c.base00 })
+  hi("TelescopeNormal", { link = "NormalFloat" })
   hi("TelescopeBorder", { link = "FloatBorder" })
 
   -- Gitsigns

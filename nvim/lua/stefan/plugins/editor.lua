@@ -1,3 +1,33 @@
+local util = require("stefan.util")
+
+-- Return a function that calls Telescope
+-- cwd is a function that returns the cwd to use for the given command.
+---@param builtin string|nil
+---@param opts table|nil
+local function telescope(builtin, opts)
+  local params = { builtin = builtin, opts = opts }
+  return function()
+    builtin = params.builtin
+    opts = params.opts
+    if opts and opts.use_root then
+      opts.cwd = util.get_root()
+    end
+    if builtin == nil then
+      -- Open ":Telescope" without preview window
+      require("telescope.builtin").builtin(require("telescope.themes").get_dropdown({
+        previewer = false,
+      }))
+    elseif builtin == "find_in_file" then
+      require("telescope.builtin").current_buffer_fuzzy_find()
+      -- require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+      --   previewer = false,
+      -- }))
+    else
+      require("telescope.builtin")[builtin](opts)
+    end
+  end
+end
+
 --
 -- Editor plugins add commands for window management and normal mode file operations
 --
@@ -6,7 +36,7 @@ return {
   {
     "moll/vim-bbye",
     keys = {
-      { "<leader>bd", "<cmd>Bdelete<cr>", desc = "[B]uffer [D]elete" },
+      { "<leader>bd", "<cmd>Bdelete<cr>", desc = "[B]uffer [d]elete" },
     },
   },
 
@@ -68,7 +98,7 @@ return {
         desc = "File browser: Open in current buffer (like netrw/vinegar)",
       },
       {
-        "<leader>gs",
+        "<leader>gS", -- "<leader>gs" is used by telescope
         function()
           require("neo-tree.command").execute({ toggle = true, source = "git_status" })
         end,
@@ -145,51 +175,99 @@ return {
   -- Fuzzy finder
   {
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
-    -- version = false,  # alternative to branch 0.1
+    -- branch = "0.1.x",
+    version = false, -- alternative to branch 0.1
     dependencies = {
       -- dependency for better sorting performance
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
     cmd = "Telescope",
     keys = {
-      -- See https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua#L361-L402
-      -- for additional bindings
-      -- Maybe create a utility func "get_root" to open telescope from the
-      -- current buffer's project instead of the cwd.  See:
-      -- - https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/init.lua#L49
-      -- - https://github.com/LazyVim/LazyVim/discussions/83
+      -- Telescope itself
+      { "<leader>tl", telescope(), desc = "[T]e[l]escope" },
+      { "<leader>tr", telescope("resume"), desc = "[T]elescope: [R]esume" },
+      -- Short short cuts for most important commands
       {
         "<leader>,",
-        "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>",
+        telescope("buffers", { sort_mru = true, ignore_current_buffer = true }),
+        desc = "[,] Find buffer (ignore current)",
       },
+      { "<leader>.", telescope("find_files"), desc = "[F]ind [f]iles (cwd)" },
+      { "<leader>/", telescope("find_in_file"), desc = "[/] Fuzy search in current buffer" },
+      { "<leader>:", telescope("command_history"), desc = "[:] Search command history" },
+      -- Finding files
+      -- lower case means: project's root dir
+      -- upper case means: cwd
       {
         "<leader>fb",
-        "<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>",
+        telescope("buffers", { sort_mru = true, show_all_buffers = true }),
+        desc = "[F]ind [b]uffer (show all)",
       },
-      { "<leader>/", "<cmd>Telescope find_in_file<cr>" }, -- TODO
-      { "<leader>:", "<cmd>Telescope command_history<cr>" },
-      { "<leader>.", "<cmd>Telescope find_files<cr>" }, -- find files within current working directory, respects .gitignore
-      { "<leader>ff", "<cmd>Telescope find_files<cr>" }, -- find files within current working directory, respects .gitignore
-      { "<leader>fs", "<cmd>Telescope live_grep<cr>" }, -- find string in current working directory as you type
-      { "<leader>fc", "<cmd>Telescope grep_string<cr>" }, -- find string under cursor in current working directory
-      { "<leader>fh", "<cmd>Telescope help_tags<cr>" }, -- list available help tags
-      { "<leader>ft", "<cmd>Telescope filetypes<cr>" }, -- list available filetypes tags
-
-      -- {
-      --   "<leader>sn",
-      --   "<cmd>Telescope notify<cr>",
-      --   -- function()
-      --   --   require("telescope").extensions.notify.notify()
-      --   -- end,
-      --   { desc = "[S]earch [n]otifications" },
-      -- },
-
-      -- telescope git commands (not on youtube nvim video)
-      { "<leader>gc", "<cmd>Telescope git_commits<cr>" }, -- list all git commits (use <cr> to checkout) ["gc" for git commits]
-      { "<leader>gf", "<cmd>Telescope git_bcommits<cr>" }, -- list git commits for current file/buffer (use <cr> to checkout) ["gfc" for git file commits]
-      { "<leader>gb", "<cmd>Telescope git_branches<cr>" }, -- list git branches (use <cr> to checkout) ["gb" for git branch]
-      -- { "<leader>gs", "<cmd>Telescope git_status<cr>" }, -- list current changes per file with diff preview ["gs" for git status]
+      { "<leader>ff", telescope("find_files", { use_root = true }), desc = "[F]ind [f]iles (project root)" },
+      { "<leader>fF", telescope("find_files"), desc = "[F]ind [f]iles (cwd)" },
+      { "<leader>fg", telescope("live_grep", { use_root = true }), desc = "[F]ind by [g]rep (project root)" },
+      { "<leader>fG", telescope("live_grep"), desc = "[F]ind by [g]rep (cwd)" },
+      {
+        "<leader>fw",
+        telescope("grep_string", { use_root = true }),
+        desc = "[F]ind [w]word under cursor (project root)",
+      },
+      { "<leader>fW", telescope("grep_string"), desc = "[F]ind [w]word under cursor (cwd)" },
+      -- { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Find Recent" },
+      -- Git
+      -- "<leader>gS" is used by neo-tree
+      { "<leader>gs", telescope("git_status"), desc = "[G]it: [s]tatus with diff preview" },
+      { "<leader>gc", telescope("git_commits"), desc = "[G]it: Find [c]ommits" },
+      { "<leader>gc", telescope("git_bcommits"), desc = "[G]it: Find current [f]ile's commits" },
+      { "<leader>gb", telescope("git_branches"), desc = "[G]it: Find [b]ranches" },
+      -- Find help and Vim internals
+      { "<leader>fh", telescope("command_history"), desc = "[:] Search command history" },
+      { "<leader>fh", telescope("help_tags"), desc = "[F]ind [h]elp" },
+      { "<leader>fM", telescope("man_pages"), desc = "Man Pages" },
+      { "<leader>ft", telescope("filetypes"), desc = "[F]ind file [t]ypes" },
+      -- Find notificatiosn / messages
+      -- { "<leader>fn", "<cmd>Telescope notify<cr>", { desc = "[f]ind [n]otifications" } },
+      { "<leader>fN", "<cmd>Telescope noice<cr>", { desc = "[f]ind [n]oice messages" } },
+      -- LSP
+      { "<leader>ld", telescope("diagnostics", { buf = 0 }), desc = "[L]SP: [d]iagnostics (current buffer)" },
+      { "<leader>lD", telescope("diagnostics"), desc = "[L]SP: [d]iagnostics (all buffers)" },
+      { "<leader>lr", telescope("lsp_references"), desc = "[L]SP: [r]eferences" },
+      {
+        "<leader>ls",
+        telescope("lsp_document_symbols", {
+          -- symbols = {
+          --   "Class",
+          --   "Function",
+          --   "Method",
+          --   "Constructor",
+          --   "Interface",
+          --   "Module",
+          --   "Struct",
+          --   "Trait",
+          --   "Field",
+          --   "Property",
+          -- },
+        }),
+        desc = "[L]SP: Goto [s]ymbol (current file)",
+      },
+      {
+        "<leader>lS",
+        telescope("lsp_workspace_symbols", {
+          -- symbols = {
+          --   "Class",
+          --   "Function",
+          --   "Method",
+          --   "Constructor",
+          --   "Interface",
+          --   "Module",
+          --   "Struct",
+          --   "Trait",
+          --   "Field",
+          --   "Property",
+          -- },
+        }),
+        desc = "[L]SP: Goto [s]ymbol (Workspace)",
+      },
     },
     opts = function()
       -- require("telescope").load_extension("notify")
@@ -197,6 +275,8 @@ return {
       local actions = require("telescope.actions")
       return {
         defaults = {
+          prompt_prefix = " ",
+          selection_caret = " ",
           layout_config = { prompt_position = "top" },
           sorting_strategy = "ascending",
           mappings = {
@@ -204,55 +284,67 @@ return {
               ["<C-k>"] = actions.move_selection_previous, -- move to prev result
               ["<C-j>"] = actions.move_selection_next, -- move to next result
               ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist, -- send selected to quickfixlist
+              ["<C-s>"] = actions.cycle_previewers_next, -- Cycle previewers (e.g., git diff, commit message, ...)
+              ["<C-a>"] = actions.cycle_previewers_prev, -- Cycle previewers (e.g., git diff, commit message, ...)
             },
           },
         },
       }
     end,
-    -- init = function(plugin)
-    --   plugin.load_extension("fzf")
-    -- end
+    init = function()
+      require("telescope").load_extension("fzf")
+    end,
   },
 
-  -- which-key
+  -- Which-key
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
       plugins = { spelling = { enabled = true } },
+      window = {
+        border = "rounded",
+      },
     },
     config = function(_, opts)
       local wk = require("which-key")
       wk.setup(opts)
       local keymaps = {
         mode = { "n", "v" },
-        ["g"] = { name = "+goto" },
-        ["gz"] = { name = "+surround" },
+        ["g"] = { name = "+goto/comment" },
+        ["z"] = { name = "+fold/spelling" },
         ["]"] = { name = "+next" },
         ["["] = { name = "+prev" },
-        ["<leader><tab>"] = { name = "+tabs" },
         ["<leader>b"] = { name = "+buffer" },
         ["<leader>c"] = { name = "+code" },
-        ["<leader>f"] = { name = "+file/find" },
+        ["<leader>f"] = { name = "+find" },
         ["<leader>g"] = { name = "+git" },
-        ["<leader>gh"] = { name = "+hunks" },
+        ["<leader>n"] = { name = "+noice/..." },
         ["<leader>q"] = { name = "+quit/session" },
-        ["<leader>s"] = { name = "+search" },
+        ["<leader>s"] = { name = "+spelling/..." },
         ["<leader>u"] = { name = "+ui" },
-        ["<leader>w"] = { name = "+windows" },
-        ["<leader>x"] = { name = "+diagnostics/quickfix" },
-        ["<leader>sn"] = { name = "+noice" },
+        ["<leader>w"] = { name = "+window" },
+        -- ["<leader>x"] = { name = "+diagnostics/quickfix" },
       }
       wk.register(keymaps)
     end,
   },
 
-  -- Searching and moving around
-  { "rhysd/clever-f.vim" },
-  { "nelstrom/vim-visual-star-search" },
-  { "jremmen/vim-ripgrep" }, -- Run "rg", accepting all cmd line args.  Use quickfix window.
-  --use "kyoh86/vim-ripgrep"  -- Run "rg" async, still experimental
-  { "stefandtw/quickfix-reflector.vim" }, -- Change code right in the quickfix window
+  -- Extended and improved f, F, t and T key mappings
+  { "rhysd/clever-f.vim" , event = "VeryLazy"},
+
+  -- Start */# search from visual selections
+  { "nelstrom/vim-visual-star-search", event = "VeryLazy" },
+
+  -- Run "rg", accepting all cmd line args.  Use quickfix window.
+  {
+    "jremmen/vim-ripgrep",
+    -- "kyoh86/vim-ripgrep"  -- Run "rg" async, still experimental
+    cmd = { "Rg", "RgRoot" },
+  },
+
+  -- Change code right in the quickfix window
+  { "stefandtw/quickfix-reflector.vim" , event = "VeryLazy"}, 
 
   -- Git integration
   { "tpope/vim-fugitive", event = "VeryLazy" },
