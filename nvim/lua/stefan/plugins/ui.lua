@@ -116,8 +116,10 @@ return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     opts = function()
+      local lualine_utils = require("stefan.util").lualine
+
       -- Only call once, venv does not change
-      vim.g.venvname = require("stefan.util").get_venvname()
+      vim.g.venvname = lualine_utils.get_venvname()
 
       local icons = require("stefan.icons")
       local get_color = require("lualine.utils.utils").extract_highlight_colors
@@ -133,16 +135,6 @@ return {
         component_separators = { left = "|", right = "|" }
         section_separators = { left = "", right = "" }
         outer_separators = nil
-      end
-
-      -- Return indentation info:
-      -- "s:3" means "3 spaces", "t:4" means tabs with 4 spaces width
-      ---@return string
-      local function indentinfo()
-        local et = vim.opt.expandtab:get()
-        local ts = vim.opt.tabstop:get()
-        local text = (et and "s" or "t") .. ":" .. ts
-        return text
       end
 
       -- Return the current time
@@ -166,13 +158,16 @@ return {
         local s = ext.sections
 
         if rounded then
+          -- Add separator to the first component of section "a"
           if type(s.lualine_a[1]) ~= "table" then
-            s.lualine_a = { { s.lualine_a[1] } }
+            s.lualine_a = { { s.lualine_a[1] } } -- Convert scalar to table
           end
           ext.sections.lualine_a[1].separator = outer_separators
         end
 
         if s.lualine_z ~= nil then
+          -- Move components from section "z" to "y".
+          -- "z" is exclusively used for the time.
           if s.lualine_y == nil then
             s.lualine_y = {}
           end
@@ -240,7 +235,7 @@ return {
             { "filetype", colored = false },
             "encoding",
             "fileformat",
-            indentinfo,
+            lualine_utils.indentinfo,
             "progress",
             "location",
           },

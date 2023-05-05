@@ -1,7 +1,13 @@
 local M = {}
 
--- Patterns used by "get_root()"
-M.root_patterns = { ".git", "lua" }
+-- Strip spaces from text
+---@param text string
+---@return string
+function M.strip(text)
+  ---@type string
+  local result = string.gsub(text, "%s+", "")
+  return result
+end
 
 -- Return the root (i.e., project) directory for the current buffer based on:
 -- * lsp workspace folders
@@ -11,6 +17,8 @@ M.root_patterns = { ".git", "lua" }
 -- See: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/init.lua
 ---@return string
 function M.get_root()
+  local root_patterns = { ".git", "lua" }
+
   ---@type string?
   local path = vim.api.nvim_buf_get_name(0)
   path = path ~= "" and vim.loop.fs_realpath(path) or nil
@@ -40,12 +48,12 @@ function M.get_root()
   end)
 
   ---@type string?
-  local root = roots[1]  -- Use first candidate
+  local root = roots[1] -- Use first candidate
   if not root then
     -- Fallback to searching for root patterns
     path = path and vim.fs.dirname(path) or vim.loop.cwd()
     ---@type string?
-    root = vim.fs.find(M.root_patterns, { path = path, upward = true })[1]
+    root = vim.fs.find(root_patterns, { path = path, upward = true })[1]
     -- Use found root or fallback to cwd()
     root = root and vim.fs.dirname(root) or vim.loop.cwd()
   end
@@ -74,24 +82,27 @@ function M.py_line_length()
   return default
 end
 
--- Return name of current virtual env
----@return string
-function M.get_venvname()
-  for _, v in pairs({ vim.env.VIRTUAL_ENV, vim.env.CONDA_PREFIX }) do
-    if vim.fn.isdirectory(v) == 1 then
-      return vim.fn.fnamemodify(v, ":t")
+M.lualine = {
+  -- Return name of current virtual env
+  ---@return string
+  get_venvname = function()
+    for _, v in pairs({ vim.env.VIRTUAL_ENV, vim.env.CONDA_PREFIX }) do
+      if vim.fn.isdirectory(v) == 1 then
+        return vim.fn.fnamemodify(v, ":t")
+      end
     end
-  end
-  return ""
-end
+    return ""
+  end,
 
--- Strip spaces from text
----@param text string
----@return string
-function M.strip(text)
-  ---@type string
-  local result = string.gsub(text, "%s+", "")
-  return result
-end
+  -- Return indentation info:
+  -- "s:3" means "3 spaces", "t:4" means tabs with 4 spaces width
+  ---@return string
+  indentinfo = function()
+    local et = vim.opt.expandtab:get()
+    local ts = vim.opt.tabstop:get()
+    local text = (et and "s" or "t") .. ":" .. ts
+    return text
+  end,
+}
 
 return M
