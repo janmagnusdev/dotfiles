@@ -10,18 +10,6 @@ local function map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
-local function dmap(mode, lhs, rhs, desc, opts)
-  opts = opts or {}
-  opts.desc = desc
-  map(mode, lhs, rhs, opts)
-end
-
-local function make_dmap(prefix)
-  return function(mode, lhs, rhs, desc, opts)
-    return dmap(mode, lhs, rhs, prefix .. desc, opts)
-  end
-end
-
 ---------------------
 -- General Keymaps
 ---------------------
@@ -31,10 +19,6 @@ map({ "n", "v" }, "<space>", "<Nop>")
 -- Use jj to exit insert mode
 map("i", "jj", "<ESC>")
 
--- Fast editing of the init.lua
-map("n", "<leader>ve", ":edit $MYVIMRC<cr>")
-map("n", "<leader>vs", ":source $MYVIMRC<cr>")
---
 -- Clear search, diff update and redraw
 map(
   "n",
@@ -46,35 +30,38 @@ map(
 -- Window management
 -----------------------
 -- Buffers
-dmap("n", "<leader>bb", "<C-^>", "[B]buffer: toggle between two buffers")
+map("n", "<leader>bb", "<C-^>", { desc = "[B]buffer: toggle between two buffers" })
 -- Windows
-dmap("n", "<leader>wv", "<C-w>v", "[W]indow: split [v]ertically")
-dmap("n", "<leader>wh", "<C-w>s", "[W]indow: split [h]orizontally")
-dmap("n", "<leader>we", "<C-w>=", "[W]indow: make widths/heights [e]qual")
-dmap("n", "<leader>wc", ":close<cr>", "[W]indow: [c]lose current")
-dmap("n", "<leader>wt", ":split<cr>:resize 10<cr>:term<cr>", "[W]indow: open 10-row [t]erminal")
+map("n", "<leader>wv", "<C-w>v", { desc = "[W]indow: split [v]ertically" })
+map("n", "<leader>wh", "<C-w>s", { desc = "[W]indow: split [h]orizontally" })
+map("n", "<leader>we", "<C-w>=", { desc = "[W]indow: make widths/heights [e]qual" })
+map("n", "<leader>wc", ":close<cr>", { desc = "[W]indow: [c]lose current" })
+map("n", "<leader>wt", ":split<cr>:resize 10<cr>:term<cr>", { desc = "[W]indow: open 10-row [t]erminal" })
 -- Tabs
-dmap("n", "<leader>to", ":tabnew<cr>", "[Tab]: [o]pen")
-dmap("n", "<leader>tc", ":tabclose<cr>", "[Tab]: [c]lose")
-dmap("n", "<leader>tn", ":tabn<cr>", "[Tab]: go to [n]next") dmap("n", "<leader>tp", ":tabp<cr>", "[Tab]: go to [p]revious")
+map("n", "<leader>to", vim.cmd.tabnew, { desc = "[T]ab: [o]pen" })
+map("n", "<leader>tc", vim.cmd.tabclose, { desc = "[T]ab: [c]lose" })
+map("n", "<leader>tn", vim.cmd.tabn, { desc = "[T]ab: go to [n]next" })
+map("n", "<leader>tp", vim.cmd.tabp, { desc = "[T]ab: go to [p]revious" })
 -- Quickfix / location list
-dmap("n", "<leader>co", ":copen<cr>", "Quickfix: open")
-dmap("n", "<leader>cc", ":cclose<cr>", "Quickfix: close")
-dmap("n", "<leader>cp", vim.cmd.cprev, "Quickfix: Previous quickfix")
-dmap("n", "<leader>cn", vim.cmd.cnext, "Quickfix: Next quickfix")
-dmap("n", "<leader>lo", ":lopen<cr>", "Location list: open")
-dmap("n", "<leader>lc", ":lclose<cr>", "Location list: close")
-dmap("n", "<leader>lp", vim.cmd.lprev, "Location list: Previous location")
-dmap("n", "<leader>ln", vim.cmd.lnext, "Location list: Next location")
+map("n", "<leader>co", vim.cmd.copen, { desc = "Quickfix: open" })
+map("n", "<leader>cc", vim.cmd.close, { desc = "Quickfix: close" })
+map("n", "<leader>cp", vim.cmd.cprev, { desc = "Quickfix: Previous quickfix" })
+map("n", "<leader>cn", vim.cmd.cnext, { desc = "Quickfix: Next quickfix" })
+map("n", "<leader>lo", vim.cmd.lopen, { desc = "Location list: open" })
+map("n", "<leader>lc", vim.cmd.lclose, { desc = "Location list: close" })
+map("n", "<leader>lp", vim.cmd.lprev, { desc = "Location list: Previous location" })
+map("n", "<leader>ln", vim.cmd.lnext, { desc = "Location list: Next location" })
 
 -- UI toggles
 ----------------
+-- Toggle cursor column
+map("n", "<leader>c", "<cmd>set cursorcolumn!<cr>", { desc = "Toggle [c]o[n]umber" })
 -- Toggle line numbers
-dmap("n", "<leader>nn", ":setlocal number! relativenumber!<cr>", "Toggle [n]o[n]umber")
+map("n", "<leader>nn", "<cmd>setlocal number! relativenumber!<cr>", { desc = "Toggle [n]o[n]umber" })
 -- Toggle wrap
-dmap("n", "<leader>w", ":set wrap!<cr>", "Toggle line [w]rapping")
+map("n", "<leader>w", ":set wrap!<cr>", { desc = "Toggle line [w]rapping" })
 -- Toggle cursorcolumn
-dmap("n", "<leader>c", ":set cursorcolumn!<cr>", "Toggle [c]ursorcolumn")
+map("n", "<leader>c", ":set cursorcolumn!<cr>", { desc = "Toggle [c]ursorcolumn" })
 
 -- Searching and moving around
 --------------------------------
@@ -87,35 +74,38 @@ map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 -- Clear search highlights
 -- map("n", "<leader>nh", ":nohlsearch<cr>", {silent=true})
 -- map("n", "<leader><space>", ":nohlsearch<cr>", { silent = true })
-dmap({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", "Escape and clear hlsearch")
+map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
 -- I'd use a function for this but Vim clobbers the last search when you're in
 -- a function so fuck it, practicality beats purity.
 map("n", "*", ":let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>", { silent = true })
 
--- `/' for jumping to a mark does not work well on German keyboards
-map("n", "ä", "`")
-
 -- Keep search matches in the middle of the window.
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
+map("n", "n", "nzzzv", { desc = "Jump to next search result" })
+map("n", "N", "Nzzzv", { desc = "Jump to prev search result" })
 
 -- Same when jumping around
-map("n", "g;", "g;zz")
-map("n", "g,", "g,zz")
-map("n", "<C-o>", "<C-o>zz")
+map("n", "g;", "g;zz", { desc = "Goto older change" })
+map("n", "g,", "g,zz", { desc = "Goto newer change" })
+map("n", "<C-o>", "<C-o>zz", { desc = "Goto older position in jumplist" })
+map("n", "<C-i>", "<C-i>zz", { desc = "Goto newer position in jumplist" })
 
 -- gi already moves to "last place you exited insert mode", so we'll map gI to
 -- something similar: move to last change
-map("n", "gI", "`.")
+map("n", "gI", "`.", { desc = "Goto last change" })
 
 -- Editing
 -------------
 
 -- Toggle spelling and set spell language
-dmap("n", "<leader>sp", "<cmd>setlocal spell!<cr>", "[Sp]elling: toggle")
-dmap("n", "<leader>spde", "<cmd>setlocal spell spelllang=de_de<cr>", "[Sp]elling: enable and set lang to [de]")
-dmap("n", "<leader>spen", "<cmd>setlocal spell spelllang=en<cr>", "[Sp]elling: enable and set lang to [en]")
+map("n", "<leader>sp", "<cmd>setlocal spell!<cr>", { desc = "[Sp]elling: toggle" })
+map(
+  "n",
+  "<leader>spde",
+  "<cmd>setlocal spell spelllang=de_de<cr>",
+  { desc = "[Sp]elling: enable and set lang to [de]" }
+)
+map("n", "<leader>spen", "<cmd>setlocal spell spelllang=en<cr>", { desc = "[Sp]elling: enable and set lang to [en]" })
 
 -- Make Y behave like D (instead Y is the same as yy), fix this:
 map("n", "Y", "y$")
@@ -125,22 +115,22 @@ map("n", "q", "@")
 map("n", "@", "q")
 
 -- Join an entire paragraph.
-dmap("n", "<leader>J", "mzvipJ`z", "[J]oin entire paragraph")
+map("n", "<leader>J", "mzvipJ`z", { desc = "[J]oin entire paragraph" })
 
 -- Split line (sister to [J]oin lines)
 -- The normal use of S is covered by cc, so don't worry about shadowing it.
-dmap("n", "S", "i<cr><ESC>", "[S]plit line")
+map("n", "S", "i<cr><ESC>", { desc = "[S]plit line" })
 
 -- Re-hardwrap paragraphs of text
-dmap("n", "<leader>q", "gwip", "Re-hardwrap current paragraph")
-dmap("v", "<leader>q", "gw", "Re-hardwrap current paragraph")
+map("n", "<leader>q", "gwip", { desc = "Re-hardwrap current paragraph" })
+map("v", "<leader>q", "gw", { desc = "Re-hardwrap current paragraph" })
 
 -- Keep visual selection when indenting
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- Easier linewise reselection of what you just pasted.
-dmap("n", "<leader>V", "`[V`]", "Re-select what you just pasted")
+map("n", "<leader>V", "`[V`]", { desc = "Re-select what you just pasted" })
 
 -- -- increment/decrement numbers
 -- map("n", "<leader>+", "<C-a>") -- increment
@@ -159,7 +149,7 @@ dmap("n", "<leader>V", "`[V`]", "Re-select what you just pasted")
 -- It works by exiting out of insert mode, recording the current cursor location
 -- in the z mark, using gUiw to uppercase inside the current word, moving back
 -- to the z mark, and entering insert mode again.
-dmap("i", "<C-u>", "<ESC>mzgUiw`za", "[U]ppercase current word in insert mode")
+map("i", "<C-u>", "<ESC>mzgUiw`za", { desc = "[U]ppercase current word in insert mode" })
 
 -- Folding
 -------------
@@ -169,13 +159,13 @@ dmap("i", "<C-u>", "<ESC>mzgUiw`za", "[U]ppercase current word in insert mode")
 -- map("v", "<space>", "za")
 
 -- Make zO recursively open whatever fold we're in, even if it's partially open.
-dmap("n", "zO", "zczO", "Recursively open fold we're in")
+map("n", "zO", "zczO", { desc = "Recursively open fold we're in" })
 
 -- "Focus" the current line.  Basically:
 -- 1. Close all folds.
 -- 2. Open just the folds containing the current line.
 -- 3. Move the line to a little bit (15 lines) above the center of the screen.
-dmap("n", "<C-z>", "mzzMzvzz15<c-e>`z", "Focus current line (and fold everything else)")
+map("n", "<C-z>", "mzzMzvzz15<c-e>`z", { desc = "Focus current line (and fold everything else)" })
 
 -- Term
 ----------
