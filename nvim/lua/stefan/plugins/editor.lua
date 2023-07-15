@@ -331,7 +331,7 @@ return {
   },
 
   -- Extended and improved f, F, t and T key mappings
-  { "rhysd/clever-f.vim" , event = "VeryLazy"},
+  { "rhysd/clever-f.vim", event = "VeryLazy" },
 
   -- Start */# search from visual selections
   { "nelstrom/vim-visual-star-search", event = "VeryLazy" },
@@ -344,7 +344,7 @@ return {
   },
 
   -- Change code right in the quickfix window
-  { "stefandtw/quickfix-reflector.vim" , event = "VeryLazy"}, 
+  { "stefandtw/quickfix-reflector.vim", event = "VeryLazy" },
 
   -- Git integration
   { "tpope/vim-fugitive", event = "VeryLazy" },
@@ -353,6 +353,10 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
+    keys = {
+      { "<leader>gn", "<cmd>Gitsigns next_hunk<cr>", desc = "[G]itsigns: [n]ext hunk" },
+      { "<leader>gp", "<cmd>Gitsigns prev_hunk<cr>", desc = "[G]itsigns: [p]rev. hunk" },
+    },
     opts = {
       preview_config = {
         border = "rounded",
