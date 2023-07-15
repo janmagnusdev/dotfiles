@@ -49,7 +49,7 @@ opt.shortmess:append({ -- Don't show ...
   c = true, -- ... completion message
   C = true, -- ... "scanning tags"
 })
-opt.diffopt:append({ "indent-heuristic", "algorithm:patience" })
+opt.diffopt:append({ "indent-heuristic", "algorithm:patience", "linematch:60" })
 -- opt.undofile = true -- Save undo history to a file and restore on next load
 
 -- Tabs & Indentation
