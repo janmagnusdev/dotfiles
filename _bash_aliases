@@ -31,8 +31,8 @@ sha256 () {
 # Some more ls aliases
 # alias ll='ls -AFhl'
 # alias l='ls -CF'
-alias ll='exa -Flag'
-alias l='exa -GF'
+alias ll='exa -Flag --icons'
+alias l='exa -GF --icons'
 alias bat='bat --theme=$([[ $(dm get) = "dark" ]] && echo default || echo GitHub)'
 alias cat='bat --theme=$([[ $(dm get) = "dark" ]] && echo default || echo GitHub)'
 alias delta='delta --$(dm get)'
