@@ -272,15 +272,18 @@ return {
 
   -- Display colors in-line
   {
-    "RRethy/vim-hexokinase",
-    build = "make hexokinase",
-    event = "VeryLazy",
-    init = function()
-      vim.g.Hexokinase_highlighters = { "virtual" }
-      vim.g.Hexokinase_optInPatterns = "full_hex,rgb,rgba,hsl,hsla"
-      vim.g.Hexokinase_ftOptInPatterns = {
-        css = "full_hex,rgb,rgba,hsl,hsla,colour_names",
-      }
-    end,
+    "NvChad/nvim-colorizer.lua",
+    -- event = "VeryLazy",  -- https://github.com/NvChad/nvim-colorizer.lua/issues/57
+    -- event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      user_default_options = {
+        mode = "virtualtext",
+        names = false,
+      },
+      filetypes = {
+        "*",
+        css = { names = true, css = true, css_fn = true },
+      },
+    },
   },
 }
