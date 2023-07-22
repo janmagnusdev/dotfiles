@@ -1,31 +1,58 @@
 # OS specific settings
-OS_NAME="$(uname -s)"
-if [[ $OS_NAME == 'Darwin' ]]; then
-    # Add Homebrew to path and configure it
-    if [[ -x /opt/homebrew/bin/brew ]]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-    elif [[ -x /usr/local/bin/brew ]]; then
-        eval "$(/usr/local/bin/brew shellenv)"
-    fi
-    export HOMEBREW_NO_ANALYTICS=1
+case $OSTYPE in
+    darwin*)
+        export OSNAME="macOS"
+        export OSSYMBOL=""
+        # Add Homebrew to path and configure it
+        if [[ -x /opt/homebrew/bin/brew ]]; then
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+        elif [[ -x /usr/local/bin/brew ]]; then
+            eval "$(/usr/local/bin/brew shellenv)"
+        fi
+        export HOMEBREW_NO_ANALYTICS=1
 
-    export LC_ALL=en_US.utf-8
-    export LC_CTYPE=en_US.utf-8
+        export LC_ALL=en_US.utf-8
+        export LC_CTYPE=en_US.utf-8
+        ;;
 
-elif [[ $OS_NAME == 'Linux' ]]; then
-    # Configure and init ssh-agent
-    export SSH_AUTH_SOCK=/run/user/$(id -u)/ssh-agent.$HOSTNAME.sock
-    ssh-add -l &>/dev/null
-    rc=$?
-    if [ $rc -ge 2 ]; then
-        # ssh-agent is not running
-        ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
-        ssh-add
-    elif [ $rc -eq 1 ]; then
-        # ssh-agent is running but keys have not been added
-        ssh-add
-    fi
-fi
+    linux-*)
+        case $(cat /etc/os-release | grep '^NAME=') in
+            'NAME="Ubuntu"')
+                export OSNAME="Ubuntu"
+                export OSSYMBOL="" #  
+                ;;
+            'NAME="Fedora Linux"')
+                export OSNAME="Fedora"
+                export OSSYMBOL="" #  
+                ;;
+            'NAME="AlmaLinux"')
+                export OSNAME="Alma"
+                export OSSYMBOL="" # 
+                ;;
+            *)
+                export OSNAME="Linux"
+                export OSSYMBOL=""
+                ;;
+        esac
+        # Configure and init ssh-agent
+        export SSH_AUTH_SOCK=/run/user/$(id -u)/ssh-agent.$HOSTNAME.sock
+        ssh-add -l &>/dev/null
+        rc=$?
+        if [ $rc -ge 2 ]; then
+            # ssh-agent is not running
+            ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
+            ssh-add
+        elif [ $rc -eq 1 ]; then
+            # ssh-agent is running but keys have not been added
+            ssh-add
+        fi
+        ;;
+
+    *)
+        export OSNAME="$OSTYPE"
+        export OSSYMBOL=""
+        ;;
+esac
 
 # Add user's "bin" dirs to PATH if they exist
 if [[ -d "$HOME/bin" ]]; then

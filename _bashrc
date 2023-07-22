@@ -9,88 +9,206 @@ export HISTSIZE=10000
 shopt -s checkwinsize
 shopt -s histappend
 
-# Prompt
-__RESET_COLOR="[00;00m"
-__RED="[00;31m"
-__GREEN="[00;32m"
-__YELLOW="[00;33m"
-__BLUE="[00;34m"
-__PURPLE="[00;35m"
-__CYAN="[00;36m"
-__BRIGHT_GREEN="[00;92m"
-__BRIGHT_BLUE="[00;94m"
-__BRIGHT_PURPLE="[00;95m"
-__BRIGHT_CYAN="[00;96m"
-__BOLD_RED="[01;31m"
-__BOLD_BRIGHT_GREEN="[01;92m"
-__BOLD_BRIGHT_BLUE="[01;34m"
-__BOLD_BRIGHT_CYAN="[01;36m"
-
-__USER_COLOR=$__BOLD_BRIGHT_GREEN
-
-if [[ -n "${SSH_CLIENT-}${SSH2_CLIENT-}${SSH_TTY-}" ]]; then
-    __HOST_COLOR=$__BOLD_BRIGHT_CYAN
-else
-    __HOST_COLOR=$__BOLD_BRIGHT_GREEN
-fi
-
-function _prompt_lastcommandfailed {
-  code=$?
-  if [[ $code != 0 ]]; then
-    echo -ne " \e${__RED}ℯ$code"
-  fi
-}
-
-# Prints "(VIRTUALENV)" if one is active.
-export CONDA_CHANGEPS1=0
-export VIRTUAL_ENV_DISABLE_PROMPT=1
-function _prompt_venv {
-    if [[ -n "$VIRTUAL_ENV" ]]; then
-        echo -ne "\e${__RESET_COLOR} ("
-        echo -ne "\e${__PURPLE}${VIRTUAL_ENV##*/}"
-        echo -ne "\e${__RESET_COLOR})"
-    fi
-
-    if [[ -n "$CONDA_DEFAULT_ENV" && "$CONDA_DEFAULT_ENV" != 'base' ]]; then
-        echo -ne "\e${__RESET_COLOR} ("
-        echo -ne "\e${__CYAN}${CONDA_DEFAULT_ENV}"
-        echo -ne "\e${__RESET_COLOR})"
-    fi
-}
-
-function _prompt_time {
-    echo -en "\e${__YELLOW}[$(date '+%H:%M')]\e${__RESET_COLOR}"
-}
-
-function _prompt_vc_status {
-    if hash vcprompt &>/dev/null; then
-        echo -n "$(vcprompt)"
-        # echo -n "$(vcprompt --minimal)"
-    fi
-}
-
-PROMPT_COMMAND='\
-LAST_CMD_FAILED="$(_prompt_lastcommandfailed)";\
-TIME="$(_prompt_time)";\
-VC_STATUS="$(_prompt_vc_status)";\
-VENV="$(_prompt_venv)";'
+export SIMPLE_PROMPT=0
 
 # Prompt
-PS1='\[\033[G\]'  # http://jonisalonen.com/2012/your-bash-prompt-needs-this/
-PS1+='\n'                       # empty line above prompt
-PS1+='$TIME '                   # current time
-PS1+='\e${__USER_COLOR}\u'      # user
-PS1+='\e${__RESET_COLOR}@'      # @
-PS1+='\e${__HOST_COLOR}\h'      # host
-PS1+='\e${__RESET_COLOR}:'      # :
-PS1+='\e${__BOLD_BRIGHT_BLUE}\w'       # cwd
-PS1+='\e${__RESET_COLOR}'
-PS1+='${VC_STATUS}'             # repo stats
-PS1+='${VENV}'                  # venv
-PS1+='${LAST_CMD_FAILED}'       # exit code
-# PS1+='\e${__RESET_COLOR}\n$ '   # \n❯
-PS1+='\[\e${__RESET_COLOR}\]\n\[\e${__BRIGHT_BLUE}\]❯\[\e${__BRIGHT_CYAN}\]❯\[\e${__BRIGHT_GREEN}\]❯\[\e${__RESET_COLOR}\] '
-PS2='\[\e${__BLUE}\].\[\e${__CYAN}\].\[\e${__GREEN}\].\[\e${__RESET_COLOR}\] '
+function set_bash_prompt {
+    # Get exit code of the last command
+    LAST_CODE=$?
+    P_EXIT_STATUS="$([[ $LAST_CODE != 0 ]] && echo "ℯ$LAST_CODE")"
+
+    # Get the current time
+    P_TIME="$(date '+%H:%M')"
+
+    # Get version control status
+    function _prompt_vc_status {
+        if hash vcprompt &>/dev/null; then
+            echo "$(~/Projects/rust-vcprompt/target/release/vcprompt)"
+            # echo "$(vcprompt --minimal)"
+        fi
+    }
+    P_VCSTATUS="$(_prompt_vc_status)"
+
+    # Get names of active virtual/conda envs
+    export CONDA_CHANGEPS1=0
+    export VIRTUAL_ENV_DISABLE_PROMPT=1
+    P_VENV="$([[ -n "$VIRTUAL_ENV" ]] && echo "${VIRTUAL_ENV##*/}")"
+    P_CONDAENV="$([[ -n "$VIRTUAL_ENV" ]] && echo "${CONDA_DEFAULT_ENV}")"
+
+    declare -A COLORS
+    COLORS[reset]="0"
+    COLORS[normal]="22;39"
+    COLORS[bold]="1"
+    COLORS[italic]="3"
+    COLORS[reverse]="7"
+    COLORS[black]="30"
+    COLORS[red]="31"
+    COLORS[green]="32"
+    COLORS[yellow]="33"
+    COLORS[blue]="34"
+    COLORS[purple]="35"
+    COLORS[cyan]="36"
+    COLORS[white]="37"
+    COLORS[bright_black]="90"
+    COLORS[bright_red]="91"
+    COLORS[bright_green]="92"
+    COLORS[bright_yellow]="93"
+    COLORS[bright_blue]="94"
+    COLORS[bright_purple]="95"
+    COLORS[bright_cyan]="96"
+    COLORS[bright_white]="97"
+    COLORS[bg_black]="40"
+    COLORS[bg_red]="41"
+    COLORS[bg_green]="42"
+    COLORS[bg_yellow]="43"
+    COLORS[bg_blue]="44"
+    COLORS[bg_purple]="45"
+    COLORS[bg_cyan]="46"
+    COLORS[bg_white]="47"
+    COLORS[bg_bright_black]="100"
+    COLORS[bg_bright_red]="101"
+    COLORS[bg_bright_green]="102"
+    COLORS[bg_bright_yellow]="103"
+    COLORS[bg_bright_blue]="104"
+    COLORS[bg_bright_purple]="105"
+    COLORS[bg_bright_cyan]="106"
+    COLORS[bg_bright_white]="107"
+
+    function c {
+        # echo -n "\[\e[${COLORS[$bold]};${COLORS[$fg]};${COLORS[$bg]}m\]"
+        echo -n "\[\e["
+        for arg in $@; do
+            echo -n ";${COLORS[$arg]}"
+        done
+        echo "m\]"
+    }
+
+    function lcap {
+        fg="$1"
+        bg="${2-}"
+        echo -n "$(c "$fg" "$bg")"
+    }
+    function rcap {
+        fg="$1"
+        bg="${2-}"
+        echo -n "$(c "$fg" "$bg")"
+    }
+    function sep {
+        if [[ $1 == 1 ]]; then
+            echo " |"
+        fi
+    }
+
+    C_TIME="yellow"
+    C_USER="green"
+    if [[ -n "${SSH_CLIENT-}${SSH2_CLIENT-}${SSH_TTY-}" ]]; then
+        IS_SSH=1
+        C_HOST="purple"
+    else
+        IS_SSH=0
+        C_HOST="cyan"
+    fi
+    C_PATH="blue"
+    C_INFO="bright_black"
+    C_VENV="purple"
+    C_CONDAENV="cyan"
+    C_ERR="red"
+
+    PS1="\[\033[G\]"  # http://jonisalonen.com/2012/your-bash-prompt-needs-this/
+    PS1+="\n"                       # empty line above prompt
+
+    if [[ $SIMPLE_PROMPT == 0 ]]; then
+        # Prepare sections beforehand so that we can later determine the
+        # proper cap style.
+        # Section: time
+        SEC_TIME="$(c reverse $C_TIME)  $P_TIME "
+        # Section: user and host
+        if [[ $USER == stefan ]] && [[ $IS_SSH == 0 ]]; then
+            SEC_HOST="$(c reverse $C_HOST) $OSSYMBOL "
+        else
+            SEC_HOST="$(c reverse $C_HOST) $OSSYMBOL \u@\h "
+        fi
+        # Section: cwd
+        if [[ $PWD == $HOME ]]; then
+            SEC_PATH="$(c reverse $C_PATH)  "
+        else
+            SEC_PATH="$(c reverse $C_PATH)  \w "
+        fi
+        # Section: info (vc status, venv, ...)
+        SEC_INFO=""
+        if [[ -n $P_VCSTATUS ]]; then
+            SEP=1
+            SEC_INFO+="$(c reset bg_$C_INFO)$P_VCSTATUS"
+        else
+            SEP=0
+        fi
+        if [[ -n $P_VENV ]]; then
+            SEC_INFO+="$(c reset bg_$C_INFO)$(sep $SEP) 󰌠 $(c $C_VENV bg_$C_INFO)$P_VENV"
+            SEP=1
+        else
+            SEP=0
+        fi
+        if [[ -n $P_CONDAENV ]]; then
+            SEC_INFO+="$(c reset bg_$C_INFO)$(sep $SEP) 󰌠 $(c $C_CONDAENV bg_$C_INFO)$P_CONDAENV"
+            SEP=1
+        else
+            SEP=0
+        fi
+        # Section: exit code of last command
+        SEC_EXIT=""
+        if [[ -n $P_EXIT_STATUS ]]; then
+            SEC_EXIT+="$(c reverse $C_ERR) $P_EXIT_STATUS"  # exit code
+        fi
+
+        # Concatenate the sections and join them with right caps
+        PS1+="$SEC_TIME"
+        PS1+="$(rcap $C_TIME bg_$C_HOST)"
+        PS1+="$SEC_HOST"
+        PS1+="$(rcap $C_HOST bg_$C_PATH)"
+        PS1+="$SEC_PATH"
+        CAP_FG="$C_PATH"
+        if [[ -n $SEC_INFO ]]; then
+            PS1+="$(rcap $CAP_FG bg_$C_INFO)"
+            PS1+="$SEC_INFO"
+            CAP_FG="$C_INFO"
+        fi
+        if [[ -n $SEC_EXIT ]]; then
+            PS1+="$(rcap $CAP_FG bg_$C_ERR)"
+            PS1+="$SEC_EXIT"
+            CAP_FG="$C_ERR"
+        fi
+        PS1+="$(rcap $CAP_FG)"
+
+        # The actual prompt
+        # PS1+="$(c reset)\n$(c bright_blue) $(c white)"
+        PS1+="$(c reset)\n$(c bright_blue) $(c white)"
+        PS2="$(c blue)· $(c white)"
+        PS0="$(c reset)"
+    else
+        # PS1+="$(c $C_TIME)[$P_TIME]$(c reset) "  # current time
+        PS1+="$(c bold $C_USER)\u"  # user
+        PS1+="$(c reset)@"          # @
+        PS1+="$(c bold $C_HOST)\h"  # host
+        PS1+="$(c reset):"          # :
+        PS1+="$(c bold $C_PATH)\w"  # cwd
+        PS1+="$(c reset)"
+        PS1+="$P_VCSTATUS"          # repo stats
+        if [[ -n $P_VENV ]]; then
+            PS1+=" ($(c $C_VENV)$P_VENV$(c reset))"  # venv
+        fi
+        if [[ -n $P_CONDAENV ]]; then
+            PS1+=" ($(c $C_CONDAENV)$$P_CONDAENV$(c reset))"  # conda env
+        fi
+        if [[ -n $P_EXIT_STATUS ]]; then
+            PS1+=" $(c $C_ERR)$P_EXIT_STATUS$(c reset)"  # exit code
+        fi
+        PS1+="$(c reset)\n$(c bright_blue)\$ $(c white)"
+        PS2="$(c blue)> $(c white)"
+        PS0="$(c reset)"
+    fi
+}
+
+PROMPT_COMMAND=set_bash_prompt
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
