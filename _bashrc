@@ -33,7 +33,7 @@ function set_bash_prompt {
     export CONDA_CHANGEPS1=0
     export VIRTUAL_ENV_DISABLE_PROMPT=1
     P_VENV="$([[ -n "$VIRTUAL_ENV" ]] && echo "${VIRTUAL_ENV##*/}")"
-    P_CONDAENV="$([[ -n "$VIRTUAL_ENV" ]] && echo "${CONDA_DEFAULT_ENV}")"
+    P_CONDAENV="$([[ -n "$CONDA_PREFIX" ]] && echo "${CONDA_DEFAULT_ENV}")"
 
     declare -A COLORS
     COLORS[reset]="0"
@@ -145,14 +145,10 @@ function set_bash_prompt {
         if [[ -n $P_VENV ]]; then
             SEC_INFO+="$(c reset bg_$C_INFO)$(sep $SEP) 󰌠 $(c $C_VENV bg_$C_INFO)$P_VENV"
             SEP=1
-        else
-            SEP=0
         fi
         if [[ -n $P_CONDAENV ]]; then
             SEC_INFO+="$(c reset bg_$C_INFO)$(sep $SEP) 󰌠 $(c $C_CONDAENV bg_$C_INFO)$P_CONDAENV"
             SEP=1
-        else
-            SEP=0
         fi
         # Section: exit code of last command
         SEC_EXIT=""
