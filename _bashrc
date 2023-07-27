@@ -23,7 +23,7 @@ function set_bash_prompt {
     # Get version control status
     function _prompt_vc_status {
         if hash vcprompt &>/dev/null; then
-            echo "$(~/Projects/rust-vcprompt/target/release/vcprompt)"
+            echo "$(vcprompt)"
             # echo "$(vcprompt --minimal)"
         fi
     }
