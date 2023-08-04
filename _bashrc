@@ -20,6 +20,44 @@ function set_bash_prompt {
     # Get the current time
     P_TIME="$(date '+%H:%M')"
 
+    function _pwd_short {
+        folder_icons=(
+            "~/.dotfiles,󰒓"
+            "~/Desktop,󰇄"
+            "~/Documents,󰈙"
+            "~/Downloads,󰇚"
+            "~/Movies,󰎁"
+            "~/Music,󰝚"
+            "~/Nextcloud,󰇄"
+            "~/Pictures,󰅟"
+            "~/Projects,󱁤"
+            "~/Videos,󰎁"
+            "~,"
+        )
+
+        current_path=${PWD/#$HOME/'~'}
+        for i in ${folder_icons[@]}; do
+            KEY="${i%,*}"
+            VAL="${i#*,}"
+            current_path="${current_path/#${KEY}/${VAL} }"
+        done
+
+        path_len=${#current_path}
+        max_path_len=( $COLUMNS - 70 )  # "70" is a rough estimate for the remainderof the prompt
+        if [[ ! $current_path =~ / ]] || (( $path_len <= $max_path_len )); then
+            echo $current_path
+        else
+            # See: https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
+            directory="${current_path##*\/}"  # basename
+            parent_path="${current_path%\/*}"  # dirname
+            # Shorten paths with 4 or more characters ("xxxx" -> "xx…", but "xxx" => "xxx")
+            parent_path_short="$(echo "$parent_path" | sed -r 's|/([^/]{2})[^/]{2,}|/\1…|g')"
+            echo "$parent_path_short/$directory"
+        fi
+    }
+    P_PATH="${PWD/#$HOME/'~'}"
+    P_PATH_SHORT="$(_pwd_short)"
+
     # Get version control status
     function _prompt_vc_status {
         if hash vcprompt &>/dev/null; then
@@ -129,11 +167,7 @@ function set_bash_prompt {
             SEC_HOST="$(c reverse $C_HOST) $OSSYMBOL \u@\h "
         fi
         # Section: cwd
-        if [[ $PWD == $HOME ]]; then
-            SEC_PATH="$(c reverse $C_PATH)  "
-        else
-            SEC_PATH="$(c reverse $C_PATH)  \w "
-        fi
+        SEC_PATH="$(c reverse $C_PATH) $P_PATH_SHORT "
         # Section: info (vc status, venv, ...)
         SEC_INFO=""
         if [[ -n $P_VCSTATUS ]]; then
