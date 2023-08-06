@@ -383,7 +383,7 @@ noremap <leader>st :split<CR>:resize 10<CR>:term<CR>
 " Toggles {{{
 
 " Toggle line numbers
-nnoremap <leader>nn :setlocal number! relativenumber!<CR>
+nnoremap <leader>nn :setlocal number! relativenumber! IndentBanklineToggle<CR>
 
 " Toggle wrap
 nnoremap <leader>w :set wrap!<CR>
