@@ -43,7 +43,7 @@ function set_bash_prompt {
         done
 
         path_len=${#current_path}
-        max_path_len=( $COLUMNS - 70 )  # "70" is a rough estimate for the remainderof the prompt
+        max_path_len=$(( $COLUMNS - 75 ))  # "70" is a rough estimate for the remainderof the prompt
         if [[ ! $current_path =~ / ]] || (( $path_len <= $max_path_len )); then
             echo $current_path
         else
