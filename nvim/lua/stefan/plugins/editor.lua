@@ -356,6 +356,7 @@ return {
     keys = {
       { "<leader>gn", "<cmd>Gitsigns next_hunk<cr>", desc = "[G]itsigns: [n]ext hunk" },
       { "<leader>gp", "<cmd>Gitsigns prev_hunk<cr>", desc = "[G]itsigns: [p]rev. hunk" },
+      { "<leader>ga", "<cmd>Gitsigns stage_hung<cr>", desc = "[G]itsigns: [a]dd (stage) hunk" },
     },
     opts = {
       preview_config = {
