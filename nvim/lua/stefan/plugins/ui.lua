@@ -122,7 +122,6 @@ return {
       vim.g.venvname = lualine_utils.get_venvname()
 
       local icons = require("stefan.icons")
-      local get_color = require("lualine.utils.utils").extract_highlight_colors
 
       -- Not sure yet whether I like the rounded status bar or not:
       local rounded = true
@@ -197,11 +196,6 @@ return {
             },
             {
               "diff",
-              diff_color = {
-                added = { fg = get_color("diffAdded", "fg") },
-                modified = { fg = get_color("diffChanged", "fg") },
-                removed = { fg = get_color("diffRemoved", "fg") },
-              },
               symbols = icons.git_lines,
             },
             "diagnostics",

@@ -408,6 +408,9 @@ function M.load()
   hi("NeoTreeGitConflict", { fg = c.bright_red, bold = true })
 
   -- Lualine
+  hi("LuaLineDiffAdd", { link = "diffAdded" })
+  hi("LuaLineDiffChange", { link = "diffChanged" })
+  hi("LuaLineDiffDelete", { link = "diffRemoved" })
   -- Reload lualine to update its theme.
   -- It automatically generates some highlight groups that are not affected
   -- by the theme defined in "lualine_theme()".
