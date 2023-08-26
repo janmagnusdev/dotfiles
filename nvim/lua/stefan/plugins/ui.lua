@@ -99,6 +99,15 @@ return {
       --     opts = { skip = true },
       --   },
       -- },
+      views = {
+        mini = {
+          position = {
+            row = 1,
+            col = "100%",
+          },
+          reverse = false,
+        },
+      },
     },
     -- stylua: ignore
     keys = {
