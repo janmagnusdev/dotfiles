@@ -30,7 +30,6 @@ return {
         "git_rebase",
         "gitcommit",
         "gitignore",
-        "help",
         "html",
         "javascript",
         "json",
