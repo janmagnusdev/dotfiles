@@ -6,10 +6,10 @@ return {
   --   Info = " ",
   -- },
   diagnostics = {
-    Error = " ",
-    Warn = " ",
-    Hint = " ",
-    Info = " ",
+    Error = "󰅚 ", --  󰅚 󰅚
+    Warn = " ",  --   󰀪
+    Hint = " ",  --    󰌶
+    Info = " ",  --   󰋽
   },
   file = {
     modified = " ",
