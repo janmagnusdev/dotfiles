@@ -161,13 +161,14 @@ _linux_set() {
     # Change Plasma color scheme
     plasma-apply-colorscheme "$COLOR_SCHEME"
 
+    QDBUS="$(type -P qdbus || type -P qdbus-qt6 || type -P qdbus-qt5)"
     # Change Konsole profile
     # $KONSOLE_DBUS_SERVICE only contains the service for the current window, but we
     # want to update *all* windows:
-    for service in $(qdbus | grep org.kde.konsole-); do
-        qdbus $service /Windows/1 setDefaultProfile "$PROFILE"
-        for sid in $(qdbus $service /Windows/1 sessionList); do
-            qdbus $service /Sessions/$sid org.kde.konsole.Session.setProfile "$PROFILE" > /dev/null
+    for service in $($QDBUS | grep org.kde.konsole-); do
+        $QDBUS $service /Windows/1 setDefaultProfile "$PROFILE"
+        for sid in $($QDBUS $service /Windows/1 sessionList); do
+            $QDBUS $service /Sessions/$sid org.kde.konsole.Session.setProfile "$PROFILE" > /dev/null
         done
     done
 }
