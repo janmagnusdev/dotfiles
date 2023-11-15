@@ -346,12 +346,6 @@ function M.load()
   -- YAML
   hi("yamlKey", { fg = c.blue })
 
-  -- Indent Blankline (indent guides)
-  hi("IndentBlanklineChar", { fg = c.base01, nocombine = true })
-  hi("IndentBlanklineContextChar", { fg = c.base03, nocombine = true })
-  hi("IndentBlanklineContextStart", { sp = c.base03, underline = true })
-  hi("IndentBlanklineContextSpaceChar", { nocombine = true })
-
   -- Plugins
   -------------
 
