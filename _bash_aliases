@@ -41,7 +41,7 @@ alias delta='delta --$(dm get)'
 alias aup='sudo apt-get update; sudo apt-get dist-upgrade; sudo apt-get autoremove; sudo apt-get autoclean'
 
 # Homebrew
-alias bup='brew update && brew upgrade && brew upgrade --cask'
+alias bup='brew update && brew upgrade && brew upgrade --greedy'
 
 # Extract archive
 extract () {
