@@ -257,6 +257,9 @@ alias egrep='egrep --color=auto'
 export LSCOLORS=ExGxFxDxCxHxHxacagaeaf
 export LS_COLORS="di=1;34:ln=1;36:so=1;35:pi=1;33:ex=1;32:bd=1;37:cd=1;37:su=30;42:sg=30;46:tw=30;44:ow=30;45"
 
+# Eza colors
+export EZA_MIN_LUMINANCE=60
+
 # OS X color terminal
 export CLICOLOR=1
 
