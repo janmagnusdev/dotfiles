@@ -7,3 +7,4 @@ _vim/autoload/plug.vim.old
 _vim/plugged/
 nvim/plugin/packer_compiled.lua
 private/
+.idea
