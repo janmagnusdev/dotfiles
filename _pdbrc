@@ -1,5 +1,0 @@
-import os, pdb, sys
-sys.path.insert(0, os.getenv("HOME") + "/.python/")
-import _util
-pdb.Pdb.complete = _util.Completer(locals()).complete
-del _util

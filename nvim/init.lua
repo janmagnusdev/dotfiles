@@ -1,6 +1,0 @@
-require("stefan.options")
-require("stefan.autocmds")
-require("stefan.keymaps")
-require("stefan.colorscheme")
-require("stefan.plugins-setup")
-require("stefan.mini-plugins")

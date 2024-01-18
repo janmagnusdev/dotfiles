@@ -1,0 +1,33 @@
+echo ".bashrc-extension is being sourced..."
+# Ruby Tools Path
+export PATH="/home/jan-magnus/projects/ruby-tools":$PATH
+
+# Current Working Dir as last resort to path
+export PATH=$PATH:.
+
+alias ll="ls -la"
+alias gitfiles="git status --short | grep -v '^ *D' | grep -v '^R[^M]' | cut -c4- | sed 's/.* -> //'"
+
+EDITOR="/usr/bin/vim"; export EDITOR
+
+alias chrome-no-security="/opt/google/chrome/chrome --disable-web-security --user-data-dir=/tmp/test-profil-ohne-cors"
+alias editext="vim ~/.config/.bashrc-extension"
+
+
+# FZF
+source /usr/share/fzf/shell/key-bindings.bash
+source ~/.config/fzf-completion.bash
+
+export FZF_DEFAULT_COMMAND="fd . $HOME"
+alias ls="exa"
+alias l="ll"
+
+# Man Pages
+function manswitch() { man -P "less -p \"^ +$2\"" $1; }
+
+alias dockerbuild="docker pull emsforge.services.ems/emsconda-develop:latest && \
+    docker run -it --rm \
+    --volume=/etc/emsencrypt:/etc/emsencrypt \
+    --volume=/home/deinname:/host \
+    emsforge.services.ems/emsconda-develop:latest \
+    bash -c 'conda update --all --yes ems-conda-tools; cd /host; bash'"

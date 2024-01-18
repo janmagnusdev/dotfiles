@@ -29,7 +29,6 @@ def main():
         links.append((src, dest))
 
     extra_links = {
-        "_vim": ".config/nvim",
         "darkmode.sh": ".local/bin/dm",
         "iterm2_dark_mode_toggle.py": (
             "Library/Application Support/iTerm2/Scripts/AutoLaunch/"
@@ -38,6 +37,7 @@ def main():
     }
     if HERE.joinpath("_private").is_dir():
         extra_links["_private/ssh/config"] = ".ssh/config"
+        extra_links["_private/npm/_npmrc"] = ".npmrc"
     for src, dest in extra_links.items():
         links.append((HERE / src, HOME / dest))
 
