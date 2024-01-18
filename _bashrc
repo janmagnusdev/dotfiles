@@ -27,5 +27,5 @@ fi
 unset rc
 
 ### CUSTOM ENVIRONMENT ###
-source "/home/jan-magnus/.bashrc-extension"
+source "/home/jan-magnus/.bashrc_aliases"
 
