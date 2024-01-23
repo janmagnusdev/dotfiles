@@ -79,7 +79,6 @@ def main():
 
         if dest.exists():
             if dest.is_symlink() and dest.resolve() == src:
-                print(f"INFO: {dest} exists and points to {src} already")
                 continue
             else:
                 backup_existing_dest(dest, bak_suffix)
