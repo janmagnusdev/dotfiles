@@ -27,6 +27,10 @@ def main():
     for src in HERE.glob("_*"):
         # src is dir, we need to include its files at the correct location
         if src.is_dir():
+            if src.name == "_private":
+                print("INFO: Skipping _private")
+                continue
+
             children_files = [x for x in src.glob("**/*") if x.is_file()]
             for child in children_files:
                 relative_path = str(child.relative_to(HERE))
