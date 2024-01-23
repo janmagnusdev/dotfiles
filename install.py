@@ -25,16 +25,19 @@ def main():
     links = []
 
     for src in HERE.glob("_*"):
-        dest = HOME / re.sub("^_", ".", str(src.relative_to(HERE)))
-        links.append((src, dest))
+        # src is dir, we need to include its files at the correct location
+        if src.is_dir():
+            children_files = [x for x in src.glob("**/*") if x.is_file()]
+            for child in children_files:
+                relative_path = str(child.relative_to(HERE))
+                dest = HOME / re.sub("^_", ".", relative_path)
+                links.append((child, dest))
+        else:
+            # src is a file, i.e., in project directory root
+            dest = HOME / re.sub("^_", ".", str(src.relative_to(HERE)))
+            links.append((src, dest))
 
-    extra_links = {
-        "darkmode.sh": ".local/bin/dm",
-        "iterm2_dark_mode_toggle.py": (
-            "Library/Application Support/iTerm2/Scripts/AutoLaunch/"
-            "iterm2_dark_mode_toggle.py"
-        ),
-    }
+    extra_links = {}
     if HERE.joinpath("_private").is_dir():
         extra_links["_private/ssh/config"] = ".ssh/config"
         extra_links["_private/npm/_npmrc"] = ".npmrc"
