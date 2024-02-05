@@ -36,3 +36,5 @@ fi
 ### CUSTOM ENVIRONMENT ###
 source "/home/jan-magnus/.bashrc_aliases"
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -1,0 +1,13 @@
+# Desired Programs for build
+- fzf
+- fd
+- ripgrep
+- exa
+- bat
+- bat-extras
+- oh-my-zsh
+    - autosuggestions
+    - you-should-use
+    - syntax-highlighting
+- powerlevel10k
+- tldeer
