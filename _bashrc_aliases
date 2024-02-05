@@ -32,4 +32,4 @@ alias dockerbuild="docker pull emsforge.services.ems/emsconda-develop:latest && 
     emsforge.services.ems/emsconda-develop:latest \
     bash -c 'conda update --all --yes ems-conda-tools; cd /host; bash'"
 
-export XDG_CONFIG_HOME=$HOME
+export XDG_CONFIG_HOME=$HOME/.config

@@ -1,5 +1,5 @@
 [init]
-        defaultBranch = main
+    defaultBranch = main
 [user]
 	name = Jan-Magnus Monenschein
 	email = me@janmagnus.dev
@@ -10,6 +10,3 @@
 	gpgsign = false
 [gpg]
 	program = /Users/jan-magnus/.gpg-loopback
-
-[includeIf "hasconfig:remote.*.url:git@git.services.ems:**"]
-    path = config-work
