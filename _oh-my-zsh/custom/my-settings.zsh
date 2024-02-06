@@ -13,7 +13,7 @@ export PATH="/home/jan-magnus/.local/bin/bat-extras":$PATH
 export PATH=$PATH:.
 
 alias ll="ls -la"
-alias gitfiles="git status --short | grep -v '^ *D' | grep -v '^R[^M]' | cut -c4- | sed 's/.* -> //'"
+alias l="ll"
 
 EDITOR="/usr/bin/vim"; export EDITOR
 
@@ -23,15 +23,10 @@ alias sourcehh="source ~/.zshrc"
 
 
 export FZF_DEFAULT_COMMAND="fd . $HOME"
-alias ls="exa"
-alias l="ll"
 alias info="info --vi-keys"
 
-# Man Pages
-function manswitch() { man -P "less -p \"^ +$2\"" $1; }
-
 # MANPATH
-export MANPATH="$(manpath -g):/home/jan-magnus/.cargo/"
+export MANPATH="$(manpath):/home/jan-magnus/.cargo/"
 
 
 alias dockerbuild="docker pull emsforge.services.ems/emsconda-develop:latest && \
