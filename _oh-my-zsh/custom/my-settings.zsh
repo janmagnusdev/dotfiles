@@ -19,9 +19,10 @@ alias sourcehh="source ~/.zshrc"
 
 
 export FZF_DEFAULT_COMMAND="fd . $HOME"
-alias ls="exa"
-alias l="ll"
 alias info="info --vi-keys"
+
+# MANPATH
+export MANPATH="$(manpath):/home/jan-magnus/.cargo/"
 
 
 alias dockerbuild="docker pull emsforge.services.ems/emsconda-develop:latest && \

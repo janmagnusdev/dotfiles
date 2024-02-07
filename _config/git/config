@@ -10,3 +10,5 @@
 	gpgsign = false
 [gpg]
 	program = /Users/jan-magnus/.gpg-loopback
+[pull]
+    rebase = false
