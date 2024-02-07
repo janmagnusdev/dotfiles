@@ -1,19 +1,15 @@
 echo "my-settings.zsh is being sourced..."
 
 # Ruby Tools Path
-export PATH="/home/jan-magnus/projects/ruby-tools":$PATH
+PATH="${PATH:+${PATH}:}/home/jan-magnus/programs/ruby-tools/"
 
 # Rust Cargo Bin
-export PATH="/home/jan-magnus/.cargo/bin":$PATH
+PATH="${PATH:+${PATH}:}/home/jan-magnus/.cargo/bin"
 
 # bat-extras
-export PATH="/home/jan-magnus/.local/bin/bat-extras":$PATH
-
-# Current Working Dir as last resort to path
-export PATH=$PATH:.
+PATH="${PATH:+${PATH}:}/home/jan-magnus/.local/bin/bat-extras"
 
 alias ll="ls -la"
-alias gitfiles="git status --short | grep -v '^ *D' | grep -v '^R[^M]' | cut -c4- | sed 's/.* -> //'"
 
 EDITOR="/usr/bin/vim"; export EDITOR
 
@@ -26,12 +22,6 @@ export FZF_DEFAULT_COMMAND="fd . $HOME"
 alias ls="exa"
 alias l="ll"
 alias info="info --vi-keys"
-
-# Man Pages
-function manswitch() { man -P "less -p \"^ +$2\"" $1; }
-
-# MANPATH
-export MANPATH="$(manpath -g):/home/jan-magnus/.cargo/"
 
 
 alias dockerbuild="docker pull emsforge.services.ems/emsconda-develop:latest && \
@@ -48,3 +38,4 @@ export XDG_CONFIG_HOME=$HOME/.config
 # make CTRL + SPACE accept current autosuggestion
 bindkey '^ ' autosuggest-accept
 
+echo "my-settings.zsh end..."
