@@ -26,15 +26,6 @@ fi
 
 unset rc
 
-# Run zsh
-if [ "$SHELL" != "/usr/bin/zsh" ]
-then
-    export SHELL="/usr/bin/zsh"
-    exec /usr/bin/zsh
-fi
-
-### CUSTOM ENVIRONMENT ###
-source "/home/jan-magnus/.bashrc_aliases"
-
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# /bin/zsh
