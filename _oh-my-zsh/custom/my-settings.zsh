@@ -1,5 +1,8 @@
 echo "my-settings.zsh is being sourced..."
 
+# Emsconda
+PATH="${PATH:+${PATH}:}/home/jan-magnus/emsconda"
+
 # Ruby Tools Path
 PATH="${PATH:+${PATH}:}/home/jan-magnus/programs/ruby-tools/"
 
@@ -20,9 +23,6 @@ alias sourcehh="source ~/.zshrc"
 
 export FZF_DEFAULT_COMMAND="fd . $HOME"
 alias info="info --vi-keys"
-
-# MANPATH
-export MANPATH="$(manpath):/home/jan-magnus/.cargo/"
 
 
 alias dockerbuild="docker pull emsforge.services.ems/emsconda-develop:latest && \
