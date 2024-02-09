@@ -12,6 +12,9 @@ PATH="${PATH:+${PATH}:}/home/jan-magnus/.cargo/bin"
 # bat-extras
 PATH="${PATH:+${PATH}:}/home/jan-magnus/.local/bin/bat-extras"
 
+# current working dir at the end
+PATH="${PATH:+${PATH}:}."
+
 alias ll="ls -la"
 
 EDITOR="/usr/bin/vim"; export EDITOR
