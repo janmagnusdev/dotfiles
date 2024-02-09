@@ -13,3 +13,6 @@
 
 [includeIf "gitdir:~/work-projects/"]
     path = config-work
+
+[includeIf "gitdir:~/pg-projects/"]
+    path = config-pg
