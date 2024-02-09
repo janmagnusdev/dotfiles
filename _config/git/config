@@ -8,7 +8,8 @@
 	autocrlf = input
 [commit]
 	gpgsign = false
-[gpg]
-	program = /Users/jan-magnus/.gpg-loopback
 [pull]
     rebase = false
+
+[includeIf "gitdir:~/work-projects/"]
+    path = config-work

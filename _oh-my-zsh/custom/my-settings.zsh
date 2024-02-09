@@ -1,7 +1,7 @@
 echo "my-settings.zsh is being sourced..."
 
-# Emsconda
-PATH="${PATH:+${PATH}:}/home/jan-magnus/emsconda"
+# Emsconda Bins
+PATH="${PATH:+${PATH}:}/home/jan-magnus/emsconda/bin"
 
 # Ruby Tools Path
 PATH="${PATH:+${PATH}:}/home/jan-magnus/programs/ruby-tools/"
@@ -11,6 +11,9 @@ PATH="${PATH:+${PATH}:}/home/jan-magnus/.cargo/bin"
 
 # bat-extras
 PATH="${PATH:+${PATH}:}/home/jan-magnus/.local/bin/bat-extras"
+
+# current directory
+PATH="${PATH:+${PATH}:}."
 
 alias ll="ls -la"
 
