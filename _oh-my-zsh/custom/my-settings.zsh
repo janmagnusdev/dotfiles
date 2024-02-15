@@ -16,6 +16,9 @@ PATH="${PATH:+${PATH}:}/home/jan-magnus/.local/bin/bat-extras"
 PATH="${PATH:+${PATH}:}."
 
 alias ll="ls -la"
+alias le="exa -l"
+
+alias ex="echo \$?"
 
 EDITOR="/usr/bin/vim"; export EDITOR
 
