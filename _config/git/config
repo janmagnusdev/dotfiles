@@ -10,6 +10,8 @@
 	gpgsign = false
 [pull]
     rebase = false
+[credential]
+    helper = "cache --timeout=900"
 
 [includeIf "gitdir:~/work-projects/"]
     path = config-work
