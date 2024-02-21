@@ -62,8 +62,8 @@ set expandtab
 " Show matching parentheses and brackets
 set showmatch
 
-" Enable mouse support
-set mouse=a
+" Disable mouse support
+set mouse-=a
 
 " Set a dark background color scheme (you can change this to your preference)
 colorscheme desert
