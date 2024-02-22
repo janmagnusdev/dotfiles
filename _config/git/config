@@ -18,3 +18,49 @@
 
 [includeIf "gitdir:~/pg-projects/"]
     path = config-pg
+
+# ---------------------------------------------------------------------------------
+# Updates after reading https://jvns.ca/blog/2024/02/16/popular-git-config-options/
+# ---------------------------------------------------------------------------------
+
+# Show original version of code in the middle of conflicts
+[merge]
+    conflictstyle = zdiff3
+[push]
+    # setup remote branch on push where origin does not have the branch yet
+    autoSetupRemote = true
+    # always push tags automatically
+    followTags = true
+# show current diff in commit window so you know what is currently being committed
+[commit]
+    verbose = true
+# remembers merge conflicts solved during rebase and automatically reapplies them if able
+[rerere]
+    enabled = true
+
+# Use "delta" as diff tool
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+
+[diff]
+    colorMoved = default
+# end "delta"
+
+[diff]
+    # use a better diff algorithm, that works better for reordering stuff
+    algorithm = histogram
+    # more context in diffs
+    context = 5
+# sort branch names using most recent commits
+[branch]
+    sort = -committerdate
+# iso dates
+[log]
+    date = iso
