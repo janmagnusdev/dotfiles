@@ -1,16 +1,4 @@
-echo "my-settings.zsh is being sourced..."
-
-# Emsconda Bins
-PATH="${PATH:+${PATH}:}/home/jan-magnus/emsconda/bin"
-
-# Ruby Tools Path
-PATH="${PATH:+${PATH}:}/home/jan-magnus/programs/ruby-tools/"
-
-# Rust Cargo Bin
-PATH="${PATH:+${PATH}:}/home/jan-magnus/.cargo/bin"
-
-# bat-extras
-PATH="${PATH:+${PATH}:}/home/jan-magnus/.local/bin/bat-extras"
+echo "$(basename $0) is being sourced..."
 
 # current directory
 PATH="${PATH:+${PATH}:}."
@@ -42,4 +30,4 @@ export XDG_CONFIG_HOME=$HOME/.config
 # make CTRL + SPACE accept current autosuggestion
 bindkey '^ ' autosuggest-accept
 
-echo "my-settings.zsh end..."
+echo "$(basename $0) end..."
