@@ -4,6 +4,9 @@ echo "$(basename $0) is being sourced..."
 PATH="${PATH:+${PATH}:}."
 
 alias ll="ls -la"
+alias le="exa -l"
+
+alias ex="echo \$?"
 
 EDITOR="/usr/bin/vim"; export EDITOR
 
@@ -29,5 +32,13 @@ export XDG_CONFIG_HOME=$HOME/.config
 # ZSH AUTOSUGGESTIONS OPTIONS
 # make CTRL + SPACE accept current autosuggestion
 bindkey '^ ' autosuggest-accept
+
+
+
+# NVM
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 
 echo "$(basename $0) end..."
