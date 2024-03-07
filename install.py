@@ -34,6 +34,9 @@ def handle_file(src, links):
 
 
 def setup():
+    if not HOME.joinpath(".gitconfig-system-specific-initials").exists():
+        print("Make sure to create .gitconfig-system-specific-initials! Exiting...")
+        exit(-130)
     HOME.joinpath(".config").mkdir(exist_ok=True)
     HOME.joinpath(".local", "bin").mkdir(parents=True, exist_ok=True)
     HOME.joinpath(".ssh").mkdir(mode=0o700, exist_ok=True)
