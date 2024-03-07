@@ -1,0 +1,5 @@
+[user]
+	name = Jan-Magnus Monenschein
+	email = me@janmagnus.dev
+[commit]
+    gpgsign = true

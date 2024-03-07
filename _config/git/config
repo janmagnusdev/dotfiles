@@ -1,9 +1,5 @@
 [init]
     defaultBranch = main
-[user]
-	name = Jan-Magnus Monenschein
-	email = me@janmagnus.dev
-	signingkey = 57ADADDEEACF0554
 [core]
 	autocrlf = input
 [commit]
@@ -13,11 +9,25 @@
 [credential]
     helper = "cache --timeout=900"
 
+# ---------------------------------------------------------------------------------
+# system specific overwrites like default user email are located
+# in this unsynced file
+# this file defines base settings for .config/git/config
+# that vary from system to system
+# eg, work host should have work email in all undefined case
+# signing key should be included there as well, since that varies from system to system
+# ---------------------------------------------------------------------------------
+[include]
+    path = ~/.gitconfig-system-specific-initials
+
 [includeIf "gitdir:~/work-projects/"]
     path = config-work
 
 [includeIf "gitdir:~/pg-projects/"]
     path = config-pg
+
+[includeIf "gitdir:~/personal-projects/"]
+    path = config-private
 
 # ---------------------------------------------------------------------------------
 # Updates after reading https://jvns.ca/blog/2024/02/16/popular-git-config-options/
