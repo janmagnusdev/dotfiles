@@ -33,6 +33,9 @@ export XDG_CONFIG_HOME=$HOME/.config
 # make CTRL + SPACE accept current autosuggestion
 bindkey '^ ' autosuggest-accept
 
+# password input for gpg
+export GPG_TTY=$(tty)
+
 
 
 # NVM
