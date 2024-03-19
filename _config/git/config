@@ -8,6 +8,8 @@
     rebase = false
 [credential]
     helper = "cache --timeout=900"
+[gpg]
+    program = gpg2
 
 # ---------------------------------------------------------------------------------
 # system specific overwrites like default user email are located
