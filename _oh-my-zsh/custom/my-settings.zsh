@@ -14,6 +14,8 @@ alias chrome-no-security="/opt/google/chrome/chrome --disable-web-security --use
 alias editext="vim ~/.oh-my-zsh/custom/my-settings.zsh"
 alias sourcehh="source ~/.zshrc"
 
+alias try-gpg="echo 'test' | gpg --clearsign"
+
 
 export FZF_DEFAULT_COMMAND="fd . $HOME"
 alias info="info --vi-keys"
