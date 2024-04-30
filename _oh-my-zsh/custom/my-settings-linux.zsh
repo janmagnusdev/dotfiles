@@ -4,9 +4,6 @@ fi
 
 echo "$(basename $0) is being sourced..."
 
-# Emsconda Bins
-PATH="${PATH:+${PATH}:}/home/jan-magnus/emsconda/bin"
-
 # Ruby Tools Path
 PATH="${PATH:+${PATH}:}/home/jan-magnus/programs/ruby-tools/"
 

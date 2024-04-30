@@ -3,6 +3,9 @@ echo "$(basename $0) is being sourced..."
 # current directory
 PATH="${PATH:+${PATH}:}."
 
+# jetbrains launch scripts
+PATH="${PATH:+${PATH}:}~/.local/share/JetBrains/Toolbox/scripts"
+
 alias ll="ls -la"
 alias le="exa -l"
 
