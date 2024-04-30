@@ -1,4 +1,4 @@
-if [[ ! `hostname` == *"egs-dev-008."* ]]; then
+if [[ `hostname` != *"egs-dev-008."* ]]; then
   return
 fi
 
