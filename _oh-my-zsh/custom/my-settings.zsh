@@ -36,7 +36,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 # make CTRL + SPACE accept current autosuggestion
 bindkey '^ ' autosuggest-accept
 
-
+export GPG_TTY=$(tty)
 
 # NVM
 export NVM_DIR="$HOME/.config/nvm"
@@ -45,3 +45,4 @@ export NVM_DIR="$HOME/.config/nvm"
 
 
 echo "$(basename $0) end..."
+
