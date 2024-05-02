@@ -3,3 +3,8 @@
     email = jan-magnus.monenschein@emsysgrid.de
 [commit]
     gpgsign = true
+[merge]
+    tool = pycharm
+[mergetool "pycharm"]
+    cmd = ~/.local/share/JetBrains/Toolbox/scripts/pycharm merge $LOCAL $REMOTE $BASE $MERGED
+    trustExitCode = true
