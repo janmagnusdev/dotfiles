@@ -31,6 +31,16 @@ alias dockerbuild="docker pull emsforge.services.ems/emsconda-develop:latest && 
 
 export XDG_CONFIG_HOME=$HOME/.config
 
+# start something else in the background
+my-bg() {
+    #do things with parameters like $1 such as
+    $1 $2 &>/dev/null &
+}
+
+pycharm() {
+  my-bg ~/.local/share/JetBrains/Toolbox/scripts/pycharm $1
+}
+
 
 # ZSH AUTOSUGGESTIONS OPTIONS
 # make CTRL + SPACE accept current autosuggestion
