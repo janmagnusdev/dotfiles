@@ -1,5 +1,10 @@
 echo "$(basename $0) is being sourced..."
 
+# source rust
+if [ -e "$HOME/.cargo/env" ]; then
+    source "$HOME/.cargo/env"
+fi
+
 # current directory
 PATH="${PATH:+${PATH}:}."
 
