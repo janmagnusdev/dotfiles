@@ -4,9 +4,6 @@ fi
 
 echo "$(basename $0) is being sourced..."
 
-# Emsconda Bins
-PATH="${PATH:+${PATH}:}/home/jan-magnus/emsconda/bin"
-
 # Ruby Tools Path
 PATH="${PATH:+${PATH}:}/home/jan-magnus/programs/ruby-tools/"
 
@@ -18,5 +15,10 @@ PATH="${PATH:+${PATH}:}/home/jan-magnus/.local/bin/bat-extras"
 
 echo "Random tealdeer tip incoming!\n"
 tldr --quiet $(tldr --quiet --list | shuf -n1)
+
+if command -v viman &> /dev/null
+then
+  alias man="viman"
+fi
 
 echo "$(basename $0) end..."

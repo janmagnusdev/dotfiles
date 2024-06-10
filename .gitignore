@@ -8,3 +8,5 @@ _vim/plugged/
 nvim/plugin/packer_compiled.lua
 private/
 .idea
+# dont commit client secrets
+_config/spotify-tui/client.yml
