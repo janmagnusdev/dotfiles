@@ -1,5 +1,10 @@
 echo "$(basename $0) is being sourced..."
 
+# source rust
+if [ -e "$HOME/.cargo/env" ]; then
+    source "$HOME/.cargo/env"
+fi
+
 # current directory
 PATH="${PATH:+${PATH}:}."
 
@@ -16,6 +21,8 @@ EDITOR="/usr/bin/vim"; export EDITOR
 alias chrome-no-security="/opt/google/chrome/chrome --disable-web-security --user-data-dir=/tmp/test-profil-ohne-cors"
 alias editext="vim ~/.oh-my-zsh/custom/my-settings.zsh"
 alias sourcehh="source ~/.zshrc"
+
+alias try-gpg="echo 'test' | gpg --clearsign"
 
 
 export FZF_DEFAULT_COMMAND="fd . $HOME"
