@@ -29,4 +29,11 @@ miniforge-init() {
   # <<< conda initialize <<<
 }
 
+alias emsconda-dockerbuild="docker pull emsforge.services.ems/emsconda-develop:latest && \
+    docker run -it --rm \
+    --volume=/etc/emsencrypt:/etc/emsencrypt \
+    --volume=/home/deinname:/host \
+    emsforge.services.ems/emsconda-develop:latest \
+    bash -c 'conda update --all --yes ems-conda-tools; cd /host; bash'"
+
 echo "$(basename $0) end..."
