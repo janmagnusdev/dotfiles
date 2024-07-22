@@ -60,13 +60,10 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-
-echo "$(basename $0) end..."
-
 # Angular
 if [[ $(command -v "ng") ]]; then
     source <(ng completion script)
 fi
 
-# ripgrep config file
-RIPGREP_CONFIG_PATH="~/.ripgreprc"
+
+echo "$(basename $0) end..."

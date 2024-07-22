@@ -21,4 +21,7 @@ then
   alias man="viman"
 fi
 
+# ripgrep config file
+export RIPGREP_CONFIG_PATH="/home/jan-magnus/.ripgreprc"
+
 echo "$(basename $0) end..."
