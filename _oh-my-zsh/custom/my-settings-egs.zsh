@@ -36,4 +36,7 @@ alias emsconda-dockerbuild="docker pull emsforge.services.ems/emsconda-develop:l
     emsforge.services.ems/emsconda-develop:latest \
     bash -c 'conda update --all --yes ems-conda-tools; cd /host; bash'"
 
+# Go
+PATH="${PATH:+${PATH}:}~/.local/bin/go/bin"
+
 echo "$(basename $0) end..."

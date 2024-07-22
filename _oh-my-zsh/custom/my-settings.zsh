@@ -63,3 +63,8 @@ export NVM_DIR="$HOME/.config/nvm"
 
 echo "$(basename $0) end..."
 
+# Angular
+if [[ $(command -v "ng") ]]; then
+    source <(ng completion script)
+fi
+
