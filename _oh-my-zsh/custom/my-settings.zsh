@@ -68,3 +68,5 @@ if [[ $(command -v "ng") ]]; then
     source <(ng completion script)
 fi
 
+# ripgrep config file
+RIPGREP_CONFIG_PATH="~/.ripgreprc"

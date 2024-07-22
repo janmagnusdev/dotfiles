@@ -18,3 +18,9 @@
 
 # Sort by file path.
 --sort=path
+
+# Because who cares about case!?
+--smart-case
+
+# messages suck. explicit messages with --messages on command line. run --debug to resolve how this is set.
+--no-messages
