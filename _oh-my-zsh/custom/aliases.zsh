@@ -1,0 +1,1 @@
+alias git-search-rename="git log -M --summary | grep rename | grep"
