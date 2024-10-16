@@ -23,4 +23,9 @@ emsconda-init() {
 }
 emsconda-init
 
+if [[ $(command -v "deno") ]]; then
+  deno_completions
+fi
+unset -f deno_completions
+
 echo "$(basename $0) end..."

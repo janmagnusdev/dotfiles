@@ -1,6 +1,6 @@
 #compdef deno
 
-if [[ $(command -v "deno") ]]; then
+function deno_completions() {
   autoload -U is-at-least
 
   _deno() {
@@ -2305,4 +2305,4 @@ if [[ $(command -v "deno") ]]; then
       compdef _deno deno
   fi
 
-fi
+}
