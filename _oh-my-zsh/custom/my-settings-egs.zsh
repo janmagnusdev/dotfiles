@@ -26,6 +26,7 @@ emsconda-init
 if [[ $(command -v "deno") ]]; then
   deno_completions
   DENO_CERT="/home/jan-magnus/emsconda/ssl/cacert.pem"
+  DENO_TLS_CA_STORE="system"
 fi
 unset -f deno_completions
 
