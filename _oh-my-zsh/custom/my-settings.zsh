@@ -65,5 +65,9 @@ if [[ $(command -v "ng") ]]; then
     source <(ng completion script)
 fi
 
+# Deno
+if [[ -f /home/jan-magnus/.deno/env ]]; then
+    . "/home/jan-magnus/.deno/env"
+fi
 
 echo "$(basename $0) end..."
