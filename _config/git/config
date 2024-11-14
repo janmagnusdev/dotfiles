@@ -6,10 +6,6 @@
 	gpgsign = false
 [pull]
     rebase = false
-[credential]
-    helper = "cache --timeout=900"
-[gpg]
-    program = gpg2
 
 # ---------------------------------------------------------------------------------
 # system specific overwrites like default user email are located
@@ -20,13 +16,10 @@
 # signing key should be included there as well, since that varies from system to system
 # ---------------------------------------------------------------------------------
 [include]
-    path = ~/.gitconfig-system-specific-initials
+    path = ~/.gitconfig-system-specific
 
 [includeIf "gitdir:~/work-projects/"]
     path = config-work
-
-[includeIf "gitdir:~/pg-projects/"]
-    path = config-pg
 
 [includeIf "gitdir:~/personal-projects/"]
     path = config-private
