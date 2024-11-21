@@ -6,7 +6,7 @@ if [ -e "$HOME/.cargo/env" ]; then
 fi
 
 # jetbrains launch scripts
-PATH="$PATH:~/.local/share/JetBrains/Toolbox/scripts"
+PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
 
 alias ll="ls -la"
 alias le="exa -l"
