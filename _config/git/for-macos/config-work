@@ -2,3 +2,4 @@
 [user]
     name = Jan-Magnus Monenschein
     email = jan-magnus.monenschein@emsysgrid.de
+    # TODO: include signing key for work project which is specific to macos machine - if that case should ever come up
