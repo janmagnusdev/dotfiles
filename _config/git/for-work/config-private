@@ -1,0 +1,6 @@
+# used for all projects under ~/personal-projects/
+[user]
+	name = Jan-Magnus Monenschein
+	email = mail@janmagnus.dev
+	# TODO: Generate new SSH key for this user on the work-machine
+  # TODO: Move path based configuration to the system specific git config
