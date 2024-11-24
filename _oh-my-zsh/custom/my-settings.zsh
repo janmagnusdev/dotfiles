@@ -5,11 +5,8 @@ if [ -e "$HOME/.cargo/env" ]; then
     source "$HOME/.cargo/env"
 fi
 
-# current directory
-PATH="${PATH:+${PATH}:}."
-
 # jetbrains launch scripts
-PATH="${PATH:+${PATH}:}~/.local/share/JetBrains/Toolbox/scripts"
+PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
 
 alias ll="ls -la"
 alias le="exa -l"
@@ -44,11 +41,6 @@ my-bg() {
     $1 $2 > /dev/null &
 }
 
-pycharm() {
-  my-bg ~/.local/share/JetBrains/Toolbox/scripts/pycharm $1
-}
-
-
 # ZSH AUTOSUGGESTIONS OPTIONS
 # make CTRL + SPACE accept current autosuggestion
 bindkey '^ ' autosuggest-accept
@@ -65,5 +57,9 @@ if [[ $(command -v "ng") ]]; then
     source <(ng completion script)
 fi
 
+# Deno
+if [[ -f /home/jan-magnus/.deno/env ]]; then
+    . "/home/jan-magnus/.deno/env"
+fi
 
 echo "$(basename $0) end..."

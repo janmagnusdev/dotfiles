@@ -23,4 +23,11 @@ emsconda-init() {
 }
 emsconda-init
 
+if [[ $(command -v "deno") ]]; then
+  deno_completions
+  export DENO_CERT="/home/jan-magnus/emsconda/ssl/cacert.pem"
+  export DENO_TLS_CA_STORE="system"
+fi
+unset -f deno_completions
+
 echo "$(basename $0) end..."
