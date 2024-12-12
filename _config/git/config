@@ -5,7 +5,7 @@
 [commit]
 	gpgsign = false
 [pull]
-    rebase = false
+    rebase = true
 
 # ---------------------------------------------------------------------------------
 # system specific overwrites like default user email are located
