@@ -18,12 +18,6 @@
 [include]
     path = ~/.gitconfig-system-specific
 
-[includeIf "gitdir:~/work-projects/"]
-    path = config-work
-
-[includeIf "gitdir:~/personal-projects/"]
-    path = config-private
-
 # ---------------------------------------------------------------------------------
 # Updates after reading https://jvns.ca/blog/2024/02/16/popular-git-config-options/
 # ---------------------------------------------------------------------------------
