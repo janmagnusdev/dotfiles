@@ -10,3 +10,6 @@ private/
 .idea
 # dont commit client secrets
 _config/spotify-tui/client.yml
+
+# symlinks
+.gitconfig-system-specific-link

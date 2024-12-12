@@ -21,3 +21,10 @@ E. g., git commit signing configuration:
 [log]
     showSignature = false
 ```
+
+## Symlinking `~/.gitconfig-system-specific`
+When checking out the project, make sure to run 
+```bash
+ln -s ~/.gitconfig-system-specific ./.gitconfig-system-specific-link
+```
+to gain easy access for editing your system specific config file.
